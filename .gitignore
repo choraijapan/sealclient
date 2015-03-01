@@ -75,3 +75,5 @@ proj.android/local.properties
 # Generated documentation, it can be regenerated using doxygen #
 ######################
 docs/html/*
+runtime/ios
+runtime/android
