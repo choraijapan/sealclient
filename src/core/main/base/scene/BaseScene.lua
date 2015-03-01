@@ -8,7 +8,7 @@ local BaseScene = class("BaseScene")
 
 -- constructor
 function BaseScene:ctor(scene_type)
-  if scene_type == GameSysConst.SCENE_TYPE.STANDARD then
+  if scene_type == nil or scene_type == GameSysConst.SCENE_TYPE.STANDARD then
     self.scene = cc.Scene:create()
   elseif scene_type == GameSysConst.SCENE_TYPE.PHYSICS then
     self.scene = cc.Scene:createWithPhysics()

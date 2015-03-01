@@ -4,8 +4,13 @@
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 
-require("core.main.common.cclog")
-require("core.main.common.const.GameSysConst")
-require("core.main.common.CacheUtils")
-require("core.main.manager.SceneManager")
-require("core.main.config.CleanUpList")
+
+CleanUpList = class("CleanUpList",nil)
+
+CleanUpList.TYPE_SCENE = 'SCENE'
+
+CleanUpList.LIST = {
+  [CleanUpList.TYPE_SCENE] = {
+    'app.scene.GameScene'
+  }
+}
