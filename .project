@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>game_client</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+		<nature>org.ccdt.cocosproject</nature>
+		<nature>org.eclipse.koneki.ldt.nature</nature>
+	</natures>
+	<filteredResources>
+		<filter>
+			<id>1425201624950</id>
+			<name>src</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-projectRelativePath-matches-false-false-cocos</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
+</projectDescription>
