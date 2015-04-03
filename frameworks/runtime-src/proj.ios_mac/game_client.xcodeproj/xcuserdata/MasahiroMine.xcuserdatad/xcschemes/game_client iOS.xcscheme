@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F293B3C715EB7BE500256477"
-               BuildableName = "game_client_ios.app"
-               BlueprintName = "game_client_ios"
+               BuildableName = "game_client iOS.app"
+               BlueprintName = "game_client iOS"
                ReferencedContainer = "container:game_client.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F293B3C715EB7BE500256477"
-            BuildableName = "game_client_ios.app"
-            BlueprintName = "game_client_ios"
+            BuildableName = "game_client iOS.app"
+            BlueprintName = "game_client iOS"
             ReferencedContainer = "container:game_client.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,8 +52,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F293B3C715EB7BE500256477"
-            BuildableName = "game_client_ios.app"
-            BlueprintName = "game_client_ios"
+            BuildableName = "game_client iOS.app"
+            BlueprintName = "game_client iOS"
             ReferencedContainer = "container:game_client.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -70,8 +70,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F293B3C715EB7BE500256477"
-            BuildableName = "game_client_ios.app"
-            BlueprintName = "game_client_ios"
+            BuildableName = "game_client iOS.app"
+            BlueprintName = "game_client iOS"
             ReferencedContainer = "container:game_client.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -1,6 +1,6 @@
 obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/xxtea/xxtea.o: \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/xxtea/xxtea.cpp \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/xxtea/xxtea.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/xxtea/xxtea.cpp \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/xxtea/xxtea.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdint.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/_types.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/machine/_types.h \
@@ -24,7 +24,7 @@ obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/xxtea/xxtea
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/machine/kernel.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/sysmacros.h
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/xxtea/xxtea.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/xxtea/xxtea.h:
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdint.h:
 

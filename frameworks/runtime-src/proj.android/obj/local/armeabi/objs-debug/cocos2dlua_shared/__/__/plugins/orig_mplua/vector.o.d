@@ -27,11 +27,11 @@ obj/local/armeabi/objs-debug/cocos2dlua_shared/__/__/plugins/orig_mplua/vector.o
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/string.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/malloc.h \
  jni/../../plugins/orig_mplua/vector.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdio.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/math.h:
 
@@ -87,12 +87,12 @@ obj/local/armeabi/objs-debug/cocos2dlua_shared/__/__/plugins/orig_mplua/vector.o
 
 jni/../../plugins/orig_mplua/vector.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h:
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdio.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:

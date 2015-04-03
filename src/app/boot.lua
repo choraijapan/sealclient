@@ -16,10 +16,7 @@ function Application:main()
 
 	--set FPS. the default value is 1.0/60 if you don't call this
 	director:setAnimationInterval(1.0 / 60)
-
-	cc.FileUtils:getInstance():addSearchPath("res")
-
-	cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(480, 320, 2)
+	cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(640, 960, 2)
 
 	SceneManager:changeScene("app.scene.GameScene",nil)
 

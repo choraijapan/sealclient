@@ -1,17 +1,17 @@
 obj/local/armeabi/objs-debug/spine_static/SkeletonJson.o: \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/SkeletonJson.c \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonJson.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Attachment.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AttachmentLoader.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skin.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonData.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoneData.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SlotData.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/EventData.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Animation.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Event.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraintData.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Atlas.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/SkeletonJson.c \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonJson.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Attachment.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AttachmentLoader.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skin.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonData.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoneData.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SlotData.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/EventData.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Animation.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Event.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraintData.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Atlas.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdio.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/cdefs.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/cdefs_elf.h \
@@ -29,8 +29,8 @@ obj/local/armeabi/objs-debug/spine_static/SkeletonJson.o: \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/linux/types.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/machine/kernel.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/sysmacros.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/Json.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/extension.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/Json.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/extension.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdlib.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/string.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/malloc.h \
@@ -45,41 +45,41 @@ obj/local/armeabi/objs-debug/spine_static/SkeletonJson.o: \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/machine/limits.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/syslimits.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/asm/page.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skeleton.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Slot.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Bone.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraint.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/RegionAttachment.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/MeshAttachment.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkinnedMeshAttachment.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoundingBoxAttachment.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationState.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationStateData.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AtlasAttachmentLoader.h
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skeleton.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Slot.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Bone.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraint.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/RegionAttachment.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/MeshAttachment.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkinnedMeshAttachment.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoundingBoxAttachment.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationState.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationStateData.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AtlasAttachmentLoader.h
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonJson.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonJson.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Attachment.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Attachment.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AttachmentLoader.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AttachmentLoader.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skin.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skin.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonData.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkeletonData.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoneData.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoneData.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SlotData.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SlotData.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/EventData.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/EventData.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Animation.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Animation.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Event.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Event.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraintData.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraintData.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Atlas.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Atlas.h:
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdio.h:
 
@@ -115,9 +115,9 @@ obj/local/armeabi/objs-debug/spine_static/SkeletonJson.o: \
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/sysmacros.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/Json.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/Json.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/extension.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/extension.h:
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdlib.h:
 
@@ -147,24 +147,24 @@ obj/local/armeabi/objs-debug/spine_static/SkeletonJson.o: \
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/asm/page.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skeleton.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Skeleton.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Slot.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Slot.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Bone.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/Bone.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraint.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/IkConstraint.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/RegionAttachment.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/RegionAttachment.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/MeshAttachment.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/MeshAttachment.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkinnedMeshAttachment.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/SkinnedMeshAttachment.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoundingBoxAttachment.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/BoundingBoxAttachment.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationState.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationState.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationStateData.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AnimationStateData.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AtlasAttachmentLoader.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//editor-support/spine/../spine/AtlasAttachmentLoader.h:

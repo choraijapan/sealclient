@@ -21,6 +21,7 @@ LOCAL_SRC_FILES := \
 		$(LOCAL_PLUGINS_SRC_FILE_CLASSES:$(LOCAL_PATH)/%=%) \
 		$(LOCAL_SRC_FILE_CLASSES:$(LOCAL_PATH)/%=%)
 
+
 LOCAL_C_INCLUDES := \
 		$(LOCAL_PATH)/../../Classes/protobuf-lite \
 		$(LOCAL_PATH)/../../Classes/runtime \
@@ -33,6 +34,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					$(LOCAL_PATH)/../../Classes/lua_bridge \
 					$(LOCAL_PATH)/../../lua-auto-binding \
                     $(shell find $(LOCAL_PATH)/../../plugins -type d)
+
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END

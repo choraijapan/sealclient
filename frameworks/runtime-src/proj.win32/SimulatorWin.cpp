@@ -26,7 +26,6 @@
 #include "AppEvent.h"
 #include "AppLang.h"
 #include "runtime/ConfigParser.h"
-#include "runtime/Runtime.h"
 
 #include "platform/win32/PlayerWin.h"
 #include "platform/win32/PlayerMenuServiceWin.h"
@@ -88,6 +87,15 @@ std::string getCurAppPath(void)
     char fuldir[MAX_PATH] = { 0 };
     _fullpath(fuldir, strPath.c_str(), MAX_PATH);
     return fuldir;
+}
+
+static void initGLContextAttrs()
+{
+    //set OpenGL context attributions,now can only set six attributions:
+    //red,green,blue,alpha,depth,stencil
+    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
+
+    GLView::setGLContextAttrs(glContextAttrs);
 }
 
 SimulatorWin *SimulatorWin::_instance = nullptr;
@@ -232,7 +240,6 @@ int SimulatorWin::run()
 
     // create the application instance
     _app = new AppDelegate();
-    RuntimeEngine::getInstance()->setProjectConfig(_project);
 
     // create console window
     if (_project.isShowConsole())
@@ -317,6 +324,7 @@ int SimulatorWin::run()
     const bool isResize = _project.isResizeWindow();
     std::stringstream title;
     title << "Cocos Simulator - " << ConfigParser::getInstance()->getInitViewName();
+    initGLContextAttrs();
     auto glview = GLViewImpl::createWithRect(title.str(), frameRect, frameScale);
     _hwnd = glview->getWin32Window();
     player::PlayerWin::createWithHwnd(_hwnd);
@@ -541,8 +549,6 @@ void SimulatorWin::setupUI()
                 project.setProjectDir(dirPath);
                 project.setScriptFile(ConfigParser::getInstance()->getEntryFile());
                 project.setWritablePath(dirPath);
-
-                RuntimeEngine::getInstance()->setProjectConfig(project);
             }
         }
     });

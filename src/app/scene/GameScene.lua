@@ -4,7 +4,7 @@
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 
-local StandardScene = require(GameSysConst.SCENE_PATH.STANDARD)
+local StandardScene = require('core.base.scene.StandardScene')
 local TestScene = class("GameScene",StandardScene)
 
 -- init
@@ -20,8 +20,10 @@ function TestScene:onEnter()
 	sprite_bug:setPosition(cc.p(50,200));
 	sprite_bug:runAction(cc.MoveTo:create(1,cc.p(100,300)))
 	printInfo("onEnter")
+	
+	local testNode = WidgetLoader:loadCsbFile("MainScene.csb")
+	self.scene:addChild(testNode)
 end
-
 
 -- onExit
 function TestScene:onExit()

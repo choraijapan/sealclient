@@ -60,9 +60,9 @@ obj/local/armeabi/objs-debug/cocos2dlua_shared/__/__/plugins/orig_mplua/version.
  jni/../../plugins/msgpack/vrefbuffer.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/uio.h \
  jni/../../plugins/msgpack/version.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
- /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
+ /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h
 
 jni/../../plugins/orig_mplua/msgpack.h:
 
@@ -190,8 +190,8 @@ jni/../../plugins/msgpack/vrefbuffer.h:
 
 jni/../../plugins/msgpack/version.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h:
+/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h:
