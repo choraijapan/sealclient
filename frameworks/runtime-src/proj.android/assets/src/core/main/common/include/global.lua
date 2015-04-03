@@ -4,7 +4,7 @@
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 
-require("core.main.common.cclog")
-require("core.main.common.const.GameSysConst")
-require("core.main.common.CacheUtils")
-require("core.main.manager.SceneManager")
+require("core.common.cclog")
+require("core.common.const.GameSysConst")
+require("core.common.CacheUtils")
+require("core.manager.SceneManager")

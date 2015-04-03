@@ -8,19 +8,19 @@ cc.FileUtils:getInstance():addSearchPath("res/")
 
 -- load cocos2dx lua api
 require("cocos.init")
-require("core.main.common.include.global")
+require("core.common.include.global")
 
 -- main
 local function main()
 
-  local targetPlatform = cc.Application:getInstance():getTargetPlatform()
-  if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) or
-    (cc.PLATFORM_OS_ANDROID == targetPlatform) or (cc.PLATFORM_OS_WINDOWS == targetPlatform) or
-    (cc.PLATFORM_OS_MAC == targetPlatform) then
-  end
+	local targetPlatform = cc.Application:getInstance():getTargetPlatform()
+	if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) or
+		(cc.PLATFORM_OS_ANDROID == targetPlatform) or (cc.PLATFORM_OS_WINDOWS == targetPlatform) or
+		(cc.PLATFORM_OS_MAC == targetPlatform) then
+	end
 
-  local application = require("app.boot")
-  application:main()
+	local application = require("app.boot")
+	application:main()
 
 end
 

@@ -6,7 +6,7 @@
 
 --------------------------------
 -- @module PhysicsScene
-local BaseScene = require("core.main.base.scene.BaseScene")
+local BaseScene = require("core.base.scene.BaseScene")
 local PhysicsScene = class("PhysicsScene", BaseScene.new(GameSysConst.SCENE_TYPE.PHYSICS))
 
 

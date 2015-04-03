@@ -4,7 +4,7 @@
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 
-local StandardScene = require("core.main.base.scene.StandardScene")
+local StandardScene = require("core.base.scene.StandardScene")
 local TestScene = class("GameScene",StandardScene)
 
 -- init

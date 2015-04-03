@@ -11,7 +11,9 @@ collectgarbage("setstepmul", 5000)
 
 -- cclog
 cclog = function(...)
-    print(string.format(...))
+	if DEBUG > 0 then
+    	print(string.format(...))
+    end
 end
 
 -- for CCLuaEngine traceback

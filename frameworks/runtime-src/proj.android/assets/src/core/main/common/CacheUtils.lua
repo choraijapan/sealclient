@@ -21,6 +21,7 @@ function  CacheUtils:removeAllAppLua()
     local loadedLuaFile = package.loaded
     for k, v in pairs(loadedLuaFile) do
         local findPath =  string.find(k, "app.main")
+        cclog(k)
         if findPath ~= nil then
             package.loaded[k] = nil
         end
