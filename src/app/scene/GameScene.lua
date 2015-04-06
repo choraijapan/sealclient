@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 -- core boot
--- @date 2015/02/18
+-- @date 2015/04/03
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 
@@ -12,7 +12,6 @@ function TestScene:init(...)
 	printInfo("init")
 end
 
-
 -- onEnter
 function TestScene:onEnter()
 	local sprite_bug = cc.Sprite:create("BugAnt.png")
@@ -22,8 +21,20 @@ function TestScene:onEnter()
 	printInfo("onEnter")
 	
 	local testNode = WidgetLoader:loadCsbFile("MainScene.csb")
+	local image = WidgetObj:searchWidgetByName(testNode,"Image_1",WidgetConst.OBJ_TYPE.Image)
+	local btn = WidgetObj:searchWidgetByName(testNode,"Button_1","ccui.Button")
+	
+	image:setColor(cc.c3b(255,0,0))
 	self.scene:addChild(testNode)
+	
+	TouchManager:pressed(image,function(sender,event) cclog(event) end)
+	
+	TouchManager:touchAllAtOnce(self.scene,function(sender,event) cclog(event:getEventCode()) end)
+	
+	ScheduleManager:scheduleUpdate(self.scene,function(node) cclog("test") end, 1)
+	
 end
+
 
 -- onExit
 function TestScene:onExit()
