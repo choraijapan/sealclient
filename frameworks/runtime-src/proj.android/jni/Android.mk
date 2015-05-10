@@ -15,26 +15,25 @@ LOCAL_PLUGINS_SRC_FILE_CLASSES := $(shell find $(LOCAL_PATH)/../../plugins -name
 
 LOCAL_SRC_FILE_CLASSES := $(shell find $(LOCAL_PATH)/../../Classes -name *.cpp) \
 
-LOCAL_SRC_FILES := \
-		hellolua/main.cpp \
-		../../lua-auto-binding/lua_custlua_auto.cpp \
-		$(LOCAL_PLUGINS_SRC_FILE_CLASSES:$(LOCAL_PATH)/%=%) \
-		$(LOCAL_SRC_FILE_CLASSES:$(LOCAL_PATH)/%=%)
 
+LOCAL_SRC_FILES := \
+					hellolua/main.cpp \
+					../../lua-auto-binding/lua_custlua_auto.cpp \
+					$(LOCAL_PLUGINS_SRC_FILE_CLASSES:$(LOCAL_PATH)/%=%) \
+					$(LOCAL_SRC_FILE_CLASSES:$(LOCAL_PATH)/%=%) \
+					../../Classes/ide-support/lua_debugger.c
 
 LOCAL_C_INCLUDES := \
-		$(LOCAL_PATH)/../../Classes/protobuf-lite \
-		$(LOCAL_PATH)/../../Classes/runtime \
-		$(LOCAL_PATH)/../../Classes \
-		$(LOCAL_PATH)/../../../cocos2d-x/external \
-		$(LOCAL_PATH)/../../../cocos2d-x/tools/simulator/libsimulator/lib
+					$(LOCAL_PATH)/../../Classes \
+					$(LOCAL_PATH)/../../../cocos2d-x/external \
+					$(LOCAL_PATH)/../../../cocos2d-x/tools/simulator/libsimulator/lib \
+					$(LOCAL_PATH)/../../../cocos2d-x/tools/simulator/libsimulator/lib/protobuf-lite
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					$(LOCAL_PATH)/../../../cocos2d-x/external \
 					$(LOCAL_PATH)/../../Classes/lua_bridge \
 					$(LOCAL_PATH)/../../lua-auto-binding \
                     $(shell find $(LOCAL_PATH)/../../plugins -type d)
-
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END

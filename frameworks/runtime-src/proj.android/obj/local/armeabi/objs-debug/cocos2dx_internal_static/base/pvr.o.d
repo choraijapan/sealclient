@@ -1,5 +1,5 @@
 obj/local/armeabi/objs-debug/cocos2dx_internal_static/base/pvr.o: \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//./base/pvr.cpp \
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//./base/pvr.cpp \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdlib.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/cdefs.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/cdefs_elf.h \
@@ -32,7 +32,7 @@ obj/local/armeabi/objs-debug/cocos2dx_internal_static/base/pvr.o: \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/math.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/assert.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/cstdint \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//./base/pvr.h
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//./base/pvr.h
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdlib.h:
 
@@ -98,4 +98,4 @@ obj/local/armeabi/objs-debug/cocos2dx_internal_static/base/pvr.o: \
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/cstdint:
 
-/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//./base/pvr.h:
+/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//./base/pvr.h:

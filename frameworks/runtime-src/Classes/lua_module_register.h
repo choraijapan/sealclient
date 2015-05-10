@@ -10,13 +10,12 @@
 #include "spine/lua_cocos2dx_spine_manual.hpp"
 #include "3d/lua_cocos2dx_3d_manual.h"
 #include "audioengine/lua_cocos2dx_audioengine_manual.h"
-#include "lua/quick/lua_cocos2dx_quick_manual.hpp"
 
 #include "lua_custlua_auto.hpp"
 #include "lua_regist.h"
 #include "orig_mplua/msgpack.h"
 
-int lua_module_register(lua_State* L)
+static int lua_module_register(lua_State* L)
 {
     //Dont' change the module register order unless you know what your are doing
     register_cocosdenshion_module(L);
@@ -29,11 +28,11 @@ int lua_module_register(lua_State* L)
     register_cocos3d_module(L);
     register_audioengine_module(L);
     
+    
     // regist plugins
     register_all_custlua(L);
     luaopen_lua_sqlite(L);
     luaopen_msgpackorig(L);
-    
     return 1;
 }
 

@@ -1,8 +1,8 @@
 obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/lua/tolua/tolua_is.o: \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua_is.c \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua++.h \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h \
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua_is.c \
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua++.h \
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/limits.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/cdefs.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/cdefs_elf.h \
@@ -13,7 +13,7 @@ obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/lua/tolua/t
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/machine/limits.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/syslimits.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/asm/page.h \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h \
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdio.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/types.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdint.h \
@@ -28,7 +28,7 @@ obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/lua/tolua/t
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/linux/types.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/machine/kernel.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/sysmacros.h \
- /Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
+ /Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdlib.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/string.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/malloc.h \
@@ -36,11 +36,11 @@ obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/lua/tolua/t
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/strings.h \
  /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/memory.h
 
-/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua++.h:
+/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua++.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
+/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h:
+/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h:
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/limits.h:
 
@@ -62,7 +62,7 @@ obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/lua/tolua/t
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/asm/page.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h:
+/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h:
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdio.h:
 
@@ -92,7 +92,7 @@ obj/local/armeabi/objs-debug/cocos2d_lua_static/__/__/__/__/external/lua/tolua/t
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/sys/sysmacros.h:
 
-/Users/MasahiroMine/MySpace/work/06_games/test/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
+/Users/MasahiroMine/MySpace/work/06_games/game_client/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
 
 /Users/MasahiroMine/MySpace/work/05_tools/ndk/android-ndk-r10d/platforms/android-14/arch-arm/usr/include/stdlib.h:
 

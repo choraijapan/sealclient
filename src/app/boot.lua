@@ -33,7 +33,6 @@ function Application:main()
 	--  else
 	--    cc.Director:getInstance():runWithScene(gameScene)
 	--  end
-
 end
 
 return Application
