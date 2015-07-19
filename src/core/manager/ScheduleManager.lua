@@ -11,7 +11,7 @@ function ScheduleManager:scheduleUpdate(node,callBack, priority)
 	if priority == nil then
 		priority = 1
 	end
-	node:scheduleUpdateWithPriorityLua(function(dt) callBack(node,dt) end, priority)
+	node:scheduleUpdateWithPriorityLua(function(dt) callBack(dt) end, priority)
 end
 
 -- unscheduleUpdate

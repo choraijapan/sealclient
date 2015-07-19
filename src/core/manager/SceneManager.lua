@@ -9,7 +9,8 @@ SceneManager = class("SceneManager")
 -- @function
 -- #changeScene
 function SceneManager:changeScene(scene_path, ...)
-	local scene_class = require(scene_path).new(...)
+	local scene_class = require(scene_path)
+	scene_class:createScene(...)
 	if scene_class then
 		scene_class:initialize(...)
 		if cc.Director:getInstance():getRunningScene() then
