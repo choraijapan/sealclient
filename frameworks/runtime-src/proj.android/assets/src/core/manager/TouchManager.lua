@@ -21,7 +21,7 @@ end
 -- #pressedDown
 function TouchManager:pressedDown(node, callBack)
 	local function localCallBack(sender,event)
-		if eventType == ccui.TouchEventType.ended then
+		if event == ccui.TouchEventType.ended then
 			callBack(sender,event)
 		end
 	end
@@ -43,7 +43,8 @@ function TouchManager:touchOneByOne(node, callBack)
 	listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_ENDED)
 	listener:registerScriptHandler(onTouch, cc.Handler.EVENT_TOUCH_CANCELLED )
 	local eventDispatcher = node:getEventDispatcher()
-	eventDispatcher:addEventListenerWithSceneGraphPriority(listener,node)
+	eventDispatcher:addEventListenerWithFixedPriority(listener,-1)
+--	cc.EventDispatcher:addEventListenerWithFixedPriority(listener,-1)
 
 end
 
@@ -63,5 +64,6 @@ function TouchManager:touchAllAtOnce(node, callBack)
 	listener:registerScriptHandler(onTouches,cc.Handler.EVENT_TOUCHES_CANCELLED )
 
 	local eventDispatcher = node:getEventDispatcher()
-	eventDispatcher:addEventListenerWithSceneGraphPriority(listener, node)
+	eventDispatcher:addEventListenerWithFixedPriority(listener,-1)
+--	eventDispatcher:addEventListenerWithFixedPriority(listener, node)
 end

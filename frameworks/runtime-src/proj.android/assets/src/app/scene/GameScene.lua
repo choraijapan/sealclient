@@ -20,18 +20,22 @@ function TestScene:onEnter()
 	--	sprite_bug:runAction(cc.MoveTo:create(1,cc.p(100,300)))
 	printInfo("onEnter3")
 
---	local testNode = WidgetLoader:loadCsbFile("scene/rpg.csb")
-	--	local image = WidgetObj:searchWidgetByName(testNode,"Image_1",WidgetConst.OBJ_TYPE.Image)
-	--	local btn = WidgetObj:searchWidgetByName(testNode,"Button_1","ccui.Button")
+	local testNode = WidgetLoader:loadCsbFile("scene/rpg.csb")
+	
+	local action = WidgetLoader:loadCsbAnimation('scene/rpg.csb')
+	testNode:runAction(action)
+	action:gotoFrameAndPlay(0,60,true)
+--	local image = WidgetObj:searchWidgetByName(testNode,"Image_1",WidgetConst.OBJ_TYPE.Image)
+--	local btn = WidgetObj:searchWidgetByName(testNode,"Button_1","ccui.Button")
 	--
-	--	image:setColor(cc.c3b(255,0,0))
---	self.scene:addChild(testNode)
+--	image:setColor(cc.c3b(255,0,0))
+	self.scene:addChild(testNode)
 
-	--	TouchManager:pressed(image,function(sender,event) cclog(event) end)
-	--
-	--	TouchManager:touchAllAtOnce(self.scene,function(sender,event) cclog(event:getEventCode()) end)
-	--
-	--	ScheduleManager:scheduleUpdate(self.scene,function(node) cclog("test") end, 1)
+--	TouchManager:pressed(image,function(sender,event) cclog(event) end)
+--
+--	TouchManager:touchAllAtOnce(self.scene,function(sender,event) cclog(event:getEventCode()) end)
+--
+--	ScheduleManager:scheduleUpdate(self.scene,function(node) cclog("test") end, 1)
 --	local bg = cc.Sprite:create("images/Card/1_all.png")
 --	self.scene:addChild(bg)
 --	bg:setPosition(cc.p(100, 480))

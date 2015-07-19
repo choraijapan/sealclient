@@ -7,6 +7,7 @@
 require("core.common.cclog")
 require("core.common.const.GameSysConst")
 require('core.common.const.WidgetConst')
+require('core.common.const.LayerConst')
 require("core.common.CacheUtils")
 
 require("core.manager.SceneManager")
