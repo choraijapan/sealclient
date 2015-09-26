@@ -25,7 +25,6 @@ function WidgetObj:searchWidgetByName(root,name,objType)
 	if root == nil then
 		return nil
 	end
-	cclog(root:getName())
 	if root:getName() == name then
 		return root
 	end

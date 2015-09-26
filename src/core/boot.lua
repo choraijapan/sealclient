@@ -8,7 +8,7 @@ cc.FileUtils:getInstance():addSearchPath("res/")
 
 -- load cocos2dx lua api
 require("cocos.init")
-require("core.common.include.global")
+require("core.common.include.Global")
 
 -- main
 local function main()

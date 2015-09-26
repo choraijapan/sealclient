@@ -18,21 +18,8 @@ function Application:main()
 	director:setAnimationInterval(1.0 / 60)
 	cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(640, 960, 2)
 
-	SceneManager:changeScene("src/app/scene/menu/MenuScene",nil)
+	SceneManager:changeScene("src/app/scene/menu/SceneMenu",nil)
 
-	-- add resource searchPath
-	--    cc.FileUtils:getInstance():addSearchPath("res")
-	--create scene
-	--  local scene = require("app.scene.GameScene")
-	--  local gameScene = scene.new(GameSysConst.SCENE_TYPE.STANDARD)
-	--  scene:initialize()
-	--  --    gameScene:playBgMusic()
-	--
-	--  if cc.Director:getInstance():getRunningScene() then
-	--    cc.Director:getInstance():replaceScene(gameScene)
-	--  else
-	--    cc.Director:getInstance():runWithScene(gameScene)
-	--  end
 end
 
 return Application

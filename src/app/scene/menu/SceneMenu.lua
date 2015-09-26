@@ -5,7 +5,7 @@
 -------------------------------------------------------------------------------
 
 local StandardScene = require('core.base.scene.StandardScene')
-local MenuScene = class("MenuScene",StandardScene)
+local SceneMenu = class("SceneMenu",StandardScene)
 
 local CONST_MENU_SETTINGS = {
 	Sample_01 = 'app/scene/battle/ScenePuzzle',
@@ -26,13 +26,13 @@ local CONST_MENU_SETTINGS = {
 }
 
 -- init
-function MenuScene:init(...)
+function SceneMenu:init(...)
 	printInfo("init")
 	self.m = {}
 end
 
 -- onEnter
-function MenuScene:onEnter()
+function SceneMenu:onEnter()
 --	SceneManager:changeScene(CONST_MENU_SETTINGS.Sample_03,nil)
 
 	self.m.menuNode = WidgetLoader:loadCsbFile("scene/SceneMenu.csb")
@@ -44,8 +44,9 @@ function MenuScene:onEnter()
 	end
 end
 
-function MenuScene:clickButton(buttonNm,scenePath)
+function SceneMenu:clickButton(buttonNm,scenePath)
 	local button = WidgetObj:searchWidgetByName(self.m.menuNode,buttonNm,WidgetConst.OBJ_TYPE.Button)
+	DebugLog:debug(DebugLog.TAG.NETWORK,"debug test")
 	TouchManager:pressedDown(button,
 		function()
 			SceneManager:changeScene(scenePath,nil) 
@@ -53,8 +54,8 @@ function MenuScene:clickButton(buttonNm,scenePath)
 end
 
 -- onExit
-function MenuScene:onExit()
+function SceneMenu:onExit()
 
 end
 
-return MenuScene
+return SceneMenu

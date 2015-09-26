@@ -36,7 +36,7 @@ function  CacheUtils:removeLoadedAppLua(type)
 		for ck, cv in pairs(clean_list) do
 			local findPath =  string.find(k, cv)
 			if findPath ~= nil then
-				cclog(k)
+				DebugLog:debug(k)
 				package.loaded[k] = nil
 			end
 		end

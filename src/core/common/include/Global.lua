@@ -3,8 +3,12 @@
 -- @date 2015/02/18
 -- @author masahiro mine
 -------------------------------------------------------------------------------
+collectgarbage("collect")
+collectgarbage("setpause", 100)
+collectgarbage("setstepmul", 5000)
 
-require("core.common.cclog")
+require("core.common.DebugLog")
+
 require("core.common.const.GameSysConst")
 require('core.common.const.WidgetConst')
 require('core.common.const.LayerConst')

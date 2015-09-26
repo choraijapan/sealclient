@@ -87,7 +87,7 @@ function Ball:getState()
 end
 
 function Ball:onEnter()
---	cclog("test")
+
 end
 
 function Ball:getType()
