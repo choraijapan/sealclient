@@ -261,7 +261,7 @@ function GameLayer:addTouch()
                 local p2 = bullet:getPosition()
                 local distance = cc.pGetDistance(p1,p2)
                 if distance < bullet.size * 4 then
-                    print("####### touchIdx"..touchIdx)
+                    DebugLog:debug("####### touchIdx"..touchIdx)
                     touchIdx = touchIdx + 1
                     _bullets[touchIdx] = bullet
                 end
