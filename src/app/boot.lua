@@ -18,7 +18,7 @@ function Application:main()
 	director:setAnimationInterval(1.0 / 60)
 	cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(640, 960, 2)
 
-	SceneManager:changeScene("src/app/scene/menu/SceneMenu",nil)
+	SceneManager:changeScene("src/app/scene/menu/MenuScene",nil)
 
 end
 

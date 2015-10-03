@@ -77,3 +77,8 @@ proj.android/local.properties
 docs/html/*
 runtime/ios
 runtime/android
+frameworks/cocos2d-x/build/build/cocos2d_libs.build
+frameworks/runtime-src/proj.ios_mac/build
+publish
+frameworks/cocos2d-x/tools/simulator/libsimulator/proj.ios_mac/build
+frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/build

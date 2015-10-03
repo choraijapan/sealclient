@@ -5,10 +5,10 @@
 -------------------------------------------------------------------------------
 
 local StandardScene = require('core.base.scene.StandardScene')
-local SceneMenu = class("SceneMenu",StandardScene)
+local MenuScene = class("MenuScene",StandardScene)
 
 local CONST_MENU_SETTINGS = {
-	Sample_01 = 'app/scene/battle/ScenePuzzle',
+	Sample_01 = 'app/scene/battle/PuzzleScene',
 	Sample_02 = nil,
 	Sample_03 = nil,
 	Sample_04 = nil,
@@ -26,16 +26,16 @@ local CONST_MENU_SETTINGS = {
 }
 
 -- init
-function SceneMenu:init(...)
+function MenuScene:init(...)
 	printInfo("init")
 	self.m = {}
 end
 
 -- onEnter
-function SceneMenu:onEnter()
+function MenuScene:onEnter()
 --	SceneManager:changeScene(CONST_MENU_SETTINGS.Sample_03,nil)
 
-	self.m.menuNode = WidgetLoader:loadCsbFile("scene/SceneMenu.csb")
+	self.m.menuNode = WidgetLoader:loadCsbFile("scene/MenuScene.csb")
 	self.scene:addChild(self.m.menuNode)
 	
 	for key, var in pairs(CONST_MENU_SETTINGS) do
@@ -44,7 +44,7 @@ function SceneMenu:onEnter()
 	end
 end
 
-function SceneMenu:clickButton(buttonNm,scenePath)
+function MenuScene:clickButton(buttonNm,scenePath)
 	local button = WidgetObj:searchWidgetByName(self.m.menuNode,buttonNm,WidgetConst.OBJ_TYPE.Button)
 	DebugLog:debug(DebugLog.TAG.NETWORK,"debug test")
 	TouchManager:pressedDown(button,
@@ -54,8 +54,8 @@ function SceneMenu:clickButton(buttonNm,scenePath)
 end
 
 -- onExit
-function SceneMenu:onExit()
+function MenuScene:onExit()
 
 end
 
-return SceneMenu
+return MenuScene
