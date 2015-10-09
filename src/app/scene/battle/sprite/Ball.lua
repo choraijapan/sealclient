@@ -6,10 +6,12 @@ Ball.BROKEN = 1
 
 Ball._state = 0
 Ball._type = 0
+Ball._frame = nil
+Ball._image = nil
 
-Ball.size = 0
-Ball.scalePer = 0.35 * 2          -- TODO 这个要弄成可变的！！
-Ball.circleSize = 22 * 2
+--Ball.size = 0  -- いらない。
+Ball.scalePer = 0.7          -- TODO 这个要弄成可变的！！
+Ball.circleSize = 42
 --Ball.scalePer = 0.5 -- TODO 这个要弄成可变的！！
 
 --Ball.type = {
@@ -21,11 +23,11 @@ Ball.circleSize = 22 * 2
 --}
 
 Ball.type = {
-	[1] = "battle/ball_adore.png",  
-	[2] = "battle/ball_hell.png",      
-	[3] = "battle/ball_boom.png",      --DEFDOWN
-	[4] = "battle/ball_cold.png",  --FREEZE
-	[5] = "battle/ball_boss.png", 
+	[1] = "battle/1.png",  
+	[2] = "battle/2.png",      
+	[3] = "battle/3.png",      --DEFDOWN
+	[4] = "battle/4.png",  --FREEZE
+	[5] = "battle/5.png", 
 }
 
 function Ball:ctor()
@@ -50,23 +52,27 @@ function Ball:init(type)
 --    self:setColor(_tagColor[type])
     
     self._type = type
-	WidgetLoader:setSpriteImage(self, self.type[type])
-    local size = self:getContentSize()
+    
+    self._image = cc.Sprite:create()
+    WidgetLoader:setSpriteImage(self._image, self.type[type])
+    self:addChild(self._image)
+--    local size = self._image:getContentSize()
 --    if type == 2 then
 --        self.scalePer = 0.4
 --    else
 --        self.scalePer= 0.25
 --    end
     self:setScale(self.scalePer)
-    self.size = (size.width/2) * self.scalePer
-    local pBall = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.4))
-    pBall:setDynamic(true)
-    pBall:setRotationEnable(true)
+--    self.size = (size.width/2) * self.scalePer
+--    self.size = self.circleSize
+    self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
+    
+    self._frame:setDynamic(true)
+    self._frame:setRotationEnable(true)
     --    pBall:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
-    pBall:setMass(1.0) --重さ
-    self:setPhysicsBody(pBall)
+    self._frame:setMass(1.0) --重さ
+    self:setPhysicsBody(self._frame)
 end
-
 
 function Ball:brokenBullet()
     self:stopAllActions()
@@ -88,6 +94,25 @@ end
 
 function Ball:onEnter()
 --	cclog("test")
+end
+
+--function Ball:addBallTouchEffect()
+--    local copySelf = cc.Sprite:create()
+--    WidgetLoader:setSpriteImage(copySelf, self.type[self._type])
+--    copySelf:setScale(self.scalePer + 0.1)
+--    copySelf:setAnchorPoint(cc.p(0.5, 0.5))
+--    copySelf:setPosition(self:getPosition())
+--    copySelf:setTag(1)
+--    self:getParent():addChild(copySelf,10)
+--end
+function Ball:addBallTouchEffect()
+    self._image:setScale(1.2)
+    self:getParent():reorderChild(self,2)
+end
+
+function Ball:removeBallTouchEffect()
+    self._image:setScale(1)
+    self:getParent():reorderChild(self,1)
 end
 
 function Ball:getType()

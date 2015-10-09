@@ -23,7 +23,7 @@ SpritePlayer.action     = nil
 -- ctor
 function SpritePlayer:ctor()
     self.active = true
-    self.hp = 20000
+    self.hp = 20000000000
 end
 --------------------------------------------------------------------------------
 -- create

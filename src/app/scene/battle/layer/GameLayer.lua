@@ -34,7 +34,7 @@ GameLayer.name = nil
 local winSize = nil
 local offside = nil
 
-local MAX_BULLET = 40
+local MAX_BULLET = 45
 local _bullet = 0
 local _time = 0
 local _tag = nil
@@ -43,10 +43,13 @@ local _fingerPosition = nil
 local _bullets = {}
 local tempBullets = {}
 local touchIdx = 1
+local curTouchBall = nil
+local firstTouchBall = nil
+local lastTouchBall = nil
 local ZOrder = {
     Z_Bg = 0,
     Z_Bullet = 1,
-    Z_Line = 2,
+    Z_Line = 9,
     Z_Dialog = 3,
 }
 
@@ -108,8 +111,9 @@ function GameLayer:addPuzzle()
             cc.p(winSize.width-1, winSize.height-1),
         }
     self.wall = cc.Node:create()
-    self.wall:setAnchorPoint(cc.p(0.5,0.5))
+    --self.wall:setAnchorPoint(cc.p(0.5,0.5))
     --    local edge = cc.PhysicsBody:createEdgeChain(vec,6,cc.PhysicsMaterial(0.0,0.0,0.5))
+
     local edge = cc.PhysicsBody:createEdgeBox(cc.size(winSize.width + 40,winSize.height),cc.PhysicsMaterial(0,0,0.5),20)
     self.wall:setPhysicsBody(edge)
     --    wall:setPosition(VisibleRect:bottom())
@@ -123,7 +127,7 @@ function GameLayer:addBalls()
     local ball = Ball:create(typeId)
 
     local randomX = math.random(1,winSize.width)
-    ball:setPosition(winSize.width - randomX, 800)
+    ball:setPosition(winSize.width - randomX, 400)
 
     local pBall = ball:getPhysicsBody()
     pBall:setTag(Tag.T_Bullet)
@@ -136,7 +140,7 @@ function GameLayer:loadingMusic()
     if Global:getInstance():getAudioState() == true then
         -- playMusic
         cc.SimpleAudioEngine:getInstance():stopMusic()
-		cc.SimpleAudioEngine:getInstance():playMusic("battle/Music/bgMusic.mp3", true)
+        cc.SimpleAudioEngine:getInstance():playMusic("battle/Music/bgMusic.mp3", true)
     else
         cc.SimpleAudioEngine:getInstance():stopMusic()
     end
@@ -148,16 +152,16 @@ function GameLayer:addBG()
     self.bg1 = cc.Sprite:create("battle/bg.png")
     --    self.bg2 = cc.Sprite:create("bg_01.jpg")
     self.bg1:setAnchorPoint(cc.p(0, 0))
---    self.bg1:setPosition(0, offside)
---    self.bg1:setScale(0.5)
+    --    self.bg1:setPosition(0, offside)
+    --    self.bg1:setScale(0.5)
     --    self.bg2:setPosition(0, self.bg1:getContentSize().height)
---    self:addChild(self.bg1, 1)
+    --    self:addChild(self.bg1, 1)
     --    self:addChild(self.bg2, -10)
 end
 
 -- 添加背景
 function GameLayer:addFooter()
-    
+
 end
 
 
@@ -181,7 +185,7 @@ function GameLayer:addBtn()
     local function PauseGame()
         self:PauseGame()
     end
-	local pause = cc.MenuItemImage:create("battle/pause.png", "battle/pause.png")
+    local pause = cc.MenuItemImage:create("battle/pause.png", "battle/pause.png")
     pause:setAnchorPoint(cc.p(1, 0))
     pause:setPosition(cc.p(WIN_SIZE.width, 0))
     pause:registerScriptTapHandler(PauseGame)
@@ -215,30 +219,39 @@ end
 
 function GameLayer:addTouch()
     local function onTouchBegan(touch, event)
+        print("############ onTouchBegan AAA")
         touchIdx = 1
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
-
         for _, obj in ipairs(arr) do
             if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
-                _tag = obj:getBody():getNode():getTag();
-                break;
+                if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
+                    print("############ onTouchBegan BBB")
+                    return false
+                else
+                    print("############ onTouchBegan CCC")
+                    _tag = obj:getBody():getNode():getTag();
+                    firstTouchBall = obj:getBody():getNode()
+                    self.curTouchBall = obj:getBody():getNode()
+                    firstTouchBall:addBallTouchEffect()
+                    break;
+                end
             end
         end
         return true
     end
 
     local function onTouchMoved(touch, event)
+        print("############ onTouchMoved START")
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
-        local bullet = nil
         for _, obj in ipairs(arr) do
             if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
-                bullet = obj:getBody():getNode()
-                if bullet:getTag() == _tag then
+                if obj:getBody():getNode():getTag() == _tag then
+                    self.curTouchBall = obj:getBody():getNode()
                     break
                 else
-                    bullet = nil
+                    self.curTouchBall = nil
                 end
             end
         end
@@ -252,27 +265,38 @@ function GameLayer:addTouch()
             return false
         end
 
-        if bullet ~= nil and bullet:getState() == Ball.MOVING then
+        if self.curTouchBall ~= nil and self.curTouchBall:getState() == Ball.MOVING then
             if next(_bullets) == nil then
-                _bullets[touchIdx] = bullet
-                --                touchIdx = touchIdx + 1
-            elseif isTableContains(_bullets,bullet) == false then
+                print("############ onTouchMoved BBB")
+                _bullets[touchIdx] = self.curTouchBall
+            elseif isTableContains(_bullets,self.curTouchBall) == false then
                 local p1 = _bullets[#_bullets]:getPosition()
-                local p2 = bullet:getPosition()
+                local p2 = self.curTouchBall:getPosition()
                 local distance = cc.pGetDistance(p1,p2)
-                if distance < bullet.size * 4 then
+                if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
                     print("####### touchIdx"..touchIdx)
                     touchIdx = touchIdx + 1
-                    _bullets[touchIdx] = bullet
+                    _bullets[touchIdx] = self.curTouchBall
+
+                    if touchIdx > 1 then
+                        _bullets[touchIdx-1]:removeBallTouchEffect()
+                    end
+                    _bullets[touchIdx]:addBallTouchEffect()
+
+
                 end
             else
                 local obj1 = _bullets[#_bullets]
                 local obj2 = _bullets[#_bullets-1]
-                if bullet == obj2 then
+                if self.curTouchBall == obj2 then
                     touchIdx = touchIdx - 1
+                    obj1:removeBallTouchEffect()
+                    obj2:addBallTouchEffect()
                     table.remove(_bullets,#_bullets)
                 end
             end
+        else
+
         end
 
         if #_bullets < 2 then
@@ -283,25 +307,59 @@ function GameLayer:addTouch()
     end
 
     local function onTouchEnded(touch, event)
-        if next(_bullets) ~= nil and #_bullets > 2 then
+        _tag = nil
+        local location = touch:getLocation()
+        local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
+        for _, obj in ipairs(arr) do
+            if obj:getBody():getTag() == Tag.T_Bullet then
+                obj:getBody():getNode():removeBallTouchEffect()
+            end
+        end
+
+        if firstTouchBall~= nil then
+            firstTouchBall:removeBallTouchEffect()
+        end
+
+        if self.curTouchBall ~= nil then
+            self.curTouchBall:removeBallTouchEffect()
+        end
+
+        for key, var in ipairs(_bullets) do
+            var:removeBallTouchEffect()
+        end
+
+        if next(_bullets) ~= nil then
             local type = 1
             local lastPos = nil
             for key, var in ipairs(_bullets) do
                 if var:getState() == Ball.MOVING then
-                    var:brokenBullet()
-                    type = var:getType()
-                    lastPos = var:getPosition()
-                    _bullet = _bullet - 1
+                    if  #_bullets > 2 then
+                        var:brokenBullet()
+                        local particle = cc.ParticleSystemQuad:create("res/effect/game/puzzle.plist")
+                        particle:setAutoRemoveOnFinish(true)
+                        particle:setPosition(var:getPosition())
+                        particle:setScale(0.2)
+                        particle:setAutoRemoveOnFinish(true)
+                        self:addChild(particle,999)
+                        type = var:getType()
+                        lastPos = var:getPosition()
+                        _bullet = _bullet - 1
+                    end
                 end
+                var:removeBallTouchEffect()
             end
-            local data = {
-                action = "hurt",
-                type = type,
-                count = #_bullets,
-            }
-            self.boss:broadCastEvent(data)
-            local bossPos = self.boss:getPosition()
-            self:addAtkEffect(lastPos,bossPos)
+            if  #_bullets > 2 then
+                local data = {
+                    action = "hurt",
+                    type = type,
+                    count = #_bullets,
+                }
+                self.boss:broadCastEvent(data)
+                local bossPos = self.boss:getPosition()
+                self:addAtkEffect(lastPos,bossPos)
+            end
+        else
+
         end
         _bullets = {}
     end
@@ -349,17 +407,11 @@ function GameLayer:update(dt)
         self:addBalls()
     end
 
-
     for key, var in ipairs(_bullets) do
         table.insert(_bulletVicts, var:getPosition())
     end
 
-    if _fingerPosition ~= nil then
-        table.insert(_bulletVicts, _fingerPosition)
-    end
-
     self:DrawLineRemove()
-
     local node = DrawLine:create(_bulletVicts)
     self:addChild(node,ZOrder.Z_Line,Tag.T_Line)
     _bulletVicts = {}
@@ -422,20 +474,23 @@ function GameLayer:gameResult(isWin)
 end
 
 
--- 获取飞机
+-- 获取Player
 function GameLayer:getShip()
     return self.player
 end
 
-
-
 function GameLayer:addAtkEffect(from,to)
-	local emitter = cc.ParticleSystemQuad:create("battle/particle_atk2.plist")
+    local emitter = cc.ParticleSystemQuad:create("battle/particle_atk2.plist")
     self:addChild(emitter,1111111)
     emitter:setPosition(from)
     local action1 = cc.MoveTo:create(1,to)
     local action2 = cc.RemoveSelf:create()
     emitter:runAction(cc.Sequence:create(action1, action2))
+
+    local card_atk = cc.ParticleSystemQuad:create("effect/game/card_atk_001.plist")
+    card_atk:setPosition(self.boss:getPosition())
+    self:addChild(card_atk,1111111)
+
 end
 
 function GameLayer:DrawLineRemove()

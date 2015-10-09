@@ -54,8 +54,8 @@ SpriteBoss.color = {
 function SpriteBoss:ctor()
     self.active = true
     self.canBeAttack = false
-    self.hp = 500000
-    self.atk = 10000
+    self.hp = 500000000000
+    self.atk = 1
     self.power = 1.0
     self.speed = 220
     self.bulleSpeed = 900
