@@ -77,3 +77,5 @@ proj.android/local.properties
 docs/html/*
 runtime/ios
 runtime/android
+frameworks/
+runtime/
