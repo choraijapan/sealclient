@@ -65,13 +65,16 @@ end
 --------------------------------------------------------------------------------
 -- init
 function SpriteBoss:init()
-    self:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height))
+    
     self:addArmature()
     self:addHp()
     self:addEventDispatcher()
     self:addAI()
+    self:setAnchorPoint(0.5)
     -- BOSS时间
     self.time = 0
+
+    self:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height - self.sprite:getContentSize().height/2))
 end
 --------------------------------------------------------------------------------
 -- create
@@ -87,7 +90,8 @@ function SpriteBoss:addArmature()
 
     self.sprite = cc.Sprite:create("battle/boss_20150804.png")
     self.sprite:setScale(0.5)
-    self.sprite:setPosition(0,-140)
+    self.sprite:setAnchorPoint(0.5)
+    --self.sprite:setPosition(0,-140)
     self:addChild(self.sprite)
     
 end

@@ -65,12 +65,13 @@ function Ball:init(type)
     self:setScale(self.scalePer)
 --    self.size = (size.width/2) * self.scalePer
 --    self.size = self.circleSize
+    --1、density（密度）2、restiution（弹性）3、friction（摩擦力）
     self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
     
     self._frame:setDynamic(true)
     self._frame:setRotationEnable(true)
     --    pBall:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
-    self._frame:setMass(1.0) --重さ
+    self._frame:setMass(1) --重さ
     self:setPhysicsBody(self._frame)
 end
 

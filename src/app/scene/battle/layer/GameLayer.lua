@@ -66,6 +66,7 @@ local Tag = {
 
 function GameLayer:ctor()
     self.name = self.class.__cname
+    self:setName(self.name)
     _bullet = 0
     winSize = cc.Director:getInstance():getWinSize()
     offside = winSize.height/2 + 25
@@ -97,6 +98,8 @@ function GameLayer:init()
 
     _bulletVicts = {}
     _fingerPosition = nil
+
+
 end
 
 function GameLayer:addPuzzle()
@@ -126,8 +129,8 @@ function GameLayer:addBalls()
     local typeId = math.random(1,5)
     local ball = Ball:create(typeId)
 
-    local randomX = math.random(1,winSize.width)
-    ball:setPosition(winSize.width - randomX, 400)
+    local randomX = math.random(20,winSize.width-20)
+    ball:setPosition(winSize.width - randomX, winSize.height*2/3)
 
     local pBall = ball:getPhysicsBody()
     pBall:setTag(Tag.T_Bullet)
@@ -483,12 +486,14 @@ function GameLayer:addAtkEffect(from,to)
     local emitter = cc.ParticleSystemQuad:create("battle/particle_atk2.plist")
     self:addChild(emitter,1111111)
     emitter:setPosition(from)
+    emitter:setAnchorPoint(0.5)
     local action1 = cc.MoveTo:create(1,to)
     local action2 = cc.RemoveSelf:create()
     emitter:runAction(cc.Sequence:create(action1, action2))
 
     local card_atk = cc.ParticleSystemQuad:create("effect/game/card_atk_001.plist")
     card_atk:setPosition(self.boss:getPosition())
+    card_atk:setDuration(0.7)
     self:addChild(card_atk,1111111)
 
 end
@@ -503,3 +508,6 @@ function GameLayer:DrawLineRemove()
         end
     end
 end
+
+
+

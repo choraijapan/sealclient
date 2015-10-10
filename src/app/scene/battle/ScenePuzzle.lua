@@ -9,20 +9,28 @@ require("app.scene.battle.Global")
 local PhysicsScene = require('core.base.scene.PhysicsScene')
 local ScenePuzzle = class("GameScene",PhysicsScene)
 
-local gravity = cc.p(0, -298)
-local speed = 3.0
+local gravity = cc.p(0, -98)
+local speed = 5.0
 
 
 -- init
 function ScenePuzzle:init(...)
     self.scene:getPhysicsWorld():setGravity(gravity)
     self.scene:getPhysicsWorld():setSpeed(speed)
+    
+    --self.scene:getPhysicsWorld():setAutoStep(false)
     require('app.scene.battle.layer.GameLayer')
 
-    local node = WidgetLoader:loadCsbFile('parts/game/GameCardNode.csb')
-    node:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height/2 + 40))
-    self.scene:addChild(GameLayer:create())
-    self.scene:addChild(node)
+    local gameCardNode = WidgetLoader:loadCsbFile('parts/game/GameCardNode.csb')
+    gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height/2 + 40))
+    gameCardNode:setName("GameCardNode")
+
+    self.scene:addChild(GameLayer:create(),1)
+    self.scene:addChild(gameCardNode,2)
+
+    local deck1 = WidgetObj:searchWidgetByName(gameCardNode,"Sprite_1","cc.Sprite")
+    --deck1:setScale(1.5)
+
 end
 
 -- onEnter
@@ -31,7 +39,7 @@ function ScenePuzzle:onEnter()
 end
 
 function ScenePuzzle:update(dt,node)
-
+--self.scene:getPhysicsWorld():setp(0.05)
 end
 
 -- onExit
@@ -40,3 +48,4 @@ function ScenePuzzle:onExit()
 end
 
 return ScenePuzzle
+
