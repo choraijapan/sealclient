@@ -131,7 +131,7 @@ function GameLayer:addBalls()
 
     local randomX = math.random(20,winSize.width-20)
     ball:setPosition(winSize.width - randomX, winSize.height*2/3)
-
+	ball:setRotation(math.random(1,360))
     local pBall = ball:getPhysicsBody()
     pBall:setTag(Tag.T_Bullet)
     self:addChild(ball,ZOrder.Z_Bullet,typeId+2)
@@ -158,7 +158,7 @@ function GameLayer:addBG()
     --    self.bg1:setPosition(0, offside)
     --    self.bg1:setScale(0.5)
     --    self.bg2:setPosition(0, self.bg1:getContentSize().height)
-    --    self:addChild(self.bg1, 1)
+--    self:addChild(self.bg1, 1)
     --    self:addChild(self.bg2, -10)
 end
 
@@ -222,17 +222,14 @@ end
 
 function GameLayer:addTouch()
     local function onTouchBegan(touch, event)
-        DebugLog.debug("############ onTouchBegan AAA")
         touchIdx = 1
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
         for _, obj in ipairs(arr) do
             if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
                 if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
-					DebugLog.debug("############ onTouchBegan BBB")
                     return false
                 else
-					DebugLog.debug("############ onTouchBegan CCC")
                     _tag = obj:getBody():getNode():getTag();
                     firstTouchBall = obj:getBody():getNode()
                     self.curTouchBall = obj:getBody():getNode()
@@ -245,7 +242,7 @@ function GameLayer:addTouch()
     end
 
     local function onTouchMoved(touch, event)
-		DebugLog.debug("############ onTouchMoved START")
+		DebugLog:debug("############ onTouchMoved START")
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
         for _, obj in ipairs(arr) do
@@ -270,17 +267,16 @@ function GameLayer:addTouch()
 
         if self.curTouchBall ~= nil and self.curTouchBall:getState() == Ball.MOVING then
             if next(_bullets) == nil then
-				DebugLog.debug("############ onTouchMoved BBB")
+                DebugLog:debug("############ onTouchMoved BBB")
                 _bullets[touchIdx] = self.curTouchBall
             elseif isTableContains(_bullets,self.curTouchBall) == false then
                 local p1 = _bullets[#_bullets]:getPosition()
                 local p2 = self.curTouchBall:getPosition()
                 local distance = cc.pGetDistance(p1,p2)
                 if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
-					DebugLog.debug("####### touchIdx"..touchIdx)
+					DebugLog:debug("####### touchIdx"..touchIdx)
                     touchIdx = touchIdx + 1
                     _bullets[touchIdx] = self.curTouchBall
-
                     if touchIdx > 1 then
                         _bullets[touchIdx-1]:removeBallTouchEffect()
                     end
@@ -486,7 +482,7 @@ function GameLayer:addAtkEffect(from,to)
     local emitter = cc.ParticleSystemQuad:create("battle/particle_atk2.plist")
     self:addChild(emitter,1111111)
     emitter:setPosition(from)
-    emitter:setAnchorPoint(0.5)
+	emitter:setAnchorPoint(cc.p(0.5, 0.5))
     local action1 = cc.MoveTo:create(1,to)
     local action2 = cc.RemoveSelf:create()
     emitter:runAction(cc.Sequence:create(action1, action2))
