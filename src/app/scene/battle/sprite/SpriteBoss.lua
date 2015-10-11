@@ -54,8 +54,8 @@ SpriteBoss.color = {
 function SpriteBoss:ctor()
     self.active = true
     self.canBeAttack = false
-    self.hp = 500000
-    self.atk = 10000
+    self.hp = 500000000000
+    self.atk = 1
     self.power = 1.0
     self.speed = 220
     self.bulleSpeed = 900
@@ -65,13 +65,16 @@ end
 --------------------------------------------------------------------------------
 -- init
 function SpriteBoss:init()
-    self:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height))
+    
     self:addArmature()
     self:addHp()
     self:addEventDispatcher()
     self:addAI()
+    self:setAnchorPoint(0.5)
     -- BOSS时间
     self.time = 0
+
+    self:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height - self.sprite:getContentSize().height/2))
 end
 --------------------------------------------------------------------------------
 -- create
@@ -87,7 +90,8 @@ function SpriteBoss:addArmature()
 
     self.sprite = cc.Sprite:create("battle/boss_20150804.png")
     self.sprite:setScale(0.5)
-    self.sprite:setPosition(0,-140)
+    self.sprite:setAnchorPoint(0.5)
+    --self.sprite:setPosition(0,-140)
     self:addChild(self.sprite)
     
 end

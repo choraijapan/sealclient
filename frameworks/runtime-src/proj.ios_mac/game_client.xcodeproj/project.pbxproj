@@ -1362,7 +1362,7 @@
 					"-image_base",
 					100000000,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.gameclient;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.eglass.crown;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1405,7 +1405,7 @@
 					"-image_base",
 					100000000,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocos2dx.gameclient;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.eglass.crown;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
