@@ -7,7 +7,7 @@
 require("app.scene.battle.Global")
 
 local PhysicsScene = require('core.base.scene.PhysicsScene')
-local ScenePuzzle = class("GameScene",PhysicsScene)
+local ScenePuzzle = class("ScenePuzzle",PhysicsScene)
 
 local gravity = cc.p(0, -98)
 local speed = 5.0

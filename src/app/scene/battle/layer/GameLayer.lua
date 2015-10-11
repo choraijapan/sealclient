@@ -222,17 +222,17 @@ end
 
 function GameLayer:addTouch()
     local function onTouchBegan(touch, event)
-        print("############ onTouchBegan AAA")
+        DebugLog.debug("############ onTouchBegan AAA")
         touchIdx = 1
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
         for _, obj in ipairs(arr) do
             if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
                 if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
-                    print("############ onTouchBegan BBB")
+					DebugLog.debug("############ onTouchBegan BBB")
                     return false
                 else
-                    print("############ onTouchBegan CCC")
+					DebugLog.debug("############ onTouchBegan CCC")
                     _tag = obj:getBody():getNode():getTag();
                     firstTouchBall = obj:getBody():getNode()
                     self.curTouchBall = obj:getBody():getNode()
@@ -245,7 +245,7 @@ function GameLayer:addTouch()
     end
 
     local function onTouchMoved(touch, event)
-        print("############ onTouchMoved START")
+		DebugLog.debug("############ onTouchMoved START")
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
         for _, obj in ipairs(arr) do
@@ -270,14 +270,14 @@ function GameLayer:addTouch()
 
         if self.curTouchBall ~= nil and self.curTouchBall:getState() == Ball.MOVING then
             if next(_bullets) == nil then
-                print("############ onTouchMoved BBB")
+				DebugLog.debug("############ onTouchMoved BBB")
                 _bullets[touchIdx] = self.curTouchBall
             elseif isTableContains(_bullets,self.curTouchBall) == false then
                 local p1 = _bullets[#_bullets]:getPosition()
                 local p2 = self.curTouchBall:getPosition()
                 local distance = cc.pGetDistance(p1,p2)
                 if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
-                    print("####### touchIdx"..touchIdx)
+					DebugLog.debug("####### touchIdx"..touchIdx)
                     touchIdx = touchIdx + 1
                     _bullets[touchIdx] = self.curTouchBall
 
