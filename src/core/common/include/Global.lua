@@ -19,7 +19,7 @@ require("core.common.VisibleRect")
 require("core.manager.SceneManager")
 require("core.manager.TouchManager")
 require("core.manager.ScheduleManager")
-
+require("core.manager.EventDispatchManager")
 
 require("core.common.config.CleanUpList")
 require("core.common.config.Environment")
