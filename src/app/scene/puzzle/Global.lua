@@ -8,9 +8,6 @@ DEBUFF = {
 	    DEFDOWN = 3,
 	}
 
-local SpriteCard = require("app.scene.battle.EventDispatchManager")
-
-
 Global = class("Global")
 Global.audioState = true
 Global.score = 0

@@ -9,7 +9,7 @@ local StandardScene = require('core.base.scene.StandardScene')
 local MenuScene = class("MenuScene",StandardScene)
 
 local CONST_MENU_SETTINGS = {
-	Sample_01 = 'app/scene/battle/PuzzleScene',
+	Sample_01 = 'app/scene/puzzle/PuzzleScene',
 	Sample_02 = 'app/scene/map/MapScene',
 	Sample_03 = nil,
 	Sample_04 = nil,
