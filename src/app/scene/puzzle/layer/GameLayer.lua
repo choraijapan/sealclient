@@ -1,18 +1,14 @@
-local spritePath = "app.scene.battle.sprite"
-local layerPath = "app.scene.battle.layer"
+local layerPath = "app.scene.puzzle.layer"
 
-
-local SpriteCard = require(spritePath..".SpriteCard")
+local SpriteCard = require("app.parts.puzzle.SpriteCard")
 local SceneGameResult = require(layerPath..".SceneGameResult")
 
-local Ball = require(spritePath..".Ball")
-local DrawLine = require(spritePath..".DrawLine")
-local SpriteBoss = require(spritePath..".SpriteBoss")
-local SpritePlayer = require(spritePath..".SpritePlayer")
+local Ball = require("app.parts.puzzle.Ball")
+local DrawLine = require("app.parts.puzzle.DrawLine")
+local SpriteBoss = require("app.parts.puzzle.SpriteBoss")
+local SpritePlayer = require("app.parts.puzzle.SpritePlayer")
 
-GameLayer = class("GameLayer", function()
-    return cc.Layer:create()
-end)
+GameLayer = class("GameLayer", cc.Layer)
 GameLayer.stateGamePlaying = 0
 GameLayer.stateGameOver = 1
 GameLayer.resultWin = 1

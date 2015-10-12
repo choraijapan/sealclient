@@ -153,7 +153,7 @@ function WorldMapParts:update(dt)
 		allDoneFlg = false
 		local args ={time = 1.2}
 		self.comuLayer:fadeOut(args)
-		performWithDelay(self.comuLayer,function() SceneManager:changeScene("app/scene/battle/PuzzleScene") end,1.2)
+		performWithDelay(self.comuLayer,function() SceneManager:changeScene("app/scene/puzzle/PuzzleScene") end,1.2)
 		return
 	end
 	

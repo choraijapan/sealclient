@@ -3,8 +3,7 @@
 -- @date 2015/05/15
 -- @author masahiro mine
 -------------------------------------------------------------------------------
-
-require("app.scene.battle.Global")
+require("app.scene.puzzle.Global")
 
 local PhysicsScene = require('core.base.scene.PhysicsScene')
 local ScenePuzzle = class("ScenePuzzle",PhysicsScene)
@@ -19,7 +18,7 @@ function ScenePuzzle:init(...)
     self.scene:getPhysicsWorld():setSpeed(speed)
     
     --self.scene:getPhysicsWorld():setAutoStep(false)
-    require('app.scene.battle.layer.GameLayer')
+    require('app.scene.puzzle.layer.GameLayer')
 
     local gameCardNode = WidgetLoader:loadCsbFile('parts/game/GameCardNode.csb')
     gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height/2 + 40))
