@@ -1,28 +1,28 @@
 
-local SceneGameResult = class("SceneGameResult", function()
+local PuzzleResultLayer = class("PuzzleResultLayer", function()
     return cc.Layer:create()
 end)
 
-function SceneGameResult:ctor()
+function PuzzleResultLayer:ctor()
 
 end
 
-function SceneGameResult:create(isWin)
-    local layer = SceneGameResult.new()
+function PuzzleResultLayer:create(isWin)
+    local layer = PuzzleResultLayer.new()
     layer:init(isWin)
     return layer
 end
 
 
-function SceneGameResult:createScene(isWin)
+function PuzzleResultLayer:createScene(isWin)
     local scene = cc.Scene:create()
-    local layer = SceneGameResult:create(isWin)
+    local layer = PuzzleResultLayer:create(isWin)
     scene:addChild(layer)
     return scene
 end
 
 
-function SceneGameResult:init(isWin)
+function PuzzleResultLayer:init(isWin)
     self:loadingMusic()
     self:addBG()
     self:addBtn()
@@ -38,7 +38,7 @@ end
 
 
 -- 背景音乐
-function SceneGameResult:loadingMusic()
+function PuzzleResultLayer:loadingMusic()
     if Global:getInstance():getAudioState() == true then
         cc.SimpleAudioEngine:getInstance():stopMusic()
         cc.SimpleAudioEngine:getInstance():playMusic("Music/mainMainMusic.mp3", true)
@@ -49,7 +49,7 @@ end
 
 
 -- 添加背景
-function SceneGameResult:addBG()
+function PuzzleResultLayer:addBG()
 --    -- 背景图片
 --    local bg = cc.Sprite:create("loading.png")
 --    bg:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height/2))
@@ -63,7 +63,7 @@ end
 
 
 -- 添加按钮
-function SceneGameResult:addBtn()
+function PuzzleResultLayer:addBtn()
     local function callback(tag, sender)
         if sender:getTag() == 101 then
             self:turnToGameScene()
@@ -97,7 +97,7 @@ end
 
 
 -- 重新游戏
-function SceneGameResult:turnToGameScene()
+function PuzzleResultLayer:turnToGameScene()
     local scene = GameScene:createScene()
     local tt = cc.TransitionFade:create(1.0, scene)
     cc.Director:getInstance():replaceScene(tt)
@@ -105,12 +105,12 @@ end
 
 
 -- 返回主界面
-function SceneGameResult:turnToLoadingScene()
+function PuzzleResultLayer:turnToLoadingScene()
     local scene = LoadingScene:createScene()
     local tt = cc.TransitionFade:create(1.0, scene)
     cc.Director:getInstance():replaceScene(tt)
 end
 
-return SceneGameResult
+return PuzzleResultLayer
     
 

@@ -1,31 +1,31 @@
 local layerPath = "app.scene.puzzle.layer"
 
 local SpriteCard = require("app.parts.puzzle.SpriteCard")
-local SceneGameResult = require(layerPath..".SceneGameResult")
+local PuzzleResultLayer = require("app.layer.puzzle.PuzzleResultLayer")
 
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
 local SpriteBoss = require("app.parts.puzzle.SpriteBoss")
 local SpritePlayer = require("app.parts.puzzle.SpritePlayer")
 
-GameLayer = class("GameLayer", cc.Layer)
-GameLayer.stateGamePlaying = 0
-GameLayer.stateGameOver = 1
-GameLayer.resultWin = 1
-GameLayer.resultLost = 0
+PuzzleLayer = class("PuzzleLayer", cc.Layer)
+PuzzleLayer.stateGamePlaying = 0
+PuzzleLayer.stateGameOver = 1
+PuzzleLayer.resultWin = 1
+PuzzleLayer.resultLost = 0
 
-GameLayer.gameState = nil
-GameLayer.gameTime = nil                --
-GameLayer.lbScore = nil                 -- 分数
-GameLayer.lbLifeCount = nil             -- 显示生命值
+PuzzleLayer.gameState = nil
+PuzzleLayer.gameTime = nil                --
+PuzzleLayer.lbScore = nil                 -- 分数
+PuzzleLayer.lbLifeCount = nil             -- 显示生命值
 
-GameLayer.player = nil                  -- Player (自分)
-GameLayer.boss = nil                    -- boss
+PuzzleLayer.player = nil                  -- Player (自分)
+PuzzleLayer.boss = nil                    -- boss
 
-GameLayer.wall = nil
+PuzzleLayer.wall = nil
 
-GameLayer.footer = nil
-GameLayer.name = nil
+PuzzleLayer.footer = nil
+PuzzleLayer.name = nil
 
 local winSize = nil
 local offside = nil
@@ -60,7 +60,7 @@ local Tag = {
     T_Line = 8,
 }
 
-function GameLayer:ctor()
+function PuzzleLayer:ctor()
     self.name = self.class.__cname
     self:setName(self.name)
     _bullet = 0
@@ -69,14 +69,14 @@ function GameLayer:ctor()
 end
 
 
-function GameLayer:create()
-    local layer = GameLayer.new()
+function PuzzleLayer:create()
+    local layer = PuzzleLayer.new()
     layer:init()
     return layer
 end
 
 
-function GameLayer:init()
+function PuzzleLayer:init()
     --    self:loadingMusic() -- 背景音乐
     self:addBG()        -- 初始化背景
     --    self:moveBG()       -- 背景移动
@@ -98,7 +98,7 @@ function GameLayer:init()
 
 end
 
-function GameLayer:addPuzzle()
+function PuzzleLayer:addPuzzle()
 
     local vec =
         {
@@ -120,7 +120,7 @@ function GameLayer:addPuzzle()
     self:addChild(self.wall)
 end
 
-function GameLayer:addBalls()
+function PuzzleLayer:addBalls()
     local addNum = MAX_BULLET - _bullet
     local typeId = math.random(1,5)
     local ball = Ball:create(typeId)
@@ -135,7 +135,7 @@ function GameLayer:addBalls()
 end
 
 -- 播放音乐
-function GameLayer:loadingMusic()
+function PuzzleLayer:loadingMusic()
     if Global:getInstance():getAudioState() == true then
         -- playMusic
         cc.SimpleAudioEngine:getInstance():stopMusic()
@@ -147,7 +147,7 @@ end
 
 
 -- 添加背景
-function GameLayer:addBG()
+function PuzzleLayer:addBG()
     self.bg1 = cc.Sprite:create("battle/bg.png")
     --    self.bg2 = cc.Sprite:create("bg_01.jpg")
     self.bg1:setAnchorPoint(cc.p(0, 0))
@@ -159,13 +159,13 @@ function GameLayer:addBG()
 end
 
 -- 添加背景
-function GameLayer:addFooter()
+function PuzzleLayer:addFooter()
 
 end
 
 
 -- 背景滚动
-function GameLayer:moveBG()
+function PuzzleLayer:moveBG()
     local height = self.bg1:getContentSize().height
     local function updateBG()
         self.bg1:setPositionY(self.bg1:getPositionY() - 1)
@@ -180,7 +180,7 @@ end
 
 
 -- 添加按钮
-function GameLayer:addBtn()
+function PuzzleLayer:addBtn()
     local function PauseGame()
         self:PauseGame()
     end
@@ -196,7 +196,7 @@ end
 
 
 -- 更新
-function GameLayer:addSchedule()
+function PuzzleLayer:addSchedule()
 
     local function update(dt)
         self:update(dt)
@@ -216,7 +216,7 @@ function GameLayer:addSchedule()
     schedule(self, updateTime, 1)
 end
 
-function GameLayer:addTouch()
+function PuzzleLayer:addTouch()
     local function onTouchBegan(touch, event)
         touchIdx = 1
         local location = touch:getLocation()
@@ -368,7 +368,7 @@ function GameLayer:addTouch()
 end
 
 -- 初始化游戏数据状态
-function GameLayer:initGameState()
+function PuzzleLayer:initGameState()
     -- 游戏状态
     self.gameState = self.stateGamePlaying
     -- 游戏时间
@@ -376,27 +376,27 @@ function GameLayer:initGameState()
 end
 
 -- Playerを追加する
-function GameLayer:addPlayer()
+function PuzzleLayer:addPlayer()
     self.player = SpritePlayer:create()
     self:addChild(self.player, 2, 1001)
 end
 
 -- BOSSをinitする
-function GameLayer:addSpriteBoss()
+function PuzzleLayer:addSpriteBoss()
     self.boss = SpriteBoss:create()
     self:addChild(self.boss)
 end
 
 
 -- 更新时间
-function GameLayer:updateTime()
+function PuzzleLayer:updateTime()
     if self.gameState == self.stateGamePlaying then
         self.gameTime = self.gameTime + 1
     end
 end
 
 
-function GameLayer:update(dt)
+function PuzzleLayer:update(dt)
     _time = _time + 1
     if MAX_BULLET >= _bullet then
         self:addBalls()
@@ -414,7 +414,7 @@ end
 
 
 -- 更新游戏
-function GameLayer:updateGame()
+function PuzzleLayer:updateGame()
     if self.gameState == self.stateGamePlaying then
         self:checkGameOver()
         self:updateUI()
@@ -422,7 +422,7 @@ function GameLayer:updateGame()
 end
 
 -- 游戏结束 or 使用道具
-function GameLayer:checkGameOver()
+function PuzzleLayer:checkGameOver()
     if self.boss == nil then
         return
     end
@@ -438,11 +438,11 @@ function GameLayer:checkGameOver()
 end
 
 -- 刷新界面
-function GameLayer:updateUI()
+function PuzzleLayer:updateUI()
 end
 
 -- 游戏暂停
-function GameLayer:PauseGame()
+function PuzzleLayer:PauseGame()
     cc.Director:getInstance():pause()
     cc.SimpleAudioEngine:getInstance():pauseMusic()
     cc.SimpleAudioEngine:getInstance():pauseAllEffects()
@@ -453,7 +453,7 @@ end
 
 
 -- 游戏继续
-function GameLayer:resumeGame()
+function PuzzleLayer:resumeGame()
     cc.Director:getInstance():resume()
     cc.SimpleAudioEngine:getInstance():resumeMusic()
     cc.SimpleAudioEngine:getInstance():resumeAllEffects()
@@ -461,20 +461,20 @@ end
 
 
 -- 游戏结束
-function GameLayer:gameResult(isWin)
+function PuzzleLayer:gameResult(isWin)
     Global:getInstance():ExitGame()
-    local scene = SceneGameResult:createScene(isWin)
+    local scene = PuzzleResultLayer:createScene(isWin)
     local tt = cc.TransitionCrossFade:create(1.0, scene)
     cc.Director:getInstance():replaceScene(tt)
 end
 
 
 -- 获取Player
-function GameLayer:getShip()
+function PuzzleLayer:getShip()
     return self.player
 end
 
-function GameLayer:addAtkEffect(from,to)
+function PuzzleLayer:addAtkEffect(from,to)
     local emitter = cc.ParticleSystemQuad:create("battle/particle_atk2.plist")
     self:addChild(emitter,1111111)
     emitter:setPosition(from)
@@ -490,7 +490,7 @@ function GameLayer:addAtkEffect(from,to)
 
 end
 
-function GameLayer:DrawLineRemove()
+function PuzzleLayer:DrawLineRemove()
     local nodes = self:getChildren()
     for key, var in ipairs(nodes) do
         if var:getTag() == Tag.T_Line then
