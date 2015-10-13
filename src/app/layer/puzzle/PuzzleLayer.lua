@@ -23,7 +23,15 @@ PuzzleLayer.player = nil                  -- Player (自分)
 PuzzleLayer.boss = nil                    -- boss
 
 PuzzleLayer.wall = nil
-
+PuzzleLayer.gameCardNode = nil
+PuzzleLayer.cards = {
+	card1 = nil,
+	card2 = nil,
+	card3 = nil,
+	card4 = nil,
+	card5 = nil,
+	card6 = nil
+}
 PuzzleLayer.footer = nil
 PuzzleLayer.name = nil
 
@@ -66,6 +74,18 @@ function PuzzleLayer:ctor()
     _bullet = 0
     winSize = cc.Director:getInstance():getWinSize()
     offside = winSize.height/2 + 25
+    
+	self.gameCardNode = WidgetLoader:loadCsbFile('parts/game/GameCardNode.csb')
+	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height/2 + 40))
+	self.gameCardNode:setName("GameCardNode")
+	self:addChild(self.gameCardNode,2)
+	self.cards.card1 = WidgetObj:searchWidgetByName(self.gameCardNode,"Sprite_1","cc.Sprite")
+	self.cards.card2 = WidgetObj:searchWidgetByName(self.gameCardNode,"Sprite_2","cc.Sprite")
+	self.cards.card3 = WidgetObj:searchWidgetByName(self.gameCardNode,"Sprite_3","cc.Sprite")
+	self.cards.card4 = WidgetObj:searchWidgetByName(self.gameCardNode,"Sprite_4","cc.Sprite")
+	self.cards.card5 = WidgetObj:searchWidgetByName(self.gameCardNode,"Sprite_5","cc.Sprite")
+	self.cards.card6 = WidgetObj:searchWidgetByName(self.gameCardNode,"Sprite_6","cc.Sprite")
+	
 end
 
 
@@ -350,8 +370,8 @@ function PuzzleLayer:addTouch()
                     count = #_bullets,
                 }
                 self.boss:broadCastEvent(data)
-                local bossPos = self.boss:getPosition()
-                self:addAtkEffect(lastPos,bossPos)
+				local pos = self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card1:getPositionX(),self.cards.card1:getPositionY()))
+				self:addAtkEffect(lastPos,pos)
             end
         else
 

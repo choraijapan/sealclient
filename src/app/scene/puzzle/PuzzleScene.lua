@@ -18,17 +18,7 @@ function ScenePuzzle:init(...)
     
     --self.scene:getPhysicsWorld():setAutoStep(false)
     require('app.layer.puzzle.PuzzleLayer')
-
-    local gameCardNode = WidgetLoader:loadCsbFile('parts/game/GameCardNode.csb')
-    gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height/2 + 40))
-    gameCardNode:setName("GameCardNode")
-
 	self.scene:addChild(PuzzleLayer:create(),1)
-    self.scene:addChild(gameCardNode,2)
-
-    local deck1 = WidgetObj:searchWidgetByName(gameCardNode,"Sprite_1","cc.Sprite")
-    --deck1:setScale(1.5)
-
 end
 
 -- onEnter

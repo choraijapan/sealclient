@@ -1,4 +1,3 @@
-
 local Ball = class("Ball", cc.Sprite)
 
 Ball.MOVING = 0
@@ -9,18 +8,9 @@ Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
 
---Ball.size = 0  -- いらない。
-Ball.scalePer = 0.7          -- TODO 这个要弄成可变的！！
-Ball.circleSize = 42
---Ball.scalePer = 0.5 -- TODO 这个要弄成可变的！！
-
---Ball.type = {
---    [1] = "donat_1.png",
---    [2] = "donat_2.png",
---    [3] = "donat_3.png",
---    [4] = "donat_4.png",
---    [5] = "cat_1.png",
---}
+Ball.scalePer = 0.7
+Ball.circleSize = 40
+--Ball.scalePer = 0.5
 
 Ball.type = {
 	[1] = "battle/1.png",  
