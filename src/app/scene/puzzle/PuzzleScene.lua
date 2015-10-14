@@ -3,7 +3,7 @@
 -- @date 2015/05/15
 -- @author masahiro mine
 -------------------------------------------------------------------------------
-require("app.scene.puzzle.Global")
+require("app.manager.Global")
 
 local PhysicsScene = require('core.base.scene.PhysicsScene')
 local ScenePuzzle = class("ScenePuzzle",PhysicsScene)
@@ -15,8 +15,8 @@ local speed = 5.0
 function ScenePuzzle:init(...)
     self.scene:getPhysicsWorld():setGravity(gravity)
     self.scene:getPhysicsWorld():setSpeed(speed)
-    
-    --self.scene:getPhysicsWorld():setAutoStep(false)
+    self.scene:getPhysicsWorld():setDebugDraw(true)
+--self.scene:getPhysicsWorld():setAutoStep(false)
     require('app.layer.puzzle.PuzzleLayer')
 	self.scene:addChild(PuzzleLayer:create(),1)
 end
