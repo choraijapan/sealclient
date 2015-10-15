@@ -19,7 +19,6 @@ function ScenePuzzle:init(...)
     require('app.layer.puzzle.PuzzleLayer')
 	self.scene:addChild(PuzzleLayer:create(),1)
 end
-
 -- onEnter
 function ScenePuzzle:onEnter()
     local test = 1
