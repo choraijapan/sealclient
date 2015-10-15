@@ -44,16 +44,16 @@ function Ball:init(type)
 	--    self.size = (size.width/2) * self.scalePer
 	--    self.size = self.circleSize
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
-	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
+--	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
 --	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
---	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(1, 0, 0.5))
+	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)}
+	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(10, 0, 0.5))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
 	--	self._frame:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
-	self._frame:setMass(100) --重さ
+--	self._frame:setMass(1) --重さ
 	self:setPhysicsBody(self._frame)
 end
-
 
 function Ball:brokenBullet()
 	self:stopAllActions()

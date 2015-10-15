@@ -15,7 +15,7 @@ local speed = 5.0
 function ScenePuzzle:init(...)
     self.scene:getPhysicsWorld():setGravity(gravity)
     self.scene:getPhysicsWorld():setSpeed(speed)
---self.scene:getPhysicsWorld():setAutoStep(false)
+--	self.scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL) --Debug用
     require('app.layer.puzzle.PuzzleLayer')
 	self.scene:addChild(PuzzleLayer:create(),1)
 end

@@ -120,24 +120,37 @@ end
 
 function PuzzleLayer:addPuzzle()
 
+--	local vec =
+--		{
+--			cc.p(winSize.width-1, winSize.height-1),
+--			cc.p(1, winSize.height-1),
+--			cc.p(1, 100),
+--			cc.p(winSize.width/2, 0),
+--			cc.p(winSize.width-1, 100),
+--			cc.p(winSize.width-1, winSize.height-1),
+--		}
 	local vec =
 		{
-			cc.p(winSize.width-1, winSize.height-1),
-			cc.p(1, winSize.height-1),
+			cc.p(WIN_SIZE.width-1,WIN_SIZE.height-1),
+			cc.p(1, WIN_SIZE.height-1),
 			cc.p(1, 100),
-			cc.p(winSize.width/2, 0),
-			cc.p(winSize.width-1, 100),
-			cc.p(winSize.width-1, winSize.height-1),
+			cc.p(WIN_SIZE.width/3, 50),
+			cc.p(WIN_SIZE.width*2/3, 50),
+			cc.p(WIN_SIZE.width-1, 100),
+			cc.p(WIN_SIZE.width-1, WIN_SIZE.height-1)
 		}
 	self.wall = cc.Node:create()
 	--self.wall:setAnchorPoint(cc.p(0.5,0.5))
-	--    local edge = cc.PhysicsBody:createEdgeChain(vec,6,cc.PhysicsMaterial(0.0,0.0,0.5))
-
-	local edge = cc.PhysicsBody:createEdgeBox(cc.size(winSize.width + 40,winSize.height),cc.PhysicsMaterial(0,0,0.5),20)
+	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(10000,0,1))
+--	local edge = cc.PhysicsBody:createEdgeBox(cc.size(winSize.width + 40,winSize.height),cc.PhysicsMaterial(0,0,0.5),20)
+--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
+--	local edge = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(0, 0, 0.5))
 	self.wall:setPhysicsBody(edge)
 	--    wall:setPosition(VisibleRect:bottom())
-	self.wall:setPosition(cc.p(WIN_SIZE.width/2,WIN_SIZE.height/2))
+--	self.wall:setPosition(cc.p(WIN_SIZE.width/2,WIN_SIZE.height/2))
+	self.wall:setPosition(cc.p(0,0))
 	self:addChild(self.wall)
+	
 end
 
 function PuzzleLayer:addBalls()
