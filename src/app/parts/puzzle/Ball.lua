@@ -7,9 +7,8 @@ Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
-
 Ball.scalePer = 0.7
-Ball.circleSize = 40
+Ball.circleSize = 45
 --Ball.scalePer = 0.5
 
 Ball.type = {
@@ -45,10 +44,10 @@ function Ball:init(type)
 	--    self.size = (size.width/2) * self.scalePer
 	--    self.size = self.circleSize
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
---	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
-	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
-	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(1, 0, 0.3))
-	self._frame:setDynamic(true)
+	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
+--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
+--	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(1, 0, 0.5))
+	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
 	--	self._frame:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
 	self._frame:setMass(100) --重さ
@@ -79,11 +78,15 @@ function Ball:onEnter()
 end
 
 function Ball:addBallTouchEffect()
-	self._image:setScale(1.2)
+	local action1 = cc.ScaleTo:create(0.1,1.6)
+	local action2 = cc.ScaleTo:create(0.1,1.3)
+	self._image:runAction(cc.Sequence:create(action1,action2))
 	self:getParent():reorderChild(self,2)
+	
 end
 
 function Ball:removeBallTouchEffect()
+	self._image:stopAllActions()
 	self._image:setScale(1)
 	self:getParent():reorderChild(self,1)
 end

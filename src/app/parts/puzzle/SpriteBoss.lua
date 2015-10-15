@@ -89,7 +89,7 @@ function SpriteBoss:addArmature()
 --    self:addChild(self.node)
 
     self.sprite = cc.Sprite:create("battle/boss_20150804.png")
-    self.sprite:setScale(0.5)
+--    self.sprite:setScale(0.5)
     self.sprite:setAnchorPoint(0.5)
     --self.sprite:setPosition(0,-140)
     self:addChild(self.sprite)

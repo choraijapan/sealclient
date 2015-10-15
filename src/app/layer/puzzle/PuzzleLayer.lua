@@ -76,7 +76,7 @@ function PuzzleLayer:ctor()
 	offside = winSize.height/2 + 25
 
 	self.gameCardNode = WidgetLoader:loadCsbFile('parts/game/GameCardNode.csb')
-	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height/2 + 40))
+	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*2/3))
 	self.gameCardNode:setName("GameCardNode")
 	self:addChild(self.gameCardNode,2)
 	self.cards.card1 = WidgetObj:searchWidgetByName(self.gameCardNode,"Sprite_1","cc.Sprite")
@@ -244,7 +244,7 @@ function PuzzleLayer:addTouch()
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
 				if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
-					return false
+				--					return false
 				else
 					_tag = obj:getBody():getNode():getTag();
 					firstTouchBall = obj:getBody():getNode()
@@ -370,8 +370,15 @@ function PuzzleLayer:addTouch()
 					count = #_bullets,
 				}
 				self.boss:broadCastEvent(data)
-				local pos = self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card1:getPositionX(),self.cards.card1:getPositionY()))
-				self:addAtkEffect(lastPos,pos)
+				local pos = {
+					self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card1:getPositionX(),self.cards.card1:getPositionY())),
+					self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card2:getPositionX(),self.cards.card2:getPositionY())),
+					self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card3:getPositionX(),self.cards.card3:getPositionY())),
+					self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card4:getPositionX(),self.cards.card4:getPositionY())),
+					self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card5:getPositionX(),self.cards.card5:getPositionY())),
+					self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card6:getPositionX(),self.cards.card6:getPositionY()))
+				}
+				self:addAtkEffect(lastPos,pos[type])
 			end
 		else
 
