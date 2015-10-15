@@ -84,3 +84,5 @@ publish
 frameworks/cocos2d-x/tools/simulator/libsimulator/proj.ios_mac/build
 frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/build
 proj.android/assets/*
+game_client/debugruntime
+runtime
