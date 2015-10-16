@@ -3,6 +3,10 @@ local Ball = class("Ball", cc.Sprite)
 Ball.MOVING = 0
 Ball.BROKEN = 1
 
+Ball.DENSITY = 1
+Ball.RESTIUTION = 0
+Ball.FRICTION = 0.4
+Ball.MASS = 100
 Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
@@ -47,11 +51,11 @@ function Ball:init(type)
 --	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
 --	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
 	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)}
-	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(10, 0, 0.5))
+	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
-	--	self._frame:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
---	self._frame:setMass(1) --重さ
+	self._frame:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
+	self._frame:setMass(self.MASS) --重さ
 	self:setPhysicsBody(self._frame)
 end
 
