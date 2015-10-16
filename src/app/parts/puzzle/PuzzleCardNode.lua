@@ -1,7 +1,6 @@
 --------------------------------------------------------------------------------
 -- PuzzleCardNode
 local PuzzleCardNode = class("PuzzleCardNode", cc.Node)
-
 --------------------------------------------------------------------------------
 -- const変数
 local TAG = "PuzzleCardNode:"

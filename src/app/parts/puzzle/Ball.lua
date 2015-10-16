@@ -7,12 +7,13 @@ Ball.DENSITY = 1
 Ball.RESTIUTION = 0
 Ball.FRICTION = 0.4
 Ball.MASS = 100
+
 Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.7
-Ball.circleSize = 45
+Ball.scalePer = 0.8
+Ball.circleSize = 48
 --Ball.scalePer = 0.5
 
 Ball.type = {
@@ -48,17 +49,17 @@ function Ball:init(type)
 	--    self.size = (size.width/2) * self.scalePer
 	--    self.size = self.circleSize
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
---	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(1, 0, 0.5))
+	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 --	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
-	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)}
-	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+--	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)}
+--	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
 	self._frame:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
 	self._frame:setMass(self.MASS) --重さ
 	self:setPhysicsBody(self._frame)
 end
-
+	
 function Ball:brokenBullet()
 	self:stopAllActions()
 	local remove = cc.RemoveSelf:create()

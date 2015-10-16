@@ -35,7 +35,7 @@ PuzzleLayer.name = nil
 local winSize = nil
 local offside = nil
 
-local MAX_BULLET = 45
+local MAX_BULLET = 40
 local _bullet = 0
 local _time = 0
 local _tag = nil
@@ -71,16 +71,6 @@ function PuzzleLayer:ctor()
 	_bullet = 0
 	winSize = cc.Director:getInstance():getWinSize()
 	offside = winSize.height/2 + 25
-
-
-	--[[
-	self.cards.card1 = WidgetObj:searchWidgetByName(self.puzzleCardNode,"Sprite_1","cc.Sprite")
-	self.cards.card2 = WidgetObj:searchWidgetByName(self.puzzleCardNode,"Sprite_2","cc.Sprite")
-	self.cards.card3 = WidgetObj:searchWidgetByName(self.puzzleCardNode,"Sprite_3","cc.Sprite")
-	self.cards.card4 = WidgetObj:searchWidgetByName(self.puzzleCardNode,"Sprite_4","cc.Sprite")
-	self.cards.card5 = WidgetObj:searchWidgetByName(self.puzzleCardNode,"Sprite_5","cc.Sprite")
-	self.cards.card6 = WidgetObj:searchWidgetByName(self.puzzleCardNode,"Sprite_6","cc.Sprite")
-	]]--
 end
 
 function PuzzleLayer:create()
@@ -107,21 +97,9 @@ function PuzzleLayer:init()
 
 	_bulletVicts = {}
 	_fingerPosition = nil
-
-
 end
 
 function PuzzleLayer:addPuzzle()
-
-	--	local vec =
-	--		{
-	--			cc.p(winSize.width-1, winSize.height-1),
-	--			cc.p(1, winSize.height-1),
-	--			cc.p(1, 100),
-	--			cc.p(winSize.width/2, 0),
-	--			cc.p(winSize.width-1, 100),
-	--			cc.p(winSize.width-1, winSize.height-1),
-	--		}
 	local vec =
 		{
 			cc.p(WIN_SIZE.width-1,WIN_SIZE.height-1),
@@ -132,16 +110,10 @@ function PuzzleLayer:addPuzzle()
 			cc.p(WIN_SIZE.width-1, 100),
 			cc.p(WIN_SIZE.width-1, WIN_SIZE.height-1)
 		}
-		
+	print("##################WIN_SIZE.height"..WIN_SIZE.height)	
 	self.wall = cc.Node:create()
-	--self.wall:setAnchorPoint(cc.p(0.5,0.5))
-	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(1,0,0.5))
-	--	local edge = cc.PhysicsBody:createEdgeBox(cc.size(winSize.width + 40,winSize.height),cc.PhysicsMaterial(0,0,0.5),20)
-	--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
-	--	local edge = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(0, 0, 0.5))
+	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.5))
 	self.wall:setPhysicsBody(edge)
-	--    wall:setPosition(VisibleRect:bottom())
-	--	self.wall:setPosition(cc.p(WIN_SIZE.width/2,WIN_SIZE.height/2))
 	self.wall:setPosition(cc.p(0,0))
 	self:addChild(self.wall)
 end
@@ -375,17 +347,6 @@ function PuzzleLayer:addTouch()
 					count = #_bullets,
 				}
 				self.boss:broadCastEvent(data)
-				--[[
-				local pos = {
-				self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card1:getPositionX(),self.cards.card1:getPositionY())),
-				self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card2:getPositionX(),self.cards.card2:getPositionY())),
-				self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card3:getPositionX(),self.cards.card3:getPositionY())),
-				self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card4:getPositionX(),self.cards.card4:getPositionY())),
-				self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card5:getPositionX(),self.cards.card5:getPositionY())),
-				self.cards.card1:getParent():convertToWorldSpace(cc.p(self.cards.card6:getPositionX(),self.cards.card6:getPositionY()))
-				}
-				]]--
-
 				self:addAtkEffect(lastPos,type)
 			end
 		else
@@ -525,22 +486,24 @@ function PuzzleLayer:addAtkEffect(from,type)
 			self:addChild(emitter,1111111)
 			emitter:setPosition(from)
 			emitter:setAnchorPoint(cc.p(0.5, 0.5))
-			local action1 = cc.MoveTo:create(1,var:getParent():convertToWorldSpace(cc.p(var:getPositionX(),var:getPositionY())))
+			local action1 = cc.MoveTo:create(0.5,var:getParent():convertToWorldSpace(cc.p(var:getPositionX(),var:getPositionY())))
 			local action2 = cc.RemoveSelf:create()
+			local function cardAtkBossEffect()
+				local card_atk = cc.ParticleSystemQuad:create("effect/game/card_atk_001.plist")
+				card_atk:setPosition(self.boss:getPosition())
+				card_atk:setDuration(0.5)
+				self:addChild(card_atk,1111111)
+			end
 			local function cardAtkEffect()
 				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
---				local action2 = action1:reverse()
+				--				local action2 = action1:reverse()
 				var:runAction(cc.Sequence:create(action1))
 			end
-			local callFunc = cc.CallFunc:create(cardAtkEffect)
-			emitter:runAction(cc.Sequence:create(action1, action2,callFunc))
+			local callFunc1 = cc.CallFunc:create(cardAtkEffect)
+			local callFunc2 = cc.CallFunc:create(cardAtkBossEffect)
+			emitter:runAction(cc.Sequence:create(action1, action2,callFunc1,callFunc2))
 		end
 	end
-	
-	local card_atk = cc.ParticleSystemQuad:create("effect/game/card_atk_001.plist")
-	card_atk:setPosition(self.boss:getPosition())
-	card_atk:setDuration(0.7)
-	self:addChild(card_atk,1111111)
 end
 function PuzzleLayer:DrawLineRemove()
 	local nodes = self:getChildren()
