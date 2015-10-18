@@ -3,6 +3,7 @@
 -- @date 2015/02/18
 -- @author masahiro mine
 -------------------------------------------------------------------------------
+require("app.common.include.Global")
 
 local Application = class("Application")
 

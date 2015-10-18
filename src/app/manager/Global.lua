@@ -1,7 +1,3 @@
-ORIGIN = cc.Director:getInstance():getVisibleOrigin()
-VISIBLE_SIZE = cc.Director:getInstance():getVisibleSize()
-WIN_SIZE = cc.Director:getInstance():getWinSize()
-
 DEBUFF = {
 	    ATK = 1,
 	    FREEZE = 2,

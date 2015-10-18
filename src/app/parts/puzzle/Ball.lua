@@ -6,14 +6,14 @@ Ball.BROKEN = 1
 Ball.DENSITY = 1
 Ball.RESTIUTION = 0
 Ball.FRICTION = 0.4
-Ball.MASS = 100
+Ball.MASS = 1
 
 Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.8
-Ball.circleSize = 48
+Ball.scalePer = 0.75
+Ball.circleSize = 46
 --Ball.scalePer = 0.5
 
 Ball.type = {
@@ -23,6 +23,7 @@ Ball.type = {
 	[4] = "battle/ball_light.png",
 	[5] = "battle/ball_dark.png",
 }
+
 
 function Ball:ctor()
 end

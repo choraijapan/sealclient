@@ -1,32 +1,32 @@
 --------------------------------------------------------------------------------
--- SpriteBoss
+-- BossSprite
 -- 【クラス】Player
 -- @date 2014/12/24
 -- @author  Cho Rai
-local SpriteBoss = class("SpriteBoss", function()
+local BossSprite = class("BossSprite", function()
     return cc.Sprite:create()
 end)
-SpriteBoss.node             = nil
-SpriteBoss.sprite             = nil
-SpriteBoss.active             = nil
-SpriteBoss.canBeAttack        = nil
-SpriteBoss.hp                 = nil
-SpriteBoss.atk                = nil
-SpriteBoss.power              = nil
-SpriteBoss.speed              = nil
-SpriteBoss.bulleSpeed         = nil
-SpriteBoss.bulletPowerValue   = nil
-SpriteBoss.delayTime          = nil
-SpriteBoss.size               = nil
-SpriteBoss.label_hp           = nil
-SpriteBoss.slider_hp          = nil
-SpriteBoss.action             = nil
-SpriteBoss.time               = nil
+BossSprite.node             = nil
+BossSprite.sprite             = nil
+BossSprite.active             = nil
+BossSprite.canBeAttack        = nil
+BossSprite.hp                 = nil
+BossSprite.atk                = nil
+BossSprite.power              = nil
+BossSprite.speed              = nil
+BossSprite.bulleSpeed         = nil
+BossSprite.bulletPowerValue   = nil
+BossSprite.delayTime          = nil
+BossSprite.size               = nil
+BossSprite.label_hp           = nil
+BossSprite.slider_hp          = nil
+BossSprite.action             = nil
+BossSprite.time               = nil
 
 local SPRITE_EVENT            = "SPRITE_BOSS_EVENT"
 local SPRITE_EVENT_ATK        = "SPRITE_EVENT_ATK"
 
-SpriteBoss.damage = {
+BossSprite.damage = {
     [1] = 123,
     [2] = 123,
     [3] = 123,
@@ -34,13 +34,13 @@ SpriteBoss.damage = {
     [5] = 123,
 }
 
-SpriteBoss.debuff    = {
+BossSprite.debuff    = {
     type = nil,
     value = nil,
 }
 
 
-SpriteBoss.color = {
+BossSprite.color = {
     [0] = cc.c3b(255,255,255),
     [1] = cc.c3b(30,92,9),
     [2] = cc.c3b(239,225,13),
@@ -51,7 +51,7 @@ SpriteBoss.color = {
 
 --------------------------------------------------------------------------------
 -- ctor
-function SpriteBoss:ctor()
+function BossSprite:ctor()
     self.active = true
     self.canBeAttack = false
     self.hp = 500000000000
@@ -64,7 +64,7 @@ function SpriteBoss:ctor()
 end
 --------------------------------------------------------------------------------
 -- init
-function SpriteBoss:init()
+function BossSprite:init()
     
     self:addArmature()
     self:addHp()
@@ -78,25 +78,19 @@ function SpriteBoss:init()
 end
 --------------------------------------------------------------------------------
 -- create
-function SpriteBoss:create()
-    local player = SpriteBoss.new()
+function BossSprite:create()
+    local player = BossSprite.new()
     player:init()
     return player
 end
 
-function SpriteBoss:addArmature()
-    
---    self:addChild(self.node)
-
-    self.sprite = cc.Sprite:create("battle/boss_20150804.png")
---    self.sprite:setScale(0.5)
+function BossSprite:addArmature()
+	self.sprite = cc.Sprite:create("images/Boss/20151018.png")
     self.sprite:setAnchorPoint(0.5)
-    --self.sprite:setPosition(0,-140)
     self:addChild(self.sprite)
-    
 end
 
-function SpriteBoss:addEventDispatcher()
+function BossSprite:addEventDispatcher()
     local function callBack(event)
         local data = event._data
         if data.action == "hurt" then
@@ -107,12 +101,12 @@ function SpriteBoss:addEventDispatcher()
     EventDispatchManager:createEventDispatcher(self,SPRITE_EVENT,callBack)
 end
 
-function SpriteBoss:broadCastEvent(data)
+function BossSprite:broadCastEvent(data)
     EventDispatchManager:broadcastEventDispatcher(SPRITE_EVENT,data)
 end
 --------------------------------------------------------------------------------
 -- Hp
-function SpriteBoss:addHp()
+function BossSprite:addHp()
     self.label_hp = ccui.TextAtlas:create()
     self.label_hp:setProperty(self.hp, "labelatlas.png", 17, 22, "0")
     self.label_hp:setPosition(cc.p(0,-20))
@@ -120,7 +114,7 @@ function SpriteBoss:addHp()
 end
 --------------------------------------------------------------------------------
 -- hurt
-function SpriteBoss:hurt(damageValue)
+function BossSprite:hurt(damageValue)
     self.hp = self.hp - damageValue
     self.label_hp:setString(self.hp)
 
@@ -131,17 +125,17 @@ function SpriteBoss:hurt(damageValue)
 end
 --------------------------------------------------------------------------------
 -- isCanAttack
-function SpriteBoss:isCanAttack()
+function BossSprite:isCanAttack()
     return self.canBeAttack
 end
 --------------------------------------------------------------------------------
 -- isActive
-function SpriteBoss:isActive()
+function BossSprite:isActive()
     return self.active
 end
 --------------------------------------------------------------------------------
 -- destroy
-function SpriteBoss:destroy()
+function BossSprite:destroy()
     if Global:getInstance():getAudioState() == true then
         cc.SimpleAudioEngine:getInstance():playEffect("Music/shipDestroyEffect.mp3")
     end
@@ -149,7 +143,7 @@ function SpriteBoss:destroy()
 end
 
 
-function SpriteBoss:setDebuffOn(data)
+function BossSprite:setDebuffOn(data)
     local type = data.type
     local count = data.count
     
@@ -188,7 +182,7 @@ function SpriteBoss:setDebuffOn(data)
 
 end
 
-function SpriteBoss:addAI()
+function BossSprite:addAI()
     local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 12)
     bossSkill:setPosition(cc.p(70,-100))
     self:addChild(bossSkill)
@@ -224,7 +218,7 @@ function SpriteBoss:addAI()
 
 end
 
-function SpriteBoss:startAtk()
+function BossSprite:startAtk()
     local data = {
         action = "atk",
         damage = "10000",
@@ -233,7 +227,7 @@ function SpriteBoss:startAtk()
     print("##########  attack start")
 end
 
-function SpriteBoss:addHurt(data)
+function BossSprite:addHurt(data)
     local labelAtlas = ccui.TextAtlas:create()
 
     local count = data.count
@@ -278,11 +272,11 @@ end
 
 
 
-function SpriteBoss:getPosition()
+function BossSprite:getPosition()
     local pos = {}
     pos.x = self:getPositionX()
     pos.y = self:getPositionY()
     return pos
 end
 
-return SpriteBoss
+return BossSprite

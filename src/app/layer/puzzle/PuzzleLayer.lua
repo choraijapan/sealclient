@@ -2,7 +2,7 @@ local PuzzleResultLayer = require("app.layer.puzzle.PuzzleResultLayer")
 local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
-local SpriteBoss = require("app.parts.puzzle.SpriteBoss")
+local BossSprite = require("app.parts.puzzle.BossSprite")
 local SpritePlayer = require("app.parts.puzzle.SpritePlayer")
 
 PuzzleLayer = class("PuzzleLayer", cc.Layer)
@@ -89,7 +89,7 @@ function PuzzleLayer:init()
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addPlayer()             -- 初期化（自分）
 
-	self:addSpriteBoss()
+	self:addBossSprite()
 	self:addPuzzle()
 
 	self:addSchedule()  -- 更新
@@ -97,6 +97,24 @@ function PuzzleLayer:init()
 
 	_bulletVicts = {}
 	_fingerPosition = nil
+	
+	local function onrelease(code, event)
+		if code == cc.KeyCode.KEY_BACK then
+			print("################### pause 1#####################")
+			cc.Director:getInstance():endToLua()
+			cc.Director:getInstance():pause()
+		elseif code == cc.KeyCode.KEY_HOME then
+			print("################### pause 2#####################")
+			cc.Director:getInstance():endToLua()
+			cc.Director:getInstance():pause()
+		end
+	end
+
+	local listener = cc.EventListenerKeyboard:create()
+	listener:registerScriptHandler(onrelease, cc.Handler.EVENT_KEYBOARD_RELEASED)
+	local eventDispatcher = self:getEventDispatcher()
+	eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)
+	
 end
 
 function PuzzleLayer:addPuzzle()
@@ -110,9 +128,8 @@ function PuzzleLayer:addPuzzle()
 			cc.p(WIN_SIZE.width-1, 100),
 			cc.p(WIN_SIZE.width-1, WIN_SIZE.height-1)
 		}
-	print("##################WIN_SIZE.height"..WIN_SIZE.height)	
 	self.wall = cc.Node:create()
-	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.5))
+	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(100,0,0.5))
 	self.wall:setPhysicsBody(edge)
 	self.wall:setPosition(cc.p(0,0))
 	self:addChild(self.wall)
@@ -124,7 +141,7 @@ function PuzzleLayer:addBalls()
 	local ball = Ball:create(typeId)
 
 	local randomX = math.random(20,winSize.width-20)
-	ball:setPosition(winSize.width - randomX, winSize.height*2/3)
+	ball:setPosition(winSize.width - randomX, winSize.height*2/3 + 60)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
 	pBall:setTag(Tag.T_Bullet)
@@ -221,7 +238,7 @@ function PuzzleLayer:addTouch()
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
 				if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
-				--					return false
+					return false
 				else
 					_tag = obj:getBody():getNode():getTag();
 					firstTouchBall = obj:getBody():getNode()
@@ -380,8 +397,8 @@ function PuzzleLayer:addPlayer()
 end
 
 -- BOSSをinitする
-function PuzzleLayer:addSpriteBoss()
-	self.boss = SpriteBoss:create()
+function PuzzleLayer:addBossSprite()
+	self.boss = BossSprite:create()
 	self:addChild(self.boss)
 end
 
