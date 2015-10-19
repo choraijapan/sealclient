@@ -24,7 +24,6 @@ Ball.type = {
 	[5] = "battle/ball_dark.png",
 }
 
-
 function Ball:ctor()
 end
 
