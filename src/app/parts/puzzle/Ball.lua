@@ -83,10 +83,17 @@ function Ball:onEnter()
 
 end
 
-function Ball:addBallTouchEffect()
+function Ball:addBallHint()
+--	self._image:setBlendFunc(gl.DST_COLOR,gl.ONE)
 	local action1 = cc.ScaleTo:create(0.1,1.6)
 	local action2 = cc.ScaleTo:create(0.1,1.3)
 	self._image:runAction(cc.Sequence:create(action1,action2))
+	self:getParent():reorderChild(self,2)
+	
+end
+function Ball:addBallTouchEffect()
+	local action1 = cc.ScaleTo:create(0.1,1.6)
+	self._image:runAction(cc.Sequence:create(action1))
 	self:getParent():reorderChild(self,2)
 	
 end

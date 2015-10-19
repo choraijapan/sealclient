@@ -47,6 +47,10 @@ local touchIdx = 1
 local curTouchBall = nil
 local firstTouchBall = nil
 local lastTouchBall = nil
+
+local startBall = nil
+local curBall = nil
+
 local ZOrder = {
 	Z_Bg = 0,
 	Z_Bullet = 1,
@@ -231,9 +235,14 @@ function PuzzleLayer:addSchedule()
 	schedule(self, updateTime, 1)
 end
 
+
+
 function PuzzleLayer:addTouch()
+
 	local function onTouchBegan(touch, event)
+
 		touchIdx = 1
+		local idx = 1
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
@@ -241,6 +250,7 @@ function PuzzleLayer:addTouch()
 				if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
 					return false
 				else
+					startBall = obj:getBody():getNode()
 					_tag = obj:getBody():getNode():getTag();
 					firstTouchBall = obj:getBody():getNode()
 					self.curTouchBall = obj:getBody():getNode()
@@ -251,9 +261,8 @@ function PuzzleLayer:addTouch()
 		end
 		return true
 	end
-
+	
 	local function onTouchMoved(touch, event)
-		DebugLog:debug("############ onTouchMoved START")
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
@@ -278,7 +287,6 @@ function PuzzleLayer:addTouch()
 
 		if self.curTouchBall ~= nil and self.curTouchBall:getState() == Ball.MOVING then
 			if next(_bullets) == nil then
-				DebugLog:debug("############ onTouchMoved BBB")
 				_bullets[touchIdx] = self.curTouchBall
 			elseif isTableContains(_bullets,self.curTouchBall) == false then
 				local p1 = _bullets[#_bullets]:getPosition()
@@ -292,8 +300,6 @@ function PuzzleLayer:addTouch()
 						_bullets[touchIdx-1]:removeBallTouchEffect()
 					end
 					_bullets[touchIdx]:addBallTouchEffect()
-
-
 				end
 			else
 				local obj1 = _bullets[#_bullets]
@@ -317,6 +323,8 @@ function PuzzleLayer:addTouch()
 	end
 
 	local function onTouchEnded(touch, event)
+		startBall = nil
+		curBall = nil
 		_tag = nil
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
@@ -371,6 +379,14 @@ function PuzzleLayer:addTouch()
 
 		end
 		_bullets = {}
+		
+		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+		for _, obj in ipairs(all) do
+			if bit.band(obj:getTag(), Tag.T_Bullet) ~= 0 then
+				obj:getNode():removeBallTouchEffect()
+			end
+		end
+		
 	end
 	local dispatcher = self:getEventDispatcher()
 	local listener = cc.EventListenerTouchOneByOne:create()
@@ -425,9 +441,35 @@ function PuzzleLayer:update(dt)
 	local node = DrawLine:create(_bulletVicts)
 	self:addChild(node,ZOrder.Z_Line,Tag.T_Line)
 	_bulletVicts = {}
+	
+	self:checkPuzzleHint(startBall)
+	
 end
 
-
+function PuzzleLayer:checkPuzzleHint(startBall)
+	if startBall ~= nil then
+		
+		local _tag = startBall:getTag()
+		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+		for _, obj in ipairs(all) do
+			if bit.band(obj:getTag(), Tag.T_Bullet) ~= 0 then
+				if _tag == obj:getNode():getTag() then
+					local p1 = obj:getNode():getPosition()
+					local p2 = startBall:getPosition()
+					if curBall ~= nil then
+						p2 = curBall:getPosition()
+					end
+					
+					local distance = cc.pGetDistance(p1,p2)
+					if distance < 2 * math.sqrt(3) * startBall.circleSize  then
+						obj:getNode():addBallHint()
+						curBall = obj:getNode()
+					end
+				end
+			end
+		end
+	end
+end
 -- 更新游戏
 function PuzzleLayer:updateGame()
 	if self.gameState == self.stateGamePlaying then
