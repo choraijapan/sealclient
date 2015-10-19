@@ -24,7 +24,6 @@ Ball.type = {
 	[5] = "battle/ball_dark.png",
 }
 
-
 function Ball:ctor()
 end
 
@@ -84,13 +83,10 @@ function Ball:onEnter()
 end
 
 function Ball:addBallHint()
---	self._image:setBlendFunc(gl.DST_COLOR,gl.ONE)
-	local action1 = cc.ScaleTo:create(0.1,1.6)
-	local action2 = cc.ScaleTo:create(0.1,1.3)
-	self._image:runAction(cc.Sequence:create(action1,action2))
-	self:getParent():reorderChild(self,2)
-	
+	self:setName("big")
+	self._image:setScale(1.4)
 end
+
 function Ball:addBallTouchEffect()
 	local action1 = cc.ScaleTo:create(0.1,1.6)
 	self._image:runAction(cc.Sequence:create(action1))
@@ -99,6 +95,7 @@ function Ball:addBallTouchEffect()
 end
 
 function Ball:removeBallTouchEffect()
+	self:setName("normal")
 	self._image:stopAllActions()
 	self._image:setScale(1)
 	self:getParent():reorderChild(self,1)
