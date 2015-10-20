@@ -32,7 +32,8 @@ PuzzleLayer.cards = {
 PuzzleLayer.footer = nil
 PuzzleLayer.name = nil
 
-local TYPES = 3
+local TYPES = 5
+
 local arballs = nil
 local winSize = nil
 local offside = nil
@@ -499,14 +500,14 @@ function PuzzleLayer:checkPuzzleHint()
 			arballs = getAroundBalls(_bullets2 , startBall)
 		end
 		for _, obj in ipairs(arballs) do
-			if obj:getName() ~= "big" then
+			arballs = getAroundBalls(_bullets2 , obj)
+			for _, obj in ipairs(arballs) do
 				arballs = getAroundBalls(_bullets2 , obj)
 				for _, obj in ipairs(arballs) do
 					arballs = getAroundBalls(_bullets2 , obj)
 				end
 			end
 		end
-
 	end
 
 end

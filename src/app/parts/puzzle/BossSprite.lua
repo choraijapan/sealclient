@@ -74,7 +74,7 @@ function BossSprite:init()
     -- BOSS时间
     self.time = 0
 
-    self:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height - self.sprite:getContentSize().height/2))
+    self:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height - self.sprite:getContentSize().height/2 - 20))
 end
 --------------------------------------------------------------------------------
 -- create

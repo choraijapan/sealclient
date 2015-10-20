@@ -5,7 +5,7 @@ Ball.BROKEN = 1
 
 Ball.DENSITY = 10
 Ball.RESTIUTION = 0
-Ball.FRICTION = 0.6
+Ball.FRICTION = 0.4
 Ball.MASS = 100
 
 Ball._state = 0
@@ -84,14 +84,13 @@ end
 
 function Ball:addBallHint()
 	self:setName("big")
-	self._image:setScale(1.4)
+	self._image:setScale(1.2)
 end
 
 function Ball:addBallTouchEffect()
 	local action1 = cc.ScaleTo:create(0.1,1.6)
 	self._image:runAction(cc.Sequence:create(action1))
 	self:getParent():reorderChild(self,2)
-	
 end
 
 function Ball:removeBallTouchEffect()
