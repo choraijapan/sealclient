@@ -501,15 +501,8 @@ function PuzzleLayer:checkPuzzleHint()
 		end
 		for _, obj in ipairs(arballs) do
 			arballs = getAroundBalls(_bullets2 , obj)
-			for _, obj in ipairs(arballs) do
-				arballs = getAroundBalls(_bullets2 , obj)
-				for _, obj in ipairs(arballs) do
-					arballs = getAroundBalls(_bullets2 , obj)
-				end
-			end
 		end
 	end
-
 end
 
 -- 更新游戏
