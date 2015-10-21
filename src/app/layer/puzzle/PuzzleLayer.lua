@@ -32,7 +32,7 @@ PuzzleLayer.cards = {
 PuzzleLayer.footer = nil
 PuzzleLayer.name = nil
 
-local TYPES = 2
+local TYPES = 5
 
 local arballs = nil
 local winSize = nil
@@ -495,14 +495,38 @@ function PuzzleLayer:checkPuzzleHint()
 		return aroundBalls
 	end
 
-	if startBall ~= nil then
-		if arballs == nil then
-			arballs = getAroundBalls(_bullets2 , startBall)
-		end
-		for _, obj in ipairs(arballs) do
-			arballs = getAroundBalls(_bullets2 , obj)
+	local function setBallsHintOn(balls,curBall)
+		if curBall ~= "big" then
+			local aroundBalls = {}
+			local index = 1
+			if curBall ~= nil and balls ~= nil then
+				local p1 = curBall:getPosition()
+				for _, obj in ipairs(balls) do
+					local p2 = obj:getPosition()
+					local distance = cc.pGetDistance(p1,p2)
+					if distance < 2 * math.sqrt(3) * curBall.circleSize  then
+						if obj:getName() == "big" then
+							curBall:addBallHint()
+						end
+					end
+				end
+			end
 		end
 	end
+	
+	for _, obj in ipairs(_bullets2) do
+		setBallsHintOn(_bullets2,obj)
+	end
+	
+--	if startBall ~= nil then
+--		if arballs == nil then
+--			arballs = getAroundBalls(_bullets2 , startBall)
+--		end
+--		print("################"..#arballs)
+--		for _, obj in ipairs(arballs) do
+--			arballs = getAroundBalls(_bullets2 , obj)
+--		end
+--	end
 end
 
 -- 更新游戏

@@ -88,6 +88,7 @@ function Ball:addBallHint()
 end
 
 function Ball:addBallTouchEffect()
+	self:setName("big")
 	local action1 = cc.ScaleTo:create(0.1,1.6)
 	self._image:runAction(cc.Sequence:create(action1))
 	self:getParent():reorderChild(self,2)
