@@ -32,7 +32,7 @@ PuzzleLayer.cards = {
 PuzzleLayer.footer = nil
 PuzzleLayer.name = nil
 
-local TYPES = 5
+local TYPES = 2
 
 local arballs = nil
 local winSize = nil
