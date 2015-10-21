@@ -32,7 +32,7 @@ PuzzleLayer.cards = {
 PuzzleLayer.footer = nil
 PuzzleLayer.name = nil
 
-local TYPES = 5
+local TYPES = 2
 
 local arballs = nil
 local winSize = nil
@@ -501,15 +501,8 @@ function PuzzleLayer:checkPuzzleHint()
 		end
 		for _, obj in ipairs(arballs) do
 			arballs = getAroundBalls(_bullets2 , obj)
-			for _, obj in ipairs(arballs) do
-				arballs = getAroundBalls(_bullets2 , obj)
-				for _, obj in ipairs(arballs) do
-					arballs = getAroundBalls(_bullets2 , obj)
-				end
-			end
 		end
 	end
-
 end
 
 -- 更新游戏
