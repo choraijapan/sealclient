@@ -390,12 +390,12 @@ function PuzzleLayer:addTouch()
 			end
 			if  #_bullets > 2 then
 				local data = {
-					action = "hurt",
+					action = "atkBoss",
 					type = type,
 					count = #_bullets,
+					startPos = lastPos
 				}
-				self.boss:broadCastEvent(data)
-				self:addAtkEffect(lastPos,type)
+				self.puzzleCardNode:addCardAtk(data)
 			end
 		else
 
@@ -586,42 +586,6 @@ end
 -- 获取Player
 function PuzzleLayer:getShip()
 	return self.player
-end
-
-function PuzzleLayer:addAtkEffect(from,type)
-	local cards = {
-		self.puzzleCardNode.cards.card1,
-		self.puzzleCardNode.cards.card2,
-		self.puzzleCardNode.cards.card3,
-		self.puzzleCardNode.cards.card4,
-		self.puzzleCardNode.cards.card5,
-		self.puzzleCardNode.cards.card6
-	}
-
-	for key, var in pairs(cards) do
-		if type == var.attribute then
-			local emitter = cc.ParticleSystemQuad:create("battle/particle_atk2.plist")
-			self:addChild(emitter,1111111)
-			emitter:setPosition(from)
-			emitter:setAnchorPoint(cc.p(0.5, 0.5))
-			local action1 = cc.MoveTo:create(0.5,var:getParent():convertToWorldSpace(cc.p(var:getPositionX(),var:getPositionY())))
-			local action2 = cc.RemoveSelf:create()
-			local function cardAtkBossEffect()
-				local card_atk = cc.ParticleSystemQuad:create("effect/game/card_atk_001.plist")
-				card_atk:setPosition(self.boss:getPosition())
-				card_atk:setDuration(0.5)
-				self:addChild(card_atk,1111111)
-			end
-			local function cardAtkEffect()
-				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
-				--				local action2 = action1:reverse()
-				var:runAction(cc.Sequence:create(action1))
-			end
-			local callFunc1 = cc.CallFunc:create(cardAtkEffect)
-			local callFunc2 = cc.CallFunc:create(cardAtkBossEffect)
-			emitter:runAction(cc.Sequence:create(action1, action2,callFunc1,callFunc2))
-		end
-	end
 end
 
 function PuzzleLayer:DrawLineRemove()

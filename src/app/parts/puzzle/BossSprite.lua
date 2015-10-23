@@ -6,6 +6,7 @@
 local BossSprite = class("BossSprite", function()
     return cc.Sprite:create()
 end)
+
 BossSprite.node             = nil
 BossSprite.sprite             = nil
 BossSprite.active             = nil
@@ -23,7 +24,7 @@ BossSprite.slider_hp          = nil
 BossSprite.action             = nil
 BossSprite.time               = nil
 
-local SPRITE_EVENT            = "SPRITE_BOSS_EVENT"
+local SPRITE_CARD_ATK         = "SPRITE_CARD_ATK"
 local SPRITE_EVENT_ATK        = "SPRITE_EVENT_ATK"
 
 BossSprite.damage = {
@@ -65,7 +66,7 @@ end
 --------------------------------------------------------------------------------
 -- init
 function BossSprite:init()
-    
+
     self:addArmature()
     self:addHp()
     self:addEventDispatcher()
@@ -85,30 +86,35 @@ function BossSprite:create()
 end
 
 function BossSprite:addArmature()
-	self.sprite = cc.Sprite:create("images/Boss/20151018.png")
+    self.sprite = cc.Sprite:create("images/Boss/20151018.png")
     self.sprite:setAnchorPoint(0.5)
     self:addChild(self.sprite)
 end
 
 function BossSprite:addEventDispatcher()
+    local function cardAtkBossEffect(effectFile)
+        print("##################BossSprite:addEventDispatcher : "..effectFile)
+        local card_atk = cc.ParticleSystemQuad:create(effectFile)
+        card_atk:setPosition(self:getPosition())
+        card_atk:setDuration(0.5)
+        self:getParent():addChild(card_atk,1111111)
+    end
+
     local function callBack(event)
         local data = event._data
-        if data.action == "hurt" then
+        if data.action == "atkBoss" then
             self:addHurt(data)
+            cardAtkBossEffect(data.atkBossEffect)
         end
-    --    self.action:play(data.action, false)
     end
-    EventDispatchManager:createEventDispatcher(self,SPRITE_EVENT,callBack)
+    EventDispatchManager:createEventDispatcher(self,"SPRITE_CARD_ATK",callBack)
 end
 
-function BossSprite:broadCastEvent(data)
-    EventDispatchManager:broadcastEventDispatcher(SPRITE_EVENT,data)
-end
 --------------------------------------------------------------------------------
 -- Hp
 function BossSprite:addHp()
     self.label_hp = ccui.TextAtlas:create()
-    self.label_hp:setProperty(self.hp, "labelatlas.png", 17, 22, "0")
+    self.label_hp:setProperty(self.hp, "battle/labelatlas.png", 17, 22, "0")
     self.label_hp:setPosition(cc.p(0,-20))
     self:addChild(self.label_hp)
 end
@@ -146,30 +152,30 @@ end
 function BossSprite:setDebuffOn(data)
     local type = data.type
     local count = data.count
-    
+
     --冰冻
     if type ==  DEBUFF.FREEZE then
---        self.sprite:setColor(self.color[type])
-       -- self.node:setColor(self.color[type])
+        --        self.sprite:setColor(self.color[type])
+        -- self.node:setColor(self.color[type])
         self.debuff.type = DEBUFF.FREEZE
         self.debuff.value = 2
         local function freezeFor()
         end
         schedule(self, freezeFor, count*self.debuff.value)
     elseif type ==  DEBUFF.DEFDOWN then  --减护甲
---        self.sprite:setColor(self.color[type])
-       -- self.node:setColor(self.color[type])
+        --        self.sprite:setColor(self.color[type])
+        -- self.node:setColor(self.color[type])
         self.debuff.type = DEBUFF.DEFDOWN
         self.debuff.value = 100
     else
---        self.sprite:setColor(self.color[0])
+        --        self.sprite:setColor(self.color[0])
         --self.node:setColor(self.color[0])
         self.debuff.type = DEBUFF.ATK
         self.debuff.value = 1
     end
-    
-    
-    
+
+
+
     --    if type == 2 then
     --        self.sprite:setColor(self.color[type])
     --        self.debuff = 10
@@ -186,35 +192,35 @@ function BossSprite:addAI()
     local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 12)
     bossSkill:setPosition(cc.p(70,-100))
     self:addChild(bossSkill)
-    
+
     -- 更新时间
     local function updateTime()
         self.time = self.time + 1
-        
-        
+
+
         if self.time % 30 == 0 then
-            self.time = 0    
+            self.time = 0
             self:startAtk()
         else
             --模仿魔兽世界插件的倒计时［BOSS发动技能倒计时］
             if self.debuff.type == DEBUFF.FREEZE then
                 bossSkill:setString(string.format("Perfect,You have stopped it!"))
                 self.debuff.type = nil
-                self.time = 1  
+                self.time = 1
             else
                 bossSkill:setString(string.format("Atk will happen in %ss",30 - self.time))
             end
-            
+
         end
     end
     schedule(self, updateTime, 1)
-    
 
---    local a1 = cc.DelayTime:create(20)
---    local a2 = cc.DelayTime:create(20)
---    local action1 = cc.Spawn:create(a1,a2)
---    local action2 = cc.CallFunc:create(start)
---    self:runAction(cc.RepeatForever:create(cc.Sequence:create(action1, action2)))
+
+    --    local a1 = cc.DelayTime:create(20)
+    --    local a2 = cc.DelayTime:create(20)
+    --    local action1 = cc.Spawn:create(a1,a2)
+    --    local action2 = cc.CallFunc:create(start)
+    --    self:runAction(cc.RepeatForever:create(cc.Sequence:create(action1, action2)))
 
 end
 
@@ -244,7 +250,7 @@ function BossSprite:addHurt(data)
     else
         damage = self.damage[type] * count
     end
-    
+
     local action1 = cc.ScaleTo:create(0.1, 2)
     local action2 = cc.ScaleTo:create(0.1, 1.5)
     local action3 = cc.DelayTime:create(1.5)
@@ -262,7 +268,7 @@ function BossSprite:addHurt(data)
     --        labelAtlas:runAction(cc.Sequence:create(action,action4))
     --    end
 
-    labelAtlas:setProperty(damage, "labelatlas.png", 17, 22, "0")
+    labelAtlas:setProperty(damage, "battle/labelatlas.png", 17, 22, "0")
     labelAtlas:setPosition(0,-100)
     self:addChild(labelAtlas)
     self:hurt(damage)
@@ -280,3 +286,4 @@ function BossSprite:getPosition()
 end
 
 return BossSprite
+
