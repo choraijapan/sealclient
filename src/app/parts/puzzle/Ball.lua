@@ -16,6 +16,9 @@ Ball.scalePer = 0.75
 Ball.circleSize = 46
 --Ball.scalePer = 0.5
 
+Ball.TAG = {
+	NUMBER = 1,
+}
 Ball.type = {
 	[1] = "battle/ball_water.png",
 	[2] = "battle/ball_fire.png",
@@ -101,9 +104,33 @@ function Ball:removeBallTouchEffect()
 	self:getParent():reorderChild(self,1)
 end
 
+
+function Ball:addPuzzleNumber(num)
+	local puzzleNumber = ccui.TextAtlas:create()
+	puzzleNumber:setProperty(num, "battle/labelatlas.png", 17, 22, "0")
+	puzzleNumber:setScale(1.5)
+	puzzleNumber:setTag(self.TAG.NUMBER)
+	puzzleNumber:setPosition(cc.p(self:getPositionX(),self:getPositionY() + 70))
+	self:getParent():addChild(puzzleNumber,1111)
+	self:getParent():reorderChild(puzzleNumber,11111)
+	local action1 = cc.ScaleTo:create(0.1, 2)
+	if num > 5 then
+		action1 = cc.ScaleTo:create(0.1, 5)
+	end
+	local action2 = cc.ScaleTo:create(0.1, 1.5)
+	local action3 = cc.DelayTime:create(1.5)
+	local action4 = cc.FadeOut:create(0.5)
+	local action5 = cc.DelayTime:create(0.5)
+	local action6 = cc.RemoveSelf:create()
+	puzzleNumber:runAction(cc.Sequence:create(action1, action2,action3,action4,action5,action6))
+end
+
+function Ball:removePuzzleNumber()
+	self:getParent():removeChildByTag(self.TAG.NUMBER)
+end
+
 function Ball:getType()
 	return self._type
 end
 
 return Ball
-

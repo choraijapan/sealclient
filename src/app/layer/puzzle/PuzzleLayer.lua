@@ -272,6 +272,7 @@ function PuzzleLayer:addTouch()
 					firstTouchBall = obj:getBody():getNode()
 					self.curTouchBall = obj:getBody():getNode()
 					firstTouchBall:addBallTouchEffect()
+					firstTouchBall:addPuzzleNumber(1)
 					break;
 				end
 			end
@@ -286,12 +287,10 @@ function PuzzleLayer:addTouch()
 					touchIdx2 = touchIdx2 + 1
 				end
 			end
-			--			self:checkPuzzleHint()
 		end
 
 		return true
 	end
-
 	local function onTouchMoved(touch, event)
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
@@ -305,9 +304,6 @@ function PuzzleLayer:addTouch()
 				end
 			end
 		end
-
-
-
 		if self.curTouchBall ~= nil and self.curTouchBall:getState() == Ball.MOVING then
 			if next(_bullets) == nil then
 				_bullets[touchIdx] = self.curTouchBall
@@ -321,8 +317,10 @@ function PuzzleLayer:addTouch()
 					_bullets[touchIdx] = self.curTouchBall
 					if touchIdx > 1 then
 						_bullets[touchIdx-1]:removeBallTouchEffect()
+						_bullets[touchIdx-1]:removePuzzleNumber()
 					end
 					_bullets[touchIdx]:addBallTouchEffect()
+					_bullets[touchIdx]:addPuzzleNumber(touchIdx)
 				end
 			else
 				local obj1 = _bullets[#_bullets]
@@ -335,7 +333,6 @@ function PuzzleLayer:addTouch()
 				end
 			end
 		else
-
 		end
 
 		if #_bullets < 2 then
@@ -344,7 +341,8 @@ function PuzzleLayer:addTouch()
 			_fingerPosition = nil
 		end
 	end
-
+	
+	
 	local function onTouchEnded(touch, event)
 		arballs = nil
 		startBall = nil
@@ -409,6 +407,7 @@ function PuzzleLayer:addTouch()
 		for _, obj in ipairs(all) do
 			if bit.band(obj:getTag(), Tag.T_Bullet) ~= 0 then
 				obj:getNode():removeBallTouchEffect()
+				obj:getNode():removePuzzleNumber()
 			end
 		end
 
@@ -624,6 +623,7 @@ function PuzzleLayer:addAtkEffect(from,type)
 		end
 	end
 end
+
 function PuzzleLayer:DrawLineRemove()
 	local nodes = self:getChildren()
 	for key, var in ipairs(nodes) do
@@ -634,6 +634,3 @@ function PuzzleLayer:DrawLineRemove()
 		end
 	end
 end
-
-
-
