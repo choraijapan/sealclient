@@ -76,19 +76,19 @@ function Ball:broken()
 	particle:setScale(0.2)
 	particle:setAutoRemoveOnFinish(true)
 	particle:setPosition(cc.p(self:getPositionX(),self:getPositionY()))
-		
---	self:stopAllActions()
---	self:removeFromParent()
-	
+
+	--	self:stopAllActions()
+	--	self:removeFromParent()
+
 	local function actionEnd()
 		self:getParent():addChild(particle,999)
 		self:getParent():reorderChild(self,3)
 	end
-	
+
 	local action1 = cc.CallFunc:create(actionEnd)
 	local action2 = cc.RemoveSelf:create()
 	local action = cc.Spawn:create(action1,action2)
-	self:runAction(cc.Sequence:create(action1, action2))
+	self:runAction(action)
 end
 
 function Ball:getPosition()
@@ -106,8 +106,10 @@ function Ball:onEnter()
 end
 
 function Ball:addBallHint()
-	self:setName("big")
-	self._image:setScale(1.2)
+	if self:getName() ~= "boom" then
+		self:setName("big")
+		self._image:setScale(1.2)
+	end
 end
 
 function Ball:addBallTouchEffect()
@@ -150,9 +152,10 @@ function Ball:addPuzzleNumber(num)
 end
 
 function Ball:removePuzzleNumber()
-	self:getParent():removeChildByTag(self.TAG.NUMBER)
+	if self:getParent():getChildByTag(self.TAG.NUMBER) ~= nil then
+		self:getParent():removeChildByTag(self.TAG.NUMBER)
+	end
 end
-
 function Ball:getType()
 	return self._type
 end

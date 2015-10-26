@@ -132,7 +132,7 @@ function PuzzleLayer:init()
 	listener:registerScriptHandler(onrelease, cc.Handler.EVENT_KEYBOARD_RELEASED)
 	local eventDispatcher = self:getEventDispatcher()
 	eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)
-	
+
 end
 
 function PuzzleLayer:addPuzzle()
@@ -256,39 +256,39 @@ function PuzzleLayer:addTouch()
 		local idx = 1
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
-		
+
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
 				if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
 					return false
 				else
-					startBall = obj:getBody():getNode()
-					_tag = obj:getBody():getNode():getTag();
---					firstTouchBall = obj:getBody():getNode()
-					self.curTouchBall = obj:getBody():getNode()
-					
 					if  obj:getBody():getNode():getName() == "boom" then
 						print("#################### BOOM Touched")
 						local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 						local boomAround = self:getAroundBalls(all,obj:getBody():getNode())
 						for _, obj2 in ipairs(boomAround) do
-							obj2:getNode():brokenBullet()
+							if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
+								obj2:getNode():brokenBullet()
+							end
 						end
 						obj:getBody():getNode():broken()
-						_bullets2 = {}
-						self.curTouchBall = nil
 						startBall = nil
+						_bullets = {}
+						_bullets2 = {}
 					else
+						startBall = obj:getBody():getNode()
+						_tag = obj:getBody():getNode():getTag();
+						self.curTouchBall = obj:getBody():getNode()
+						
 						self.curTouchBall:addPuzzleNumber(1)
 						self.curTouchBall:addBallTouchEffect()
 					end
---					firstTouchBall:addBallTouchEffect()
---					firstTouchBall:addPuzzleNumber(1)
+					--					firstTouchBall:addBallTouchEffect()
+					--					firstTouchBall:addPuzzleNumber(1)
 					break;
 				end
 			end
 		end
-		
 		if startBall ~= nil then
 			local _tag = startBall:getTag()
 			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
@@ -303,6 +303,7 @@ function PuzzleLayer:addTouch()
 		return true
 	end
 	local function onTouchMoved(touch, event)
+		self.curTouchBall = nil
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
@@ -330,8 +331,10 @@ function PuzzleLayer:addTouch()
 						_bullets[touchIdx-1]:removeBallTouchEffect()
 						_bullets[touchIdx-1]:removePuzzleNumber()
 					end
-					_bullets[touchIdx]:addBallTouchEffect()
-					_bullets[touchIdx]:addPuzzleNumber(touchIdx)
+					if next(_bullets) ~= nil then
+						_bullets[touchIdx]:addBallTouchEffect()
+						_bullets[touchIdx]:addPuzzleNumber(touchIdx)
+					end
 				end
 			else
 				local obj1 = _bullets[#_bullets]
@@ -352,8 +355,8 @@ function PuzzleLayer:addTouch()
 			_fingerPosition = nil
 		end
 	end
-	
-	
+
+
 	local function onTouchEnded(touch, event)
 		arballs = nil
 		startBall = nil
@@ -367,9 +370,9 @@ function PuzzleLayer:addTouch()
 			end
 		end
 
---		if firstTouchBall~= nil then
---			firstTouchBall:removeBallTouchEffect()
---		end
+		--		if firstTouchBall~= nil then
+		--			firstTouchBall:removeBallTouchEffect()
+		--		end
 
 		if self.curTouchBall ~= nil then
 			self.curTouchBall:removeBallTouchEffect()
@@ -384,13 +387,13 @@ function PuzzleLayer:addTouch()
 			for key, var in ipairs(_bullets) do
 				if var:getState() == Ball.MOVING then
 					if  #_bullets > 2 then
-						if  #_bullets == key then 
+						if  #_bullets == key then
 							_bullets[#_bullets]:addBoom(#_bullets)
 						end
-						
+
 						type = var:getType()
 						lastPos = var:getPosition()
-						
+
 						var:removeBallTouchEffect()
 						var:brokenBullet()
 					end
@@ -408,7 +411,7 @@ function PuzzleLayer:addTouch()
 		else
 
 		end
-		
+
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 		for _, obj in ipairs(all) do
 			if bit.band(obj:getTag(), Tag.T_Bullet) ~= 0 then
@@ -416,7 +419,7 @@ function PuzzleLayer:addTouch()
 				obj:getNode():removePuzzleNumber()
 			end
 		end
-		
+
 		_bullets = {}
 		_bullets2 = {}
 	end
@@ -458,7 +461,6 @@ function PuzzleLayer:updateTime()
 	end
 end
 
-
 function PuzzleLayer:update(dt)
 	_time = _time + 1
 	local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
@@ -466,8 +468,10 @@ function PuzzleLayer:update(dt)
 		self:addBalls()
 	end
 
-	for key, var in ipairs(_bullets) do
-		table.insert(_bulletVicts, var:getPosition())
+	if next(_bullets) ~= nil then
+		for key, var in ipairs(_bullets) do
+			table.insert(_bulletVicts, var:getPosition())
+		end
 	end
 
 	self:DrawLineRemove()
@@ -516,7 +520,7 @@ function PuzzleLayer:checkPuzzleHint()
 			end
 		end
 	end
-	
+
 	if next(_bullets) ~= nil then
 		for _, obj in ipairs(_bullets2) do
 			setBallsHintOn(_bullets2,obj)
@@ -556,8 +560,8 @@ function PuzzleLayer:PauseGame()
 	cc.Director:getInstance():pause()
 	cc.SimpleAudioEngine:getInstance():pauseMusic()
 	cc.SimpleAudioEngine:getInstance():pauseAllEffects()
---	local pauseLayer = PauseLayer:create() -- TODO add pause layer
---	self:addChild(pauseLayer, 9999)
+	--	local pauseLayer = PauseLayer:create() -- TODO add pause layer
+	--	self:addChild(pauseLayer, 9999)
 end
 
 
