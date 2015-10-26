@@ -38,7 +38,7 @@ local arballs = nil
 local winSize = nil
 local offside = nil
 
-local MAX_BULLET = 40
+local MAX_BULLET = 45
 local _time = 0
 local _tag = nil
 local _bulletVicts = nil

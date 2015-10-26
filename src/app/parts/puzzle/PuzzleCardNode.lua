@@ -86,7 +86,7 @@ function PuzzleCardNode:init()
     self.cards.card4.attribute = 1
     self.cards.card5.attribute = 4
     self.cards.card6.attribute = 5
-    self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2))
+    self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 60))
 
     self:addTouch()
 end
