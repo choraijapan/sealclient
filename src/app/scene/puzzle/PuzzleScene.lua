@@ -17,9 +17,14 @@ function ScenePuzzle:init(...)
 	self.scene:getPhysicsWorld():setSpeed(speed)
 	--	self.scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL) --Debug用
 	require('app.layer.puzzle.PuzzleLayer')
-	self.scene:addChild(PuzzleLayer:create(),1)
 	self.csb = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
-	self.scene:addChild(self.csb)
+	self.scene:addChild(self.csb,2)
+	
+	local data = {}
+	data.ferverBar = WidgetObj:searchWidgetByName(self.scene,"FeverTimeBar","ccui.LoadingBar")
+	data.ferverBar:setPercent(0)
+	self.scene:addChild(PuzzleLayer:create(data),1)
+	
 end
 -- onEnter
 function ScenePuzzle:onEnter()

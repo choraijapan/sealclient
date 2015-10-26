@@ -55,6 +55,11 @@ local lastTouchBall = nil
 local startBall = nil
 local curBall = nil
 
+local ferver = 0
+local isFerverTime = false
+local ferverBar = nil
+local ferverEffect = nil
+
 local ZOrder = {
 	Z_Bg = 0,
 	Z_Bullet = 1,
@@ -80,9 +85,13 @@ function PuzzleLayer:ctor()
 	offside = winSize.height/2 + 25
 end
 
-function PuzzleLayer:create()
+function PuzzleLayer:create(data)
 	local layer = PuzzleLayer.new()
+
+	--	self.feverBar = data.ferverBar
+
 	layer:init()
+
 	return layer
 end
 
@@ -113,6 +122,8 @@ function PuzzleLayer:init()
 	self:addSchedule()  -- 更新
 	self:addTouch()     -- 触摸
 
+	self:addFerverBar()
+
 	_bulletVicts = {}
 	_fingerPosition = nil
 
@@ -132,6 +143,7 @@ function PuzzleLayer:init()
 	listener:registerScriptHandler(onrelease, cc.Handler.EVENT_KEYBOARD_RELEASED)
 	local eventDispatcher = self:getEventDispatcher()
 	eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)
+
 
 end
 
@@ -279,7 +291,7 @@ function PuzzleLayer:addTouch()
 						startBall = obj:getBody():getNode()
 						_tag = obj:getBody():getNode():getTag();
 						self.curTouchBall = obj:getBody():getNode()
-						
+
 						self.curTouchBall:addPuzzleNumber(1)
 						self.curTouchBall:addBallTouchEffect()
 					end
@@ -407,6 +419,8 @@ function PuzzleLayer:addTouch()
 					startPos = lastPos
 				}
 				self.puzzleCardNode:addCardAtk(data)
+
+				self:setFerver(self.feverBar,#_bullets)
 			end
 		else
 
@@ -429,6 +443,49 @@ function PuzzleLayer:addTouch()
 	listener:registerScriptHandler(onTouchMoved, cc.Handler.EVENT_TOUCH_MOVED)
 	listener:registerScriptHandler(onTouchEnded, cc.Handler.EVENT_TOUCH_ENDED)
 	dispatcher:addEventListenerWithSceneGraphPriority(listener, self)
+end
+
+
+--------------------------------------------------------------------------------
+-- add energy
+function PuzzleLayer:setFerver(bar,count)
+	local point = count * 1.5
+
+	if isFerverTime == false then
+		ferver = ferver + point
+		if ferver > 100 then
+			isFerverTime = true
+			
+			ferverEffect = cc.ParticleSystemQuad:create("effect/game/fireWall.plist")
+			ferverEffect:setAutoRemoveOnFinish(true)
+			ferverEffect:setPosition(cc.p(0,0))
+			ferverEffect:setScale(4)
+			ferverEffect:setAnchorPoint(cc.p(0, 0))
+			ferverEffect:setDuration(15)
+			local to = cc.ProgressTo:create(15, 0)
+			ferverBar:runAction(cc.RepeatForever:create(to))
+			self:addChild(ferverEffect,0)
+			
+		else
+			local to = cc.ProgressTo:create(0.5, ferver)
+			ferverBar:runAction(cc.RepeatForever:create(to))
+		end
+	end
+
+end
+
+------------------------------------
+--   addFerverBar
+function PuzzleLayer:addFerverBar()
+	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("Default/LoadingBarFile.png"))
+	ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
+	ferverBar:setAnchorPoint(cc.p(0,0))
+	ferverBar:setMidpoint(cc.p(0, 0))
+	ferverBar:setBarChangeRate(cc.p(1, 0))
+	ferverBar:setPosition(cc.p(130, 20))
+	ferverBar:setScale(2)
+
+	self:addChild(ferverBar,999)
 end
 
 -- 初始化游戏数据状态
@@ -479,6 +536,13 @@ function PuzzleLayer:update(dt)
 	self:addChild(node,ZOrder.Z_Line,Tag.T_Line)
 	_bulletVicts = {}
 	self:checkPuzzleHint()
+
+	if isFerverTime then
+		if ferverBar:getPercentage() == 0 then
+			isFerverTime = false
+			ferver = 0
+		end
+	end
 end
 
 function PuzzleLayer:getAroundBalls(all,curBall)
