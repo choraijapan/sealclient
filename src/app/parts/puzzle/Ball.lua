@@ -12,8 +12,8 @@ Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.7
-Ball.circleSize = 40
+Ball.scalePer = 0.70
+Ball.circleSize = 43
 --Ball.scalePer = 0.5
 
 Ball.TAG = {
@@ -101,7 +101,6 @@ end
 function Ball:getState()
 	return self._state
 end
-
 function Ball:onEnter()
 end
 

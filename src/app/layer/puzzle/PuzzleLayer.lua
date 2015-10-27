@@ -268,7 +268,8 @@ function PuzzleLayer:addTouch()
 		local idx = 1
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
-
+		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+		
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
 				if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
@@ -276,34 +277,29 @@ function PuzzleLayer:addTouch()
 				else
 					if  obj:getBody():getNode():getName() == "boom" then
 						print("#################### BOOM Touched")
-						local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 						local boomAround = self:getAroundBalls(all,obj:getBody():getNode())
 						for _, obj2 in ipairs(boomAround) do
-							if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
-								obj2:getNode():brokenBullet()
-							end
+							obj2:getNode():brokenBullet()
 						end
 						obj:getBody():getNode():broken()
 						startBall = nil
 						_bullets = {}
 						_bullets2 = {}
+						self.curTouchBall = nil
 					else
 						startBall = obj:getBody():getNode()
-						_tag = obj:getBody():getNode():getTag();
+						_tag = obj:getBody():getNode():getTag()
 						self.curTouchBall = obj:getBody():getNode()
 
 						self.curTouchBall:addPuzzleNumber(1)
 						self.curTouchBall:addBallTouchEffect()
 					end
-					--					firstTouchBall:addBallTouchEffect()
-					--					firstTouchBall:addPuzzleNumber(1)
 					break;
 				end
 			end
 		end
 		if startBall ~= nil then
 			local _tag = startBall:getTag()
-			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 			for _, obj in ipairs(all) do
 				if _tag == obj:getNode():getTag() then
 					_bullets2[touchIdx2] = obj:getNode()
@@ -455,7 +451,7 @@ function PuzzleLayer:setFerver(bar,count)
 		ferver = ferver + point
 		if ferver > 100 then
 			isFerverTime = true
-			
+
 			ferverEffect = cc.ParticleSystemQuad:create("effect/game/fireWall.plist")
 			ferverEffect:setAutoRemoveOnFinish(true)
 			ferverEffect:setPosition(cc.p(0,0))
@@ -465,7 +461,7 @@ function PuzzleLayer:setFerver(bar,count)
 			local to = cc.ProgressTo:create(15, 0)
 			ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
-			
+
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
 			ferverBar:runAction(cc.RepeatForever:create(to))
@@ -551,13 +547,15 @@ function PuzzleLayer:getAroundBalls(all,curBall)
 	if curBall ~= nil and all ~= nil then
 		local p1 = curBall:getPosition()
 		for _, obj in ipairs(all) do
-			local p2 = obj:getPosition()
-			local distance = cc.pGetDistance(p1,p2)
-			if isTableContains(all,aroundBalls[index]) == false then
-				if distance < 2 * math.sqrt(3) * curBall.circleSize  then
-					if obj ~= curBall then
-						aroundBalls[index] = obj
-						index = index + 1
+			if bit.band(obj:getTag(), Tag.T_Bullet) ~= 0  then
+				local p2 = obj:getPosition()
+				local distance = cc.pGetDistance(p1,p2)
+				if isTableContains(all,aroundBalls[index]) == false then
+					if distance < 2 * math.sqrt(3) * curBall.circleSize  then
+						if obj ~= curBall then
+							aroundBalls[index] = obj
+							index = index + 1
+						end
 					end
 				end
 			end
@@ -585,7 +583,7 @@ function PuzzleLayer:checkPuzzleHint()
 		end
 	end
 
-	if next(_bullets) ~= nil then
+	if next(_bullets2) ~= nil then
 		for _, obj in ipairs(_bullets2) do
 			setBallsHintOn(_bullets2,obj)
 		end
