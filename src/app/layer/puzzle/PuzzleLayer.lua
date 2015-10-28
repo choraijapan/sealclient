@@ -10,7 +10,6 @@ PuzzleLayer.stateGamePlaying = 0
 PuzzleLayer.stateGameOver = 1
 PuzzleLayer.resultWin = 1
 PuzzleLayer.resultLost = 0
-
 PuzzleLayer.gameState = nil
 PuzzleLayer.gameTime = nil                --
 PuzzleLayer.lbScore = nil                 -- 分数

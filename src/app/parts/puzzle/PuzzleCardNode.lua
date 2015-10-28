@@ -1,3 +1,4 @@
+local BlockLayer = require("app.parts.common.BlockLayer")
 --------------------------------------------------------------------------------
 -- PuzzleCardNode
 local PuzzleCardNode = class("PuzzleCardNode", cc.Node)
@@ -5,7 +6,6 @@ local PuzzleCardNode = class("PuzzleCardNode", cc.Node)
 -- const変数
 local TAG = "PuzzleCardNode:"
 local CSBFILE = "parts/puzzle/PuzzleCardNode.csb"
-
 --------------------------------------------------------------------------------
 -- メンバ変数
 PuzzleCardNode.parent = nil
@@ -26,9 +26,7 @@ PuzzleCardNode.energyBar = {
 	energyBar4 = nil,
 	energyBar5 = nil,
 	energyBar6 = nil
-
 }
-
 
 --------------------------------------------------------------------------------
 -- UI変数
@@ -47,6 +45,7 @@ end
 --------------------------------------------------------------------------------
 -- Init
 function PuzzleCardNode:init()
+	-- TODO 通信,JSON情報
 	local data = {
 		deck = {
 			card1 = {
@@ -136,55 +135,78 @@ end
 --------------------------------------------------------------------------------
 -- touchCard
 function PuzzleCardNode:touchCard(obj)
-	self:setEnergy(obj,0)
-	-- スキル発動
-	self:drawSkill(obj)
+	if obj.energy >= 100 then
+		-- スキル発動
+		self:drawSkill(obj)
+	end
 end
 
 --------------------------------------------------------------------------------
--- skill 発動　３秒のEffect と　攻撃のダメージをBOSSに与えるため、BroadCastする
+-- skill 発動　３.5秒のEffect と　攻撃のダメージをBOSSに与えるため、BroadCastする
 function PuzzleCardNode:drawSkill(obj)
 
-	--	local listener = function(eventType, x, y)
-	--		if eventType == cc.Handler.EVENT_TOUCH_BEGAN then
-	--			return self:touch_began(x, y)
-	--		elseif eventType == CCTOUCHMOVED then
-	--			self:touch_moved(x, y)
-	--		elseif eventType == CCTOUCHENDED then
-	--			self:touch_ended(x, y)
-	--		elseif eventType == CCTOUCHCANCELLED then
-	--			self:touch_cancelled(x, y)
-	--		end
-	--	end
---	mask:registerScriptTouchHandler(listener, false, -999999999, true)
-	-- http://blog.csdn.net/wwj_748/article/details/34494613
+	self:setEnergy(obj,0)
+
 	-- Effectを表示する
 	local mask = self:createMaskLayer()
-	self:getParent():addChild(mask,999)
 	mask:setTouchEnabled(true)
 
 	local action1 = cc.DelayTime:create(3)
-	local action2 = cc.FadeOut:create(0.5)
+	local action2 = cc.FadeOut:create(0.1)
 	local action3 = cc.RemoveSelf:create()
 	mask:runAction(cc.Sequence:create(action1, action2,action3))
-	-- 攻撃BroadCast TODO
 
+	-- create card character
+	local function createCardCara()
+		local cardSprite = cc.Sprite:create("images/Boss/20151018.png") --TODO
+		cardSprite:setAnchorPoint(cc.p(0.5,0))
+		cardSprite:setPosition(cc.p(WIN_SIZE.width/2,WIN_SIZE.height * 1.5))
+		local action1 = cc.DelayTime:create(0.2)
+		local moveTo = cc.MoveTo:create(0.1,cc.p(WIN_SIZE.width/2,WIN_SIZE.height/2))
+		local scaleTo1 = cc.ScaleTo:create(0.1, 0.8, 1.5)
+		local scaleTo2 = cc.ScaleTo:create(0.1, 1.2, 0.8)
+		local scaleTo3 = cc.ScaleTo:create(0.1, 1, 1)
+		local action = cc.Spawn:create(moveTo,scaleTo1)
+		cardSprite:runAction(cc.Sequence:create(action1, action, scaleTo2, scaleTo3))
+		return cardSprite
+	end
+	local cardSprite = createCardCara()
+	mask:addChild(cardSprite, 2)
+	local blockLayer = BlockLayer:create()
+	mask:addChild(blockLayer, 1)
+	self:getParent():addChild(mask,999)
+	-- TODO 攻撃BroadCast
 end
+
 --------------------------------------------------------------------------------
 -- add energy
 function PuzzleCardNode:setEnergy(card,per)
 	card.energyBar:setPercent(per)
+	card.energy = per
 	if per == 100 then
-		self:setCanSkillEffect(card)
+		self:makeSkillEffect(card,true)
+	else
+		self:makeSkillEffect(card,false)
 	end
 end
 --------------------------------------------------------------------------------
 -- card can make a skill atk effect
-function PuzzleCardNode:setCanSkillEffect(card)
-	print("################# skill")
-	local action = cc.Blink:create(2, 10)
-	card:runAction(cc.RepeatForever:create(action))
+function PuzzleCardNode:makeSkillEffect(card,isDraw)
+	local action = cc.FadeTo:create(0.3, 0)
+	local action2 = cc.FadeTo:create(0.3, 255)
+	
+	local function stopAction()
+		card:stopAllActions()
+	end
+	local callFunc1 = cc.CallFunc:create(stopAction)
+	
+	if isDraw then
+		card:runAction(cc.RepeatForever:create(cc.Sequence:create(action,action2)))
+	else
+		card:runAction(cc.Sequence:create(action2,callFunc1))
+	end
 end
+
 --------------------------------------------------------------------------------
 -- addAtkEffect
 function PuzzleCardNode:addCardAtk(data)
@@ -206,7 +228,7 @@ function PuzzleCardNode:addCardAtk(data)
 			local callFunc1 = cc.CallFunc:create(cardAtkEffect)
 			emitter:runAction(cc.Sequence:create(action1, action2,callFunc1))
 
-			local energyPoint = data.count * 2
+			local energyPoint = data.count * 4
 
 			var.energy = var.energy + energyPoint
 			if var.energy > 100 then
@@ -249,5 +271,15 @@ function PuzzleCardNode:createMaskLayer()
 end
 
 return PuzzleCardNode
+
+
+
+
+
+
+
+
+
+
 
 
