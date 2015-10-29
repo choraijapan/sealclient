@@ -71,7 +71,7 @@ function Ball:brokenBullet()
 	end
 end
 function Ball:broken()
-	local particle = cc.ParticleSystemQuad:create("res/effect/game/puzzle.plist")
+	local particle = cc.ParticleSystemQuad:create("effect/puzzle.plist")
 	particle:setPosition(cc.p(0,0))
 	particle:setScale(0.2)
 	particle:setAutoRemoveOnFinish(true)
@@ -149,7 +149,6 @@ function Ball:addPuzzleNumber(num)
 		puzzleNumber:runAction(cc.Sequence:create(action1, action2,action3,action4,action5,action6))
 	end
 end
-
 function Ball:removePuzzleNumber()
 	if self:getParent():getChildByTag(self.TAG.NUMBER) ~= nil then
 		self:getParent():removeChildByTag(self.TAG.NUMBER)
@@ -164,7 +163,7 @@ function Ball:addBoom(num)
 		self:setName("boom")
 		self:setTag(Ball.BOOM)
 		self._image:setVisible(false)
-		local particle = cc.ParticleSystemQuad:create("effect/game/boom.plist")
+		local particle = cc.ParticleSystemQuad:create("effect/boom.plist")
 		particle:setAutoRemoveOnFinish(true)
 		particle:setPosition(cc.p(0,0))
 		particle:setScale(2)

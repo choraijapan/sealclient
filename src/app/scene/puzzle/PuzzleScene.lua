@@ -19,12 +19,7 @@ function ScenePuzzle:init(...)
 	require('app.layer.puzzle.PuzzleLayer')
 	self.csb = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
 	self.scene:addChild(self.csb,2)
-	
-	local data = {}
-	data.ferverBar = WidgetObj:searchWidgetByName(self.scene,"FeverTimeBar","ccui.LoadingBar")
-	data.ferverBar:setPercent(0)
-	self.scene:addChild(PuzzleLayer:create(data),1)
-	
+	self.scene:addChild(PuzzleLayer:create(),1)
 end
 -- onEnter
 function ScenePuzzle:onEnter()

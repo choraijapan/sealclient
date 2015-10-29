@@ -86,9 +86,16 @@ function BossSprite:create()
 end
 
 function BossSprite:addArmature()
-    self.sprite = cc.Sprite:create("images/Boss/20151018.png")
-    self.sprite:setAnchorPoint(0.5)
-    self:addChild(self.sprite)
+	self.sprite = cc.Sprite:create("images/Boss/20151018.png")
+	self.sprite:setAnchorPoint(0.5)
+	self:addChild(self.sprite)
+	self:setAnimation(self.sprite)
+end
+
+function BossSprite:setAnimation(obj)
+	local action = cc.MoveBy:create(1, cc.p(0,20))
+	local actionBack = action:reverse()
+	obj:runAction(cc.RepeatForever:create(cc.Sequence:create(action, actionBack)))
 end
 
 function BossSprite:addEventDispatcher()
