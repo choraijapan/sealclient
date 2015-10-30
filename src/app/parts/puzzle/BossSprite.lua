@@ -7,10 +7,11 @@ local BossSprite = class("BossSprite", function()
     return cc.Sprite:create()
 end)
 
-BossSprite.node             = nil
+BossSprite.node               = nil
 BossSprite.sprite             = nil
 BossSprite.active             = nil
 BossSprite.canBeAttack        = nil
+BossSprite.hpMax              = nil
 BossSprite.hp                 = nil
 BossSprite.atk                = nil
 BossSprite.power              = nil
@@ -20,7 +21,7 @@ BossSprite.bulletPowerValue   = nil
 BossSprite.delayTime          = nil
 BossSprite.size               = nil
 BossSprite.label_hp           = nil
-BossSprite.slider_hp          = nil
+BossSprite.bar_hp             = nil
 BossSprite.action             = nil
 BossSprite.time               = nil
 
@@ -55,7 +56,8 @@ BossSprite.color = {
 function BossSprite:ctor()
     self.active = true
     self.canBeAttack = false
-    self.hp = 500000000000
+	self.hpMax = 50000
+	self.hp = self.hpMax
     self.atk = 1
     self.power = 1.0
     self.speed = 220
@@ -86,16 +88,16 @@ function BossSprite:create()
 end
 
 function BossSprite:addArmature()
-	self.sprite = cc.Sprite:create("images/Boss/20151018.png")
-	self.sprite:setAnchorPoint(0.5)
-	self:addChild(self.sprite)
-	self:setAnimation(self.sprite)
+    self.sprite = cc.Sprite:create("images/Boss/20151018.png")
+    self.sprite:setAnchorPoint(0.5)
+    self:addChild(self.sprite)
+    self:setAnimation(self.sprite)
 end
 
 function BossSprite:setAnimation(obj)
-	local action = cc.MoveBy:create(1, cc.p(0,20))
-	local actionBack = action:reverse()
-	obj:runAction(cc.RepeatForever:create(cc.Sequence:create(action, actionBack)))
+    local action = cc.MoveBy:create(1, cc.p(0,20))
+    local actionBack = action:reverse()
+    obj:runAction(cc.RepeatForever:create(cc.Sequence:create(action, actionBack)))
 end
 
 function BossSprite:addEventDispatcher()
@@ -122,14 +124,26 @@ end
 function BossSprite:addHp()
     self.label_hp = ccui.TextAtlas:create()
     self.label_hp:setProperty(self.hp, "battle/labelatlas.png", 17, 22, "0")
-    self.label_hp:setPosition(cc.p(0,-20))
-    self:addChild(self.label_hp)
+	self.label_hp:setPosition(cc.p(0,-self.sprite:getContentSize().height/2))
+    self.bar_hp = GameUtils:createProgressBar("res/Default/LoadingBarFile.png")
+    self.bar_hp:setScaleX(1.5)
+	self.bar_hp:setPosition(cc.p(0,-self.sprite:getContentSize().height/2))
+    self:addChild(self.bar_hp)
+	self:addChild(self.label_hp)
+	
+    local to = cc.ProgressTo:create(1, 100)
+    self.bar_hp:runAction(cc.RepeatForever:create(to))
 end
+
 --------------------------------------------------------------------------------
 -- hurt
 function BossSprite:hurt(damageValue)
     self.hp = self.hp - damageValue
     self.label_hp:setString(self.hp)
+
+    local hpPer = (self.hp / self.hpMax)*100
+    local to = cc.ProgressTo:create(0.5, hpPer)
+    self.bar_hp:runAction(cc.RepeatForever:create(to))
 
     --self.action:play("hurt",false)
     if self.hp <= 0 then
@@ -160,28 +174,32 @@ function BossSprite:setDebuffOn(data)
     local type = data.type
     local count = data.count
 
+--[[
     --冰冻
-    if type ==  DEBUFF.FREEZE then
+	if type ==  GameConst.DEBUFF.FREEZE then
         --        self.sprite:setColor(self.color[type])
         -- self.node:setColor(self.color[type])
-        self.debuff.type = DEBUFF.FREEZE
+		self.debuff.type = GameConst.DEBUFF.FREEZE
         self.debuff.value = 2
         local function freezeFor()
         end
         schedule(self, freezeFor, count*self.debuff.value)
-    elseif type ==  DEBUFF.DEFDOWN then  --减护甲
+	elseif type ==  GameConst.DEBUFF.DEFDOWN then  --减护甲
         --        self.sprite:setColor(self.color[type])
         -- self.node:setColor(self.color[type])
-        self.debuff.type = DEBUFF.DEFDOWN
+		self.debuff.type = GameConst.DEBUFF.DEFDOWN
         self.debuff.value = 100
     else
         --        self.sprite:setColor(self.color[0])
         --self.node:setColor(self.color[0])
-        self.debuff.type = DEBUFF.ATK
+		self.debuff.type = GameConst.DEBUFF.ATK
         self.debuff.value = 1
     end
 
-
+]]--
+	self.debuff.type = GameConst.DEBUFF.ATK
+	self.debuff.value = 1
+	
 
     --    if type == 2 then
     --        self.sprite:setColor(self.color[type])
@@ -210,7 +228,7 @@ function BossSprite:addAI()
             self:startAtk()
         else
             --模仿魔兽世界插件的倒计时［BOSS发动技能倒计时］
-            if self.debuff.type == DEBUFF.FREEZE then
+			if self.debuff.type == GameConst.DEBUFF.FREEZE then
                 bossSkill:setString(string.format("Perfect,You have stopped it!"))
                 self.debuff.type = nil
                 self.time = 1
@@ -249,17 +267,16 @@ function BossSprite:addHurt(data)
     local function actionEnd()
     end
 
-
     local damage = 0
     --    if count >= 5 then
-    if self.debuff.type == DEBUFF.DEFDOWN then
+	if self.debuff.type == GameConst.DEBUFF.DEFDOWN then
         damage = self.damage[type] * count * self.debuff.value
     else
         damage = self.damage[type] * count
     end
 
-    local action1 = cc.ScaleTo:create(0.1, 2)
-    local action2 = cc.ScaleTo:create(0.1, 1.5)
+    local action1 = cc.ScaleTo:create(0.1, 4)
+    local action2 = cc.ScaleTo:create(0.1, 3.5)
     local action3 = cc.DelayTime:create(1.5)
     local action4 = cc.FadeOut:create(0.5)
     local action5 = cc.DelayTime:create(0.5)
@@ -276,7 +293,7 @@ function BossSprite:addHurt(data)
     --    end
 
     labelAtlas:setProperty(damage, "battle/labelatlas.png", 17, 22, "0")
-    labelAtlas:setPosition(0,-100)
+    labelAtlas:setPosition(0,0)
     self:addChild(labelAtlas)
     self:hurt(damage)
 
@@ -293,4 +310,7 @@ function BossSprite:getPosition()
 end
 
 return BossSprite
+
+
+
 

@@ -1,8 +1,3 @@
-DEBUFF = {
-	    ATK = 1,
-	    FREEZE = 2,
-	    DEFDOWN = 3,
-	}
 
 Global = class("Global")
 Global.audioState = true

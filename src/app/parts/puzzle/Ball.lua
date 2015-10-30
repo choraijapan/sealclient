@@ -43,6 +43,8 @@ function Ball:init(type)
 	self._type = type
 	self._image = cc.Sprite:create()
 	WidgetLoader:setSpriteImage(self._image, self.type[type])
+	self._image:setAnchorPoint(cc.p(0.5,0.5))
+	self:setAnchorPoint(cc.p(0.5,0.5))
 	self:addChild(self._image)
 	--    local size = self._image:getContentSize()
 	--    if type == 2 then
@@ -107,16 +109,32 @@ end
 function Ball:addBallHint()
 	if self:getName() ~= "boom" then
 		self:setName("big")
-		self._image:setScale(1.2)
+		--		self._image:setScale(1.2)
+		--		self._image:setColor(cc.c3b(123,123,123))
+		--		self._image:setBlendFunc(gl.DST_COLOR,gl.SRC_COLOR)
+		self:addGlowEffect(self._image,60,1,1)
 	end
+end
+
+function Ball:addGlowEffect(sprite, opacity, scale,order)
+	local pos = cc.p(sprite:getContentSize().width / 2, sprite:getContentSize().height / 2)
+	local glowSprite = cc.Sprite:create("battle/ball_white.png")
+--	glowSprite:setColor(ccColor3B)
+	glowSprite:setPosition(pos)
+	glowSprite:setRotation(sprite:getRotation())
+	glowSprite:setOpacity(opacity)
+--	glowSprite:setBlendFunc(gl.SRC_ALPHA,gl.ONE)
+	glowSprite:setScale(scale)
+	sprite:addChild(glowSprite, order)
 end
 
 function Ball:addBallTouchEffect()
 	if self:getName() ~= "boom" then
 		self:setName("big")
-		local action1 = cc.ScaleTo:create(0.1,1.6)
+		local action1 = cc.ScaleTo:create(0.1,1.4)
 		self._image:runAction(cc.Sequence:create(action1))
 		self:getParent():reorderChild(self,2)
+		self:addGlowEffect(self._image,255,1.05,-1)
 	end
 end
 function Ball:removeBallTouchEffect()
@@ -124,6 +142,7 @@ function Ball:removeBallTouchEffect()
 		self:setName("normal")
 		self._image:stopAllActions()
 		self._image:setScale(1)
+		self._image:removeAllChildren()
 		self:getParent():reorderChild(self,1)
 	end
 end

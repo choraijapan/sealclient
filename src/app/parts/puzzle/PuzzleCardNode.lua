@@ -176,6 +176,7 @@ function PuzzleCardNode:drawSkill(obj)
     mask:addChild(blockLayer, 1)
     self:getParent():addChild(mask,999)
     -- TODO 攻撃BroadCast
+    
 end
 
 --------------------------------------------------------------------------------

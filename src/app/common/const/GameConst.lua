@@ -13,3 +13,9 @@ GameConst.ATTRIBUTE = {
 	LIGHT 	= 4,
 	DARK 	= 5,
 }
+
+GameConst.DEBUFF = {
+	ATK = 1,
+	FREEZE = 2,
+	DEFDOWN = 3,
+}

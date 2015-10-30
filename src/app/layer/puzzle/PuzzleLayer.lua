@@ -519,7 +519,11 @@ end
 
 function PuzzleLayer:update(dt)
     _time = _time + 1
-    local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+    local all = {}
+	if cc.Director:getInstance():getRunningScene():getPhysicsWorld() ~= nil then
+		 all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+    end
+    
     if MAX_BULLET >= #all then
         self:addBalls()
     end

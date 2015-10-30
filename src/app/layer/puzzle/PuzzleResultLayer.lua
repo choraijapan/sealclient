@@ -73,17 +73,17 @@ function PuzzleResultLayer:addBtn()
     end
 
     -- 重新游戏 tag = 101
-    local playAgainNormal = cc.Sprite:create("menu.png",cc.rect(378, 0, 126, 33))
-    local playAgainSelected = cc.Sprite:create("menu.png",cc.rect(378, 33, 126, 33))
-    local playAgainDisabled = cc.Sprite:create("menu.png",cc.rect(378, 2*33, 126, 33))
+    local playAgainNormal = cc.Sprite:create("battle/menu.png",cc.rect(378, 0, 126, 33))
+	local playAgainSelected = cc.Sprite:create("battle/menu.png",cc.rect(378, 33, 126, 33))
+	local playAgainDisabled = cc.Sprite:create("battle/menu.png",cc.rect(378, 2*33, 126, 33))
     local playAgain = cc.MenuItemSprite:create(playAgainNormal, playAgainSelected, playAgainDisabled)
     playAgain:setTag(101)
     playAgain:registerScriptTapHandler(callback)
 
     -- 返回菜单 tag = 102
-    local backNormal = cc.Sprite:create("menu.png", cc.rect(505, 1, 126, 31))
-    local backSelected = cc.Sprite:create("menu.png", cc.rect(505, 34, 126, 31))
-    local backDesabled = cc.Sprite:create("menu.png", cc.rect(505, 34*2, 126, 31))
+	local backNormal = cc.Sprite:create("battle/menu.png", cc.rect(505, 1, 126, 31))
+	local backSelected = cc.Sprite:create("battle/menu.png", cc.rect(505, 34, 126, 31))
+	local backDesabled = cc.Sprite:create("battle/menu.png", cc.rect(505, 34*2, 126, 31))
     local back = cc.MenuItemSprite:create(backNormal, backSelected, backDesabled)
     back:setTag(102)
     back:registerScriptTapHandler(callback)
@@ -98,17 +98,13 @@ end
 
 -- 重新游戏
 function PuzzleResultLayer:turnToGameScene()
-    local scene = GameScene:createScene()
-    local tt = cc.TransitionFade:create(1.0, scene)
-    cc.Director:getInstance():replaceScene(tt)
+	SceneManager:changeScene("app/scene/puzzle/PuzzleScene",nil) 
 end
 
 
 -- 返回主界面
 function PuzzleResultLayer:turnToLoadingScene()
-    local scene = LoadingScene:createScene()
-    local tt = cc.TransitionFade:create(1.0, scene)
-    cc.Director:getInstance():replaceScene(tt)
+	cc.Director:getInstance():endToLua()
 end
 
 return PuzzleResultLayer
