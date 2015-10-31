@@ -255,7 +255,7 @@ end
 
 
 function PuzzleLayer:addTouch()
-
+	local onTouchFlag = false
     local function onTouchBegan(touch, event)
         touchIdx = 1
         touchIdx2 = 1
@@ -263,10 +263,15 @@ function PuzzleLayer:addTouch()
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
         local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
-
+		
+		if onTouchFlag then
+			return
+		end
+		
         for _, obj in ipairs(arr) do
             if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
-                if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
+				if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
+				
                     return false
                 else
                     if  obj:getBody():getNode():getName() == "boom" then
@@ -292,6 +297,7 @@ function PuzzleLayer:addTouch()
                         self.curTouchBall = nil
                         break;
                     else
+						onTouchFlag = true
                         startBall = obj:getBody():getNode()
                         _tag = obj:getBody():getNode():getTag()
                         self.curTouchBall = obj:getBody():getNode()
@@ -315,6 +321,7 @@ function PuzzleLayer:addTouch()
         return true
     end
     local function onTouchMoved(touch, event)
+    	onTouchFlag = true
         self.curTouchBall = nil
         local location = touch:getLocation()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
@@ -370,6 +377,7 @@ function PuzzleLayer:addTouch()
 
 
     local function onTouchEnded(touch, event)
+    	onTouchFlag = false
         arballs = nil
         startBall = nil
         curBall = nil
