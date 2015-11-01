@@ -25,9 +25,8 @@ Ball.type = {
 	[3] = "battle/ball_tree.png",
 	[4] = "battle/ball_light.png",
 	[5] = "battle/ball_dark.png",
-	[6] = "battle/skill_boss_1.png", -- BOOM
 }
-Ball.BOOM = 6
+Ball.BOOM = 100
 
 function Ball:ctor()
 end

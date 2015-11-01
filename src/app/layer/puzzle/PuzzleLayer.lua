@@ -310,9 +310,8 @@ function PuzzleLayer:addTouch()
             end
         end
         if startBall ~= nil then
-            local _tag = startBall:getTag()
             for _, obj in ipairs(all) do
-                if _tag == obj:getNode():getTag() then
+                if startBall:getTag() == obj:getNode():getTag() then
                     _bullets2[touchIdx2] = obj:getNode()
                     touchIdx2 = touchIdx2 + 1
                 end
@@ -327,6 +326,7 @@ function PuzzleLayer:addTouch()
         local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
         for _, obj in ipairs(arr) do
             if bit.band(obj:getBody():getTag(), Tag.T_Bullet) ~= 0 then
+				print("#################### _tag".._tag)
                 if obj:getBody():getNode():getTag() == _tag then
                     self.curTouchBall = obj:getBody():getNode()
                     break
