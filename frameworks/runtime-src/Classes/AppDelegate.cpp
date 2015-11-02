@@ -15,6 +15,8 @@
 
 using namespace CocosDenshion;
 
+const int PUZZLE_SCENE_TAG = 500;
+
 USING_NS_CC;
 using namespace std;
 
@@ -92,6 +94,14 @@ void AppDelegate::applicationDidEnterBackground()
     Director::getInstance()->stopAnimation();
 
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    
+    auto scene = Director::getInstance()->getRunningScene();
+    if (scene->getTag() == PUZZLE_SCENE_TAG)
+    {
+        auto engine = LuaEngine::getInstance();
+        ScriptEngineManager::getInstance()->setScriptEngine(engine);
+        engine->executeString("GameUtils:pauseGame()");
+    }
 }
 
 // this function will be called when the app is active again

@@ -29,6 +29,7 @@ function ScenePuzzle:init(...)
 		end
 	end
 	self.scene:scheduleUpdateWithPriorityLua(update,0)
+	self.scene:setTag(500)
 end
 -- onEnter
 function ScenePuzzle:onEnter()

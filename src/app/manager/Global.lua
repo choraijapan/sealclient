@@ -1,4 +1,3 @@
-
 Global = class("Global")
 Global.audioState = true
 Global.score = 0
@@ -76,4 +75,5 @@ end
 -- 退出游戏,释放资源
 function Global:ExitGame()
 end
+
 

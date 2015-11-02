@@ -148,7 +148,7 @@ function PuzzleCardNode:drawSkill(obj)
     self:setEnergy(obj,0)
 
     -- Effectを表示する
-    local mask = self:createMaskLayer()
+	local mask = GameUtils:createMaskLayer()
     mask:setTouchEnabled(true)
 
     local action1 = cc.DelayTime:create(3)

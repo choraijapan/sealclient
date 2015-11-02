@@ -19,3 +19,14 @@ GameConst.DEBUFF = {
 	FREEZE = 2,
 	DEFDOWN = 3,
 }
+
+GameConst.PUZZLEOBJTAG = {
+	T_Bullet = 1,
+	T_Bullet1 = 2,
+	T_Bullet2 = 3,
+	T_Bullet3 = 4,
+	T_Bullet4 = 5,
+	T_Bullet5 = 6,
+	T_Dialog = 7,
+	T_Line = 8,
+}
