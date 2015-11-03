@@ -78,7 +78,6 @@ function PuzzleLayer:create()
 	return layer
 end
 
-
 local function isTableContains(tb,obj)
 	for _,v in pairs(tb) do
 		if v == obj then
@@ -270,7 +269,9 @@ function PuzzleLayer:addTouch()
 						startBall = obj:getBody():getNode()
 						_tag = obj:getBody():getNode():getTag()
 						self.curTouchBall = obj:getBody():getNode()
-
+						if next(_bullets) == nil then
+							_bullets[touchIdx] = obj:getBody():getNode()
+						end
 						self.curTouchBall:addPuzzleNumber(1)
 						self.curTouchBall:addBallTouchEffect()
 					end
@@ -499,26 +500,25 @@ function PuzzleLayer:update(dt)
 	if MAX_BULLET >= #all then
 		self:addBalls()
 	end
-	
+
+	self:DrawLineRemove()
+
 	if GameUtils.TouchFlag == false then
-		startBall = nil
 		curBall = nil
 		_tag = nil
 		_bullets = {}
 		_bullets2 = {}
-	end
-	
-	if next(_bullets) ~= nil then
-		for key, var in ipairs(_bullets) do
-			table.insert(_bulletVicts, var:getPosition())
+	else
+		if next(_bullets) ~= nil then
+			for key, var in ipairs(_bullets) do
+				table.insert(_bulletVicts, var:getPosition())
+			end
 		end
+		local node = DrawLine:create(_bulletVicts)
+		self:addChild(node,ZOrder.Z_Line,GameConst.PUZZLEOBJTAG.T_Line)
+		_bulletVicts = {}
+		self:checkPuzzleHint()
 	end
-
-	self:DrawLineRemove()
-	local node = DrawLine:create(_bulletVicts)
-	self:addChild(node,ZOrder.Z_Line,GameConst.PUZZLEOBJTAG.T_Line)
-	_bulletVicts = {}
-	self:checkPuzzleHint()
 
 	if isFerverTime then
 		if ferverBar:getPercentage() == 0 then
@@ -527,7 +527,7 @@ function PuzzleLayer:update(dt)
 		end
 	end
 
-	
+
 
 end
 

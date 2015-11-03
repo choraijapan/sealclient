@@ -124,10 +124,10 @@ end
 function BossSprite:addHp()
     self.label_hp = ccui.TextAtlas:create()
     self.label_hp:setProperty(self.hp, "battle/labelatlas.png", 17, 22, "0")
-	self.label_hp:setPosition(cc.p(0,-self.sprite:getContentSize().height/2))
+	self.label_hp:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
     self.bar_hp = GameUtils:createProgressBar("res/Default/LoadingBarFile.png")
     self.bar_hp:setScaleX(1.5)
-	self.bar_hp:setPosition(cc.p(0,-self.sprite:getContentSize().height/2))
+	self.bar_hp:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
     self:addChild(self.bar_hp)
 	self:addChild(self.label_hp)
 	
