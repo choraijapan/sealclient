@@ -26,7 +26,7 @@ BossSprite.action             = nil
 BossSprite.time               = nil
 
 local SPRITE_CARD_ATK         = "SPRITE_CARD_ATK"
-local SPRITE_EVENT_ATK        = "SPRITE_EVENT_ATK"
+local BOSS_ATK_EVENT          = "BOSS_ATK_EVENT"
 
 BossSprite.damage = {
     [1] = 123,
@@ -126,6 +126,7 @@ function BossSprite:addHp()
     self.label_hp:setProperty(self.hp, "battle/labelatlas.png", 17, 22, "0")
 	self.label_hp:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
     self.bar_hp = GameUtils:createProgressBar("res/Default/LoadingBarFile.png")
+    self.bar_hp:setColor(cc.c3b(225,225,0))
     self.bar_hp:setScaleX(1.5)
 	self.bar_hp:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
     self:addChild(self.bar_hp)
@@ -210,7 +211,6 @@ function BossSprite:setDebuffOn(data)
     --        self.sprite:setColor(self.color[type])
     --        self.debuff = 5
     --    end
-
 end
 
 function BossSprite:addAI()
@@ -221,9 +221,7 @@ function BossSprite:addAI()
     -- 更新时间
     local function updateTime()
         self.time = self.time + 1
-
-
-        if self.time % 30 == 0 then
+        if self.time % 15 == 0 then
             self.time = 0
             self:startAtk()
         else
@@ -233,7 +231,7 @@ function BossSprite:addAI()
                 self.debuff.type = nil
                 self.time = 1
             else
-                bossSkill:setString(string.format("Atk will happen in %ss",30 - self.time))
+                bossSkill:setString(string.format("Atk will happen in %ss",15 - self.time))
             end
 
         end
@@ -246,15 +244,14 @@ function BossSprite:addAI()
     --    local action1 = cc.Spawn:create(a1,a2)
     --    local action2 = cc.CallFunc:create(start)
     --    self:runAction(cc.RepeatForever:create(cc.Sequence:create(action1, action2)))
-
 end
 
 function BossSprite:startAtk()
     local data = {
         action = "atk",
-        damage = "10000",
+        damage = "500",
     }
-    EventDispatchManager:broadcastEventDispatcher(SPRITE_EVENT_ATK,data)
+    EventDispatchManager:broadcastEventDispatcher(BOSS_ATK_EVENT,data)
     print("##########  attack start")
 end
 
