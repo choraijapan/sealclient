@@ -121,7 +121,6 @@ function PuzzleLayer:addPuzzle()
 			cc.p(WIN_SIZE.width-1, 100),
 			cc.p(WIN_SIZE.width-1, WIN_SIZE.height-1)
 		}
-
 	self.wall = cc.Node:create()
 	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.8))
 	self.wall:setPhysicsBody(edge)
