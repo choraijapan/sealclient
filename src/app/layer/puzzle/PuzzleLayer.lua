@@ -116,8 +116,8 @@ function PuzzleLayer:addPuzzle()
 			cc.p(WIN_SIZE.width-1,WIN_SIZE.height-1),
 			cc.p(1, WIN_SIZE.height-1),
 			cc.p(1, 100),
-			cc.p(WIN_SIZE.width/3, 50),
-			cc.p(WIN_SIZE.width*2/3, 50),
+			cc.p(WIN_SIZE.width/3, 0),
+			cc.p(WIN_SIZE.width*2/3, 0),
 			cc.p(WIN_SIZE.width-1, 100),
 			cc.p(WIN_SIZE.width-1, WIN_SIZE.height-1)
 		}
@@ -125,7 +125,7 @@ function PuzzleLayer:addPuzzle()
 	self.wall = cc.Node:create()
 	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.8))
 	self.wall:setPhysicsBody(edge)
-	self.wall:setPosition(cc.p(0,0))
+	self.wall:setPosition(cc.p(0,60))
 	self:addChild(self.wall)
 end
 
@@ -133,8 +133,9 @@ function PuzzleLayer:addBalls()
 	local typeId = math.random(1,TYPES)
 	local ball = Ball:create(typeId)
 
-	local randomX = math.random(20,winSize.width-20)
-	ball:setPosition(winSize.width - randomX, winSize.height*2/3 + 60)
+	local randomX = math.random(winSize.width/2 - 20,winSize.width/2 + 20)
+	local randomY = math.random(winSize.height*2/3 ,winSize.height*3/4)
+	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
 	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
