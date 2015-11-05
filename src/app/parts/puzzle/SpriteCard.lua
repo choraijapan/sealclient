@@ -130,7 +130,7 @@ function SpriteCard:init(data)
         self.armature:setScaleX(-0.3)
         cost:setVisible(false)
         self:addMove(false)
-        self:setPosition(WIN_SIZE.width - 30,0)
+        self:setPosition(AppConst.VISIBLE_SIZE.width - 30,0)
         self:getPhysicsBody():setCategoryBitmask(CATEGORY_MASK_PLAYER_B_ATK)
         self:getPhysicsBody():setCollisionBitmask(COLLISION_MASK_PLAYER_B_ATK)
         self:getPhysicsBody():setContactTestBitmask(CONTACTTEST_MASK_PLAYER_B_ATK)
@@ -178,7 +178,7 @@ end
 function SpriteCard:addMove(isFromLeft)
     local mvToX
     if isFromLeft then
-        mvToX = WIN_SIZE.width
+        mvToX = AppConst.VISIBLE_SIZE.width
     else
         mvToX = 0
     end

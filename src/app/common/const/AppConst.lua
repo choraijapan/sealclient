@@ -5,6 +5,5 @@
 AppConst = {}
 
 ORIGIN = cc.Director:getInstance():getVisibleOrigin()
-VISIBLE_SIZE = cc.Director:getInstance():getVisibleSize()
+AppConst.VISIBLE_SIZE = cc.Director:getInstance():getVisibleSize()
 WIN_SIZE = cc.Director:getInstance():getWinSize()
-

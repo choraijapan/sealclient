@@ -27,7 +27,7 @@ function PuzzleResultLayer:init(isWin)
     self:addBG()
     self:addBtn()
     local winOrLost = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
-    winOrLost:setPosition(cc.p(WIN_SIZE.width/2,WIN_SIZE.height/2))
+    winOrLost:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
     self:addChild(winOrLost)
     if isWin then
         winOrLost:setString("You Win!!!")
@@ -52,12 +52,12 @@ end
 function PuzzleResultLayer:addBG()
 --    -- 背景图片
 --    local bg = cc.Sprite:create("loading.png")
---    bg:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height/2))
+--    bg:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2, AppConst.VISIBLE_SIZE.height/2))
 --    self:addChild(bg, -1)
 --
 --    -- logo
 --    local logo = cc.Sprite:create("gameOver.png")
---    logo:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height/2 + 150))
+--    logo:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2, AppConst.VISIBLE_SIZE.height/2 + 150))
 --    self:addChild(logo, 10)
 end
 
@@ -90,7 +90,7 @@ function PuzzleResultLayer:addBtn()
 
     -- 创建菜单
     local pmenu = cc.Menu:create(playAgain, back)
-    pmenu:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height/2-100))
+    pmenu:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2, AppConst.VISIBLE_SIZE.height/2-100))
     self:addChild(pmenu,1,3);
     pmenu:alignItemsVerticallyWithPadding(40)
 end

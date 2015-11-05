@@ -35,7 +35,7 @@ end
 --------------------------------------------------------------------------------
 -- init
 function SpritePlayer:init()
-    self:setPosition(cc.p(WIN_SIZE.width/2, WIN_SIZE.height/2))
+    self:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2, AppConst.VISIBLE_SIZE.height/2))
     self:addHp()
     self:addEventDispatcher()
 end
@@ -55,7 +55,7 @@ function SpritePlayer:addHp()
     self.label_hp = ccui.TextAtlas:create()
     self.label_hp:setContentSize(cc.p(5,5))
     self.label_hp:setProperty(self.hp, "labelatlas.png", 17, 22, "0")
-    self.label_hp:setPosition(cc.p(0,-WIN_SIZE.height/2 + 10))
+    self.label_hp:setPosition(cc.p(0,-AppConst.VISIBLE_SIZE.height/2 + 10))
     self:addChild(self.label_hp)
 end
 

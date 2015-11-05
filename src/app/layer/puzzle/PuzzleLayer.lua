@@ -113,18 +113,19 @@ end
 function PuzzleLayer:addPuzzle()
 	local vec =
 		{
-			cc.p(WIN_SIZE.width-1,WIN_SIZE.height-1),
-			cc.p(1, WIN_SIZE.height-1),
+			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height-1),
+			cc.p(1, AppConst.VISIBLE_SIZE.height-1),
 			cc.p(1, 100),
-			cc.p(WIN_SIZE.width/3, 0),
-			cc.p(WIN_SIZE.width*2/3, 0),
-			cc.p(WIN_SIZE.width-1, 100),
-			cc.p(WIN_SIZE.width-1, WIN_SIZE.height-1)
+			cc.p(AppConst.VISIBLE_SIZE.width/3, 50),
+			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 50),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, 100),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height-1)
 		}
+
 	self.wall = cc.Node:create()
 	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.8))
 	self.wall:setPhysicsBody(edge)
-	self.wall:setPosition(cc.p(0,60))
+	self.wall:setPosition(cc.p(0,30))
 	self:addChild(self.wall)
 end
 
@@ -177,12 +178,11 @@ function PuzzleLayer:moveBG()
 		self.bg2:setPositionY(self.bg1:getPositionY() + height)
 		if self.bg1:getPositionY() <= -height then
 			self.bg1, self.bg2 = self.bg2, self.bg1
-			self.bg2:setPositionY(WIN_SIZE.height)
+			self.bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
 		end
 	end
 	schedule(self, updateBG, 0)
 end
-
 
 -- 添加按钮
 function PuzzleLayer:addBtn()
@@ -191,7 +191,7 @@ function PuzzleLayer:addBtn()
 	end
 	local pause = cc.MenuItemImage:create("battle/pause.png", "battle/pause.png")
 	pause:setAnchorPoint(cc.p(1, 0))
-	pause:setPosition(cc.p(WIN_SIZE.width, 0))
+	pause:setPosition(cc.p(AppConst.VISIBLE_SIZE.width, 0))
 	pause:registerScriptTapHandler(PauseGame)
 
 	local menu = cc.Menu:create(pause)
