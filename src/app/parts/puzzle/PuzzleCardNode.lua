@@ -168,6 +168,14 @@ function PuzzleCardNode:init()
 	self.cards[4].attribute = 1
 	self.cards[5].attribute = 4
 	self.cards[6].attribute = 5
+	
+	self.cards[1].skillTxt = "人生はただ一度だけ切り"
+	self.cards[2].skillTxt = "４０歳になる時後悔しない"
+	self.cards[3].skillTxt = "エンジニアの命は４０歳までだ"
+	self.cards[4].skillTxt = "４０歳後まだCodingするの？"
+	self.cards[5].skillTxt = "黒ラーメン禁止"
+	self.cards[6].skillTxt = "１年頑張って６０年休み"
+	
 	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 60))
 
 end
@@ -185,34 +193,50 @@ end
 function PuzzleCardNode:drawSkill(obj)
 
 	self:setEnergy(obj,0)
-    
 	-- Effectを表示する
 	local mask = GameUtils:createMaskLayer()
 	mask:setTouchEnabled(true)
-
-	local action1 = cc.DelayTime:create(3)
+	local action1 = cc.DelayTime:create(2.3)
 	local action2 = cc.FadeOut:create(0.1)
 	local action3 = cc.RemoveSelf:create()
 	mask:runAction(cc.Sequence:create(action1, action2,action3))
-
+	
+	local cardSprite = cc.Sprite:create("images/Boss/20151018.png") --TODO
+	local cardSpriteSize = cardSprite:getContentSize()
+	
+	local function createText(txt)
+		local str = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
+		str:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2-cardSpriteSize.height/2))
+		str:setColor(cc.c3b(255,255,0))
+		str:setString(txt)
+		return str
+	end
+	
 	-- create card character
 	local function createCardCara()
-		local cardSprite = cc.Sprite:create("images/Boss/20151018.png") --TODO
-		cardSprite:setAnchorPoint(cc.p(0.5,0))
-		cardSprite:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height * 1.5))
-		local action1 = cc.DelayTime:create(0.2)
-		local moveTo = cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
-		local scaleTo1 = cc.ScaleTo:create(0.1, 0.8, 1.5)
-		local scaleTo2 = cc.ScaleTo:create(0.1, 1.2, 0.8)
-		local scaleTo3 = cc.ScaleTo:create(0.1, 1, 1)
-		local action = cc.Spawn:create(moveTo,scaleTo1)
-		cardSprite:runAction(cc.Sequence:create(action1, action, scaleTo2, scaleTo3))
+		cardSprite:setAnchorPoint(cc.p(0.5,0.5))
+		cardSprite:setPosition(cc.p(-cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
+		local action1 = cc.DelayTime:create(0.1)
+		local action2 = cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
+--		local scaleTo1 = cc.ScaleTo:create(0.1, 0.8, 1.5)
+--		local scaleTo2 = cc.ScaleTo:create(0.1, 1.2, 0.8)
+--		local scaleTo3 = cc.ScaleTo:create(0.1, 1, 1)
+		local action3 =  cc.MoveTo:create(2,cc.p(AppConst.VISIBLE_SIZE.width/2+10,AppConst.VISIBLE_SIZE.height/2))
+		local action4 =  cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width + cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
+--		local action = cc.Spawn:create(moveTo,scaleTo1)
+		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
+	local emitter = GameUtils:createParticle("parts/effect/particle_snow.png","parts/effect/particle_snow.plist")
 	local cardSprite = createCardCara()
-	mask:addChild(cardSprite, 2)
 	local blockLayer = BlockLayer:create()
+	
+	local text = createText(obj.skillTxt)
+	mask:addChild(emitter, 0)
 	mask:addChild(blockLayer, 1)
+	mask:addChild(cardSprite, 2)
+	mask:addChild(text, 3)
+
 	self:getParent():addChild(mask,999)
 	-- TODO 攻撃BroadCast
 
