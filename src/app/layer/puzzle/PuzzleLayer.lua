@@ -59,10 +59,17 @@ local ferverBar = nil
 local ferverEffect = nil
 
 local ZOrder = {
-	Z_Bg = 0,
-	Z_Bullet = 1,
-	Z_Line = 9,
-	Z_Dialog = 3,
+	Z_BallBg = 0,
+	Z_Ball = 1,
+	Z_Line = 2,
+	
+	Z_BossBg = 10,
+	Z_Boss = 11,
+	
+	Z_Deck = 20,
+	
+	Z_FerverBar = 30,
+	Z_Dialog = 999,
 }
 
 function PuzzleLayer:ctor()
@@ -139,7 +146,7 @@ function PuzzleLayer:addBalls()
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
 	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
-	self:addChild(ball,ZOrder.Z_Bullet,typeId+2)
+	self:addChild(ball,ZOrder.Z_Ball,typeId+2)
 end
 -- 播放音乐
 function PuzzleLayer:loadingMusic()
@@ -154,14 +161,18 @@ end
 
 -- 添加背景
 function PuzzleLayer:addBG()
-	self.bg1 = cc.Sprite:create("battle/bg.png")
+--	self.bg1 = cc.Sprite:create("battle/bg.png")
 	--    self.bg2 = cc.Sprite:create("bg_01.jpg")
-	self.bg1:setAnchorPoint(cc.p(0, 0))
+--	self.bg1:setAnchorPoint(cc.p(0, 0))
 	--    self.bg1:setPosition(0, offside)
 	--    self.bg1:setScale(0.5)
 	--    self.bg2:setPosition(0, self.bg1:getContentSize().height)
 	--    self:addChild(self.bg1, 1)
 	--    self:addChild(self.bg2, -10)
+	
+	local boss = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
+	self:addChild(boss,ZOrder.Z_Boss)
+	
 end
 
 -- 添加背景
@@ -457,7 +468,7 @@ function PuzzleLayer:addFerverBar()
 	ferverBar:setPosition(cc.p(130, 20))
 	ferverBar:setScale(3)
 
-	self:addChild(ferverBar,999)
+	self:addChild(ferverBar,ZOrder.Z_FerverBar)
 end
 
 -- 初始化游戏数据状态
@@ -473,14 +484,14 @@ function PuzzleLayer:addPlayer()
 	self.player = SpritePlayer:create()
 	self:addChild(self.player, 2, 1001)
 	self.puzzleCardNode = PuzzleCardNode:create()
-	self:addChild(self.puzzleCardNode, 2)
+	self:addChild(self.puzzleCardNode, ZOrder.Z_Deck)
 	--	self.puzzleCardNode.cards.card2:setScale(1.1) --For Test
 end
 
 -- BOSSをinitする
 function PuzzleLayer:addBossSprite()
 	self.boss = BossSprite:create()
-	self:addChild(self.boss)
+	self:addChild(self.boss,ZOrder.Z_Boss)
 end
 
 -- 更新时间

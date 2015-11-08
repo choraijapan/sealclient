@@ -18,11 +18,7 @@ function ScenePuzzle:init(...)
 	self.scene:getPhysicsWorld():setAutoStep(false)
 	--	self.scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL) --Debug用
 	require('app.layer.puzzle.PuzzleLayer')
-	self.csb = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
-	self.scene:addChild(self.csb,1)
-	self.scene:addChild(PuzzleLayer:create(),2)
-	
-	
+	self.scene:addChild(PuzzleLayer:create(),1)
 	local function update(dt)
 		for var=0, 3 do
 			self.scene:getPhysicsWorld():step(dt/1)
