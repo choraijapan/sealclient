@@ -12,8 +12,8 @@ Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.7
-Ball.circleSize = 40
+Ball.scalePer = 0.65
+Ball.circleSize = 41
 --Ball.scalePer = 0.5
 
 Ball.TAG = {
