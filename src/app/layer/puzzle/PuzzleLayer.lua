@@ -3,7 +3,6 @@ local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
 local BossSprite = require("app.parts.puzzle.BossSprite")
-local SpritePlayer = require("app.parts.puzzle.SpritePlayer")
 
 PuzzleLayer = class("PuzzleLayer", cc.Layer)
 PuzzleLayer.stateGamePlaying = 0
@@ -12,10 +11,7 @@ PuzzleLayer.resultWin = 1
 PuzzleLayer.resultLost = 0
 PuzzleLayer.gameState = nil
 PuzzleLayer.gameTime = nil                --
-PuzzleLayer.lbScore = nil                 -- 分数
-PuzzleLayer.lbLifeCount = nil             -- 显示生命值
 
-PuzzleLayer.player = nil                  -- Player (自分)
 PuzzleLayer.boss = nil                    -- boss
 
 PuzzleLayer.wall = nil
@@ -28,8 +24,6 @@ PuzzleLayer.cards = {
 	card5 = nil,
 	card6 = nil
 }
-PuzzleLayer.footer = nil
-PuzzleLayer.name = nil
 
 local TYPES = 5
 
@@ -47,7 +41,6 @@ local tempBullets = {}
 local touchIdx = 1
 local touchIdx2 = 1
 local curTouchBall = nil
---local firstTouchBall = nil
 local lastTouchBall = nil
 
 local startBall = nil
@@ -62,19 +55,14 @@ local ZOrder = {
 	Z_BallBg = 0,
 	Z_Ball = 1,
 	Z_Line = 2,
-	
 	Z_BossBg = 10,
 	Z_Boss = 11,
-	
 	Z_Deck = 20,
-	
 	Z_FerverBar = 30,
 	Z_Dialog = 999,
 }
 
 function PuzzleLayer:ctor()
-	self.name = self.class.__cname
-	self:setName(self.name)
 	winSize = cc.Director:getInstance():getWinSize()
 	offside = winSize.height/2 + 25
 end
@@ -103,7 +91,7 @@ function PuzzleLayer:init()
 
 	Global:getInstance():resetGame()    -- 初始化全局变量
 	self:initGameState()                -- 初始化游戏数据状态
-	self:addPlayer()             -- 初期化（自分）
+	self:addCards()             -- 初期化（自分）
 
 	self:addBossSprite()
 	self:addPuzzle()
@@ -479,13 +467,10 @@ function PuzzleLayer:initGameState()
 	self.gameTime = 0
 end
 
--- Playerを追加する
-function PuzzleLayer:addPlayer()
-	self.player = SpritePlayer:create()
-	self:addChild(self.player, 2, 1001)
+-- cardsを追加する
+function PuzzleLayer:addCards()
 	self.puzzleCardNode = PuzzleCardNode:create()
 	self:addChild(self.puzzleCardNode, ZOrder.Z_Deck)
-	--	self.puzzleCardNode.cards.card2:setScale(1.1) --For Test
 end
 
 -- BOSSをinitする
@@ -607,10 +592,10 @@ function PuzzleLayer:checkGameOver()
 		self.gameState = self.stateGameOver
 		--You Win
 		self:gameResult(true)
-	elseif self.player:isActive() == false then
-		self.gameState = self.stateGameOver
-		--You Lost
-		self:gameResult(false)
+--	elseif self.player:isActive() == false then -- TODO check if cards all dead !!!
+--		self.gameState = self.stateGameOver
+--		--You Lost
+--		self:gameResult(false)
 	end
 end
 
@@ -643,11 +628,6 @@ function PuzzleLayer:gameResult(isWin)
 	cc.Director:getInstance():replaceScene(tt)
 end
 
--- 获取Player
-function PuzzleLayer:getShip()
-	return self.player
-end
-
 function PuzzleLayer:DrawLineRemove()
 	local nodes = self:getChildren()
 	for key, var in ipairs(nodes) do
@@ -658,6 +638,3 @@ function PuzzleLayer:DrawLineRemove()
 		end
 	end
 end
-
-
-

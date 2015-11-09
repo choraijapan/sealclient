@@ -3,7 +3,6 @@
 -- @author chorai
 -------------------------------------------------------------------------------
 AppConst = {}
-
-ORIGIN = cc.Director:getInstance():getVisibleOrigin()
+AppConst.ORIGIN = cc.Director:getInstance():getVisibleOrigin()
 AppConst.VISIBLE_SIZE = cc.Director:getInstance():getVisibleSize()
-WIN_SIZE = cc.Director:getInstance():getWinSize()
+AppConst.WIN_SIZE = cc.Director:getInstance():getWinSize()
