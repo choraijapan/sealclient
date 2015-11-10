@@ -19,12 +19,19 @@ Ball.circleSize = 41
 Ball.TAG = {
 	NUMBER = 1,
 }
+--Ball.type = {
+--	[1] = "battle/ball_water.png",
+--	[2] = "battle/ball_fire.png",
+--	[3] = "battle/ball_tree.png",
+--	[4] = "battle/ball_light.png",
+--	[5] = "battle/ball_dark.png",
+--}
 Ball.type = {
-	[1] = "battle/ball_water.png",
-	[2] = "battle/ball_fire.png",
-	[3] = "battle/ball_tree.png",
-	[4] = "battle/ball_light.png",
-	[5] = "battle/ball_dark.png",
+	[1] = "battle/test_1.png",
+	[2] = "battle/test_6.png",
+	[3] = "battle/test_3.png",
+	[4] = "battle/test_4.png",
+	[5] = "battle/test_5.png",
 }
 Ball.BOOM = 100
 
