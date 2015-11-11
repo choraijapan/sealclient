@@ -5,14 +5,14 @@ Ball.BROKEN = 1
 
 Ball.DENSITY = 1
 Ball.RESTIUTION = 0
-Ball.FRICTION = 0.3
+Ball.FRICTION = 0.4
 Ball.MASS = 1
 
 Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.65
+Ball.scalePer = 0.68
 Ball.circleSize = 41
 --Ball.scalePer = 0.5
 Ball.TAG = {
@@ -32,6 +32,42 @@ Ball.type = {
 	[4] = "battle/test_4.png",
 	[5] = "battle/test_5.png",
 }
+Ball.vertexes = {
+	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
+	[2] = { cc.p(-60*Ball.scalePer,3*Ball.scalePer),
+		cc.p(-31*Ball.scalePer,47*Ball.scalePer),
+		cc.p(-3*Ball.scalePer,63*Ball.scalePer),
+		cc.p(40*Ball.scalePer,47*Ball.scalePer),
+		cc.p(64*Ball.scalePer,7*Ball.scalePer),
+		cc.p(53*Ball.scalePer,-42*Ball.scalePer),
+		cc.p(15*Ball.scalePer,-64*Ball.scalePer),
+		cc.p(-36*Ball.scalePer,-58*Ball.scalePer)},
+	[3] =   {cc.p( -15*Ball.scalePer, 61*Ball.scalePer ),
+		cc.p( 32 *Ball.scalePer, 52*Ball.scalePer ),
+		cc.p( 59 *Ball.scalePer, 10*Ball.scalePer ),
+		cc.p( 50 *Ball.scalePer,-34*Ball.scalePer ),
+		cc.p( 16 *Ball.scalePer,-55*Ball.scalePer ),
+		cc.p( -9 *Ball.scalePer,-63*Ball.scalePer ),
+		cc.p( -42*Ball.scalePer,-46*Ball.scalePer ),
+		cc.p( -57*Ball.scalePer, 27*Ball.scalePer )},
+	[4] = { cc.p(-60*Ball.scalePer,3*Ball.scalePer),
+		cc.p(-31*Ball.scalePer,47*Ball.scalePer),
+		cc.p(-3*Ball.scalePer,63*Ball.scalePer),
+		cc.p(40*Ball.scalePer,47*Ball.scalePer),
+		cc.p(64*Ball.scalePer,7*Ball.scalePer),
+		cc.p(53*Ball.scalePer,-42*Ball.scalePer),
+		cc.p(15*Ball.scalePer,-64*Ball.scalePer),
+		cc.p(-36*Ball.scalePer,-58*Ball.scalePer)},
+	[5] =  {cc.p( -15*Ball.scalePer, 61*Ball.scalePer ),
+		cc.p( 32 *Ball.scalePer, 52*Ball.scalePer ),
+		cc.p( 59 *Ball.scalePer, 10*Ball.scalePer ),
+		cc.p( 50 *Ball.scalePer,-34*Ball.scalePer ),
+		cc.p( 16 *Ball.scalePer,-55*Ball.scalePer ),
+		cc.p( -9 *Ball.scalePer,-63*Ball.scalePer ),
+		cc.p( -42*Ball.scalePer,-46*Ball.scalePer ),
+		cc.p( -57*Ball.scalePer, 27*Ball.scalePer )}
+}
+
 Ball.BOOM = 100
 
 function Ball:ctor()
@@ -63,16 +99,16 @@ function Ball:init(type)
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
 	--	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
-	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)} --６角形
---	local vertexes = {cc.p(-41, -43),cc.p(3, 48),cc.p(49, -44)} --5角形
+	--	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)} --６角形
+	--	local vertexes = {cc.p(-41, -43),cc.p(3, 48),cc.p(49, -44)} --5角形
+	local vertexes = Ball.vertexes[type]
 	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
-	self._frame:setMoment(1000) --モーメント(大きいほど回転しにくい)
+	self._frame:setMoment(800) --モーメント(大きいほど回転しにくい)
 	self._frame:setMass(self.MASS) --重さ
 	self:setPhysicsBody(self._frame)
 end
-
 
 function Ball:brokenBullet()
 	if self:getName() ~= "boom" then
