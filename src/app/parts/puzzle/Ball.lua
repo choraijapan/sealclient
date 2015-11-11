@@ -5,7 +5,7 @@ Ball.BROKEN = 1
 
 Ball.DENSITY = 1
 Ball.RESTIUTION = 0
-Ball.FRICTION = 0.2
+Ball.FRICTION = 0.3
 Ball.MASS = 1
 
 Ball._state = 0
@@ -15,7 +15,6 @@ Ball._image = nil
 Ball.scalePer = 0.65
 Ball.circleSize = 41
 --Ball.scalePer = 0.5
-
 Ball.TAG = {
 	NUMBER = 1,
 }
@@ -62,16 +61,18 @@ function Ball:init(type)
 	--    self.size = (size.width/2) * self.scalePer
 	--    self.size = self.circleSize
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
-	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+	--	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
-	--	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)}
-	--	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)} --６角形
+--	local vertexes = {cc.p(-41, -43),cc.p(3, 48),cc.p(49, -44)} --5角形
+	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
-	self._frame:setMoment(PHYSICS_INFINITY) --モーメント(大きいほど回転しにくい)
+	self._frame:setMoment(1000) --モーメント(大きいほど回転しにくい)
 	self._frame:setMass(self.MASS) --重さ
 	self:setPhysicsBody(self._frame)
 end
+
 
 function Ball:brokenBullet()
 	if self:getName() ~= "boom" then
@@ -125,11 +126,11 @@ end
 function Ball:addGlowEffect(sprite, opacity, scale,order)
 	local pos = cc.p(sprite:getContentSize().width / 2, sprite:getContentSize().height / 2)
 	local glowSprite = cc.Sprite:create("battle/ball_white.png")
---	glowSprite:setColor(ccColor3B)
+	--	glowSprite:setColor(ccColor3B)
 	glowSprite:setPosition(pos)
 	glowSprite:setRotation(sprite:getRotation())
 	glowSprite:setOpacity(opacity)
---	glowSprite:setBlendFunc(gl.SRC_ALPHA,gl.ONE)
+	--	glowSprite:setBlendFunc(gl.SRC_ALPHA,gl.ONE)
 	glowSprite:setScale(scale)
 	sprite:addChild(glowSprite, order)
 end
