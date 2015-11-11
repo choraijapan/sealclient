@@ -27,7 +27,7 @@ Ball.TAG = {
 --}
 Ball.type = {
 	[1] = "battle/test_1.png",
-	[2] = "battle/test_6.png",
+	[2] = "battle/test_2.png",
 	[3] = "battle/test_3.png",
 	[4] = "battle/test_4.png",
 	[5] = "battle/test_5.png",
