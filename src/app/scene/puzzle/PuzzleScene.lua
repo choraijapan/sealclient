@@ -32,15 +32,9 @@ function ScenePuzzle:onEnter()
 	local test = 1
 end
 
-function ScenePuzzle:update(dt,node)
-	print("################# update ###################")
-	self.scene:getPhysicsWorld():setp(0.05)
-end
-
 -- onExit
 function ScenePuzzle:onExit()
 
 end
 
 return ScenePuzzle
-
