@@ -212,27 +212,33 @@ function BossSprite:setDebuffOn(data)
     --        self.debuff = 5
     --    end
 end
-
 function BossSprite:addAI()
-    local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 12)
-    bossSkill:setPosition(cc.p(70,-100))
+	local atkLeftTime = ccui.TextAtlas:create()
+	atkLeftTime:setScale(1.5)
+	atkLeftTime:setPosition(cc.p(240,-100))
+	self:addChild(atkLeftTime)
+	
+    local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
+    bossSkill:setPosition(cc.p(240,-60))
     self:addChild(bossSkill)
 
     -- 更新时间
     local function updateTime()
         self.time = self.time + 1
-        if self.time % 15 == 0 then
-            self.time = 0
-            self:startAtk()
-        else
-            --模仿魔兽世界插件的倒计时［BOSS发动技能倒计时］
+        if self.time % 15 ~= 0 then
+			--模仿魔兽世界插件的倒计时［BOSS发动技能倒计时］
 			if self.debuff.type == GameConst.DEBUFF.FREEZE then
-                bossSkill:setString(string.format("Perfect,You have stopped it!"))
-                self.debuff.type = nil
-                self.time = 1
-            else
-                bossSkill:setString(string.format("Atk will happen in %ss",15 - self.time))
-            end
+				bossSkill:setString(string.format("Perfect,You have stopped it!"))
+				self.debuff.type = nil
+				self.time = 1
+			else
+				bossSkill:setString("あと")
+				atkLeftTime:setProperty(15 - self.time, "battle/labelatlas.png", 17, 22, "0")
+			end
+            
+        else
+			self.time = 0
+			self:startAtk()
 
         end
     end

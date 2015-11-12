@@ -36,7 +36,7 @@ function PuzzleCardNode:create()
 end
 
 function PuzzleCardNode:update()
-    
+
 end
 
 function PuzzleCardNode:addSchedule()
@@ -48,9 +48,9 @@ end
 --------------------------------------------------------------------------------
 -- Init
 function PuzzleCardNode:init()
-    self:addSchedule()
-    self:addEventDispatcher()
-    
+	self:addSchedule()
+	self:addEventDispatcher()
+
 	-- TODO 通信,JSON情報
 	local data = {
 		card1 = {
@@ -80,7 +80,7 @@ function PuzzleCardNode:init()
 	self.cards[4] = WidgetObj:searchWidgetByName(cardNode_4,"Card","ccui.ImageView")
 	self.cards[5] = WidgetObj:searchWidgetByName(cardNode_5,"Card","ccui.ImageView")
 	self.cards[6] = WidgetObj:searchWidgetByName(cardNode_6,"Card","ccui.ImageView")
-	
+
 	self.cards[1].hpBar = WidgetObj:searchWidgetByName(cardNode_1,"HPBar","ccui.LoadingBar")
 	self.cards[2].hpBar = WidgetObj:searchWidgetByName(cardNode_2,"HPBar","ccui.LoadingBar")
 	self.cards[3].hpBar = WidgetObj:searchWidgetByName(cardNode_3,"HPBar","ccui.LoadingBar")
@@ -134,28 +134,28 @@ function PuzzleCardNode:init()
 	self.cards[4].hpBar:setPercent(100)
 	self.cards[5].hpBar:setPercent(100)
 	self.cards[6].hpBar:setPercent(100)
-    
+
 	self.cards[1].maxHp = 4241
 	self.cards[2].maxHp = 1234
 	self.cards[3].maxHp = 2355
 	self.cards[4].maxHp = 800
 	self.cards[5].maxHp = 1235
 	self.cards[6].maxHp = 6000
-	
+
 	self.cards[1].hp = self.cards[1].maxHp
 	self.cards[2].hp = self.cards[2].maxHp
 	self.cards[3].hp = self.cards[3].maxHp
 	self.cards[4].hp = self.cards[4].maxHp
 	self.cards[5].hp = self.cards[5].maxHp
 	self.cards[6].hp = self.cards[6].maxHp
-	
+
 	self.cards[1].energy = 0
 	self.cards[2].energy = 0
 	self.cards[3].energy = 0
 	self.cards[4].energy = 0
 	self.cards[5].energy = 0
 	self.cards[6].energy = 0
-	
+
 	self.cards[1].isActive = true
 	self.cards[2].isActive = true
 	self.cards[3].isActive = true
@@ -169,14 +169,14 @@ function PuzzleCardNode:init()
 	self.cards[4].attribute = 1
 	self.cards[5].attribute = 4
 	self.cards[6].attribute = 5
-	
+
 	self.cards[1].skillTxt = "人生はただ一度だけ切り"
 	self.cards[2].skillTxt = "４０歳になる時後悔しない"
 	self.cards[3].skillTxt = "エンジニアの命は４０歳までだ"
 	self.cards[4].skillTxt = "４０歳後まだCodingするの？"
 	self.cards[5].skillTxt = "黒ラーメン禁止"
 	self.cards[6].skillTxt = "１年頑張って６０年休み"
-	
+
 	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 30))
 
 end
@@ -201,10 +201,10 @@ function PuzzleCardNode:drawSkill(obj)
 	local action2 = cc.FadeOut:create(0.1)
 	local action3 = cc.RemoveSelf:create()
 	mask:runAction(cc.Sequence:create(action1, action2,action3))
-	
+
 	local cardSprite = cc.Sprite:create("images/Boss/20151018.png") --TODO
 	local cardSpriteSize = cardSprite:getContentSize()
-	
+
 	local function createText(txt)
 		local str = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
 		str:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2-cardSpriteSize.height/2))
@@ -212,26 +212,26 @@ function PuzzleCardNode:drawSkill(obj)
 		str:setString(txt)
 		return str
 	end
-	
+
 	-- create card character
 	local function createCardCara()
 		cardSprite:setAnchorPoint(cc.p(0.5,0.5))
 		cardSprite:setPosition(cc.p(-cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
 		local action1 = cc.DelayTime:create(0.1)
 		local action2 = cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
---		local scaleTo1 = cc.ScaleTo:create(0.1, 0.8, 1.5)
---		local scaleTo2 = cc.ScaleTo:create(0.1, 1.2, 0.8)
---		local scaleTo3 = cc.ScaleTo:create(0.1, 1, 1)
+		--		local scaleTo1 = cc.ScaleTo:create(0.1, 0.8, 1.5)
+		--		local scaleTo2 = cc.ScaleTo:create(0.1, 1.2, 0.8)
+		--		local scaleTo3 = cc.ScaleTo:create(0.1, 1, 1)
 		local action3 =  cc.MoveTo:create(2,cc.p(AppConst.VISIBLE_SIZE.width/2+10,AppConst.VISIBLE_SIZE.height/2))
 		local action4 =  cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width + cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
---		local action = cc.Spawn:create(moveTo,scaleTo1)
+		--		local action = cc.Spawn:create(moveTo,scaleTo1)
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
 	local emitter = GameUtils:createParticle("parts/effect/particle_snow.png","parts/effect/particle_snow.plist")
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
-	
+
 	local text = createText(obj.skillTxt)
 	mask:addChild(emitter, 0)
 	mask:addChild(blockLayer, 1)
@@ -257,16 +257,16 @@ end
 -- change hp
 function PuzzleCardNode:setHp(card,damage)
 	print("############## damage "..damage)
-    if card.isActive == false then
-        return
-    end
+	if card.isActive == false then
+		return
+	end
 	card.hp = card.hp - damage
 	local per = (card.hp / card.maxHp) * 100
 	if card.hp <= 0 then
 		card.hpBar:setPercent(0)
 		card.isActive = false
 		card:setColor(cc.c3b(127,127,127))
-    else
+	else
 		card.hpBar:setPercent(per)
 	end
 end
@@ -331,7 +331,7 @@ end
 -- addEventDispatcher
 function PuzzleCardNode:addEventDispatcher()
 	local function callBack(event)
-	   print("############ hurted !!!")
+		print("############ hurted !!!")
 		local data = event._data
 		if data.action == "atk" then
 			self:hurt(data.damage)
@@ -343,11 +343,19 @@ end
 --------------------------------------------------------------------------------
 -- hurt
 function PuzzleCardNode:hurt(damageValue)
-    local id = math.random(1,6)
-    -- card Hurt animation 
+	local id = 1
+	-- card Hurt animation
 	local action1 = cc.JumpBy:create(0.3, cc.p(0,0), -10, 1)
-	self.cards[id]:runAction(cc.Sequence:create(action1))
-	self:setHp(self.cards[id],damageValue)
+	for key, var in ipairs(self.cards) do
+		id = math.random(1,#self.cards)
+		print("############## card id "..id)
+		if self.cards[id].isActive then
+			self.cards[id]:runAction(cc.Sequence:create(action1))
+			self:setHp(self.cards[id],damageValue)
+			break
+		end
+	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -358,6 +366,17 @@ function PuzzleCardNode:createMaskLayer()
 	layer:setAnchorPoint(cc.p(0.5, 0.5))
 	layer:setOpacity(200)
 	return layer
+end
+--------------------------------------------------------------------------------
+-- isAllDead
+function PuzzleCardNode:isAllDead()
+	local isActive = true
+	for key, var in ipairs(self.cards) do
+		if var.isActive then
+			return false
+		end
+	end
+	return isActive
 end
 
 return PuzzleCardNode

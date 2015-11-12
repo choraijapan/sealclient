@@ -150,7 +150,7 @@ function Ball:onEnter()
 end
 
 function Ball:addBallHint()
-	if self:getName() ~= "boom" then
+	if self:getName() ~= "boom" and self:getName() ~= "touched" then
 		self:setName("big")
 		--		self._image:setScale(1.2)
 		--		self._image:setColor(cc.c3b(123,123,123))
@@ -187,9 +187,22 @@ function Ball:addBallTouchEffect()
 	end
 end
 
-function Ball:removeBallTouchEffect()
+function Ball:removeAllEffect()
 	if self:getName() ~= "boom" then
 		self:setName("normal")
+		self:removeBallTouchEffect()
+	end
+end
+
+function Ball:removeSingleEffect()
+	if self:getName() ~= "boom" then
+		self:setName("touched")
+		self:removeBallTouchEffect()
+	end
+end
+
+function Ball:removeBallTouchEffect()
+	if self:getName() ~= "boom" then
 		self._image:stopAllActions()
 		self._image:setScale(1)
 		self:setGrayNode(self._image, false)
@@ -290,8 +303,8 @@ function Ball:setGrayNode(node, flag)
 
 		if not shader then
 			shader = cc.GLProgram:createWithByteArrays(
-			-- vertex shader
-			[[
+				-- vertex shader
+				[[
             attribute vec4 a_position;
             attribute vec2 a_texCoord;
             attribute vec4 a_color;
@@ -306,8 +319,8 @@ function Ball:setGrayNode(node, flag)
                 v_texCoord = a_texCoord;
             }
             ]],
-			-- fragment shader
-			[[
+				-- fragment shader
+				[[
             varying vec2 v_texCoord;
             varying vec4 v_fragmentColor;
  

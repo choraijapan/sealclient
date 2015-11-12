@@ -136,7 +136,8 @@ function PuzzleLayer:addBalls()
 	local ball = Ball:create(typeId)
 
 	local randomX = math.random(winSize.width/2 - 20,winSize.width/2 + 20)
-	local randomY = math.random(winSize.height*2/3 ,winSize.height*3/4)
+--	local randomY = math.random(winSize.height*2/3 ,winSize.height*3/4)
+	local randomY = winSize.height*1/2 + 60
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
@@ -286,7 +287,7 @@ function PuzzleLayer:addTouch()
 				end
 			end
 		end
-		self:checkPuzzleHint()
+		
 		return true
 	end
 	local function onTouchMoved(touch, event)
@@ -316,7 +317,7 @@ function PuzzleLayer:addTouch()
 					touchIdx = touchIdx + 1
 					_bullets[touchIdx] = self.curTouchBall
 					if touchIdx > 1 then
-						_bullets[touchIdx-1]:removeBallTouchEffect()
+						_bullets[touchIdx-1]:removeSingleEffect()
 						_bullets[touchIdx-1]:removePuzzleNumber()
 					end
 					if next(_bullets) ~= nil then
@@ -329,7 +330,7 @@ function PuzzleLayer:addTouch()
 				local obj2 = _bullets[#_bullets-1]
 				if self.curTouchBall == obj2 then
 					touchIdx = touchIdx - 1
-					obj1:removeBallTouchEffect()
+					obj1:removeAllEffect()
 					obj2:addBallTouchEffect()
 					table.remove(_bullets,#_bullets)
 				end
@@ -354,16 +355,16 @@ function PuzzleLayer:addTouch()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
 			if obj:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
-				obj:getBody():getNode():removeBallTouchEffect()
+				obj:getBody():getNode():removeAllEffect()
 			end
 		end
 
 		if self.curTouchBall ~= nil then
-			self.curTouchBall:removeBallTouchEffect()
+			self.curTouchBall:removeAllEffect()
 		end
 
 		for key, var in ipairs(_bullets) do
-			var:removeBallTouchEffect()
+			var:removeAllEffect()
 		end
 		if next(_bullets) ~= nil then
 			local type = 1
@@ -378,7 +379,7 @@ function PuzzleLayer:addTouch()
 						type = var:getType()
 						lastPos = var:getPosition()
 
-						var:removeBallTouchEffect()
+						var:removeAllEffect()
 						var:brokenBullet()
 					end
 				end
@@ -401,7 +402,7 @@ function PuzzleLayer:addTouch()
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 		for _, obj in ipairs(all) do
 			if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				obj:getNode():removeBallTouchEffect()
+				obj:getNode():removeAllEffect()
 				obj:getNode():removePuzzleNumber()
 			end
 		end
@@ -526,6 +527,7 @@ function PuzzleLayer:update(dt)
 			ferver = 0
 		end
 	end
+	self:checkPuzzleHint()	
 end
 --------------------------------------------------------------------------------
 --
@@ -593,14 +595,14 @@ function PuzzleLayer:checkGameOver()
 	if self.boss == nil then
 		return
 	end
+	--You Win
 	if  self.boss:isActive() == false then
 		self.gameState = self.stateGameOver
-		--You Win
 		self:gameResult(true)
-		--  elseif self.player:isActive() == false then -- TODO check if cards all dead !!!
-		--      self.gameState = self.stateGameOver
-		--      --You Lost
-		--      self:gameResult(false)
+	end
+	--You Lost
+	if self.puzzleCardNode:isAllDead() then
+		self:gameResult(false)
 	end
 end
 --------------------------------------------------------------------------------
