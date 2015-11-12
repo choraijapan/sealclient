@@ -51,28 +51,33 @@ local isFerverTime = false
 local ferverBar = nil
 local ferverEffect = nil
 
+--各Layerの表示順番
 local ZOrder = {
 	Z_BallBg = 0,
 	Z_Ball = 1,
 	Z_Line = 2,
-	Z_BossBg = 10,
+--	Z_BossBg = 10,
+	Z_BossBg = 0,
 	Z_Boss = 11,
 	Z_Deck = 20,
 	Z_FerverBar = 30,
 	Z_Dialog = 999,
 }
-
+--------------------------------------------------------------------------------
+-- ctor
 function PuzzleLayer:ctor()
 	winSize = cc.Director:getInstance():getWinSize()
 	offside = winSize.height/2 + 25
 end
-
+--------------------------------------------------------------------------------
+-- create
 function PuzzleLayer:create()
 	local layer = PuzzleLayer.new()
 	layer:init()
 	return layer
 end
-
+--------------------------------------------------------------------------------
+-- create
 local function isTableContains(tb,obj)
 	for _,v in pairs(tb) do
 		if v == obj then
@@ -81,8 +86,8 @@ local function isTableContains(tb,obj)
 	end
 	return false
 end
-
-
+--------------------------------------------------------------------------------
+-- init
 function PuzzleLayer:init()
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
@@ -104,7 +109,8 @@ function PuzzleLayer:init()
 	_bulletVicts = {}
 	_fingerPosition = nil
 end
-
+--------------------------------------------------------------------------------
+-- addPuzzle
 function PuzzleLayer:addPuzzle()
 	local vec =
 		{
@@ -123,7 +129,8 @@ function PuzzleLayer:addPuzzle()
 	self.wall:setPosition(cc.p(0,30))
 	self:addChild(self.wall)
 end
-
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:addBalls()
 	local typeId = math.random(1,TYPES)
 	local ball = Ball:create(typeId)
@@ -136,7 +143,8 @@ function PuzzleLayer:addBalls()
 	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
 	self:addChild(ball,ZOrder.Z_Ball,typeId+2)
 end
--- 播放音乐
+--------------------------------------------------------------------------------
+--播放音乐
 function PuzzleLayer:loadingMusic()
 	if Global:getInstance():getAudioState() == true then
 		-- playMusic
@@ -146,36 +154,28 @@ function PuzzleLayer:loadingMusic()
 		cc.SimpleAudioEngine:getInstance():stopMusic()
 	end
 end
-
--- 添加背景
-function PuzzleLayer:addBG()
---	self.bg1 = cc.Sprite:create("battle/bg.png")
-	--    self.bg2 = cc.Sprite:create("bg_01.jpg")
---	self.bg1:setAnchorPoint(cc.p(0, 0))
-	--    self.bg1:setPosition(0, offside)
-	--    self.bg1:setScale(0.5)
-	--    self.bg2:setPosition(0, self.bg1:getContentSize().height)
-	--    self:addChild(self.bg1, 1)
-	--    self:addChild(self.bg2, -10)
-	
-	local boss = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
-	self:addChild(boss,ZOrder.Z_Boss)
-	
-end
-
--- 添加背景
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:addFooter()
 
 end
-
-
--- 背景滚动
+--------------------------------------------------------------------------------
+--
+function PuzzleLayer:addBG()
+	local puzzleLayer = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
+	self.bg1 = WidgetObj:searchWidgetByName(puzzleLayer,"Bg1","cc.Sprite")
+	self.bg2 = WidgetObj:searchWidgetByName(puzzleLayer,"Bg2","cc.Sprite")
+	self:addChild(puzzleLayer,ZOrder.Z_BossBg)
+	self:moveBG()
+end
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:moveBG()
 	local height = self.bg1:getContentSize().height
 	local function updateBG()
 		self.bg1:setPositionY(self.bg1:getPositionY() - 1)
 		self.bg2:setPositionY(self.bg1:getPositionY() + height)
-		if self.bg1:getPositionY() <= -height then
+		if self.bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
 			self.bg1, self.bg2 = self.bg2, self.bg1
 			self.bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
 		end
@@ -183,7 +183,8 @@ function PuzzleLayer:moveBG()
 	schedule(self, updateBG, 0)
 end
 
--- 添加按钮
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:addBtn()
 	local function PauseGame()
 		self:PauseGame()
@@ -197,8 +198,8 @@ function PuzzleLayer:addBtn()
 	menu:setPosition(cc.p(0, 0))
 	--    self:addChild(menu, 1, 10)
 end
-
--- 更新
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:addSchedule()
 
 	local function update(dt)
@@ -218,9 +219,8 @@ function PuzzleLayer:addSchedule()
 	end
 	schedule(self, updateTime, 1)
 end
-
-
-
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:addTouch()
 	local function onTouchBegan(touch, event)
 		print("################# touch began")
@@ -286,6 +286,7 @@ function PuzzleLayer:addTouch()
 				end
 			end
 		end
+		self:checkPuzzleHint()
 		return true
 	end
 	local function onTouchMoved(touch, event)
@@ -457,7 +458,8 @@ function PuzzleLayer:addFerverBar()
 
 	self:addChild(ferverBar,ZOrder.Z_FerverBar)
 end
-
+--------------------------------------------------------------------------------
+--
 -- 初始化游戏数据状态
 function PuzzleLayer:initGameState()
 	-- 游戏状态
@@ -465,26 +467,30 @@ function PuzzleLayer:initGameState()
 	-- 游戏时间
 	self.gameTime = 0
 end
-
+--------------------------------------------------------------------------------
+--
 -- cardsを追加する
 function PuzzleLayer:addCards()
 	self.puzzleCardNode = PuzzleCardNode:create()
 	self:addChild(self.puzzleCardNode, ZOrder.Z_Deck)
 end
-
+--------------------------------------------------------------------------------
+--
 -- BOSSをinitする
 function PuzzleLayer:addBossSprite()
 	self.boss = BossSprite:create()
 	self:addChild(self.boss,ZOrder.Z_Boss)
 end
-
+--------------------------------------------------------------------------------
+--
 -- 更新时间
 function PuzzleLayer:updateTime()
 	if self.gameState == self.stateGamePlaying then
 		self.gameTime = self.gameTime + 1
 	end
 end
-
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:update(dt)
 	_time = _time + 1
 	local all = {}
@@ -512,7 +518,6 @@ function PuzzleLayer:update(dt)
 		local node = DrawLine:create(_bulletVicts)
 		self:addChild(node,ZOrder.Z_Line,GameConst.PUZZLEOBJTAG.T_Line)
 		_bulletVicts = {}
-		self:checkPuzzleHint()
 	end
 
 	if isFerverTime then
@@ -521,11 +526,9 @@ function PuzzleLayer:update(dt)
 			ferver = 0
 		end
 	end
-
-
-
 end
-
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:getAroundBalls(all,curBall)
 	local aroundBalls = {}
 	local index = 1
@@ -548,6 +551,8 @@ function PuzzleLayer:getAroundBalls(all,curBall)
 	end
 	return aroundBalls
 end
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:checkPuzzleHint()
 	local function setBallsHintOn(balls,curBall)
 		if curBall:getName() ~= "big" then
@@ -574,6 +579,7 @@ function PuzzleLayer:checkPuzzleHint()
 		end
 	end
 end
+--------------------------------------------------------------------------------
 -- 更新游戏
 function PuzzleLayer:updateGame()
 	if self.gameState == self.stateGamePlaying then
@@ -581,7 +587,7 @@ function PuzzleLayer:updateGame()
 		self:updateUI()
 	end
 end
-
+--------------------------------------------------------------------------------
 -- 游戏结束 or 使用道具
 function PuzzleLayer:checkGameOver()
 	if self.boss == nil then
@@ -591,34 +597,34 @@ function PuzzleLayer:checkGameOver()
 		self.gameState = self.stateGameOver
 		--You Win
 		self:gameResult(true)
---	elseif self.player:isActive() == false then -- TODO check if cards all dead !!!
---		self.gameState = self.stateGameOver
---		--You Lost
---		self:gameResult(false)
+		--  elseif self.player:isActive() == false then -- TODO check if cards all dead !!!
+		--      self.gameState = self.stateGameOver
+		--      --You Lost
+		--      self:gameResult(false)
 	end
 end
-
+--------------------------------------------------------------------------------
 -- 刷新界面
 function PuzzleLayer:updateUI()
 end
-
+--------------------------------------------------------------------------------
 -- 游戏暂停
 function PuzzleLayer:PauseGame()
 	cc.Director:getInstance():pause()
 	cc.SimpleAudioEngine:getInstance():pauseMusic()
 	cc.SimpleAudioEngine:getInstance():pauseAllEffects()
-	--	local pauseLayer = PauseLayer:create() -- TODO add pause layer
-	--	self:addChild(pauseLayer, 9999)
+	--  local pauseLayer = PauseLayer:create() -- TODO add pause layer
+	--  self:addChild(pauseLayer, 9999)
 end
 
-
+--------------------------------------------------------------------------------
 -- 游戏继续
 function PuzzleLayer:resumeGame()
 	cc.Director:getInstance():resume()
 	cc.SimpleAudioEngine:getInstance():resumeMusic()
 	cc.SimpleAudioEngine:getInstance():resumeAllEffects()
 end
-
+--------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
 	Global:getInstance():ExitGame()
@@ -626,7 +632,8 @@ function PuzzleLayer:gameResult(isWin)
 	local tt = cc.TransitionCrossFade:create(1.0, scene)
 	cc.Director:getInstance():replaceScene(tt)
 end
-
+--------------------------------------------------------------------------------
+--
 function PuzzleLayer:DrawLineRemove()
 	local nodes = self:getChildren()
 	for key, var in ipairs(nodes) do
