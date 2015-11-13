@@ -7,7 +7,7 @@ require("app.common.include.Global")
 
 local PhysicsScene = require('core.base.scene.PhysicsScene')
 local ScenePuzzle = class("ScenePuzzle",PhysicsScene)
-local gravity = cc.p(0, -180)
+local gravity = cc.p(0, -120)
 local speed = 5.0
 
 -- init
