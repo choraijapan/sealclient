@@ -13,25 +13,25 @@ Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
 Ball.scalePer = 0.68
-Ball.circleSize = 41
+Ball.circleSize = 40
 --Ball.scalePer = 0.5
 Ball.TAG = {
 	NUMBER = 1,
 }
---Ball.type = {
---	[1] = "battle/ball_water.png",
---	[2] = "battle/ball_fire.png",
---	[3] = "battle/ball_tree.png",
---	[4] = "battle/ball_light.png",
---	[5] = "battle/ball_dark.png",
---}
 Ball.type = {
-	[1] = "battle/test_1.png",
-	[2] = "battle/test_2.png",
-	[3] = "battle/test_3.png",
-	[4] = "battle/test_4.png",
-	[5] = "battle/test_5.png",
+	[1] = "battle/ball_water.png",
+	[2] = "battle/ball_fire.png",
+	[3] = "battle/ball_tree.png",
+	[4] = "battle/ball_light.png",
+	[5] = "battle/ball_dark.png",
 }
+--Ball.type = {
+--	[1] = "battle/test_1.png",
+--	[2] = "battle/test_2.png",
+--	[3] = "battle/test_3.png",
+--	[4] = "battle/test_4.png",
+--	[5] = "battle/test_5.png",
+--}
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
 	[2] = { cc.p(-60*Ball.scalePer,3*Ball.scalePer),
@@ -97,12 +97,12 @@ function Ball:init(type)
 	--    self.size = (size.width/2) * self.scalePer
 	--    self.size = self.circleSize
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
-	--	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+		self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
 	--	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)} --６角形
 	--	local vertexes = {cc.p(-41, -43),cc.p(3, 48),cc.p(49, -44)} --5角形
-	local vertexes = Ball.vertexes[type]
-	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+--	local vertexes = Ball.vertexes[type]
+--	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
 	self._frame:setMoment(800) --モーメント(大きいほど回転しにくい)

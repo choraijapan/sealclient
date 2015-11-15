@@ -27,7 +27,6 @@ PuzzleLayer.cards = {
 
 local TYPES = 5
 
-local winSize = nil
 local offside = nil
 
 local MAX_BULLET = 45
@@ -66,8 +65,7 @@ local ZOrder = {
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
-	winSize = cc.Director:getInstance():getWinSize()
-	offside = winSize.height/2 + 25
+	offside = AppConst.WIN_SIZE.height/2 + 25
 end
 --------------------------------------------------------------------------------
 -- create
@@ -116,10 +114,10 @@ function PuzzleLayer:addPuzzle()
 		{
 			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height-1),
 			cc.p(1, AppConst.VISIBLE_SIZE.height-1),
-			cc.p(1, 100),
-			cc.p(AppConst.VISIBLE_SIZE.width/3, 50),
-			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 50),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, 100),
+			cc.p(1, 150),
+			cc.p(AppConst.VISIBLE_SIZE.width/3, 100),
+			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 100),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, 150),
 			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height-1)
 		}
 
@@ -135,9 +133,9 @@ function PuzzleLayer:addBalls()
 	local typeId = math.random(1,TYPES)
 	local ball = Ball:create(typeId)
 
-	local randomX = math.random(winSize.width/2 - 20,winSize.width/2 + 20)
---	local randomY = math.random(winSize.height*2/3 ,winSize.height*3/4)
-	local randomY = winSize.height*1/2 + 60
+	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
+--	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
