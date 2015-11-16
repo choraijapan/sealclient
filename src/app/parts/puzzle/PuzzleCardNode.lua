@@ -177,7 +177,8 @@ function PuzzleCardNode:init()
 	self.cards[5].skillTxt = "黒ラーメン禁止"
 	self.cards[6].skillTxt = "１年頑張って６０年休み"
 
-	self.gameCardNode:setPosition(cc.p(0,0))
+--	self.gameCardNode:setPosition(cc.p(0,0))
+	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 30))
 
 end
 --------------------------------------------------------------------------------

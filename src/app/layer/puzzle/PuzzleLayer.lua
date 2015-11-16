@@ -114,10 +114,10 @@ function PuzzleLayer:addPuzzle()
 		{
 			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height-1),
 			cc.p(1, AppConst.VISIBLE_SIZE.height-1),
-			cc.p(1, 150),
-			cc.p(AppConst.VISIBLE_SIZE.width/3, 100),
-			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 100),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, 150),
+			cc.p(1, 100),
+			cc.p(AppConst.VISIBLE_SIZE.width/3, 50),
+			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 50),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, 100),
 			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height-1)
 		}
 
