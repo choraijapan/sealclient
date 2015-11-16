@@ -81,12 +81,13 @@ function PuzzleCardNode:init()
 	self.cards[5] = WidgetObj:searchWidgetByName(cardNode_5,"Card","ccui.ImageView")
 	self.cards[6] = WidgetObj:searchWidgetByName(cardNode_6,"Card","ccui.ImageView")
 
-	self.cards[1].hpBar = WidgetObj:searchWidgetByName(cardNode_1,"HPBar","ccui.LoadingBar")
-	self.cards[2].hpBar = WidgetObj:searchWidgetByName(cardNode_2,"HPBar","ccui.LoadingBar")
-	self.cards[3].hpBar = WidgetObj:searchWidgetByName(cardNode_3,"HPBar","ccui.LoadingBar")
-	self.cards[4].hpBar = WidgetObj:searchWidgetByName(cardNode_4,"HPBar","ccui.LoadingBar")
-	self.cards[5].hpBar = WidgetObj:searchWidgetByName(cardNode_5,"HPBar","ccui.LoadingBar")
-	self.cards[6].hpBar = WidgetObj:searchWidgetByName(cardNode_6,"HPBar","ccui.LoadingBar")
+	self.hpBar = WidgetObj:searchWidgetByName(self,"HpBar","ccui.LoadingBar")
+	--	self.cards[1].hpBar = WidgetObj:searchWidgetByName(cardNode_1,"HPBar","ccui.LoadingBar")
+	--	self.cards[2].hpBar = WidgetObj:searchWidgetByName(cardNode_2,"HPBar","ccui.LoadingBar")
+	--	self.cards[3].hpBar = WidgetObj:searchWidgetByName(cardNode_3,"HPBar","ccui.LoadingBar")
+	--	self.cards[4].hpBar = WidgetObj:searchWidgetByName(cardNode_4,"HPBar","ccui.LoadingBar")
+	--	self.cards[5].hpBar = WidgetObj:searchWidgetByName(cardNode_5,"HPBar","ccui.LoadingBar")
+	--	self.cards[6].hpBar = WidgetObj:searchWidgetByName(cardNode_6,"HPBar","ccui.LoadingBar")
 
 	self.cards[1].energyBar = WidgetObj:searchWidgetByName(cardNode_1,"EnergyBar","ccui.LoadingBar")
 	self.cards[2].energyBar = WidgetObj:searchWidgetByName(cardNode_2,"EnergyBar","ccui.LoadingBar")
@@ -120,7 +121,6 @@ function PuzzleCardNode:init()
 			self:touchCard(self.cards[6])
 		end)
 
-
 	self.cards[1].energyBar:setPercent(0)
 	self.cards[2].energyBar:setPercent(0)
 	self.cards[3].energyBar:setPercent(0)
@@ -128,12 +128,13 @@ function PuzzleCardNode:init()
 	self.cards[5].energyBar:setPercent(0)
 	self.cards[6].energyBar:setPercent(0)
 
-	self.cards[1].hpBar:setPercent(100)
-	self.cards[2].hpBar:setPercent(100)
-	self.cards[3].hpBar:setPercent(100)
-	self.cards[4].hpBar:setPercent(100)
-	self.cards[5].hpBar:setPercent(100)
-	self.cards[6].hpBar:setPercent(100)
+	self.hpBar:setPercent(100)
+	--	self.cards[1].hpBar:setPercent(100)
+	--	self.cards[2].hpBar:setPercent(100)
+	--	self.cards[3].hpBar:setPercent(100)
+	--	self.cards[4].hpBar:setPercent(100)
+	--	self.cards[5].hpBar:setPercent(100)
+	--	self.cards[6].hpBar:setPercent(100)
 
 	self.cards[1].maxHp = 4241
 	self.cards[2].maxHp = 1234
@@ -141,13 +142,20 @@ function PuzzleCardNode:init()
 	self.cards[4].maxHp = 800
 	self.cards[5].maxHp = 1235
 	self.cards[6].maxHp = 6000
-
-	self.cards[1].hp = self.cards[1].maxHp
-	self.cards[2].hp = self.cards[2].maxHp
-	self.cards[3].hp = self.cards[3].maxHp
-	self.cards[4].hp = self.cards[4].maxHp
-	self.cards[5].hp = self.cards[5].maxHp
-	self.cards[6].hp = self.cards[6].maxHp
+    
+    self.hp = 0
+	self.maxHp = 0
+    for key, var in ipairs(self.cards) do
+		self.hp = self.hp + var.maxHp
+		self.maxHp = self.hp + var.maxHp
+    end
+      
+--	self.cards[1].hp = self.cards[1].maxHp
+--	self.cards[2].hp = self.cards[2].maxHp
+--	self.cards[3].hp = self.cards[3].maxHp
+--	self.cards[4].hp = self.cards[4].maxHp
+--	self.cards[5].hp = self.cards[5].maxHp
+--	self.cards[6].hp = self.cards[6].maxHp
 
 	self.cards[1].energy = 0
 	self.cards[2].energy = 0
@@ -156,12 +164,13 @@ function PuzzleCardNode:init()
 	self.cards[5].energy = 0
 	self.cards[6].energy = 0
 
-	self.cards[1].isActive = true
-	self.cards[2].isActive = true
-	self.cards[3].isActive = true
-	self.cards[4].isActive = true
-	self.cards[5].isActive = true
-	self.cards[6].isActive = true
+	self.isActive = true
+--	self.cards[1].isActive = true
+--	self.cards[2].isActive = true
+--	self.cards[3].isActive = true
+--	self.cards[4].isActive = true
+--	self.cards[5].isActive = true
+--	self.cards[6].isActive = true
 
 	self.cards[1].attribute = 1
 	self.cards[2].attribute = 2
@@ -177,14 +186,14 @@ function PuzzleCardNode:init()
 	self.cards[5].skillTxt = "黒ラーメン禁止"
 	self.cards[6].skillTxt = "１年頑張って６０年休み"
 
---	self.gameCardNode:setPosition(cc.p(0,0))
+	--	self.gameCardNode:setPosition(cc.p(0,0))
 	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 30))
 
 end
 --------------------------------------------------------------------------------
 -- touchCard
 function PuzzleCardNode:touchCard(obj)
-	if obj.energy >= 100 and obj.isActive then
+	if obj.energy >= 100 and self.isActive then
 		-- スキル発動
 		self:drawSkill(obj)
 	end
@@ -258,18 +267,32 @@ end
 -- change hp
 function PuzzleCardNode:setHp(card,damage)
 	print("############## damage "..damage)
+	self.hp = self.hp - damage
+	local per = (self.hp / self.maxHp) * 100
+	self.hpBar:setPercent(per)
+	
+	if self.hp <= 0 then
+		self.hpBar:setPercent(0)
+		self.isActive = false
+	else
+		self.hpBar:setPercent(per)
+	end
+	--[[
 	if card.isActive == false then
-		return
+	return
 	end
 	card.hp = card.hp - damage
 	local per = (card.hp / card.maxHp) * 100
 	if card.hp <= 0 then
-		card.hpBar:setPercent(0)
-		card.isActive = false
-		card:setColor(cc.c3b(127,127,127))
+	card.hpBar:setPercent(0)
+	self.hpBar:setPercent(0)
+	card.isActive = false
+	card:setColor(cc.c3b(127,127,127))
 	else
-		card.hpBar:setPercent(per)
+	card.hpBar:setPercent(per)
 	end
+	]]--
+
 end
 
 --------------------------------------------------------------------------------
@@ -293,7 +316,7 @@ end
 -- ballToCard
 function PuzzleCardNode:ballToCard(data)
 	for key, var in pairs(self.cards) do
-		if data.type == var.attribute and var.isActive ~= false then
+		if data.type == var.attribute then
 			local emitter = GameUtils:createParticle("effect/images/particle_4star.png","effect/particle_atk.plist")
 			self:getParent():getParent():addChild(emitter,1111111)
 			emitter:setPosition(data.startPos)
@@ -350,7 +373,7 @@ function PuzzleCardNode:hurt(damageValue)
 	for key, var in ipairs(self.cards) do
 		id = math.random(1,#self.cards)
 		print("############## card id "..id)
-		if self.cards[id].isActive then
+		if self.isActive then
 			self.cards[id]:runAction(cc.Sequence:create(action1))
 			self:setHp(self.cards[id],damageValue)
 			break
@@ -371,13 +394,16 @@ end
 --------------------------------------------------------------------------------
 -- isAllDead
 function PuzzleCardNode:isAllDead()
-	local isActive = true
-	for key, var in ipairs(self.cards) do
+	return self.isActive == false
+		--[[
+		local isActive = true
+		for key, var in ipairs(self.cards) do
 		if var.isActive then
-			return false
+		return false
 		end
-	end
-	return isActive
+		end
+		return isActive
+		]]--
 end
 
 return PuzzleCardNode
