@@ -92,7 +92,6 @@ function PuzzleLayer:init()
 	--    self:moveBG()       -- 背景移动
 	--    self:addBtn()       -- 游戏暂停按钮
 
-	Global:getInstance():resetGame()    -- 初始化全局变量
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addCards()             -- 初期化（自分）
 
@@ -145,13 +144,6 @@ end
 --------------------------------------------------------------------------------
 --播放音乐
 function PuzzleLayer:loadingMusic()
-	if Global:getInstance():getAudioState() == true then
-		-- playMusic
-		cc.SimpleAudioEngine:getInstance():stopMusic()
-		cc.SimpleAudioEngine:getInstance():playMusic("battle/Music/bgMusic.mp3", true)
-	else
-		cc.SimpleAudioEngine:getInstance():stopMusic()
-	end
 end
 --------------------------------------------------------------------------------
 --
@@ -387,7 +379,8 @@ function PuzzleLayer:addTouch()
 					action = "atkBoss",
 					type = type,
 					count = #_bullets,
-					startPos = lastPos
+					startPos = lastPos,
+					atkBossEffect = "effect/card_atk_001.plist" --TODO parameter
 				}
 				self.puzzleCardNode:ballToCard(data)
 
@@ -447,13 +440,13 @@ end
 ------------------------------------
 --   addFerverBar
 function PuzzleLayer:addFerverBar()
-	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("images/Common/BS09.png"))
+	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("images/Common/bar_ferver.png"))
 	ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
 	ferverBar:setAnchorPoint(cc.p(0,0))
 	ferverBar:setMidpoint(cc.p(0, 0))
 	ferverBar:setBarChangeRate(cc.p(1, 0))
-	ferverBar:setPosition(cc.p(130, 20))
-	ferverBar:setScale(3)
+	ferverBar:setPosition(cc.p(92, 30))
+--	ferverBar:setScale(3)
 
 	self:addChild(ferverBar,ZOrder.Z_FerverBar)
 end
@@ -627,7 +620,6 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
-	Global:getInstance():ExitGame()
 	local scene = PuzzleResultLayer:createScene(isWin)
 	local tt = cc.TransitionCrossFade:create(1.0, scene)
 	cc.Director:getInstance():replaceScene(tt)

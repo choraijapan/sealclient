@@ -39,12 +39,6 @@ end
 
 -- 背景音乐
 function PuzzleResultLayer:loadingMusic()
-    if Global:getInstance():getAudioState() == true then
-        cc.SimpleAudioEngine:getInstance():stopMusic()
-        cc.SimpleAudioEngine:getInstance():playMusic("Music/mainMainMusic.mp3", true)
-    else
-        cc.SimpleAudioEngine:getInstance():stopMusic()
-    end
 end
 
 

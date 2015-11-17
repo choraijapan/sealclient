@@ -143,6 +143,13 @@ function PuzzleCardNode:init()
 	self.cards[5].maxHp = 1235
 	self.cards[6].maxHp = 6000
     
+	self.cards[1].atk = 8241
+	self.cards[2].atk = 2234
+	self.cards[3].atk = 3355
+	self.cards[4].atk = 5800
+	self.cards[5].atk = 2235
+	self.cards[6].atk = 3000
+	
     self.hp = 0
 	self.maxHp = 0
     for key, var in ipairs(self.cards) do
@@ -238,7 +245,7 @@ function PuzzleCardNode:drawSkill(obj)
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
-	local emitter = GameUtils:createParticle("parts/effect/particle_snow.png","parts/effect/particle_snow.plist")
+	local emitter = GameUtils:createParticle("parts/effect/particle_snow.plist","parts/effect/particle_snow.png")
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
 
@@ -317,7 +324,7 @@ end
 function PuzzleCardNode:ballToCard(data)
 	for key, var in pairs(self.cards) do
 		if data.type == var.attribute then
-			local emitter = GameUtils:createParticle("effect/images/particle_4star.png","effect/particle_atk.plist")
+			local emitter = GameUtils:createParticle("effect/particle_atk.plist","effect/images/particle_4star.png")
 			self:getParent():getParent():addChild(emitter,1111111)
 			emitter:setPosition(data.startPos)
 			local action1 = cc.MoveTo:create(0.5,var:getParent():convertToWorldSpace(cc.p(var:getPositionX(),var:getPositionY())))
@@ -326,7 +333,16 @@ function PuzzleCardNode:ballToCard(data)
 			local function cardAtkEffect()
 				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
 				var:runAction(cc.Sequence:create(action1))
+				
+				data.damage = data.count * var.atk
 				self:broadEventDispatcher(data)
+				
+				local _data = {
+					type = data.type,
+					count = data.count,
+					damage = data.count * var.atk
+				}
+				self:addCardDamageNumber(var:getParent(),_data.damage)
 			end
 			local callFunc1 = cc.CallFunc:create(cardAtkEffect)
 			emitter:runAction(cc.Sequence:create(action1, action2,callFunc1))
@@ -342,12 +358,16 @@ function PuzzleCardNode:ballToCard(data)
 		end
 	end
 end
-
+--------------------------------------------------------------------------------
+-- addCardDamageNumber
+function PuzzleCardNode:addCardDamageNumber(obj,num)
+	local label_dm = GameUtils:createTextAtlas(num)
+	obj:addChild(label_dm,111)
+	GameUtils:addAtkNumberAction(label_dm)
+end
 --------------------------------------------------------------------------------
 -- broadEventDispatcher
 function PuzzleCardNode:broadEventDispatcher(data)
-	data.damage = 10000
-	data.atkBossEffect = "effect/card_atk_001.plist"
 	EventDispatchManager:broadcastEventDispatcher("SPRITE_CARD_ATK",data)
 end
 

@@ -27,7 +27,6 @@ PuzzleLayer.cards = {
 
 local TYPES = 5
 
-local winSize = nil
 local offside = nil
 
 local MAX_BULLET = 45
@@ -66,8 +65,7 @@ local ZOrder = {
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
-	winSize = cc.Director:getInstance():getWinSize()
-	offside = winSize.height/2 + 25
+	offside = AppConst.WIN_SIZE.height/2 + 25
 end
 --------------------------------------------------------------------------------
 -- create
@@ -94,7 +92,6 @@ function PuzzleLayer:init()
 	--    self:moveBG()       -- 背景移动
 	--    self:addBtn()       -- 游戏暂停按钮
 
-	Global:getInstance():resetGame()    -- 初始化全局变量
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addCards()             -- 初期化（自分）
 
@@ -135,9 +132,9 @@ function PuzzleLayer:addBalls()
 	local typeId = math.random(1,TYPES)
 	local ball = Ball:create(typeId)
 
-	local randomX = math.random(winSize.width/2 - 20,winSize.width/2 + 20)
---	local randomY = math.random(winSize.height*2/3 ,winSize.height*3/4)
-	local randomY = winSize.height*1/2 + 60
+	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
+--	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
@@ -147,13 +144,6 @@ end
 --------------------------------------------------------------------------------
 --播放音乐
 function PuzzleLayer:loadingMusic()
-	if Global:getInstance():getAudioState() == true then
-		-- playMusic
-		cc.SimpleAudioEngine:getInstance():stopMusic()
-		cc.SimpleAudioEngine:getInstance():playMusic("battle/Music/bgMusic.mp3", true)
-	else
-		cc.SimpleAudioEngine:getInstance():stopMusic()
-	end
 end
 --------------------------------------------------------------------------------
 --
@@ -389,7 +379,8 @@ function PuzzleLayer:addTouch()
 					action = "atkBoss",
 					type = type,
 					count = #_bullets,
-					startPos = lastPos
+					startPos = lastPos,
+					atkBossEffect = "effect/card_atk_001.plist" --TODO parameter
 				}
 				self.puzzleCardNode:ballToCard(data)
 
@@ -449,13 +440,13 @@ end
 ------------------------------------
 --   addFerverBar
 function PuzzleLayer:addFerverBar()
-	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("images/Common/BS09.png"))
+	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("images/Common/bar_ferver.png"))
 	ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
 	ferverBar:setAnchorPoint(cc.p(0,0))
 	ferverBar:setMidpoint(cc.p(0, 0))
 	ferverBar:setBarChangeRate(cc.p(1, 0))
-	ferverBar:setPosition(cc.p(130, 20))
-	ferverBar:setScale(3)
+	ferverBar:setPosition(cc.p(92, 30))
+--	ferverBar:setScale(3)
 
 	self:addChild(ferverBar,ZOrder.Z_FerverBar)
 end
@@ -629,7 +620,6 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
-	Global:getInstance():ExitGame()
 	local scene = PuzzleResultLayer:createScene(isWin)
 	local tt = cc.TransitionCrossFade:create(1.0, scene)
 	cc.Director:getInstance():replaceScene(tt)
