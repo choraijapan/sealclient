@@ -445,9 +445,8 @@ function PuzzleLayer:addFerverBar()
 	ferverBar:setAnchorPoint(cc.p(0,0))
 	ferverBar:setMidpoint(cc.p(0, 0))
 	ferverBar:setBarChangeRate(cc.p(1, 0))
-	ferverBar:setPosition(cc.p(92, 30))
---	ferverBar:setScale(3)
-
+	ferverBar:setPosition(cc.p(124, 23.5))
+	ferverBar:setScale(2)
 	self:addChild(ferverBar,ZOrder.Z_FerverBar)
 end
 --------------------------------------------------------------------------------

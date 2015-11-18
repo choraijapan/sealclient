@@ -47,7 +47,7 @@ BossSprite.color = {
 function BossSprite:ctor()
 	self.active = true
 	self.canBeAttack = false
-	self.hpMax = 5000000
+	self.hpMax = 15000000
 	self.hp = self.hpMax
 	self.atk = 1
 	self.power = 1.0

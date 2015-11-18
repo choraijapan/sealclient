@@ -186,16 +186,74 @@ function PuzzleCardNode:init()
 	self.cards[5].attribute = 4
 	self.cards[6].attribute = 5
 
+	self.cards[1].skill = {
+		name = "進撃のパンツ",
+		description = "人生はただ一度だけ切り",
+		type = 1, -- healing
+		value = 100000,
+		effect = ""
+	}
+	self.cards[2].skill = {
+		name = "佐々木希",
+		description = "４０歳になる時後悔しない",
+		type = 1, -- atk
+		value = 300000,
+		effect = ""
+	}
+	self.cards[3].skill = {
+		name = "進撃のパンツ",
+		description = "４０歳になる時後悔しない",
+		type = 1, -- atk
+		value = 150000,
+		effect = ""
+	}
+	self.cards[4].skill = {
+		name = "進撃のパンツ",
+		description = "人生はただ一度だけ切り",
+		type = 1, -- atk
+		value = 250000,
+		effect = ""
+	}
+	self.cards[5].skill = {
+		name = "進撃のパンツ",
+		description = "人生はただ一度だけ切り",
+		type = 1, -- atk
+		value = 530000,
+		effect = ""
+	}
+	self.cards[6].skill = {
+		name = "進撃のパンツ",
+		description = "人生はただ一度だけ切り",
+		type = 3, -- atk
+		value = 5300,
+		effect = ""
+	}
 	self.cards[1].skillTxt = "人生はただ一度だけ切り"
 	self.cards[2].skillTxt = "４０歳になる時後悔しない"
 	self.cards[3].skillTxt = "エンジニアの命は４０歳までだ"
 	self.cards[4].skillTxt = "４０歳後まだCodingするの？"
-	self.cards[5].skillTxt = "黒ラーメン禁止"
+	self.cards[5].skillTxt = "咪咪，咪咪，咪咪咪！"
 	self.cards[6].skillTxt = "１年頑張って６０年休み"
 
 	--	self.gameCardNode:setPosition(cc.p(0,0))
 	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 30))
 
+end
+
+--------------------------------------------------------------------------------
+-- cardSkillDrawed
+function PuzzleCardNode:cardSkillDrawed(skill)
+	if skill.type == GameConst.CardType.ATK then
+		print("##############ATK############")
+		local data = {
+		    action = "atkBoss",
+			damage = skill.value
+		}
+		self:atkBoss(data)
+	elseif skill.type == GameConst.CardType.HEAL then
+        print("##############Healing############")
+		self:cardHeal(skill.value)
+    end
 end
 --------------------------------------------------------------------------------
 -- touchCard
@@ -209,7 +267,10 @@ end
 --------------------------------------------------------------------------------
 -- skill 発動　３.5秒のEffect と　攻撃のダメージをBOSSに与えるため、BroadCastする
 function PuzzleCardNode:drawSkill(obj)
-
+    local function stopAction()
+		self:cardSkillDrawed(obj.skill)
+    end
+    
 	self:setEnergy(obj,0)
 	-- Effectを表示する
 	local mask = GameUtils:createMaskLayer()
@@ -217,7 +278,10 @@ function PuzzleCardNode:drawSkill(obj)
 	local action1 = cc.DelayTime:create(2.3)
 	local action2 = cc.FadeOut:create(0.1)
 	local action3 = cc.RemoveSelf:create()
-	mask:runAction(cc.Sequence:create(action1, action2,action3))
+	local action4 = cc.CallFunc:create(stopAction)
+
+	
+	mask:runAction(cc.Sequence:create(action1, action2,action3,action4))
 
 	local cardSprite = cc.Sprite:create("images/Boss/20151018.png") --TODO
 	local cardSpriteSize = cardSprite:getContentSize()
@@ -236,12 +300,8 @@ function PuzzleCardNode:drawSkill(obj)
 		cardSprite:setPosition(cc.p(-cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
 		local action1 = cc.DelayTime:create(0.1)
 		local action2 = cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
-		--		local scaleTo1 = cc.ScaleTo:create(0.1, 0.8, 1.5)
-		--		local scaleTo2 = cc.ScaleTo:create(0.1, 1.2, 0.8)
-		--		local scaleTo3 = cc.ScaleTo:create(0.1, 1, 1)
 		local action3 =  cc.MoveTo:create(2,cc.p(AppConst.VISIBLE_SIZE.width/2+10,AppConst.VISIBLE_SIZE.height/2))
 		local action4 =  cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width + cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
-		--		local action = cc.Spawn:create(moveTo,scaleTo1)
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
@@ -272,34 +332,16 @@ function PuzzleCardNode:setEnergy(card,per)
 end
 --------------------------------------------------------------------------------
 -- change hp
-function PuzzleCardNode:setHp(card,damage)
-	print("############## damage "..damage)
-	self.hp = self.hp - damage
+function PuzzleCardNode:changeHp(value)
+	self.hp = self.hp + value
 	local per = (self.hp / self.maxHp) * 100
 	self.hpBar:setPercent(per)
-	
 	if self.hp <= 0 then
 		self.hpBar:setPercent(0)
 		self.isActive = false
 	else
 		self.hpBar:setPercent(per)
 	end
-	--[[
-	if card.isActive == false then
-	return
-	end
-	card.hp = card.hp - damage
-	local per = (card.hp / card.maxHp) * 100
-	if card.hp <= 0 then
-	card.hpBar:setPercent(0)
-	self.hpBar:setPercent(0)
-	card.isActive = false
-	card:setColor(cc.c3b(127,127,127))
-	else
-	card.hpBar:setPercent(per)
-	end
-	]]--
-
 end
 
 --------------------------------------------------------------------------------
@@ -335,7 +377,7 @@ function PuzzleCardNode:ballToCard(data)
 				var:runAction(cc.Sequence:create(action1))
 				
 				data.damage = data.count * var.atk
-				self:broadEventDispatcher(data)
+				self:atkBoss(data)
 				
 				local _data = {
 					type = data.type,
@@ -367,7 +409,7 @@ function PuzzleCardNode:addCardDamageNumber(obj,num)
 end
 --------------------------------------------------------------------------------
 -- broadEventDispatcher
-function PuzzleCardNode:broadEventDispatcher(data)
+function PuzzleCardNode:atkBoss(data)
 	EventDispatchManager:broadcastEventDispatcher("SPRITE_CARD_ATK",data)
 end
 
@@ -386,22 +428,19 @@ end
 
 --------------------------------------------------------------------------------
 -- hurt
-function PuzzleCardNode:hurt(damageValue)
-	local id = 1
-	-- card Hurt animation
-	local action1 = cc.JumpBy:create(0.3, cc.p(0,0), -10, 1)
-	for key, var in ipairs(self.cards) do
-		id = math.random(1,#self.cards)
-		print("############## card id "..id)
-		if self.isActive then
-			self.cards[id]:runAction(cc.Sequence:create(action1))
-			self:setHp(self.cards[id],damageValue)
-			break
-		end
-	end
-
+function PuzzleCardNode:hurt(value)
+	self:changeHp(-value)
 end
-
+--------------------------------------------------------------------------------
+-- healing
+function PuzzleCardNode:cardHeal(value)
+	self:changeHp(value)
+end
+--------------------------------------------------------------------------------
+-- atk boss
+function PuzzleCardNode:cardAtk(value)
+	
+end
 --------------------------------------------------------------------------------
 -- createMaskLayer
 function PuzzleCardNode:createMaskLayer()
