@@ -201,49 +201,49 @@ function PuzzleCardNode:init()
 --	self.cards[6].isActive = true
 
 	self.cards[1].attribute = GameConst.ATTRIBUTE.FIRE
-	self.cards[2].attribute = GameConst.ATTRIBUTE.FIRE
-	self.cards[3].attribute = GameConst.ATTRIBUTE.FIRE
-	self.cards[4].attribute = GameConst.ATTRIBUTE.FIRE
+	self.cards[2].attribute = GameConst.ATTRIBUTE.WATER
+	self.cards[3].attribute = GameConst.ATTRIBUTE.LIGHT
+	self.cards[4].attribute = GameConst.ATTRIBUTE.DARK
 	self.cards[5].attribute = GameConst.ATTRIBUTE.FIRE
 	self.cards[6].attribute = GameConst.ATTRIBUTE.TREE
 
 	self.cards[1].skill = {
-		name = "進撃のパンツ",
+		name = "GGGGGGGG",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- healing
 		value = 100000,
 		effect = ""
 	}
 	self.cards[2].skill = {
-		name = "佐々木希",
+		name = "AAAAAA",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 300000,
 		effect = ""
 	}
 	self.cards[3].skill = {
-		name = "進撃のパンツ",
+		name = "BBBB",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 150000,
 		effect = ""
 	}
 	self.cards[4].skill = {
-		name = "進撃のパンツ",
+		name = "CCCCC",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 250000,
 		effect = ""
 	}
 	self.cards[5].skill = {
-		name = "進撃のパンツ",
+		name = "DDDDDD",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 530000,
 		effect = ""
 	}
 	self.cards[6].skill = {
-		name = "進撃のパンツ",
+		name = "EEEEEEEE",
 		description = "人生はただ一度だけ切り",
 		type = 3, -- atk
 		value = 5300,
@@ -304,7 +304,7 @@ function PuzzleCardNode:drawSkill(obj)
 	
 	mask:runAction(cc.Sequence:create(action1, action2,action3,action4))
 
-	local cardSprite = cc.Sprite:create("images/Boss/20151018.png") --TODO
+	local cardSprite = cc.Sprite:create("images/boss/20151018.png") --TODO
 	local cardSpriteSize = cardSprite:getContentSize()
 
 	local function createText(txt)
