@@ -80,7 +80,28 @@ function PuzzleCardNode:init()
 	self.cards[4] = WidgetObj:searchWidgetByName(cardNode_4,"Card","ccui.ImageView")
 	self.cards[5] = WidgetObj:searchWidgetByName(cardNode_5,"Card","ccui.ImageView")
 	self.cards[6] = WidgetObj:searchWidgetByName(cardNode_6,"Card","ccui.ImageView")
-
+    
+	self.cards[1].CardFrame = WidgetObj:searchWidgetByName(cardNode_1,"CardFrame","ccui.ImageView")
+	self.cards[2].CardFrame = WidgetObj:searchWidgetByName(cardNode_2,"CardFrame","ccui.ImageView")
+	self.cards[3].CardFrame = WidgetObj:searchWidgetByName(cardNode_3,"CardFrame","ccui.ImageView")
+	self.cards[4].CardFrame = WidgetObj:searchWidgetByName(cardNode_4,"CardFrame","ccui.ImageView")
+	self.cards[5].CardFrame = WidgetObj:searchWidgetByName(cardNode_5,"CardFrame","ccui.ImageView")
+	self.cards[6].CardFrame = WidgetObj:searchWidgetByName(cardNode_6,"CardFrame","ccui.ImageView")
+    
+	self.cards[1].CardFrame:loadTexture("images/Common/monster_thum_red.png")
+	self.cards[2].CardFrame:loadTexture("images/Common/monster_thum_red.png")
+	self.cards[3].CardFrame:loadTexture("images/Common/monster_thum_red.png")
+	self.cards[4].CardFrame:loadTexture("images/Common/monster_thum_red.png")
+	self.cards[5].CardFrame:loadTexture("images/Common/monster_thum_red.png")
+	self.cards[6].CardFrame:loadTexture("images/Common/monster_thum_green.png")
+    
+	self.cards[1].CardBg = WidgetObj:searchWidgetByName(cardNode_1,"CardFrame","ccui.Panel")
+	self.cards[2].CardBg = WidgetObj:searchWidgetByName(cardNode_2,"CardFrame","ccui.Panel")
+	self.cards[3].CardBg = WidgetObj:searchWidgetByName(cardNode_3,"CardFrame","ccui.Panel")
+	self.cards[4].CardBg = WidgetObj:searchWidgetByName(cardNode_4,"CardFrame","ccui.Panel")
+	self.cards[5].CardBg = WidgetObj:searchWidgetByName(cardNode_5,"CardFrame","ccui.Panel")
+	self.cards[6].CardBg = WidgetObj:searchWidgetByName(cardNode_6,"CardFrame","ccui.Panel")
+    
 	self.hpBar = WidgetObj:searchWidgetByName(self,"HpBar","ccui.LoadingBar")
 	--	self.cards[1].hpBar = WidgetObj:searchWidgetByName(cardNode_1,"HPBar","ccui.LoadingBar")
 	--	self.cards[2].hpBar = WidgetObj:searchWidgetByName(cardNode_2,"HPBar","ccui.LoadingBar")
@@ -179,12 +200,12 @@ function PuzzleCardNode:init()
 --	self.cards[5].isActive = true
 --	self.cards[6].isActive = true
 
-	self.cards[1].attribute = 1
-	self.cards[2].attribute = 2
-	self.cards[3].attribute = 3
-	self.cards[4].attribute = 1
-	self.cards[5].attribute = 4
-	self.cards[6].attribute = 5
+	self.cards[1].attribute = GameConst.ATTRIBUTE.FIRE
+	self.cards[2].attribute = GameConst.ATTRIBUTE.FIRE
+	self.cards[3].attribute = GameConst.ATTRIBUTE.FIRE
+	self.cards[4].attribute = GameConst.ATTRIBUTE.FIRE
+	self.cards[5].attribute = GameConst.ATTRIBUTE.FIRE
+	self.cards[6].attribute = GameConst.ATTRIBUTE.TREE
 
 	self.cards[1].skill = {
 		name = "進撃のパンツ",
@@ -374,7 +395,7 @@ function PuzzleCardNode:ballToCard(data)
 
 			local function cardAtkEffect()
 				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
-				var:runAction(cc.Sequence:create(action1))
+				var:getParent():runAction(cc.Sequence:create(action1))
 				
 				data.damage = data.count * var.atk
 				self:atkBoss(data)
