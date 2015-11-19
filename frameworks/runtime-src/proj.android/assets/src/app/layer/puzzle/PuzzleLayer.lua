@@ -440,7 +440,7 @@ end
 ------------------------------------
 --   addFerverBar
 function PuzzleLayer:addFerverBar()
-	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("images/Common/bar_ferver.png"))
+	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("images/common/bar_ferver.png"))
 	ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
 	ferverBar:setAnchorPoint(cc.p(0,0))
 	ferverBar:setMidpoint(cc.p(0, 0))
