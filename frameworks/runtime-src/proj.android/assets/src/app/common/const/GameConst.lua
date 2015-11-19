@@ -14,6 +14,13 @@ GameConst.ATTRIBUTE = {
 	DARK 	= 5,
 }
 
+GameConst.CardType = {
+	ATK = 1,
+	DEF = 2,
+	HEAL = 3,
+	CONTROL = 4
+}
+
 GameConst.DEBUFF = {
 	ATK = 1,
 	FREEZE = 2,

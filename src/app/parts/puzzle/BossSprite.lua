@@ -79,7 +79,7 @@ function BossSprite:create()
 end
 
 function BossSprite:addArmature()
-	self.sprite = cc.Sprite:create("images/Boss/20151018.png")
+	self.sprite = cc.Sprite:create("images/boss/20151018.png")
 	self.sprite:setAnchorPoint(0.5)
 	self:addChild(self.sprite)
 	self:setAnimation(self.sprite)

@@ -79,7 +79,7 @@ function BossSprite:create()
 end
 
 function BossSprite:addArmature()
-	self.sprite = cc.Sprite:create("images/Boss/20151018.png")
+	self.sprite = cc.Sprite:create("images/boss/20151018.png")
 	self.sprite:setAnchorPoint(0.5)
 	self:addChild(self.sprite)
 	self:setAnimation(self.sprite)
@@ -117,12 +117,15 @@ function BossSprite:addHp()
 	self.label_hp = ccui.TextAtlas:create()
 	self.label_hp:setProperty(self.hp, "battle/labelatlas.png", 17, 22, "0")
 	self.label_hp:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
-	self.bar_hp = GameUtils:createProgressBar("res/Default/LoadingBarFile.png")
+	self.bar_hp = GameUtils:createProgressBar("images/ui/gauge_green.png")
+	self.bar_hp:setScaleX(1.4)
+	local bar_bg = cc.Sprite:create("images/ui/boss_gauge_green.png")
+	bar_bg:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
 	self.bar_hp:setColor(cc.c3b(225,225,0))
-	self.bar_hp:setScaleX(1.5)
-	self.bar_hp:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
+	self.bar_hp:setPosition(cc.p(1,self.sprite:getContentSize().height/2 -7))
+	self:addChild(bar_bg)
 	self:addChild(self.bar_hp)
-	self:addChild(self.label_hp)
+--	self:addChild(self.label_hp)
 
 	local to = cc.ProgressTo:create(1, 100)
 	self.bar_hp:runAction(cc.RepeatForever:create(to))
@@ -132,7 +135,7 @@ end
 -- hurt
 function BossSprite:hurt(damageValue)
 	self.hp = self.hp - damageValue
-	self.label_hp:setString(self.hp)
+--	self.label_hp:setString(self.hp)
 
 	local hpPer = (self.hp / self.hpMax)*100
 	local to = cc.ProgressTo:create(0.5, hpPer)
@@ -209,10 +212,13 @@ function BossSprite:addAI()
 	atkLeftTime:setScale(1.5)
 	atkLeftTime:setPosition(cc.p(240,-100))
 	self:addChild(atkLeftTime)
-
-	local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
-	bossSkill:setPosition(cc.p(240,-60))
-	self:addChild(bossSkill)
+    
+	local text_turn = cc.Sprite:create("images/text/text_turn.png")
+	text_turn:setPosition(cc.p(240,-60))
+	self:addChild(text_turn)
+--	local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
+--	bossSkill:setPosition(cc.p(240,-60))
+--	self:addChild(bossSkill)
 
 	-- 更新时间
 	local function updateTime()
@@ -220,12 +226,12 @@ function BossSprite:addAI()
 		if self.time % 15 ~= 0 then
 			--模仿魔兽世界插件的倒计时［BOSS发动技能倒计时］
 			if self.debuff.type == GameConst.DEBUFF.FREEZE then
-				bossSkill:setString(string.format("Perfect,You have stopped it!"))
+--				bossSkill:setString(string.format("Perfect,You have stopped it!"))
 				self.debuff.type = nil
 				self.time = 1
 			else
-				bossSkill:setString("あと")
-				atkLeftTime:setProperty(15 - self.time, "battle/labelatlas.png", 17, 22, "0")
+--				bossSkill:setString("あと")
+				atkLeftTime:setProperty(15 - self.time, "images/font/number_quest_medium_yellow.png", 25, 30, "0")
 			end
 
 		else

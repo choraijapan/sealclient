@@ -1058,7 +1058,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#rm -rf ../../../runtime/ios/game_client\\ iOS.app\n#cp -r ${BUILD_DIR}/Debug-iphonesimulator/game_client\\ iOS.app ../../../runtime/ios/game_client\\ iOS.app";
+			shellScript = "rm -rf ../../../runtime/ios/game_client\\ iOS.app\ncp -r ${BUILD_DIR}/Debug-iphonesimulator/game_client\\ iOS.app ../../../runtime/ios/game_client\\ iOS.app";
 		};
 		3EC988201966433500A45E0E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

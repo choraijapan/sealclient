@@ -55,7 +55,7 @@ local ZOrder = {
 	Z_BallBg = 0,
 	Z_Ball = 1,
 	Z_Line = 2,
---	Z_BossBg = 10,
+	--	Z_BossBg = 10,
 	Z_BossBg = 0,
 	Z_Boss = 11,
 	Z_Deck = 20,
@@ -133,7 +133,7 @@ function PuzzleLayer:addBalls()
 	local ball = Ball:create(typeId)
 
 	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
---	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+	--	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
 	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
@@ -277,7 +277,7 @@ function PuzzleLayer:addTouch()
 				end
 			end
 		end
-		
+
 		return true
 	end
 	local function onTouchMoved(touch, event)
@@ -445,9 +445,8 @@ function PuzzleLayer:addFerverBar()
 	ferverBar:setAnchorPoint(cc.p(0,0))
 	ferverBar:setMidpoint(cc.p(0, 0))
 	ferverBar:setBarChangeRate(cc.p(1, 0))
-	ferverBar:setPosition(cc.p(92, 30))
---	ferverBar:setScale(3)
-
+	ferverBar:setPosition(cc.p(124, 23.5))
+	ferverBar:setScale(2)
 	self:addChild(ferverBar,ZOrder.Z_FerverBar)
 end
 --------------------------------------------------------------------------------
@@ -518,7 +517,7 @@ function PuzzleLayer:update(dt)
 			ferver = 0
 		end
 	end
-	self:checkPuzzleHint()	
+	self:checkPuzzleHint()
 end
 --------------------------------------------------------------------------------
 --
