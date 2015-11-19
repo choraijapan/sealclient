@@ -1,10 +1,9 @@
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes.dex : \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/BuildConfig.class \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R$attr.class \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R$drawable.class \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R$string.class \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R.class \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/lua/AppActivity$1.class \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/lua/AppActivity.class \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/dexedLibs/classes-363663189f20f1c520e716070f40b3cc.jar \
-/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/bin/dexedLibs/annotations-100e25947bfc95c24abdbfea8e00f56d.jar \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes.dex : \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/BuildConfig.class \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R$attr.class \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R$drawable.class \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R$string.class \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/game_client/R.class \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/lua/AppActivity$1.class \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/classes/org/cocos2dx/lua/AppActivity.class \
+/Users/harai/Working/cl_project/crown-client/frameworks/runtime-src/proj.android/bin/dexedLibs/classes-2a2a066f140ba5ad49c1151475da928a.jar \
