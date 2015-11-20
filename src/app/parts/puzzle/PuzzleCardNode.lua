@@ -199,7 +199,7 @@ function PuzzleCardNode:init()
 --	self.cards[4].isActive = true
 --	self.cards[5].isActive = true
 --	self.cards[6].isActive = true
-
+	
 	self.cards[1].attribute = GameConst.ATTRIBUTE.FIRE
 	self.cards[2].attribute = GameConst.ATTRIBUTE.WATER
 	self.cards[3].attribute = GameConst.ATTRIBUTE.LIGHT
@@ -457,6 +457,10 @@ end
 -- healing
 function PuzzleCardNode:cardHeal(value)
 	self:changeHp(value)
+	local emitter = GameUtils:createParticle("images/effect/gauge_bar_heal.plist",nil)
+	emitter:setAnchorPoint(0,0.5)
+	emitter:setPosition(self.hpBar:getPosition())
+	self.hpBar:addChild(emitter,1)
 end
 --------------------------------------------------------------------------------
 -- atk boss

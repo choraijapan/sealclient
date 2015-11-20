@@ -380,7 +380,7 @@ function PuzzleLayer:addTouch()
 					type = type,
 					count = #_bullets,
 					startPos = lastPos,
-					atkBossEffect = "effect/card_atk_001.plist" --TODO parameter
+					atkBossEffect = "images/effect/weapon_sword_hit_back.plist" --TODO parameter
 				}
 				self.puzzleCardNode:ballToCard(data)
 
