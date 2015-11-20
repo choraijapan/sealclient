@@ -451,6 +451,7 @@ end
 -- hurt
 function PuzzleCardNode:hurt(value)
 	self:changeHp(-value)
+	GameUtils:shakeNode(self.gameCardNode,0.2)
 end
 --------------------------------------------------------------------------------
 -- healing

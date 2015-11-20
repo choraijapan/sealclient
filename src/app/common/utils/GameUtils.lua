@@ -25,7 +25,53 @@ function GameUtils:createParticle(plist,img)
 	particle:setAutoRemoveOnFinish(true)
 	return particle
 end
+--------------------------------------------------------------------------------
+-- @Effect
+-- shakeNode
+function GameUtils:shakeNode(node,duration)
+	local pos = cc.p(node:getPositionX(),node:getPositionY())
+	local tmp = 0
+	local zs = node:getScale()
+	local function mutable(dt)
+		tmp = tmp + dt
+		if tmp >= duration then
+			node:unscheduleUpdate()
+			node:setPosition(pos)
+			node:setScale(zs)
+			return
+		else
+			local z = math.random(98,103) * 0.01
+			local x = math.random(1,6)
+			local y = math.random(1,8)
+			local r = math.random(0,2)
+			if r > 0 then
+				x = x *(-1)
+				r = math.random(0,2)
+				if r > 0 then
+					y = y*(-1)
+				end
+			end
+			node:setPosition(pos.x+x,pos.y+y)
+			node:setScale(z)
+		end
+	end
+	node:scheduleUpdateWithPriorityLua(mutable, 0)
+end
 
+function GameUtils:shakeNode2(node,duration)
+	local pos = node:getPosition()
+	local r = math.random(0,1)
+	local k = 0
+	if r > 0 then
+		k = 1
+	else
+		k = -1
+	end
+	local action1 = cc.MoveBy:create(0.1, cc.p( 10*k,10*k))
+	local action2 = cc.MoveBy:create(0.1, cc.p( - 10*k,- 10*k))
+	local action3 = action2:reverse()
+	node:runAction(cc.Sequence:create(action1, action2,action3))
+end
 ---#############################################################################
 ---### UI関連
 ---#############################################################################
@@ -81,7 +127,7 @@ function GameUtils:addDamageNumberAction(obj)
 	local action0 = cc.MoveTo:create(0,pos)
 	local action1 = cc.ScaleTo:create(0.1, 2.5)
 	local action2 = cc.ScaleTo:create(0.1, 1.8)
---	local action3 = cc.MoveBy:create(0.5,cc.p(0,20))
+	--	local action3 = cc.MoveBy:create(0.5,cc.p(0,20))
 	local action4 = cc.DelayTime:create(1.5)
 	local action5 = cc.FadeOut:create(0.5)
 	local action6 = cc.RemoveSelf:create()

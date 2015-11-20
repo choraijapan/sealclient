@@ -106,6 +106,7 @@ function BossSprite:addEventDispatcher()
 		if data.action == "atkBoss" then
 			self:addHurt(data)
 			cardAtkBossEffect(data.atkBossEffect)
+			GameUtils:shakeNode(self,0.1)
 		end
 	end
 	EventDispatchManager:createEventDispatcher(self,"SPRITE_CARD_ATK",callBack)
