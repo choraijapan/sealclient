@@ -189,7 +189,7 @@ function GameUtils:pauseScene(sqr,isFlip)
 	local size = cc.Director:sharedDirector():getWinSize()
 
 	local _spr = cc.Sprite:createWithTexture(sqr:getSprite():getTexture())
-	_spr:setPosition(ccp(size.width / 2, size.height / 2))
+	_spr:setPosition(cc.p(size.width / 2, size.height / 2))
 	_spr:setFlipY(isFlip)
 	scene:addChild(_spr)
 
@@ -207,20 +207,8 @@ function GameUtils:pauseGame()
 	cc.SimpleAudioEngine:getInstance():pauseMusic()
 	cc.SimpleAudioEngine:getInstance():pauseAllEffects()
 
---
---	local curScene = cc.Director:getInstance():getRunningScene()
---	if curScene:getTag() == GameConst.PUZZLE_SCENE_TAG then
---		local scene = cc.Scene:create()
---		local layer = self:createPauseLayer()
---		scene:addChild(layer)
---		scene:setTag(501)
---		cc.Director:getInstance():pushScene(scene)
---	end
-
-
 	local curScene = cc.Director:getInstance():getRunningScene()
 	local renderTexture = cc.RenderTexture:create(AppConst.WIN_SIZE.width, AppConst.WIN_SIZE.height);
---	renderTexture:retain()
 
 	if curScene:getTag() == GameConst.PUZZLE_SCENE_TAG then
 		renderTexture:begin()
@@ -230,14 +218,6 @@ function GameUtils:pauseGame()
 		pause:setTag(501)
 		cc.Director:getInstance():pushScene(pause)
 	end
-
-	--	local curScene = cc.Director:getInstance():getRunningScene()
-	--	if curScene:getChildByName("PAUSE_LAYER") == nil then
-	--		local blockLayer = self:createPauseLayer()
-	--		blockLayer:setName("PAUSE_LAYER")
-	--		curScene:addChild(blockLayer,999)
-	--		print("############### PAUSEBBBBB ##############")
-	--	end
 
 	local all = curScene:getPhysicsWorld():getAllBodies()
 	for _, obj in ipairs(all) do
