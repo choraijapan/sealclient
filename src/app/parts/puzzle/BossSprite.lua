@@ -98,6 +98,24 @@ function BossSprite:addEventDispatcher()
 			card_atk:setPosition(self:getPosition())
 			card_atk:setDuration(0.5)
 			self:getParent():addChild(card_atk,1111111)
+			
+			
+--			local cache = cc.SpriteFrameCache:getInstance()
+--			cache:addSpriteFrames("battle/skill_aobao.plist")
+--			
+--			local sprite = cc.Sprite:createWithSpriteFrameName("blizzard_0001.png")
+--			
+--			local animFrames = {}
+--			for i = 0, 11 do 
+--				local str = string.format("blizzard_%04d.png",(i+1))
+--				local frame = cache:getSpriteFrame(str)
+--				print("############"..str)
+--				animFrames[i + 1] = frame
+--			end
+--			local animation = cc.Animation:createWithSpriteFrames(animFrames,0.1)
+--			sprite:runAction(cc.Animate:create(animation))
+--			
+--			self:addChild(sprite)
 		end
 	end
 
@@ -105,7 +123,7 @@ function BossSprite:addEventDispatcher()
 		local data = event._data
 		if data.action == "atkBoss" then
 			self:addHurt(data)
-			cardAtkBossEffect(data.atkBossEffect)
+			cardAtkBossEffect(data.effect)
 			GameUtils:shakeNode(self,0.1)
 		end
 	end

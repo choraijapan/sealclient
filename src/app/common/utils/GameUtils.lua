@@ -22,9 +22,11 @@ function GameUtils:createParticle(plist,img)
 		particle:setTexture(cc.Director:getInstance():getTextureCache():addImage(img))
 	end
 	particle:setAnchorPoint(cc.p(0.5, 0.5))
+	particle:setScale(1.5)
 	particle:setAutoRemoveOnFinish(true)
 	return particle
 end
+
 --------------------------------------------------------------------------------
 -- @Effect
 -- shakeNode
@@ -99,7 +101,7 @@ function GameUtils:addDamageNumberAction(obj)
 	local function actionEnd()
 		numId = 0
 	end
-	local pos = cc.p(0,0)
+	local pos = cc.p(0,30)
 	if numId == 0 then
 		pos = cc.p(0,0)
 	elseif numId == 1 then
@@ -181,6 +183,21 @@ function GameUtils:createPauseLayer()
 	layer:addChild(block)
 	return layer
 end
+
+function GameUtils:pauseScene(sqr,isFlip)
+	local scene = cc.Scene:create()
+	local size = cc.Director:sharedDirector():getWinSize()
+
+	local _spr = cc.Sprite:createWithTexture(sqr:getSprite():getTexture())
+	_spr:setPosition(ccp(size.width / 2, size.height / 2))
+	_spr:setFlipY(isFlip)
+	_spr:setColor(ccGRAY)
+	scene:addChild(_spr)
+
+	local layer = self:createPauseLayer()
+	scene:addChild(layer)
+	return scene;
+end
 ------------------------------------
 -- @UI
 -- pauseGame
@@ -191,12 +208,36 @@ function GameUtils:pauseGame()
 	cc.SimpleAudioEngine:getInstance():pauseMusic()
 	cc.SimpleAudioEngine:getInstance():pauseAllEffects()
 
+
 	local curScene = cc.Director:getInstance():getRunningScene()
-	if curScene:getChildByName("PAUSE_LAYER") == nil then
-		local blockLayer = self:createPauseLayer()
-		blockLayer:setName("PAUSE_LAYER")
-		curScene:addChild(blockLayer,999)
+	if curScene:getTag() == GameConst.PUZZLE_SCENE_TAG then
+		local scene = cc.Scene:create()
+		local layer = self:createPauseLayer()
+		scene:addChild(layer)
+		scene:setTag(501)
+		cc.Director:getInstance():pushScene(scene)
 	end
+
+
+	local renderTexture = cc.RenderTexture:create(AppConst.WIN_SIZE.width, AppConst.WIN_SIZE.height);
+	renderTexture:retain()
+
+	if curScene:getTag() == GameConst.PUZZLE_SCENE_TAG then
+		renderTexture:begin()
+		curScene:visit()
+		renderTexture:endToLua()
+		local pause = self:pauseScene(renderTexture, true)
+		pause:setTag(501)
+		cc.Director:getInstance():pushScene(pause)
+	end
+
+	--	local curScene = cc.Director:getInstance():getRunningScene()
+	--	if curScene:getChildByName("PAUSE_LAYER") == nil then
+	--		local blockLayer = self:createPauseLayer()
+	--		blockLayer:setName("PAUSE_LAYER")
+	--		curScene:addChild(blockLayer,999)
+	--		print("############### PAUSEBBBBB ##############")
+	--	end
 
 	local all = curScene:getPhysicsWorld():getAllBodies()
 	for _, obj in ipairs(all) do
@@ -212,8 +253,14 @@ function GameUtils:resumeGame()
 	print("############### RESUME ##############")
 	GameUtils.TouchFlag = false
 	cc.Director:getInstance():resume()
+	cc.Director:getInstance():startAnimation()
 	cc.SimpleAudioEngine:getInstance():resumeMusic()
 
 	local curScene = cc.Director:getInstance():getRunningScene()
-	curScene:removeChildByName("PAUSE_LAYER")
+	if curScene:getTag() == 501 then
+		cc.Director:getInstance():popScene()
+	end
 end
+
+
+

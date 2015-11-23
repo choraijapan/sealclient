@@ -13,6 +13,22 @@ GameConst.ATTRIBUTE = {
 	LIGHT 	= 4,
 	DARK 	= 5,
 }
+	
+GameConst.ATTRIBUTE_EFFECT = {
+	[1] 	= "images/effect/block_effect.plist",
+	[2] 	= "images/effect/block_effect.plist",
+	[3] 	= "images/effect/block_effect.plist",
+	[4] 	= "images/effect/block_effect.plist",
+	[5] 	= "images/effect/block_effect.plist", --TODO
+}
+
+GameConst.EFFECT_PNG = {
+	[1] 	= "images/effect/images/particle_4star.png",
+	[2] 	= "images/effect/images/particle_4star.png",
+	[3] 	= "images/effect/images/leaf.png",
+	[4] 	= "images/effect/images/particle_4star.png",
+	[5] 	= "images/effect/images/particle_4star.png", --TODO
+}
 
 GameConst.CardType = {
 	ATK = 1,
@@ -37,3 +53,5 @@ GameConst.PUZZLEOBJTAG = {
 	T_Dialog = 7,
 	T_Line = 8,
 }
+
+GameConst.PUZZLE_SCENE_TAG = 500

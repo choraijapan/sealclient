@@ -13,7 +13,7 @@ Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
 Ball.scalePer = 0.80
-Ball.circleSize = 40
+Ball.circleSize = 42
 --Ball.scalePer = 0.5
 Ball.TAG = {
 	NUMBER = 1,
@@ -97,12 +97,12 @@ function Ball:init(type)
 	--    self.size = (size.width/2) * self.scalePer
 	--    self.size = self.circleSize
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
-		self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
 	--	local vertexes = {cc.p(27,39),cc.p(47,-1),cc.p(29,-40),cc.p(-25,-40),cc.p(-45,-2),cc.p(-25,40)} --６角形
 	--	local vertexes = {cc.p(-41, -43),cc.p(3, 48),cc.p(49, -44)} --5角形
---	local vertexes = Ball.vertexes[type]
---	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+	--	local vertexes = Ball.vertexes[type]
+	--	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
 	self._frame:setMoment(800) --モーメント(大きいほど回転しにくい)
@@ -134,6 +134,14 @@ function Ball:broken()
 	local action2 = cc.RemoveSelf:create()
 	local action = cc.Spawn:create(action1,action2)
 	self:runAction(action)
+end
+
+function Ball:makeShake()
+	local act1 = cc.RotateBy:create(0.1, 36)
+	local act2 = cc.MoveBy:create(0.1, cc.p(0,30))
+	local seq  = cc.Spawn:create(act1,act2)
+	local rep = cc.Repeat:create(seq:clone(), 10)
+	self:runAction(seq)
 end
 
 function Ball:getPosition()
@@ -245,11 +253,15 @@ function Ball:addBoom(num)
 	if num > 6 then
 		self:setName("boom")
 		self:setTag(Ball.BOOM)
-		self._image:setVisible(false)
-		local particle = cc.ParticleSystemQuad:create("effect/boom.plist")
+--		self._image:setVisible(false)
+--		local particle = cc.ParticleSystemQuad:create("images/effect/particle_boom.plist")
+		
+		local particle = GameUtils:createParticle("images/effect/particle_boom.plist","images/effect/images/particle_circle2.png")
+		
 		particle:setAutoRemoveOnFinish(true)
 		particle:setPosition(cc.p(0,0))
-		particle:setScale(2)
+		particle:setScale(0.9)
+		WidgetLoader:setSpriteImage(self._image, "battle/ball_dark.png")
 		self:addChild(particle,1111)
 		self:getParent():reorderChild(self,3)
 	end

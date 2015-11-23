@@ -97,7 +97,8 @@ function PuzzleLayer:init()
 
 	self:addBossSprite()
 	self:addPuzzle()
-
+	
+	
 	self:addSchedule()  -- 更新
 	self:addTouch()     -- 触摸
 
@@ -105,6 +106,22 @@ function PuzzleLayer:init()
 
 	_bulletVicts = {}
 	_fingerPosition = nil
+	
+	local function callBack(event)
+		print("############ BOSS_ATK_EVENT !!!")
+		local data = event._data
+		if data.action == "atk" then
+			print("############ BOSS_ATK_EVENT !!! Atked")
+			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+			for _, obj in ipairs(all) do
+				if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
+					obj:getNode():makeShake()
+				end
+			end
+		end
+	end
+	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
+	
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
@@ -380,7 +397,6 @@ function PuzzleLayer:addTouch()
 					type = type,
 					count = #_bullets,
 					startPos = lastPos,
-					atkBossEffect = "images/effect/weapon_sword_hit_back.plist" --TODO parameter
 				}
 				self.puzzleCardNode:ballToCard(data)
 
