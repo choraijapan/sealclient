@@ -163,13 +163,6 @@ function PuzzleCardNode:init()
 	self.cards[4].maxHp = 800
 	self.cards[5].maxHp = 1235
 	self.cards[6].maxHp = 6000
-    
-	self.cards[1].atk = 8241
-	self.cards[2].atk = 2234
-	self.cards[3].atk = 3355
-	self.cards[4].atk = 5800
-	self.cards[5].atk = 2235
-	self.cards[6].atk = 3000
 	
     self.hp = 0
 	self.maxHp = 0
@@ -200,6 +193,13 @@ function PuzzleCardNode:init()
 --	self.cards[5].isActive = true
 --	self.cards[6].isActive = true
 	
+	self.cards[1].atk = 8241
+	self.cards[2].atk = 2234
+	self.cards[3].atk = 3355
+	self.cards[4].atk = 5800
+	self.cards[5].atk = 2235
+	self.cards[6].atk = 3000
+	
 	self.cards[1].attribute = GameConst.ATTRIBUTE.FIRE
 	self.cards[2].attribute = GameConst.ATTRIBUTE.WATER
 	self.cards[3].attribute = GameConst.ATTRIBUTE.LIGHT
@@ -207,47 +207,76 @@ function PuzzleCardNode:init()
 	self.cards[5].attribute = GameConst.ATTRIBUTE.FIRE
 	self.cards[6].attribute = GameConst.ATTRIBUTE.TREE
 
+	self.cards[1].atk = {
+		value = 8241,
+		effect = "images/effect/firebig_aura.plist"
+	}
+	self.cards[1].atk = {
+		value = 7241,
+		effect = "images/effect/forestbig_aura.plist"
+	}
+	self.cards[2].atk = {
+		value = 9241,
+		effect = "images/effect/thunderbig_aura.plist"
+	}
+	self.cards[3].atk = {
+		value = 8754,
+		effect = "images/effect/block_change_fire.plist"
+	}
+	self.cards[4].atk = {
+		value = 8648,
+		effect = "images/effect/active_skill_energy_shine_big.plist"
+	}
+	self.cards[5].atk = {
+		value = 8241,
+		effect = "images/effect/waterbig_aura.plist"
+	}
+	self.cards[6].atk = {
+		value = 5241,
+		effect = "images/effect/active_skill_energy_shine.plist"
+	}
+	
 	self.cards[1].skill = {
 		name = "GGGGGGGG",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- healing
 		value = 100000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[2].skill = {
 		name = "AAAAAA",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 300000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[3].skill = {
 		name = "BBBB",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 150000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[4].skill = {
 		name = "CCCCC",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 250000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[5].skill = {
 		name = "DDDDDD",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 530000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[6].skill = {
 		name = "EEEEEEEE",
 		description = "人生はただ一度だけ切り",
 		type = 3, -- atk
 		value = 5300,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[1].skillTxt = "人生はただ一度だけ切り"
 	self.cards[2].skillTxt = "４０歳になる時後悔しない"
@@ -268,7 +297,8 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 		print("##############ATK############")
 		local data = {
 		    action = "atkBoss",
-			damage = skill.value
+			damage = skill.value,
+			effect = skill.effect
 		}
 		self:atkBoss(data)
 	elseif skill.type == GameConst.CardType.HEAL then
@@ -330,7 +360,7 @@ function PuzzleCardNode:drawSkill(obj)
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
 
-	local text = createText(obj.skillTxt)
+	local text = createText(obj.skill.name)
 	mask:addChild(emitter, 0)
 	mask:addChild(blockLayer, 1)
 	mask:addChild(cardSprite, 2)
@@ -387,7 +417,9 @@ end
 function PuzzleCardNode:ballToCard(data)
 	for key, var in pairs(self.cards) do
 		if data.type == var.attribute then
-			local emitter = GameUtils:createParticle("effect/particle_atk.plist","effect/images/particle_4star.png")
+		
+			local emitter = GameUtils:createParticle(GameConst.ATTRIBUTE_EFFECT[var.attribute],GameConst.EFFECT_PNG[var.attribute])
+			
 			self:getParent():getParent():addChild(emitter,1111111)
 			emitter:setPosition(data.startPos)
 			local action1 = cc.MoveTo:create(0.5,var:getParent():convertToWorldSpace(cc.p(var:getPositionX(),var:getPositionY())))
@@ -397,15 +429,13 @@ function PuzzleCardNode:ballToCard(data)
 				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
 				var:getParent():runAction(cc.Sequence:create(action1))
 				
-				data.damage = data.count * var.atk
+				-- attack boos ： skill effect on boss
+				data.damage = data.count * var.atk.value
+				data.effect = var.atk.effect
 				self:atkBoss(data)
 				
-				local _data = {
-					type = data.type,
-					count = data.count,
-					damage = data.count * var.atk
-				}
-				self:addCardDamageNumber(var:getParent(),_data.damage)
+				local damageNumber = data.damage
+				self:addCardDamageNumber(var:getParent(),damageNumber)
 			end
 			local callFunc1 = cc.CallFunc:create(cardAtkEffect)
 			emitter:runAction(cc.Sequence:create(action1, action2,callFunc1))
