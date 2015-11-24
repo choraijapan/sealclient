@@ -1,8 +1,5 @@
 local Ball = class("Ball", cc.Sprite)
 
-Ball.MOVING = 0
-Ball.BROKEN = 1
-
 Ball.DENSITY = 10
 Ball.RESTIUTION = 0
 Ball.FRICTION = 0.4

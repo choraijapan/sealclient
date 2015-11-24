@@ -97,8 +97,8 @@ function PuzzleLayer:init()
 
 	self:addBossSprite()
 	self:addPuzzle()
-	
-	
+
+
 	self:addSchedule()  -- 更新
 	self:addTouch()     -- 触摸
 
@@ -106,7 +106,7 @@ function PuzzleLayer:init()
 
 	_bulletVicts = {}
 	_fingerPosition = nil
-	
+
 	local function callBack(event)
 		print("############ BOSS_ATK_EVENT !!!")
 		local data = event._data
@@ -121,7 +121,7 @@ function PuzzleLayer:init()
 		end
 	end
 	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
-	
+
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
@@ -308,12 +308,12 @@ function PuzzleLayer:addTouch()
 					self.curTouchBall = obj:getBody():getNode()
 					break
 				else
-					
-					self.curTouchBall = nil
+
+					self.curTouchBall = obj:getBody():getNode()
 				end
 			end
 		end
-		if self.curTouchBall ~= nil and self.curTouchBall:getState() == Ball.MOVING then
+		if self.curTouchBall ~= nil and self.curTouchBall:getTag() ==_tag then
 			if next(_bullets) == nil then
 				_bullets[touchIdx] = self.curTouchBall
 			elseif isTableContains(_bullets,self.curTouchBall) == false then
@@ -344,6 +344,7 @@ function PuzzleLayer:addTouch()
 				end
 			end
 		else
+
 		end
 
 		if #_bullets < 2 then
@@ -378,18 +379,16 @@ function PuzzleLayer:addTouch()
 			local type = 1
 			local lastPos = nil
 			for key, var in ipairs(_bullets) do
-				if var:getState() == Ball.MOVING then
-					if  #_bullets > 2 then
-						if  #_bullets == key then
-							_bullets[#_bullets]:addBoom(#_bullets)
-						end
-
-						type = var:getType()
-						lastPos = var:getPosition()
-
-						var:removeAllEffect()
-						var:brokenBullet()
+				if  #_bullets > 2 then
+					if  #_bullets == key then
+						_bullets[#_bullets]:addBoom(#_bullets)
 					end
+
+					type = var:getType()
+					lastPos = var:getPosition()
+
+					var:removeAllEffect()
+					var:brokenBullet()
 				end
 			end
 			if  #_bullets > 2 then
@@ -437,7 +436,7 @@ function PuzzleLayer:setFerverPt(count)
 		if ferver > 100 then
 			isFerverTime = true
 
-			ferverEffect = cc.ParticleSystemQuad:create("effect/fireWall.plist")
+			ferverEffect = cc.ParticleSystemQuad:create("images/effect/fireWall.plist")
 			ferverEffect:setAutoRemoveOnFinish(true)
 			ferverEffect:setPosition(cc.p(0,0))
 			ferverEffect:setScale(4)
