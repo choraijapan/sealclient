@@ -116,7 +116,7 @@ function Ball:brokenBullet()
 	end
 end
 function Ball:broken()
-	local particle = cc.ParticleSystemQuad:create("effect/puzzle.plist")
+	local particle = cc.ParticleSystemQuad:create("images/effect/puzzle.plist")
 	particle:setPosition(cc.p(0,0))
 	particle:setScale(0.2)
 	particle:setAutoRemoveOnFinish(true)
@@ -256,7 +256,7 @@ function Ball:addBoom(num)
 --		self._image:setVisible(false)
 --		local particle = cc.ParticleSystemQuad:create("images/effect/particle_boom.plist")
 		
-		local particle = GameUtils:createParticle("images/effect/particle_boom.plist","images/effect/images/particle_circle2.png")
+		local particle = GameUtils:createParticle("images/effect/particle_boom.plist",nil)
 		
 		particle:setAutoRemoveOnFinish(true)
 		particle:setPosition(cc.p(0,0))
