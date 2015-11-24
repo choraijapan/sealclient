@@ -4,7 +4,7 @@
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 require("app.common.include.Global")
-
+require("app.layer.puzzle.PuzzleManager")
 local PhysicsScene = require('core.base.scene.PhysicsScene')
 local ScenePuzzle = class("ScenePuzzle",PhysicsScene)
 local gravity = cc.p(0, -120)
@@ -24,7 +24,7 @@ function ScenePuzzle:init(...)
 		end
 	end
 	self.scene:scheduleUpdateWithPriorityLua(update,0)
-	self.scene:setTag(500)
+	self.scene:setTag(GameConst.PUZZLE_SCENE_TAG)
 end
 
 -- onEnter

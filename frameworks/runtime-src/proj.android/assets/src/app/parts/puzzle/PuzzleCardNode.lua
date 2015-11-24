@@ -2,6 +2,8 @@ local BlockLayer = require("app.parts.common.BlockLayer")
 --------------------------------------------------------------------------------
 -- PuzzleCardNode
 local PuzzleCardNode = class("PuzzleCardNode", cc.Node)
+
+require("app.layer.puzzle.PuzzleManager")
 --------------------------------------------------------------------------------
 -- const変数
 local TAG = "PuzzleCardNode:"
@@ -80,28 +82,28 @@ function PuzzleCardNode:init()
 	self.cards[4] = WidgetObj:searchWidgetByName(cardNode_4,"Card","ccui.ImageView")
 	self.cards[5] = WidgetObj:searchWidgetByName(cardNode_5,"Card","ccui.ImageView")
 	self.cards[6] = WidgetObj:searchWidgetByName(cardNode_6,"Card","ccui.ImageView")
-    
+
 	self.cards[1].CardFrame = WidgetObj:searchWidgetByName(cardNode_1,"CardFrame","ccui.ImageView")
 	self.cards[2].CardFrame = WidgetObj:searchWidgetByName(cardNode_2,"CardFrame","ccui.ImageView")
 	self.cards[3].CardFrame = WidgetObj:searchWidgetByName(cardNode_3,"CardFrame","ccui.ImageView")
 	self.cards[4].CardFrame = WidgetObj:searchWidgetByName(cardNode_4,"CardFrame","ccui.ImageView")
 	self.cards[5].CardFrame = WidgetObj:searchWidgetByName(cardNode_5,"CardFrame","ccui.ImageView")
 	self.cards[6].CardFrame = WidgetObj:searchWidgetByName(cardNode_6,"CardFrame","ccui.ImageView")
-    
+
 	self.cards[1].CardFrame:loadTexture("images/common/monster_thum_red.png")
 	self.cards[2].CardFrame:loadTexture("images/common/monster_thum_red.png")
 	self.cards[3].CardFrame:loadTexture("images/common/monster_thum_red.png")
 	self.cards[4].CardFrame:loadTexture("images/common/monster_thum_red.png")
 	self.cards[5].CardFrame:loadTexture("images/common/monster_thum_red.png")
 	self.cards[6].CardFrame:loadTexture("images/common/monster_thum_green.png")
-    
+
 	self.cards[1].CardBg = WidgetObj:searchWidgetByName(cardNode_1,"CardFrame","ccui.Panel")
 	self.cards[2].CardBg = WidgetObj:searchWidgetByName(cardNode_2,"CardFrame","ccui.Panel")
 	self.cards[3].CardBg = WidgetObj:searchWidgetByName(cardNode_3,"CardFrame","ccui.Panel")
 	self.cards[4].CardBg = WidgetObj:searchWidgetByName(cardNode_4,"CardFrame","ccui.Panel")
 	self.cards[5].CardBg = WidgetObj:searchWidgetByName(cardNode_5,"CardFrame","ccui.Panel")
 	self.cards[6].CardBg = WidgetObj:searchWidgetByName(cardNode_6,"CardFrame","ccui.Panel")
-    
+
 	self.hpBar = WidgetObj:searchWidgetByName(self,"HpBar","ccui.LoadingBar")
 	--	self.cards[1].hpBar = WidgetObj:searchWidgetByName(cardNode_1,"HPBar","ccui.LoadingBar")
 	--	self.cards[2].hpBar = WidgetObj:searchWidgetByName(cardNode_2,"HPBar","ccui.LoadingBar")
@@ -163,27 +165,20 @@ function PuzzleCardNode:init()
 	self.cards[4].maxHp = 800
 	self.cards[5].maxHp = 1235
 	self.cards[6].maxHp = 6000
-    
-	self.cards[1].atk = 8241
-	self.cards[2].atk = 2234
-	self.cards[3].atk = 3355
-	self.cards[4].atk = 5800
-	self.cards[5].atk = 2235
-	self.cards[6].atk = 3000
-	
-    self.hp = 0
+
+	self.hp = 0
 	self.maxHp = 0
-    for key, var in ipairs(self.cards) do
+	for key, var in ipairs(self.cards) do
 		self.hp = self.hp + var.maxHp
 		self.maxHp = self.hp + var.maxHp
-    end
-      
---	self.cards[1].hp = self.cards[1].maxHp
---	self.cards[2].hp = self.cards[2].maxHp
---	self.cards[3].hp = self.cards[3].maxHp
---	self.cards[4].hp = self.cards[4].maxHp
---	self.cards[5].hp = self.cards[5].maxHp
---	self.cards[6].hp = self.cards[6].maxHp
+	end
+
+	--	self.cards[1].hp = self.cards[1].maxHp
+	--	self.cards[2].hp = self.cards[2].maxHp
+	--	self.cards[3].hp = self.cards[3].maxHp
+	--	self.cards[4].hp = self.cards[4].maxHp
+	--	self.cards[5].hp = self.cards[5].maxHp
+	--	self.cards[6].hp = self.cards[6].maxHp
 
 	self.cards[1].energy = 0
 	self.cards[2].energy = 0
@@ -193,12 +188,19 @@ function PuzzleCardNode:init()
 	self.cards[6].energy = 0
 
 	self.isActive = true
---	self.cards[1].isActive = true
---	self.cards[2].isActive = true
---	self.cards[3].isActive = true
---	self.cards[4].isActive = true
---	self.cards[5].isActive = true
---	self.cards[6].isActive = true
+	--	self.cards[1].isActive = true
+	--	self.cards[2].isActive = true
+	--	self.cards[3].isActive = true
+	--	self.cards[4].isActive = true
+	--	self.cards[5].isActive = true
+	--	self.cards[6].isActive = true
+
+	self.cards[1].atk = 8241
+	self.cards[2].atk = 2234
+	self.cards[3].atk = 3355
+	self.cards[4].atk = 5800
+	self.cards[5].atk = 2235
+	self.cards[6].atk = 3000
 
 	self.cards[1].attribute = GameConst.ATTRIBUTE.FIRE
 	self.cards[2].attribute = GameConst.ATTRIBUTE.WATER
@@ -207,47 +209,76 @@ function PuzzleCardNode:init()
 	self.cards[5].attribute = GameConst.ATTRIBUTE.FIRE
 	self.cards[6].attribute = GameConst.ATTRIBUTE.TREE
 
+	self.cards[1].atk = {
+		value = 8241,
+		effect = "images/effect/firebig_aura.plist"
+	}
+	self.cards[1].atk = {
+		value = 7241,
+		effect = "images/effect/forestbig_aura.plist"
+	}
+	self.cards[2].atk = {
+		value = 9241,
+		effect = "images/effect/thunderbig_aura.plist"
+	}
+	self.cards[3].atk = {
+		value = 8754,
+		effect = "images/effect/block_change_fire.plist"
+	}
+	self.cards[4].atk = {
+		value = 8648,
+		effect = "images/effect/active_skill_energy_shine_big.plist"
+	}
+	self.cards[5].atk = {
+		value = 8241,
+		effect = "images/effect/waterbig_aura.plist"
+	}
+	self.cards[6].atk = {
+		value = 5241,
+		effect = "images/effect/active_skill_energy_shine.plist"
+	}
+
 	self.cards[1].skill = {
-		name = "GGGGGGGG",
+		name = "全色も繋げますよ、俺はSSRカードです、お前が２０万ガチャは無駄じゃない",
 		description = "人生はただ一度だけ切り",
-		type = 1, -- healing
-		value = 100000,
-		effect = ""
+		type = 4, -- control
+		value = 5, --秒
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[2].skill = {
 		name = "AAAAAA",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 300000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[3].skill = {
 		name = "BBBB",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 150000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[4].skill = {
 		name = "CCCCC",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 250000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[5].skill = {
 		name = "DDDDDD",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 530000,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[6].skill = {
 		name = "EEEEEEEE",
 		description = "人生はただ一度だけ切り",
 		type = 3, -- atk
 		value = 5300,
-		effect = ""
+		effect = "images/effect/weapon_sword_hit_back.plist",
 	}
 	self.cards[1].skillTxt = "人生はただ一度だけ切り"
 	self.cards[2].skillTxt = "４０歳になる時後悔しない"
@@ -267,14 +298,18 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 	if skill.type == GameConst.CardType.ATK then
 		print("##############ATK############")
 		local data = {
-		    action = "atkBoss",
-			damage = skill.value
+			action = "atkBoss",
+			damage = skill.value,
+			effect = skill.effect
 		}
 		self:atkBoss(data)
 	elseif skill.type == GameConst.CardType.HEAL then
-        print("##############Healing############")
+		print("##############Healing############")
 		self:cardHeal(skill.value)
-    end
+	elseif skill.type == GameConst.CardType.CONTROL then
+		print("##############Control############")
+		self:ballControl(1) --TODO
+	end
 end
 --------------------------------------------------------------------------------
 -- touchCard
@@ -288,22 +323,19 @@ end
 --------------------------------------------------------------------------------
 -- skill 発動　３.5秒のEffect と　攻撃のダメージをBOSSに与えるため、BroadCastする
 function PuzzleCardNode:drawSkill(obj)
-    local function stopAction()
+	local function stopAction()
 		self:cardSkillDrawed(obj.skill)
-    end
-    
+	end
+
 	self:setEnergy(obj,0)
 	-- Effectを表示する
 	local mask = GameUtils:createMaskLayer()
 	mask:setTouchEnabled(true)
-	local action1 = cc.DelayTime:create(2.3)
+	local action1 = cc.DelayTime:create(1)
 	local action2 = cc.FadeOut:create(0.1)
 	local action3 = cc.RemoveSelf:create()
 	local action4 = cc.CallFunc:create(stopAction)
-
-	
 	mask:runAction(cc.Sequence:create(action1, action2,action3,action4))
-
 	local cardSprite = cc.Sprite:create("images/boss/20151018.png") --TODO
 	local cardSpriteSize = cardSprite:getContentSize()
 
@@ -321,16 +353,16 @@ function PuzzleCardNode:drawSkill(obj)
 		cardSprite:setPosition(cc.p(-cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
 		local action1 = cc.DelayTime:create(0.1)
 		local action2 = cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
-		local action3 =  cc.MoveTo:create(2,cc.p(AppConst.VISIBLE_SIZE.width/2+10,AppConst.VISIBLE_SIZE.height/2))
+		local action3 =  cc.MoveTo:create(0.7,cc.p(AppConst.VISIBLE_SIZE.width/2+10,AppConst.VISIBLE_SIZE.height/2))
 		local action4 =  cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width + cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
-	local emitter = GameUtils:createParticle("parts/effect/particle_snow.plist","parts/effect/particle_snow.png")
+	local emitter = GameUtils:createParticle("images/effect/particle_snow.plist","images/effect/particle_snow.png")
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
 
-	local text = createText(obj.skillTxt)
+	local text = createText(obj.skill.name)
 	mask:addChild(emitter, 0)
 	mask:addChild(blockLayer, 1)
 	mask:addChild(cardSprite, 2)
@@ -387,7 +419,9 @@ end
 function PuzzleCardNode:ballToCard(data)
 	for key, var in pairs(self.cards) do
 		if data.type == var.attribute then
-			local emitter = GameUtils:createParticle("effect/particle_atk.plist","effect/images/particle_4star.png")
+
+			local emitter = GameUtils:createParticle(GameConst.ATTRIBUTE_EFFECT[var.attribute],GameConst.EFFECT_PNG[var.attribute])
+
 			self:getParent():getParent():addChild(emitter,1111111)
 			emitter:setPosition(data.startPos)
 			local action1 = cc.MoveTo:create(0.5,var:getParent():convertToWorldSpace(cc.p(var:getPositionX(),var:getPositionY())))
@@ -396,16 +430,14 @@ function PuzzleCardNode:ballToCard(data)
 			local function cardAtkEffect()
 				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
 				var:getParent():runAction(cc.Sequence:create(action1))
-				
-				data.damage = data.count * var.atk
+
+				-- attack boos ： skill effect on boss
+				data.damage = data.count * var.atk.value
+				data.effect = var.atk.effect
 				self:atkBoss(data)
-				
-				local _data = {
-					type = data.type,
-					count = data.count,
-					damage = data.count * var.atk
-				}
-				self:addCardDamageNumber(var:getParent(),_data.damage)
+
+				local damageNumber = data.damage
+				self:addCardDamageNumber(var:getParent(),damageNumber)
 			end
 			local callFunc1 = cc.CallFunc:create(cardAtkEffect)
 			emitter:runAction(cc.Sequence:create(action1, action2,callFunc1))
@@ -451,16 +483,43 @@ end
 -- hurt
 function PuzzleCardNode:hurt(value)
 	self:changeHp(-value)
+	GameUtils:shakeNode(self.gameCardNode,0.2)
 end
 --------------------------------------------------------------------------------
 -- healing
 function PuzzleCardNode:cardHeal(value)
 	self:changeHp(value)
+	local emitter = GameUtils:createParticle("images/effect/gauge_bar_heal.plist",nil)
+	emitter:setAnchorPoint(0,0.5)
+	emitter:setPosition(self.hpBar:getPosition())
+	self.hpBar:addChild(emitter,1)
 end
 --------------------------------------------------------------------------------
 -- atk boss
 function PuzzleCardNode:cardAtk(value)
-	
+
+end
+--------------------------------------------------------------------------------
+-- control ボールの整理
+function PuzzleCardNode:ballControl(id)
+	--TODO
+	if id == 1 then
+		PuzzleManager.isAllColorPuzzle = true
+
+		-- Effect
+		local emitter = GameUtils:createParticle("images/effect/skill1.plist",nil)
+		self:getParent():addChild(emitter,0)
+		
+		local schedulerID = nil
+		local function callBack()
+			PuzzleManager.isAllColorPuzzle = false
+			if schedulerID then
+				cc.Director:getInstance():getScheduler():unscheduleScriptEntry(schedulerID)
+			end
+			self:getParent():removeChild(emitter)
+		end
+		schedulerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(callBack, 15, false)
+	end
 end
 --------------------------------------------------------------------------------
 -- createMaskLayer
