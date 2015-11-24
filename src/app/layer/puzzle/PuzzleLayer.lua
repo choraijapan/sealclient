@@ -31,7 +31,7 @@ local offside = nil
 
 local MAX_BULLET = 45
 local _time = 0
-local _tag = nil
+local _curBallTag = nil
 local _bulletVicts = nil
 local _fingerPosition = nil
 local _bullets = {}
@@ -122,6 +122,19 @@ function PuzzleLayer:init()
 	end
 	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
 
+
+--	------------------------------------------------------------------------
+--	-- Interface , Card Skill発動する時呼ぶ  
+--	------------------------------------------------------------------------
+--	local function skillDrawed(event)
+--		print("############ skillDrawed !!!")
+--		local data = event._data
+--        if true then  -- TODO カードのスキル内容で分ける、テストするため trueに設定した
+--            
+--        end
+--	end
+--	EventDispatchManager:createEventDispatcher(self,"CARD_SKILL_DRAWED",skillDrawed)
+--	
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
@@ -245,7 +258,7 @@ function PuzzleLayer:addTouch()
 
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				if _tag ~= nil and _tag ~= obj:getBody():getNode():getTag() then
+				if _curBallTag ~= nil and _curBallTag ~= obj:getBody():getNode():getTag() then
 
 					return false
 				else
@@ -274,7 +287,7 @@ function PuzzleLayer:addTouch()
 					else
 						GameUtils.TouchFlag = true
 						startBall = obj:getBody():getNode()
-						_tag = obj:getBody():getNode():getTag()
+						_curBallTag = obj:getBody():getNode():getTag()
 						self.curTouchBall = obj:getBody():getNode()
 						if next(_bullets) == nil then
 							_bullets[touchIdx] = obj:getBody():getNode()
@@ -304,16 +317,16 @@ function PuzzleLayer:addTouch()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				if obj:getBody():getNode():getTag() == _tag then
+				if obj:getBody():getNode():getTag() == _curBallTag then
 					self.curTouchBall = obj:getBody():getNode()
 					break
 				else
-
 					self.curTouchBall = obj:getBody():getNode()
+					break
 				end
 			end
 		end
-		if self.curTouchBall ~= nil and self.curTouchBall:getTag() ==_tag then
+		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
 			if next(_bullets) == nil then
 				_bullets[touchIdx] = self.curTouchBall
 			elseif isTableContains(_bullets,self.curTouchBall) == false then
@@ -321,7 +334,6 @@ function PuzzleLayer:addTouch()
 				local p2 = self.curTouchBall:getPosition()
 				local distance = cc.pGetDistance(p1,p2)
 				if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
-					DebugLog:debug("####### touchIdx"..touchIdx)
 					touchIdx = touchIdx + 1
 					_bullets[touchIdx] = self.curTouchBall
 					if touchIdx > 1 then
@@ -343,8 +355,8 @@ function PuzzleLayer:addTouch()
 					table.remove(_bullets,#_bullets)
 				end
 			end
-		else
-
+		elseif self.curTouchBall ~= nil and self.curTouchBall:getTag() ~= _curBallTag then
+            
 		end
 
 		if #_bullets < 2 then
@@ -359,7 +371,7 @@ function PuzzleLayer:addTouch()
 		GameUtils.TouchFlag = false
 		startBall = nil
 		curBall = nil
-		_tag = nil
+		_curBallTag = nil
 		local location = touch:getLocation()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
@@ -513,7 +525,7 @@ function PuzzleLayer:update(dt)
 
 	if GameUtils.TouchFlag == false then
 		curBall = nil
-		_tag = nil
+		_curBallTag = nil
 		_bullets = {}
 		_bullets2 = {}
 	else

@@ -4,7 +4,7 @@
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 require("app.common.include.Global")
-
+require("app.layer.puzzle.PuzzleManager")
 local PhysicsScene = require('core.base.scene.PhysicsScene')
 local ScenePuzzle = class("ScenePuzzle",PhysicsScene)
 local gravity = cc.p(0, -120)
