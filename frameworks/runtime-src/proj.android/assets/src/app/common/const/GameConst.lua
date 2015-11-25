@@ -13,21 +13,90 @@ GameConst.ATTRIBUTE = {
 	LIGHT 	= 4,
 	DARK 	= 5,
 }
-	
+
+GameConst.BALL_PNG = {
+	[1] = "images/puzzle/block/b_water.png",
+	[2] = "images/puzzle/block/b_fire.png",
+	[3] = "images/puzzle/block/b_tree.png",
+	[4] = "images/puzzle/block/b_light.png",
+	[5] = "images/puzzle/block/b_dark.png",
+	["BOOM"] = "images/puzzle/block/ball_dark.png"
+}
+
+GameConst.CARD_FRAME_PNG = {
+	[1] = "images/common/monster_thum_blue.png",
+	[2] = "images/common/monster_thum_red.png",
+	[3] = "images/common/monster_thum_green.png",
+	[4] = "images/common/monster_thum_yellow.png",
+	[5] = "images/common/monster_thum_blue_red.png" --TODO 仮素材もないです
+}
+
 GameConst.ATTRIBUTE_EFFECT = {
-	[1] 	= "images/effect/block_effect.plist",
-	[2] 	= "images/effect/block_effect.plist",
-	[3] 	= "images/effect/block_effect.plist",
-	[4] 	= "images/effect/block_effect.plist",
-	[5] 	= "images/effect/block_effect.plist", --TODO
+	[1] 	= "images/puzzle/effect/particle/block_effect.plist",
+	[2] 	= "images/puzzle/effect/particle/block_effect.plist",
+	[3] 	= "images/puzzle/effect/particle/block_effect.plist",
+	[4] 	= "images/puzzle/effect/particle/block_effect.plist",
+	[5] 	= "images/puzzle/effect/particle/block_effect.plist", --TODO
 }
 
 GameConst.EFFECT_PNG = {
-	[1] 	= "images/effect/images/particle_4star.png",
-	[2] 	= "images/effect/images/particle_4star.png",
-	[3] 	= "images/effect/images/leaf.png",
-	[4] 	= "images/effect/images/particle_4star.png",
-	[5] 	= "images/effect/images/particle_4star.png", --TODO
+	[1] 	= "images/puzzle/effect/particle/particle_4star.png",
+	[2] 	= "images/puzzle/effect/particle/particle_4star.png",
+	[3] 	= "images/puzzle/effect/particle/leaf.png",
+	[4] 	= "images/puzzle/effect/particle/particle_4star.png",
+	[5] 	= "images/puzzle/effect/particle/particle_4star.png", --TODO
+}
+
+GameConst.CSB = {
+	["ResultScene"] = "scene/puzzle/ResultScene.csb"
+}
+
+GameConst.FONT = {
+	NUMBER = "images/font/labelatlas.png",
+	NUMBER_YELLOW = "images/font/number_quest_medium_yellow.png",
+}
+
+GameConst.PARTICLE = {
+	[1]            = "images/puzzle/effect/particle/block_effect.plist",
+	[2]            = "images/puzzle/effect/particle/block_effect.plist",
+	[3]            = "images/puzzle/effect/particle/block_effect.plist",
+	[4]            = "images/puzzle/effect/particle/block_effect.plist",
+	[5]            = "images/puzzle/effect/particle/block_effect.plist", --TODO
+	
+	SKILL_1         = "images/puzzle/effect/particle/fireWall.plist", -- TODO cardのスキルエフェクト
+	
+	SNOW           = "images/puzzle/effect/particle/particle_snow.plist",
+	BALL_BROKEN    = "images/puzzle/effect/particle/puzzle.plist",
+	FERVER         = "images/puzzle/effect/particle/fireWall.plist",
+	BOOM           = "images/puzzle/effect/particle/particle_boom.plist",
+	HEAL           = "images/puzzle/effect/particle/gauge_bar_heal.plist",
+
+	
+	ATK_FIRE       = "images/puzzle/effect/particle/firebig_aura.plist",
+	ATK_FOREST     = "images/puzzle/effect/particle/forestbig_aura.plist",
+	ATK_THUNDER    = "images/puzzle/effect/particle/thunderbig_aura.plist",
+	ATK_WATER      = "images/puzzle/effect/particle/waterbig_aura.plist",
+	ATK_FIRE_2     = "images/puzzle/effect/particle/block_change_fire.plist",
+	ATK_SHINE      = "images/puzzle/effect/particle/active_skill_energy_shine_big.plist",
+	ATK_SWORD      = "images/puzzle/effect/particle/weapon_sword_hit_back.plist"
+}
+
+GameConst.PARTICLE_PNG = {
+	[1]     = "images/puzzle/effect/particle/particle_4star.png",
+	[2]     = "images/puzzle/effect/particle/particle_4star.png",
+	[3]     = "images/puzzle/effect/particle/leaf.png",
+	[4]     = "images/puzzle/effect/particle/particle_4star.png",
+	[5]     = "images/puzzle/effect/particle/particle_4star.png", --TODO
+	SNOW    = "images/puzzle/effect/particle/particle_snow.png",
+	STAR4    = "images/puzzle/effect/particle/particle_4star.png",
+}
+
+GameConst.PUZZLE_PNG = {
+	FERVER_BAR     = "images/puzzle/ui/bar_ferver.png",
+	BOSS_HP_BAR    = "images/puzzle/ui/gauge_green.png",
+	BOSS_HP_BG     = "images/puzzle/ui/boss_gauge_green.png",
+	
+	LEFT_TIME      = "images/puzzle/text/text_turn.png",
 }
 
 GameConst.CardType = {

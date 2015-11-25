@@ -90,7 +90,6 @@ function PuzzleLayer:init()
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
 	--    self:moveBG()       -- 背景移动
-	--    self:addBtn()       -- 游戏暂停按钮
 
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addCards()             -- 初期化（自分）
@@ -143,10 +142,10 @@ function PuzzleLayer:addPuzzle()
 		{
 			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height-1),
 			cc.p(1, AppConst.VISIBLE_SIZE.height-1),
-			cc.p(1, 100),
-			cc.p(AppConst.VISIBLE_SIZE.width/3, 50),
-			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 50),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, 100),
+			cc.p(1, 90),
+			cc.p(AppConst.VISIBLE_SIZE.width/3, 40),
+			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 40),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, 90),
 			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height-1)
 		}
 
@@ -204,21 +203,6 @@ function PuzzleLayer:moveBG()
 	schedule(self, updateBG, 0)
 end
 
---------------------------------------------------------------------------------
---
-function PuzzleLayer:addBtn()
-	local function PauseGame()
-		self:PauseGame()
-	end
-	local pause = cc.MenuItemImage:create("battle/pause.png", "battle/pause.png")
-	pause:setAnchorPoint(cc.p(1, 0))
-	pause:setPosition(cc.p(AppConst.VISIBLE_SIZE.width, 0))
-	pause:registerScriptTapHandler(PauseGame)
-
-	local menu = cc.Menu:create(pause)
-	menu:setPosition(cc.p(0, 0))
-	--    self:addChild(menu, 1, 10)
-end
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:addSchedule()
@@ -448,7 +432,7 @@ function PuzzleLayer:setFerverPt(count)
 		if ferver > 100 then
 			isFerverTime = true
 
-			ferverEffect = cc.ParticleSystemQuad:create("images/effect/fireWall.plist")
+			ferverEffect = cc.ParticleSystemQuad:create(GameConst.PARTICLE.FERVER)
 			ferverEffect:setAutoRemoveOnFinish(true)
 			ferverEffect:setPosition(cc.p(0,0))
 			ferverEffect:setScale(4)
@@ -468,7 +452,7 @@ end
 ------------------------------------
 --   addFerverBar
 function PuzzleLayer:addFerverBar()
-	ferverBar = cc.ProgressTimer:create(cc.Sprite:create("images/common/bar_ferver.png"))
+	ferverBar = cc.ProgressTimer:create(cc.Sprite:create(GameConst.PUZZLE_PNG.FERVER_BAR))
 	ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
 	ferverBar:setAnchorPoint(cc.p(0,0))
 	ferverBar:setMidpoint(cc.p(0, 0))
@@ -647,9 +631,8 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
-	local scene = PuzzleResultLayer:createScene(isWin)
-	local tt = cc.TransitionCrossFade:create(1.0, scene)
-	cc.Director:getInstance():replaceScene(tt)
+	local scene = cc.TransitionCrossFade:create(1.0, GameConst.CSB.ResultScene)
+	cc.Director:getInstance():replaceScene(scene)
 end
 --------------------------------------------------------------------------------
 --

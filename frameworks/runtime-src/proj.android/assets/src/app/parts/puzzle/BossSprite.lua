@@ -134,11 +134,11 @@ end
 -- Hp
 function BossSprite:addHp()
 	self.label_hp = ccui.TextAtlas:create()
-	self.label_hp:setProperty(self.hp, "battle/labelatlas.png", 17, 22, "0")
+	self.label_hp:setProperty(self.hp,GameConst.FONT.NUMBER, 17, 22, "0")
 	self.label_hp:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
-	self.bar_hp = GameUtils:createProgressBar("images/ui/gauge_green.png")
+	self.bar_hp = GameUtils:createProgressBar(GameConst.PUZZLE_PNG.BOSS_HP_BAR)
 	self.bar_hp:setScaleX(1.4)
-	local bar_bg = cc.Sprite:create("images/ui/boss_gauge_green.png")
+	local bar_bg = cc.Sprite:create(GameConst.PUZZLE_PNG.BOSS_HP_BG)
 	bar_bg:setPosition(cc.p(0,self.sprite:getContentSize().height/2))
 	self.bar_hp:setColor(cc.c3b(225,225,0))
 	self.bar_hp:setPosition(cc.p(1,self.sprite:getContentSize().height/2 -7))
@@ -232,7 +232,7 @@ function BossSprite:addAI()
 	atkLeftTime:setPosition(cc.p(240,-100))
 	self:addChild(atkLeftTime)
     
-	local text_turn = cc.Sprite:create("images/text/text_turn.png")
+	local text_turn = cc.Sprite:create(GameConst.PUZZLE_PNG.LEFT_TIME)
 	text_turn:setPosition(cc.p(240,-60))
 	self:addChild(text_turn)
 --	local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
@@ -250,7 +250,7 @@ function BossSprite:addAI()
 				self.time = 1
 			else
 --				bossSkill:setString("あと")
-				atkLeftTime:setProperty(15 - self.time, "images/font/number_quest_medium_yellow.png", 25, 30, "0")
+				atkLeftTime:setProperty(15 - self.time, GameConst.FONT.NUMBER_YELLOW, 25, 30, "0")
 			end
 
 		else

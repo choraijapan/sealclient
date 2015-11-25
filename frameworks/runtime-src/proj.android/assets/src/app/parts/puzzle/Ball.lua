@@ -22,13 +22,13 @@ Ball.TAG = {
 --	[4] = "battle/ball_light.png",
 --	[5] = "battle/ball_dark.png",
 --}
-Ball.type = {
-	[1] = "battle/b_water.png",
-	[2] = "battle/b_fire.png",
-	[3] = "battle/b_tree.png",
-	[4] = "battle/b_light.png",
-	[5] = "battle/b_dark.png",
-}
+--Ball.type = {
+--	[1] = "images/puzzle/block/b_water.png",
+--	[2] = "images/puzzle/block/b_fire.png",
+--	[3] = "images/puzzle/block/b_tree.png",
+--	[4] = "images/puzzle/block/b_light.png",
+--	[5] = "images/puzzle/block/b_dark.png",
+--}
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
 	[2] = { cc.p(-60*Ball.scalePer,3*Ball.scalePer),
@@ -80,7 +80,7 @@ function Ball:init(type)
 	self:enableNodeEvents()
 	self._type = type
 	self._image = cc.Sprite:create()
-	WidgetLoader:setSpriteImage(self._image, self.type[type])
+	WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[type])
 	self._image:setAnchorPoint(cc.p(0.5,0.5))
 	self:setAnchorPoint(cc.p(0.5,0.5))
 	self:addChild(self._image)
@@ -113,7 +113,7 @@ function Ball:brokenBullet()
 	end
 end
 function Ball:broken()
-	local particle = cc.ParticleSystemQuad:create("images/effect/puzzle.plist")
+	local particle = cc.ParticleSystemQuad:create(GameConst.PARTICLE.BALL_BROKEN)
 	particle:setPosition(cc.p(0,0))
 	particle:setScale(0.2)
 	particle:setAutoRemoveOnFinish(true)
@@ -219,7 +219,7 @@ end
 function Ball:addPuzzleNumber(num)
 	if self:getName() ~= "boom" then
 		local puzzleNumber = ccui.TextAtlas:create()
-		puzzleNumber:setProperty(num, "battle/labelatlas.png", 17, 22, "0")
+		puzzleNumber:setProperty(num, GameConst.FONT.NUMBER, 17, 22, "0")
 		puzzleNumber:setScale(1.5)
 		puzzleNumber:setTag(self.TAG.NUMBER)
 		puzzleNumber:setPosition(cc.p(self:getPositionX(),self:getPositionY() + 100))
@@ -253,12 +253,12 @@ function Ball:addBoom(num)
 --		self._image:setVisible(false)
 --		local particle = cc.ParticleSystemQuad:create("images/effect/particle_boom.plist")
 		
-		local particle = GameUtils:createParticle("images/effect/particle_boom.plist",nil)
+		local particle = GameUtils:createParticle(GameConst.PARTICLE.BOOM,nil)
 		
 		particle:setAutoRemoveOnFinish(true)
 		particle:setPosition(cc.p(0,0))
 		particle:setScale(0.9)
-		WidgetLoader:setSpriteImage(self._image, "battle/ball_dark.png")
+		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG["BOOM"])
 		self:addChild(particle,1111)
 		self:getParent():reorderChild(self,3)
 	end

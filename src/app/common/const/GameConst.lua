@@ -79,8 +79,8 @@ GameConst.PARTICLE = {
 	ATK_FIRE_2     = "images/puzzle/effect/particle/block_change_fire.plist",
 	ATK_SHINE      = "images/puzzle/effect/particle/active_skill_energy_shine_big.plist",
 	ATK_SWORD      = "images/puzzle/effect/particle/weapon_sword_hit_back.plist"
-	
 }
+
 GameConst.PARTICLE_PNG = {
 	[1]     = "images/puzzle/effect/particle/particle_4star.png",
 	[2]     = "images/puzzle/effect/particle/particle_4star.png",
