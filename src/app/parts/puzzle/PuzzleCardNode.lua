@@ -90,12 +90,12 @@ function PuzzleCardNode:init()
 	self.cards[5].CardFrame = WidgetObj:searchWidgetByName(cardNode_5,"CardFrame","ccui.ImageView")
 	self.cards[6].CardFrame = WidgetObj:searchWidgetByName(cardNode_6,"CardFrame","ccui.ImageView")
 
-	self.cards[1].CardFrame:loadTexture("images/common/monster_thum_red.png")
-	self.cards[2].CardFrame:loadTexture("images/common/monster_thum_red.png")
-	self.cards[3].CardFrame:loadTexture("images/common/monster_thum_red.png")
-	self.cards[4].CardFrame:loadTexture("images/common/monster_thum_red.png")
-	self.cards[5].CardFrame:loadTexture("images/common/monster_thum_red.png")
-	self.cards[6].CardFrame:loadTexture("images/common/monster_thum_green.png")
+	self.cards[1].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[1])
+	self.cards[2].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[2])
+	self.cards[3].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[3])
+	self.cards[4].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[4])
+	self.cards[5].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[5])
+	self.cards[6].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[5])
 
 	self.cards[1].CardBg = WidgetObj:searchWidgetByName(cardNode_1,"CardFrame","ccui.Panel")
 	self.cards[2].CardBg = WidgetObj:searchWidgetByName(cardNode_2,"CardFrame","ccui.Panel")
@@ -211,74 +211,74 @@ function PuzzleCardNode:init()
 
 	self.cards[1].atk = {
 		value = 8241,
-		effect = "images/effect/firebig_aura.plist"
+		effect = GameConst.PARTICLE.ATK_FIRE
 	}
 	self.cards[1].atk = {
 		value = 7241,
-		effect = "images/effect/forestbig_aura.plist"
+		effect = GameConst.PARTICLE.ATK_FOREST
 	}
 	self.cards[2].atk = {
 		value = 9241,
-		effect = "images/effect/thunderbig_aura.plist"
+		effect = GameConst.PARTICLE.ATK_THUNDER
 	}
 	self.cards[3].atk = {
 		value = 8754,
-		effect = "images/effect/block_change_fire.plist"
+		effect = GameConst.PARTICLE.ATK_FIRE_2
 	}
 	self.cards[4].atk = {
 		value = 8648,
-		effect = "images/effect/active_skill_energy_shine_big.plist"
+		effect = GameConst.PARTICLE.ATK_SHINE
 	}
 	self.cards[5].atk = {
 		value = 8241,
-		effect = "images/effect/waterbig_aura.plist"
+		effect = GameConst.PARTICLE.ATK_WATER
 	}
 	self.cards[6].atk = {
 		value = 5241,
-		effect = "images/effect/active_skill_energy_shine.plist"
+		effect = GameConst.PARTICLE.ATK_SHINE
 	}
 
 	self.cards[1].skill = {
-		name = "全色も繋げますよ、俺はSSRカードです、お前が２０万ガチャは無駄じゃない",
+		name = "人生はただ一度だけ切り",
 		description = "人生はただ一度だけ切り",
 		type = 4, -- control
 		value = 5, --秒
-		effect = "images/effect/weapon_sword_hit_back.plist",
+		effect = GameConst.PARTICLE.ATK_SWORD,
 	}
 	self.cards[2].skill = {
-		name = "AAAAAA",
+		name = "４０歳になる時後悔しない",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 300000,
-		effect = "images/effect/weapon_sword_hit_back.plist",
+		effect = GameConst.PARTICLE.ATK_SWORD,
 	}
 	self.cards[3].skill = {
-		name = "BBBB",
+		name = "毎日進む",
 		description = "４０歳になる時後悔しない",
 		type = 1, -- atk
 		value = 150000,
-		effect = "images/effect/weapon_sword_hit_back.plist",
+		effect = GameConst.PARTICLE.ATK_SWORD,
 	}
 	self.cards[4].skill = {
-		name = "CCCCC",
+		name = "２０１６年は最高だぜ！！",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 250000,
-		effect = "images/effect/weapon_sword_hit_back.plist",
+		effect = GameConst.PARTICLE.ATK_SWORD,
 	}
 	self.cards[5].skill = {
-		name = "DDDDDD",
+		name = "生ビールじょうだい！！！",
 		description = "人生はただ一度だけ切り",
 		type = 1, -- atk
 		value = 530000,
-		effect = "images/effect/weapon_sword_hit_back.plist",
+		effect = GameConst.PARTICLE.ATK_SWORD,
 	}
 	self.cards[6].skill = {
-		name = "EEEEEEEE",
+		name = "オレンジシュース上代！！！",
 		description = "人生はただ一度だけ切り",
 		type = 3, -- atk
 		value = 5300,
-		effect = "images/effect/weapon_sword_hit_back.plist",
+		effect = GameConst.PARTICLE.ATK_SWORD,
 	}
 	self.cards[1].skillTxt = "人生はただ一度だけ切り"
 	self.cards[2].skillTxt = "４０歳になる時後悔しない"
@@ -358,7 +358,7 @@ function PuzzleCardNode:drawSkill(obj)
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
-	local emitter = GameUtils:createParticle("images/effect/particle_snow.plist","images/effect/particle_snow.png")
+	local emitter = GameUtils:createParticle(GameConst.PARTICLE.SNOW,GameConst.PARTICLE_PNG.SNOW)
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
 
@@ -420,7 +420,7 @@ function PuzzleCardNode:ballToCard(data)
 	for key, var in pairs(self.cards) do
 		if data.type == var.attribute then
 
-			local emitter = GameUtils:createParticle(GameConst.ATTRIBUTE_EFFECT[var.attribute],GameConst.EFFECT_PNG[var.attribute])
+			local emitter = GameUtils:createParticle(GameConst.PARTICLE[var.attribute],GameConst.PARTICLE_PNG[var.attribute])
 
 			self:getParent():getParent():addChild(emitter,1111111)
 			emitter:setPosition(data.startPos)
@@ -489,7 +489,7 @@ end
 -- healing
 function PuzzleCardNode:cardHeal(value)
 	self:changeHp(value)
-	local emitter = GameUtils:createParticle("images/effect/gauge_bar_heal.plist",nil)
+	local emitter = GameUtils:createParticle(GameConst.PARTICLE.HEAL,nil)
 	emitter:setAnchorPoint(0,0.5)
 	emitter:setPosition(self.hpBar:getPosition())
 	self.hpBar:addChild(emitter,1)
@@ -507,7 +507,7 @@ function PuzzleCardNode:ballControl(id)
 		PuzzleManager.isAllColorPuzzle = true
 
 		-- Effect
-		local emitter = GameUtils:createParticle("images/effect/skill1.plist",nil)
+		local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_1,nil)
 		self:getParent():addChild(emitter,0)
 		
 		local schedulerID = nil

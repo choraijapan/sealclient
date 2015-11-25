@@ -2,14 +2,14 @@ local Ball = class("Ball", cc.Sprite)
 
 Ball.DENSITY = 10
 Ball.RESTIUTION = 0
-Ball.FRICTION = 0.4
+Ball.FRICTION = 0.3
 Ball.MASS = 10
 
 Ball._state = 0
 Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.80
+Ball.scalePer = 0.75
 Ball.circleSize = 42
 --Ball.scalePer = 0.5
 Ball.TAG = {

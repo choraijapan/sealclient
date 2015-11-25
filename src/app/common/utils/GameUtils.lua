@@ -82,7 +82,7 @@ end
 -- createLabel
 function GameUtils:createTextAtlas(txt)
 	local label = ccui.TextAtlas:create()
-	label:setProperty(txt, "battle/labelatlas.png", 17, 22, "0")
+	label:setProperty(txt, GameConst.FONT.NUMBER, 17, 22, "0")
 	return label
 end
 function GameUtils:addAtkNumberAction(obj)

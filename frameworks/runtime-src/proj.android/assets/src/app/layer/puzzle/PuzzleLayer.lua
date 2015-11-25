@@ -151,7 +151,7 @@ function PuzzleLayer:addPuzzle()
 		}
 
 	self.wall = cc.Node:create()
-	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.8))
+	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.8),5)
 	self.wall:setPhysicsBody(edge)
 	self.wall:setPosition(cc.p(0,30))
 	self:addChild(self.wall)
@@ -163,8 +163,8 @@ function PuzzleLayer:addBalls()
 	local ball = Ball:create(typeId)
 
 	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
-	--	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
-	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
+	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+--	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
