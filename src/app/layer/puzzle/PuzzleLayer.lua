@@ -1,4 +1,5 @@
 local PuzzleResultLayer = require("app.layer.puzzle.PuzzleResultLayer")
+local ResultScene = require("app.scene.puzzle.ResultScene")
 local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
@@ -317,6 +318,8 @@ function PuzzleLayer:addTouch()
 				local p1 = _bullets[#_bullets]:getPosition()
 				local p2 = self.curTouchBall:getPosition()
 				local distance = cc.pGetDistance(p1,p2)
+				print("#########distance:"..distance)
+				print("######### r : "..2 * math.sqrt(3) * self.curTouchBall.circleSize)
 				if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
 					touchIdx = touchIdx + 1
 					_bullets[touchIdx] = self.curTouchBall
@@ -631,8 +634,9 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
-	local scene = cc.TransitionCrossFade:create(1.0, GameConst.CSB.ResultScene)
-	cc.Director:getInstance():replaceScene(scene)
+	local scene = ResultScene:create()
+	local tt = cc.TransitionCrossFade:create(1.0, scene)
+	cc.Director:getInstance():replaceScene(tt)
 end
 --------------------------------------------------------------------------------
 --

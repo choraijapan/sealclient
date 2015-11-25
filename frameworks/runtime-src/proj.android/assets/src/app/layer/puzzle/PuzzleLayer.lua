@@ -1,4 +1,5 @@
 local PuzzleResultLayer = require("app.layer.puzzle.PuzzleResultLayer")
+local ResultScene = require("app.scene.puzzle.ResultScene")
 local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
@@ -142,10 +143,10 @@ function PuzzleLayer:addPuzzle()
 		{
 			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height-1),
 			cc.p(1, AppConst.VISIBLE_SIZE.height-1),
-			cc.p(1, 90),
-			cc.p(AppConst.VISIBLE_SIZE.width/3, 40),
-			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 40),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, 90),
+			cc.p(1, 80),
+			cc.p(AppConst.VISIBLE_SIZE.width/3, 30),
+			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 30),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, 80),
 			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height-1)
 		}
 
@@ -631,8 +632,9 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
-	local scene = cc.TransitionCrossFade:create(1.0, GameConst.CSB.ResultScene)
-	cc.Director:getInstance():replaceScene(scene)
+	local scene = ResultScene:create()
+	local tt = cc.TransitionCrossFade:create(1.0, scene)
+	cc.Director:getInstance():replaceScene(tt)
 end
 --------------------------------------------------------------------------------
 --

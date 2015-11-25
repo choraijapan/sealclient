@@ -121,7 +121,7 @@ function PuzzleCardNode:init()
 
 	TouchManager:pressedDown(self.cards[1],
 		function()
-			self:touchCard(self.cards[1])
+--			self:touchCard(self.cards[1])
 		end)
 	TouchManager:pressedDown(self.cards[2],
 		function()

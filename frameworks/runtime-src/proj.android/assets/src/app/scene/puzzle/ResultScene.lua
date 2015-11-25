@@ -8,17 +8,23 @@ local ResultScene = class("ResultScene",StandardScene)
 function ResultScene:init(...)
 end
 
--- onEnter
-function ResultScene:onEnter()
-	local scene = WidgetLoader:loadCsbFile(GameConst.CSB.ResultScene)
-    
-    
-	local panelTouch = WidgetObj:searchWidgetByName(scene,"PanelTouch",WidgetConst.OBJ_TYPE.Panel)
+function ResultScene:create()
+	local scene = cc.Scene:create()
+	
+	local csb = WidgetLoader:loadCsbFile(GameConst.CSB.ResultScene)
+	local panelTouch = WidgetObj:searchWidgetByName(csb,"PanelTouch",WidgetConst.OBJ_TYPE.Panel)
 
 	TouchManager:pressedDown(panelTouch,
 		function()
-			print("################## touch result #########")
+			SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
 		end)
+		
+	scene:addChild(csb)
+	return scene
+end
+
+-- onEnter
+function ResultScene:onEnter()
 end
 
 function ResultScene:onExit()

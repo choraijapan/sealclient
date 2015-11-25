@@ -301,6 +301,7 @@
 /Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/assets/res/layer/WorldMapLayer.csb \
 /Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/assets/res/parts/common \
 /Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/assets/res/parts/puzzle \
+/Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/assets/res/parts/common/BlockLayer.csb \
 /Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/assets/res/parts/common/CardNode.csb \
 /Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/assets/res/parts/common/HeaderNode.csb \
 /Users/Allproject/working/01_project/crown-client/frameworks/runtime-src/proj.android/assets/res/parts/puzzle/PuzzleCardNode.csb \
