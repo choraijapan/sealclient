@@ -121,7 +121,7 @@ function PuzzleCardNode:init()
 
 	TouchManager:pressedDown(self.cards[1],
 		function()
---			self:touchCard(self.cards[1])
+			self:touchCard(self.cards[1])
 		end)
 	TouchManager:pressedDown(self.cards[2],
 		function()
@@ -241,8 +241,8 @@ function PuzzleCardNode:init()
 	self.cards[1].skill = {
 		name = "人生はただ一度だけ切り",
 		description = "人生はただ一度だけ切り",
-		type = 4, -- control
-		value = 5, --秒
+		type = 4, -- control:change 
+		value = {1,2}, --change from , to
 		effect = GameConst.PARTICLE.ATK_SWORD,
 	}
 	self.cards[2].skill = {
@@ -308,7 +308,28 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 		self:cardHeal(skill.value)
 	elseif skill.type == GameConst.CardType.CONTROL then
 		print("##############Control############")
-		self:ballControl(1) --TODO
+		PuzzleManager:changeBall(skill.value[1],skill.value[2])
+		
+--		if id == 1 then
+--			PuzzleManager.isAllColorPuzzle = true
+--			-- Effect
+--			local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_1,nil)
+--			self:getParent():addChild(emitter,0)
+--
+--			local schedulerID = nil
+--			local function callBack()
+--				PuzzleManager.isAllColorPuzzle = false
+--				if schedulerID then
+--					cc.Director:getInstance():getScheduler():unscheduleScriptEntry(schedulerID)
+--				end
+--				self:getParent():removeChild(emitter)
+--			end
+--			schedulerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(callBack, 15, false)
+--		elseif id == 2 then
+--			PuzzleManager:changeBall(3,2)
+--		end
+		
+		
 	end
 end
 --------------------------------------------------------------------------------
@@ -372,6 +393,7 @@ function PuzzleCardNode:drawSkill(obj)
 	-- TODO 攻撃BroadCast
 
 end
+
 --------------------------------------------------------------------------------
 -- add energy
 function PuzzleCardNode:setEnergy(card,per)
@@ -498,28 +520,6 @@ end
 -- atk boss
 function PuzzleCardNode:cardAtk(value)
 
-end
---------------------------------------------------------------------------------
--- control ボールの整理
-function PuzzleCardNode:ballControl(id)
-	--TODO
-	if id == 1 then
-		PuzzleManager.isAllColorPuzzle = true
-
-		-- Effect
-		local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_1,nil)
-		self:getParent():addChild(emitter,0)
-		
-		local schedulerID = nil
-		local function callBack()
-			PuzzleManager.isAllColorPuzzle = false
-			if schedulerID then
-				cc.Director:getInstance():getScheduler():unscheduleScriptEntry(schedulerID)
-			end
-			self:getParent():removeChild(emitter)
-		end
-		schedulerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(callBack, 15, false)
-	end
 end
 --------------------------------------------------------------------------------
 -- createMaskLayer
