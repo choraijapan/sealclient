@@ -302,13 +302,13 @@ function PuzzleLayer:addTouch()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				if obj:getBody():getNode():getTag() == _curBallTag then
+--				if obj:getBody():getNode():getTag() == _curBallTag then
 					self.curTouchBall = obj:getBody():getNode()
 					break
-				else
-					self.curTouchBall = obj:getBody():getNode()
-					break
-				end
+--				else
+--					self.curTouchBall = obj:getBody():getNode()
+--					break
+--				end
 			end
 		end
 		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
@@ -378,7 +378,7 @@ function PuzzleLayer:addTouch()
 			local type = 1
 			local lastPos = nil
 			for key, var in ipairs(_bullets) do
-				if  #_bullets > 2 then
+				if  #_bullets > 1 then
 					if  #_bullets == key then
 						_bullets[#_bullets]:addBoom(#_bullets)
 					end
@@ -390,7 +390,7 @@ function PuzzleLayer:addTouch()
 					var:brokenBullet()
 				end
 			end
-			if  #_bullets > 2 then
+			if  #_bullets > 1 then
 				local data = {
 					action = "atkBoss",
 					type = type,
