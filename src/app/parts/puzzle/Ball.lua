@@ -6,7 +6,6 @@ Ball.FRICTION = 0.4
 Ball.MASS = 10
 
 Ball._state = 0
-Ball._type = 0
 Ball._frame = nil
 Ball._image = nil
 Ball.scalePer = 0.8
@@ -61,7 +60,6 @@ end
 
 function Ball:init(type)
 	self:enableNodeEvents()
-	self._type = type
 	
 	self:setTag(type)
 	
@@ -228,9 +226,7 @@ function Ball:removePuzzleNumber()
 		self:getParent():removeChildByTag(GameConst.PUZZLEOBJTAG.T_Number)
 	end
 end
-function Ball:getType()
-	return self._type
-end
+
 function Ball:addBoom(num)
 	if num > 6 then
 		self:setName("boom")

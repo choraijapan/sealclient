@@ -130,8 +130,8 @@ function PuzzleLayer:init()
 		print("############ skillDrawed !!!")
 		local data = event._data
 		print("############ type : "..data.type)
-		if data.type == 2 then  -- TODO カードのスキル内容で分ける、テストするため trueに設定した
-			self:changeBall(data.from,data.to)
+		if data.type == 2 then
+			PuzzleManager:changeBall(data.from,data.to)
 		end
 	end
 	EventDispatchManager:createEventDispatcher(self,"CARD_SKILL_DRAWED",skillDrawed)
@@ -255,7 +255,7 @@ function PuzzleLayer:addTouch()
 
 							local data = {
 								action = "atkBoss",
-								type = obj2:getNode():getType(),
+								type = obj2:getNode():getTag(),
 								count = 1,
 								startPos = obj2:getNode():getPosition()
 							}
@@ -382,7 +382,7 @@ function PuzzleLayer:addTouch()
 						_bullets[#_bullets]:addBoom(#_bullets)
 					end
 
-					type = var:getType()
+					type = var:getTag()
 					lastPos = var:getPosition()
 
 					var:removeAllEffect()
@@ -648,19 +648,5 @@ function PuzzleLayer:DrawLineRemove()
 			line:remove()
 			break
 		end
-	end
-end
---------------------------------------------------------------------------------
---スキル関連
-function PuzzleLayer:changeBall(fromType,toType)
-	print("########### changeBall : "..fromType.."<>"..toType)
-	local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
-	for _, obj in ipairs(all) do
-		if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-			if obj:getNode():getType() == fromType then
-				obj:getNode():changeBall(toType)
-			end
-		end
-
 	end
 end
