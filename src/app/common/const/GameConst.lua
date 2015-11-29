@@ -23,6 +23,7 @@ GameConst.BALL_PNG = {
 	["BOOM"] = "images/puzzle/block/ball_dark.png"
 }
 
+
 GameConst.CARD_FRAME_PNG = {
 	[1] = "images/common/monster_thum_blue.png",
 	[2] = "images/common/monster_thum_red.png",
@@ -57,10 +58,10 @@ GameConst.FONT = {
 }
 
 GameConst.PARTICLE = {
-	[1]            = "images/puzzle/effect/particle/block_effect.plist",
-	[2]            = "images/puzzle/effect/particle/block_effect.plist",
-	[3]            = "images/puzzle/effect/particle/block_effect.plist",
-	[4]            = "images/puzzle/effect/particle/block_effect.plist",
+	[1]            = "images/puzzle/effect/particle/thumbnail_skill_water.plist",
+	[2]            = "images/puzzle/effect/particle/thumbnail_skill_fire.plist",
+	[3]            = "images/puzzle/effect/particle/thumbnail_skill_forest.plist",
+	[4]            = "images/puzzle/effect/particle/thumbnail_skill_thunder.plist",
 	[5]            = "images/puzzle/effect/particle/block_effect.plist", --TODO
 	
 	SKILL_1         = "images/puzzle/effect/particle/fireWall.plist", -- TODO cardのスキルエフェクト

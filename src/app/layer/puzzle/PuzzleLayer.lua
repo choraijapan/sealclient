@@ -112,10 +112,11 @@ function PuzzleLayer:init()
 		local data = event._data
 		if data.action == "atk" then
 			print("############ BOSS_ATK_EVENT !!! Atked")
+			PuzzleManager:addHurtEffect()
 			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 			for _, obj in ipairs(all) do
 				if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-					obj:getNode():makeShake()
+					obj:getNode():makeShake() --各ボール
 				end
 			end
 		end
