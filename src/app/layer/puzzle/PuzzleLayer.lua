@@ -114,11 +114,11 @@ function PuzzleLayer:init()
 			print("############ BOSS_ATK_EVENT !!! Atked")
 			PuzzleManager:addHurtEffect()
 			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
-			for _, obj in ipairs(all) do
-				if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-					obj:getNode():makeShake() --各ボール
-				end
-			end
+			--			for _, obj in ipairs(all) do
+			--				if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
+			--					obj:getNode():makeShake() --各ボール shake
+			--				end
+			--			end
 		end
 	end
 	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
@@ -235,53 +235,49 @@ function PuzzleLayer:addTouch()
 		touchIdx2 = 1
 		local idx = 1
 		local location = touch:getLocation()
-		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
+		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 
 		if GameUtils.TouchFlag then
 			return
 		end
 
-		for _, obj in ipairs(arr) do
-			if bit.band(obj:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				if _curBallTag ~= nil and _curBallTag ~= obj:getBody():getNode():getTag() then
 
-					return false
-				else
-					if  obj:getBody():getNode():getName() == "boom" then
-						print("#################### BOOM Touched")
-						local boomAround = self:getAroundBalls(all,obj:getBody():getNode())
-						for _, obj2 in ipairs(boomAround) do
-							obj2:getNode():brokenBullet()
+		if arr ~= nil and bit.band(arr:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
+			if _curBallTag ~= nil and _curBallTag ~= arr:getBody():getNode():getTag() then
+				return false
+			else
+				if  arr:getBody():getNode():getName() == "boom" then
+					print("#################### BOOM Touched")
+					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
+					for _, obj2 in ipairs(boomAround) do
+						obj2:getNode():brokenBullet()
 
-							local data = {
-								action = "atkBoss",
-								type = obj2:getNode():getTag(),
-								count = 1,
-								startPos = obj2:getNode():getPosition()
-							}
-							self.puzzleCardNode:ballToCard(data)
+						local data = {
+							action = "atkBoss",
+							type = obj2:getNode():getTag(),
+							count = 1,
+							startPos = obj2:getNode():getPosition()
+						}
+						self.puzzleCardNode:ballToCard(data)
 
-						end
-						self:setFerverPt(#boomAround)
-						obj:getBody():getNode():broken()
-						startBall = nil
-						_bullets = {}
-						_bullets2 = {}
-						self.curTouchBall = nil
-						break;
-					else
-						GameUtils.TouchFlag = true
-						startBall = obj:getBody():getNode()
-						_curBallTag = obj:getBody():getNode():getTag()
-						self.curTouchBall = obj:getBody():getNode()
-						if next(_bullets) == nil then
-							_bullets[touchIdx] = obj:getBody():getNode()
-						end
-						self.curTouchBall:addPuzzleNumber(1)
-						self.curTouchBall:addBallTouchEffect()
 					end
-					break;
+					self:setFerverPt(#boomAround)
+					arr:getBody():getNode():broken()
+					startBall = nil
+					_bullets = {}
+					_bullets2 = {}
+					self.curTouchBall = nil
+				else
+					GameUtils.TouchFlag = true
+					startBall = arr:getBody():getNode()
+					_curBallTag = arr:getBody():getNode():getTag()
+					self.curTouchBall = arr:getBody():getNode()
+					if next(_bullets) == nil then
+						_bullets[touchIdx] = arr:getBody():getNode()
+					end
+					self.curTouchBall:addPuzzleNumber(1)
+					self.curTouchBall:addBallTouchEffect()
 				end
 			end
 		end
@@ -300,17 +296,11 @@ function PuzzleLayer:addTouch()
 		GameUtils.TouchFlag = true
 		self.curTouchBall = nil
 		local location = touch:getLocation()
-		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
-		for _, obj in ipairs(arr) do
-			if bit.band(obj:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				--				if obj:getBody():getNode():getTag() == _curBallTag then
-				self.curTouchBall = obj:getBody():getNode()
-				break
---			else
---				self.curTouchBall = nil
---				break
-			end
+		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
+		if arr ~= nil and bit.band(arr:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
+			self.curTouchBall = arr:getBody():getNode()
 		end
+
 		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
 			if next(_bullets) == nil then
 				_bullets[touchIdx] = self.curTouchBall
@@ -359,55 +349,40 @@ function PuzzleLayer:addTouch()
 		startBall = nil
 		curBall = nil
 		_curBallTag = nil
+		local type = 1
+		local lastPos = nil
 		local location = touch:getLocation()
-		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
-		for _, obj in ipairs(arr) do
-			if obj:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
-				obj:getBody():getNode():removeAllEffect()
-			end
-		end
+		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
+		if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
 
-		if self.curTouchBall ~= nil then
-			self.curTouchBall:removeAllEffect()
-		end
-
-		for key, var in ipairs(_bullets) do
-			var:removeAllEffect()
-		end
-		if next(_bullets) ~= nil then
-			local type = 1
-			local lastPos = nil
-			for key, var in ipairs(_bullets) do
-				if  #_bullets > 1 then
-					if  #_bullets == key then
-						_bullets[#_bullets]:addBoom(#_bullets)
+			if next(_bullets) ~= nil then
+				for key, var in ipairs(_bullets) do
+					if  #_bullets > 1 then
+						if  #_bullets == key then
+							_bullets[#_bullets]:addBoom(#_bullets)
+							type = _bullets[1]:getTag()
+							lastPos = _bullets[#_bullets]:getPosition()
+							print("###### type"..type)
+						end
+						var:removeAllEffect()
+						var:brokenBullet()
 					end
-
-					type = var:getTag()
-					lastPos = var:getPosition()
-
-					var:removeAllEffect()
-					var:brokenBullet()
+				end
+				if  #_bullets > 1 then
+					local data = {
+						action = "atkBoss",
+						type = type,
+						count = #_bullets,
+						startPos = lastPos,
+					}
+					self.puzzleCardNode:ballToCard(data)
+					self:setFerverPt(#_bullets)
 				end
 			end
-			if  #_bullets > 1 then
-				local data = {
-					action = "atkBoss",
-					type = type,
-					count = #_bullets,
-					startPos = lastPos,
-				}
-				self.puzzleCardNode:ballToCard(data)
-
-				self:setFerverPt(#_bullets)
-			end
-		else
-
 		end
 
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 		for _, obj in ipairs(all) do
-		      print("####################"..obj:getTag())
 			if obj:getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
 				obj:getNode():removePuzzleNumber()
 				obj:getNode():removeAllEffect()

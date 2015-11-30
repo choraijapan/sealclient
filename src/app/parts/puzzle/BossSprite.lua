@@ -270,6 +270,7 @@ function BossSprite:addAI()
 end
 
 function BossSprite:startAtk()
+	self:atkEffect()
 	local data = {
 		action = "atk",
 		damage = "500",
@@ -313,6 +314,13 @@ function BossSprite:getPosition()
 	pos.x = self:getPositionX()
 	pos.y = self:getPositionY()
 	return pos
+end
+
+function BossSprite:atkEffect()
+	local action1 = cc.ScaleTo:create(0.1,1.3)
+	local action2 = cc.ScaleTo:create(0.1,1)
+	local seq = cc.Sequence:create(action1, action2)
+	self:runAction(seq)
 end
 
 return BossSprite

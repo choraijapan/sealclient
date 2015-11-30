@@ -21,6 +21,10 @@ PuzzleCardNode.cards = {
 
 }
 
+PuzzleCardNode.hp = 0
+PuzzleCardNode.maxHp = 0
+PuzzleCardNode.cardNode = {}
+PuzzleCardNode.hpBar = nil
 --------------------------------------------------------------------------------
 -- UI変数
 
@@ -54,242 +58,135 @@ function PuzzleCardNode:init()
 	self:addEventDispatcher()
 
 	-- TODO 通信,JSON情報
-	local data = {
-		card1 = {
-		},
-		card2 = {
-		},
-		card3 = {
-		},
-		card4 = {
-		},
-		card5 = {
-		},
-		friendCard = {
-			card = {
+	local jsonData = {
+		card = {
+			[1] = {
+				id = "images/card/weapon_menu_playerimage_arrow.png",
+				hp = 4000,
+				attribute = GameConst.ATTRIBUTE.FIRE,
+				atk = {
+					value = 8241,
+					effect = GameConst.PARTICLE.ATK_FIRE
+				},
+				skill = {
+					name = "人生はただ一度だけ切り",
+					description = "人生はただ一度だけ切り",
+					type = 4, -- control:change
+					value = {1,2}, --change from , to
+					effect = GameConst.PARTICLE.ATK_SWORD
+				}
+			},
+			[2] = {
+				id = "images/card/weapon_menu_playerimage_axe.png",
+				hp = 4000,
+				attribute = GameConst.ATTRIBUTE.WATER,
+				atk = {
+					value = 8241,
+					effect = GameConst.PARTICLE.ATK_FIRE
+				},
+				skill = {
+					name = "人生はただ一度だけ切り",
+					description = "人生はただ一度だけ切り",
+					type = 1,
+					value = 50000,
+					effect = GameConst.PARTICLE.ATK_SWORD
+				}
+			},
+			[3] = {
+				id = "images/card/weapon_menu_playerimage_wond.png",
+				hp = 4000,
+				attribute = GameConst.ATTRIBUTE.LIGHT,
+				atk = {
+					value = 8241,
+					effect = GameConst.PARTICLE.ATK_FIRE
+				},
+				skill = {
+					name = "人生はただ一度だけ切り",
+					description = "人生はただ一度だけ切り",
+					type = 4, -- control:change
+					value = {3,2}, --change from , to
+					effect = GameConst.PARTICLE.ATK_SWORD
+				}
+			},
+			[4] = {
+				id = "images/card/weapon_menu_playerimage_twinsword.png",
+				hp = 4000,
+				attribute = GameConst.ATTRIBUTE.DARK,
+				atk = {
+					value = 8241,
+					effect = GameConst.PARTICLE.ATK_FIRE
+				},
+				skill = {
+					name = "人生はただ一度だけ切り",
+					description = "人生はただ一度だけ切り",
+					type = 4, -- control:change
+					value = {4,2}, --change from , to
+					effect = GameConst.PARTICLE.ATK_SWORD
+				}
+			},
+			[5] = {
+				id = "images/card/weapon_menu_playerimage_axe.png",
+				hp = 4000,
+				attribute = GameConst.ATTRIBUTE.TREE,
+				atk = {
+					value = 8241,
+					effect = GameConst.PARTICLE.ATK_FOREST
+				},
+				skill = {
+					name = "人生はただ一度だけ切り",
+					description = "人生はただ一度だけ切り",
+					type = 3,
+					value = 6000,
+					effect = GameConst.PARTICLE.ATK_SWORD
+				}
+			},
+			[6] = {
+				id = "images/card/weapon_menu_playerimage_sword.png",
+				hp = 4000,
+				attribute = GameConst.ATTRIBUTE.FIRE,
+				atk = {
+					value = 8241,
+					effect = GameConst.PARTICLE.ATK_FIRE
+				},
+				skill = {
+					name = "人生はただ一度だけ切り",
+					description = "人生はただ一度だけ切り",
+					type = 4, -- control:change
+					value = {1,2}, --change from , to
+					effect = GameConst.PARTICLE.ATK_SWORD
+				}
 			}
 		}
 	}
-	local cardNode_1 = WidgetObj:searchWidgetByName(self,"CardNode_1","cc.Node")
-	local cardNode_2 = WidgetObj:searchWidgetByName(self,"CardNode_2","cc.Node")
-	local cardNode_3 = WidgetObj:searchWidgetByName(self,"CardNode_3","cc.Node")
-	local cardNode_4 = WidgetObj:searchWidgetByName(self,"CardNode_4","cc.Node")
-	local cardNode_5 = WidgetObj:searchWidgetByName(self,"CardNode_5","cc.Node")
-	local cardNode_6 = WidgetObj:searchWidgetByName(self,"CardNode_6","cc.Node")
-	self.cards[1] = WidgetObj:searchWidgetByName(cardNode_1,"Card","ccui.ImageView")
-	self.cards[2] = WidgetObj:searchWidgetByName(cardNode_2,"Card","ccui.ImageView")
-	self.cards[3] = WidgetObj:searchWidgetByName(cardNode_3,"Card","ccui.ImageView")
-	self.cards[4] = WidgetObj:searchWidgetByName(cardNode_4,"Card","ccui.ImageView")
-	self.cards[5] = WidgetObj:searchWidgetByName(cardNode_5,"Card","ccui.ImageView")
-	self.cards[6] = WidgetObj:searchWidgetByName(cardNode_6,"Card","ccui.ImageView")
-
-	self.cards[1].CardFrame = WidgetObj:searchWidgetByName(cardNode_1,"CardFrame","ccui.ImageView")
-	self.cards[2].CardFrame = WidgetObj:searchWidgetByName(cardNode_2,"CardFrame","ccui.ImageView")
-	self.cards[3].CardFrame = WidgetObj:searchWidgetByName(cardNode_3,"CardFrame","ccui.ImageView")
-	self.cards[4].CardFrame = WidgetObj:searchWidgetByName(cardNode_4,"CardFrame","ccui.ImageView")
-	self.cards[5].CardFrame = WidgetObj:searchWidgetByName(cardNode_5,"CardFrame","ccui.ImageView")
-	self.cards[6].CardFrame = WidgetObj:searchWidgetByName(cardNode_6,"CardFrame","ccui.ImageView")
-
-	self.cards[1].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[1])
-	self.cards[2].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[2])
-	self.cards[3].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[3])
-	self.cards[4].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[4])
-	self.cards[5].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[5])
-	self.cards[6].CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[5])
-
-	self.cards[1].CardBg = WidgetObj:searchWidgetByName(cardNode_1,"CardFrame","ccui.Panel")
-	self.cards[2].CardBg = WidgetObj:searchWidgetByName(cardNode_2,"CardFrame","ccui.Panel")
-	self.cards[3].CardBg = WidgetObj:searchWidgetByName(cardNode_3,"CardFrame","ccui.Panel")
-	self.cards[4].CardBg = WidgetObj:searchWidgetByName(cardNode_4,"CardFrame","ccui.Panel")
-	self.cards[5].CardBg = WidgetObj:searchWidgetByName(cardNode_5,"CardFrame","ccui.Panel")
-	self.cards[6].CardBg = WidgetObj:searchWidgetByName(cardNode_6,"CardFrame","ccui.Panel")
 
 	self.hpBar = WidgetObj:searchWidgetByName(self,"HpBar","ccui.LoadingBar")
-	--	self.cards[1].hpBar = WidgetObj:searchWidgetByName(cardNode_1,"HPBar","ccui.LoadingBar")
-	--	self.cards[2].hpBar = WidgetObj:searchWidgetByName(cardNode_2,"HPBar","ccui.LoadingBar")
-	--	self.cards[3].hpBar = WidgetObj:searchWidgetByName(cardNode_3,"HPBar","ccui.LoadingBar")
-	--	self.cards[4].hpBar = WidgetObj:searchWidgetByName(cardNode_4,"HPBar","ccui.LoadingBar")
-	--	self.cards[5].hpBar = WidgetObj:searchWidgetByName(cardNode_5,"HPBar","ccui.LoadingBar")
-	--	self.cards[6].hpBar = WidgetObj:searchWidgetByName(cardNode_6,"HPBar","ccui.LoadingBar")
 
-	self.cards[1].energyBar = WidgetObj:searchWidgetByName(cardNode_1,"EnergyBar","ccui.LoadingBar")
-	self.cards[2].energyBar = WidgetObj:searchWidgetByName(cardNode_2,"EnergyBar","ccui.LoadingBar")
-	self.cards[3].energyBar = WidgetObj:searchWidgetByName(cardNode_3,"EnergyBar","ccui.LoadingBar")
-	self.cards[4].energyBar = WidgetObj:searchWidgetByName(cardNode_4,"EnergyBar","ccui.LoadingBar")
-	self.cards[5].energyBar = WidgetObj:searchWidgetByName(cardNode_5,"EnergyBar","ccui.LoadingBar")
-	self.cards[6].energyBar = WidgetObj:searchWidgetByName(cardNode_6,"EnergyBar","ccui.LoadingBar")
-
-	TouchManager:pressedDown(self.cards[1],
-		function()
-			self:touchCard(self.cards[1])
-		end)
-	TouchManager:pressedDown(self.cards[2],
-		function()
-			self:touchCard(self.cards[2])
-		end)
-	TouchManager:pressedDown(self.cards[3],
-		function()
-			self:touchCard(self.cards[3])
-		end)
-	TouchManager:pressedDown(self.cards[4],
-		function()
-			self:touchCard(self.cards[4])
-		end)
-	TouchManager:pressedDown(self.cards[5],
-		function()
-			self:touchCard(self.cards[5])
-		end)
-	TouchManager:pressedDown(self.cards[6],
-		function()
-			self:touchCard(self.cards[6])
-		end)
-
-	self.cards[1].energyBar:setPercent(0)
-	self.cards[2].energyBar:setPercent(0)
-	self.cards[3].energyBar:setPercent(0)
-	self.cards[4].energyBar:setPercent(0)
-	self.cards[5].energyBar:setPercent(0)
-	self.cards[6].energyBar:setPercent(0)
-
-	self.hpBar:setPercent(100)
-	--	self.cards[1].hpBar:setPercent(100)
-	--	self.cards[2].hpBar:setPercent(100)
-	--	self.cards[3].hpBar:setPercent(100)
-	--	self.cards[4].hpBar:setPercent(100)
-	--	self.cards[5].hpBar:setPercent(100)
-	--	self.cards[6].hpBar:setPercent(100)
-
-	self.cards[1].maxHp = 4241
-	self.cards[2].maxHp = 1234
-	self.cards[3].maxHp = 2355
-	self.cards[4].maxHp = 800
-	self.cards[5].maxHp = 1235
-	self.cards[6].maxHp = 6000
-
-	self.hp = 0
-	self.maxHp = 0
-	for key, var in ipairs(self.cards) do
-		self.hp = self.hp + var.maxHp
-		self.maxHp = self.hp + var.maxHp
+	for i,v in ipairs(jsonData.card) do
+		self.cards[i] = {}
+		self.cards[i].CCUI_CardNode =  WidgetObj:searchWidgetByName(self,"CardNode_"..i,"cc.Node")
+		self.cards[i].CCUI_Card = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"Card","ccui.ImageView")
+		self.cards[i].CCUI_CardFrame = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"CardFrame","ccui.ImageView")
+		self.cards[i].CCUI_EnergyBar = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"EnergyBar","ccui.LoadingBar")
+		self.cards[i].CCUI_CardBg = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"CardFrame","ccui.Panel")
+		self.cards[i].CCUI_Card:loadTexture(v.id)
+		self.cards[i].CCUI_CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[v.attribute])
+		self.cards[i].CCUI_EnergyBar:setPercent(0)
+		TouchManager:pressedDown(self.cards[i].CCUI_Card,
+			function()
+				self:touchCard(self.cards[i])
+			end)
+		self.cards[i].energy = 0
+		self.cards[i].attribute = v.attribute
+		self.cards[i].atk =  v.atk
+		self.cards[i].skill = v.skill			
+		self.hp = self.hp + v.hp
 	end
 
-	--	self.cards[1].hp = self.cards[1].maxHp
-	--	self.cards[2].hp = self.cards[2].maxHp
-	--	self.cards[3].hp = self.cards[3].maxHp
-	--	self.cards[4].hp = self.cards[4].maxHp
-	--	self.cards[5].hp = self.cards[5].maxHp
-	--	self.cards[6].hp = self.cards[6].maxHp
-
-	self.cards[1].energy = 0
-	self.cards[2].energy = 0
-	self.cards[3].energy = 0
-	self.cards[4].energy = 0
-	self.cards[5].energy = 0
-	self.cards[6].energy = 0
-
+	self.maxHp = self.hp
 	self.isActive = true
-	--	self.cards[1].isActive = true
-	--	self.cards[2].isActive = true
-	--	self.cards[3].isActive = true
-	--	self.cards[4].isActive = true
-	--	self.cards[5].isActive = true
-	--	self.cards[6].isActive = true
+	self.hpBar:setPercent(100)
 
-	self.cards[1].atk = 8241
-	self.cards[2].atk = 2234
-	self.cards[3].atk = 3355
-	self.cards[4].atk = 5800
-	self.cards[5].atk = 2235
-	self.cards[6].atk = 3000
-
-	self.cards[1].attribute = GameConst.ATTRIBUTE.FIRE
-	self.cards[2].attribute = GameConst.ATTRIBUTE.WATER
-	self.cards[3].attribute = GameConst.ATTRIBUTE.LIGHT
-	self.cards[4].attribute = GameConst.ATTRIBUTE.DARK
-	self.cards[5].attribute = GameConst.ATTRIBUTE.FIRE
-	self.cards[6].attribute = GameConst.ATTRIBUTE.TREE
-
-	self.cards[1].atk = {
-		value = 8241,
-		effect = GameConst.PARTICLE.ATK_FIRE
-	}
-	self.cards[1].atk = {
-		value = 7241,
-		effect = GameConst.PARTICLE.ATK_FOREST
-	}
-	self.cards[2].atk = {
-		value = 9241,
-		effect = GameConst.PARTICLE.ATK_THUNDER
-	}
-	self.cards[3].atk = {
-		value = 8754,
-		effect = GameConst.PARTICLE.ATK_FIRE_2
-	}
-	self.cards[4].atk = {
-		value = 8648,
-		effect = GameConst.PARTICLE.ATK_SHINE
-	}
-	self.cards[5].atk = {
-		value = 8241,
-		effect = GameConst.PARTICLE.ATK_WATER
-	}
-	self.cards[6].atk = {
-		value = 5241,
-		effect = GameConst.PARTICLE.ATK_SHINE
-	}
-
-	self.cards[1].skill = {
-		name = "人生はただ一度だけ切り",
-		description = "人生はただ一度だけ切り",
-		type = 4, -- control:change 
-		value = {1,2}, --change from , to
-		effect = GameConst.PARTICLE.ATK_SWORD,
-	}
-	self.cards[2].skill = {
-		name = "４０歳になる時後悔しない",
-		description = "４０歳になる時後悔しない",
-		type = 1, -- atk
-		value = 300000,
-		effect = GameConst.PARTICLE.ATK_SWORD,
-	}
-	self.cards[3].skill = {
-		name = "毎日進む",
-		description = "４０歳になる時後悔しない",
-		type = 1, -- atk
-		value = 150000,
-		effect = GameConst.PARTICLE.ATK_SWORD,
-	}
-	self.cards[4].skill = {
-		name = "２０１６年は最高だぜ！！",
-		description = "人生はただ一度だけ切り",
-		type = 1, -- atk
-		value = 250000,
-		effect = GameConst.PARTICLE.ATK_SWORD,
-	}
-	self.cards[5].skill = {
-		name = "生ビールじょうだい！！！",
-		description = "人生はただ一度だけ切り",
-		type = 1, -- atk
-		value = 530000,
-		effect = GameConst.PARTICLE.ATK_SWORD,
-	}
-	self.cards[6].skill = {
-		name = "オレンジシュース上代！！！",
-		description = "人生はただ一度だけ切り",
-		type = 3, -- atk
-		value = 5300,
-		effect = GameConst.PARTICLE.ATK_SWORD,
-	}
-	self.cards[1].skillTxt = "人生はただ一度だけ切り"
-	self.cards[2].skillTxt = "４０歳になる時後悔しない"
-	self.cards[3].skillTxt = "エンジニアの命は４０歳までだ"
-	self.cards[4].skillTxt = "４０歳後まだCodingするの？"
-	self.cards[5].skillTxt = "咪咪，咪咪，咪咪咪！"
-	self.cards[6].skillTxt = "１年頑張って６０年休み"
-
-	--	self.gameCardNode:setPosition(cc.p(0,0))
 	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 30))
-
 end
 
 --------------------------------------------------------------------------------
@@ -309,27 +206,27 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 	elseif skill.type == GameConst.CardType.CONTROL then
 		print("##############Control############")
 		PuzzleManager:changeBall(skill.value[1],skill.value[2])
-		
---		if id == 1 then
---			PuzzleManager.isAllColorPuzzle = true
---			-- Effect
---			local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_1,nil)
---			self:getParent():addChild(emitter,0)
---
---			local schedulerID = nil
---			local function callBack()
---				PuzzleManager.isAllColorPuzzle = false
---				if schedulerID then
---					cc.Director:getInstance():getScheduler():unscheduleScriptEntry(schedulerID)
---				end
---				self:getParent():removeChild(emitter)
---			end
---			schedulerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(callBack, 15, false)
---		elseif id == 2 then
---			PuzzleManager:changeBall(3,2)
---		end
-		
-		
+
+		--		if id == 1 then
+		--			PuzzleManager.isAllColorPuzzle = true
+		--			-- Effect
+		--			local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_1,nil)
+		--			self:getParent():addChild(emitter,0)
+		--
+		--			local schedulerID = nil
+		--			local function callBack()
+		--				PuzzleManager.isAllColorPuzzle = false
+		--				if schedulerID then
+		--					cc.Director:getInstance():getScheduler():unscheduleScriptEntry(schedulerID)
+		--				end
+		--				self:getParent():removeChild(emitter)
+		--			end
+		--			schedulerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(callBack, 15, false)
+		--		elseif id == 2 then
+		--			PuzzleManager:changeBall(3,2)
+		--		end
+
+
 	end
 end
 --------------------------------------------------------------------------------
@@ -397,7 +294,7 @@ end
 --------------------------------------------------------------------------------
 -- add energy
 function PuzzleCardNode:setEnergy(card,per)
-	card.energyBar:setPercent(per)
+	card.CCUI_EnergyBar:setPercent(per)
 	card.energy = per
 	if per == 100 then
 		self:makeSkillEffect(card,true)
@@ -426,14 +323,14 @@ function PuzzleCardNode:makeSkillEffect(card,isDraw)
 	local action2 = cc.FadeTo:create(0.3, 255)
 
 	local function stopAction()
-		card.energyBar:stopAllActions()
+		card.CCUI_EnergyBar:stopAllActions()
 	end
 	local callFunc1 = cc.CallFunc:create(stopAction)
 
 	if isDraw then
-		card.energyBar:runAction(cc.RepeatForever:create(cc.Sequence:create(action,action2)))
+		card.CCUI_EnergyBar:runAction(cc.RepeatForever:create(cc.Sequence:create(action,action2)))
 	else
-		card.energyBar:runAction(cc.Sequence:create(action2,callFunc1))
+		card.CCUI_EnergyBar:runAction(cc.Sequence:create(action2,callFunc1))
 	end
 end
 --------------------------------------------------------------------------------
@@ -442,16 +339,16 @@ function PuzzleCardNode:ballToCard(data)
 	for key, var in pairs(self.cards) do
 		if data.type == var.attribute then
 
-			local emitter = GameUtils:createParticle(GameConst.PARTICLE[var.attribute],GameConst.PARTICLE_PNG[var.attribute])
+			local emitter = GameUtils:createParticle(GameConst.PARTICLE[var.attribute],nil)
 
 			self:getParent():getParent():addChild(emitter,1111111)
 			emitter:setPosition(data.startPos)
-			local action1 = cc.MoveTo:create(0.5,var:getParent():convertToWorldSpace(cc.p(var:getPositionX(),var:getPositionY())))
+			local action1 = cc.MoveTo:create(0.5,var.CCUI_Card:getParent():convertToWorldSpace(cc.p(var.CCUI_Card:getPositionX(),var.CCUI_Card:getPositionY())))
 			local action2 = cc.RemoveSelf:create()
 
 			local function cardAtkEffect()
 				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
-				var:getParent():runAction(cc.Sequence:create(action1))
+				var.CCUI_Card:getParent():runAction(cc.Sequence:create(action1))
 
 				-- attack boos ： skill effect on boss
 				data.damage = data.count * var.atk.value
@@ -459,7 +356,7 @@ function PuzzleCardNode:ballToCard(data)
 				self:atkBoss(data)
 
 				local damageNumber = data.damage
-				self:addCardDamageNumber(var:getParent(),damageNumber)
+				self:addCardDamageNumber(var.CCUI_Card:getParent(),damageNumber)
 			end
 			local callFunc1 = cc.CallFunc:create(cardAtkEffect)
 			emitter:runAction(cc.Sequence:create(action1, action2,callFunc1))

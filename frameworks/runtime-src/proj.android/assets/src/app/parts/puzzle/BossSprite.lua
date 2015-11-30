@@ -308,8 +308,6 @@ function BossSprite:addHurt(data)
 	self:setDebuffOn(data) -- 设置新Debuff
 end
 
-
-
 function BossSprite:getPosition()
 	local pos = {}
 	pos.x = self:getPositionX()

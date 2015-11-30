@@ -104,7 +104,7 @@ function PuzzleCardNode:init()
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {3,4}, --change from , to
+					value = {3,2}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -120,7 +120,7 @@ function PuzzleCardNode:init()
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {1,5}, --change from , to
+					value = {4,2}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -173,9 +173,9 @@ function PuzzleCardNode:init()
 		self.cards[i].CCUI_EnergyBar:setPercent(0)
 		TouchManager:pressedDown(self.cards[i].CCUI_Card,
 			function()
-				self:touchCard(self.cards[i].CCUI_Card)
+				self:touchCard(self.cards[i])
 			end)
-		self.cards[i].CCUI_Card.energy = 0
+		self.cards[i].energy = 0
 		self.cards[i].attribute = v.attribute
 		self.cards[i].atk =  v.atk
 		self.cards[i].skill = v.skill			
@@ -232,7 +232,7 @@ end
 --------------------------------------------------------------------------------
 -- touchCard
 function PuzzleCardNode:touchCard(obj)
-	if obj.CCUI_Card.energy >= 100 and self.isActive then
+	if obj.energy >= 100 and self.isActive then
 		-- スキル発動
 		self:drawSkill(obj)
 	end
@@ -295,7 +295,7 @@ end
 -- add energy
 function PuzzleCardNode:setEnergy(card,per)
 	card.CCUI_EnergyBar:setPercent(per)
-	card.CCUI_Card.energy = per
+	card.energy = per
 	if per == 100 then
 		self:makeSkillEffect(card,true)
 	else
@@ -363,12 +363,12 @@ function PuzzleCardNode:ballToCard(data)
 
 			local energyPoint = data.count * 4
 
-			var.CCUI_Card.energy = var.CCUI_Card.energy + energyPoint
-			if var.CCUI_Card.energy > 100 then
-				var.CCUI_Card.energy = 100
+			var.energy = var.energy + energyPoint
+			if var.energy > 100 then
+				var.energy = 100
 			end
 
-			self:setEnergy(var,var.CCUI_Card.energy)
+			self:setEnergy(var,var.energy)
 		end
 	end
 end

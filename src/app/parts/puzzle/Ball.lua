@@ -60,9 +60,9 @@ end
 
 function Ball:init(type)
 	self:enableNodeEvents()
-	
+
 	self:setTag(type)
-	
+
 	self._image = cc.Sprite:create()
 	WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[type])
 	self._image:setAnchorPoint(cc.p(0.5,0.5))
@@ -231,11 +231,11 @@ function Ball:addBoom(num)
 	if num > 6 then
 		self:setName("boom")
 		self:setTag(Ball.BOOM)
---		self._image:setVisible(false)
---		local particle = cc.ParticleSystemQuad:create("images/effect/particle_boom.plist")
-		
+		--		self._image:setVisible(false)
+		--		local particle = cc.ParticleSystemQuad:create("images/effect/particle_boom.plist")
+
 		local particle = GameUtils:createParticle(GameConst.PARTICLE.BOOM,nil)
-		
+
 		particle:setAutoRemoveOnFinish(true)
 		particle:setPosition(cc.p(0,0))
 		particle:setScale(0.9)
@@ -350,19 +350,19 @@ end
 -- 光石を水石に変換。
 function Ball:changeBall(toType)
 	self:setGrayNode(self._image, true)
-    self.type = toType
+	self.type = toType
 	self:setTag(toType)
-	
+
 	local function callBack()
 		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[toType])
 	end
-	
+
 	local action1 = cc.ScaleTo:create(0.5,0.1)
 	local action2 = cc.CallFunc:create(callBack)
 	local action3 = cc.ScaleTo:create(0.5,1)
 	local act = cc.Sequence:create(action1,action2,action3)
 	self._image:runAction(act)
-	
+
 end
 
 return Ball
