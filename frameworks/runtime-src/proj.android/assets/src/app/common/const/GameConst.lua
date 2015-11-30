@@ -113,14 +113,10 @@ GameConst.DEBUFF = {
 }
 
 GameConst.PUZZLEOBJTAG = {
-	T_Bullet = 1,
-	T_Bullet1 = 2,
-	T_Bullet2 = 3,
-	T_Bullet3 = 4,
-	T_Bullet4 = 5,
-	T_Bullet5 = 6,
-	T_Dialog = 7,
-	T_Line = 8,
+	T_Bullet = 100,
+	T_Dialog = 200,
+	T_Line = 300,
+	T_Number = 400
 }
 
 GameConst.PUZZLE_SCENE_TAG = 500

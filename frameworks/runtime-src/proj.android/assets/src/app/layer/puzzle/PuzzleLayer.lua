@@ -123,18 +123,18 @@ function PuzzleLayer:init()
 	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
 
 
---	------------------------------------------------------------------------
---	-- Interface , Card Skill発動する時呼ぶ  
---	------------------------------------------------------------------------
---	local function skillDrawed(event)
---		print("############ skillDrawed !!!")
---		local data = event._data
---        if true then  -- TODO カードのスキル内容で分ける、テストするため trueに設定した
---            
---        end
---	end
---	EventDispatchManager:createEventDispatcher(self,"CARD_SKILL_DRAWED",skillDrawed)
---	
+	------------------------------------------------------------------------
+	-- Interface , Card Skill発動する時呼ぶ
+	------------------------------------------------------------------------
+	local function skillDrawed(event)
+		print("############ skillDrawed !!!")
+		local data = event._data
+		print("############ type : "..data.type)
+		if data.type == 2 then  -- TODO カードのスキル内容で分ける、テストするため trueに設定した
+			self:changeBall(data.from,data.to)
+		end
+	end
+	EventDispatchManager:createEventDispatcher(self,"CARD_SKILL_DRAWED",skillDrawed)
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
@@ -164,12 +164,12 @@ function PuzzleLayer:addBalls()
 
 	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
 	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
---	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
+	--	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
 	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
-	self:addChild(ball,ZOrder.Z_Ball,typeId+2)
+	self:addChild(ball,ZOrder.Z_Ball)
 end
 --------------------------------------------------------------------------------
 --播放音乐
@@ -302,13 +302,12 @@ function PuzzleLayer:addTouch()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShapes(location)
 		for _, obj in ipairs(arr) do
 			if bit.band(obj:getBody():getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				if obj:getBody():getNode():getTag() == _curBallTag then
-					self.curTouchBall = obj:getBody():getNode()
-					break
-				else
-					self.curTouchBall = obj:getBody():getNode()
-					break
-				end
+				--				if obj:getBody():getNode():getTag() == _curBallTag then
+				self.curTouchBall = obj:getBody():getNode()
+				break
+--			else
+--				self.curTouchBall = nil
+--				break
 			end
 		end
 		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
@@ -318,6 +317,8 @@ function PuzzleLayer:addTouch()
 				local p1 = _bullets[#_bullets]:getPosition()
 				local p2 = self.curTouchBall:getPosition()
 				local distance = cc.pGetDistance(p1,p2)
+				print("#########distance:"..distance)
+				print("######### r : "..2 * math.sqrt(3) * self.curTouchBall.circleSize)
 				if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
 					touchIdx = touchIdx + 1
 					_bullets[touchIdx] = self.curTouchBall
@@ -341,7 +342,7 @@ function PuzzleLayer:addTouch()
 				end
 			end
 		elseif self.curTouchBall ~= nil and self.curTouchBall:getTag() ~= _curBallTag then
-            
+
 		end
 
 		if #_bullets < 2 then
@@ -376,7 +377,7 @@ function PuzzleLayer:addTouch()
 			local type = 1
 			local lastPos = nil
 			for key, var in ipairs(_bullets) do
-				if  #_bullets > 2 then
+				if  #_bullets > 1 then
 					if  #_bullets == key then
 						_bullets[#_bullets]:addBoom(#_bullets)
 					end
@@ -388,7 +389,7 @@ function PuzzleLayer:addTouch()
 					var:brokenBullet()
 				end
 			end
-			if  #_bullets > 2 then
+			if  #_bullets > 1 then
 				local data = {
 					action = "atkBoss",
 					type = type,
@@ -405,9 +406,10 @@ function PuzzleLayer:addTouch()
 
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 		for _, obj in ipairs(all) do
-			if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-				obj:getNode():removeAllEffect()
+		      print("####################"..obj:getTag())
+			if obj:getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
 				obj:getNode():removePuzzleNumber()
+				obj:getNode():removeAllEffect()
 			end
 		end
 
@@ -646,5 +648,19 @@ function PuzzleLayer:DrawLineRemove()
 			line:remove()
 			break
 		end
+	end
+end
+--------------------------------------------------------------------------------
+--スキル関連
+function PuzzleLayer:changeBall(fromType,toType)
+	print("########### changeBall : "..fromType.."<>"..toType)
+	local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+	for _, obj in ipairs(all) do
+		if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
+			if obj:getNode():getType() == fromType then
+				obj:getNode():changeBall(toType)
+			end
+		end
+
 	end
 end

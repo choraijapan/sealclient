@@ -12,23 +12,6 @@ Ball._image = nil
 Ball.scalePer = 0.8
 Ball.circleSize = 42
 --Ball.scalePer = 0.5
-Ball.TAG = {
-	NUMBER = 1,
-}
---Ball.type = {
---	[1] = "battle/ball_water.png",
---	[2] = "battle/ball_fire.png",
---	[3] = "battle/ball_tree.png",
---	[4] = "battle/ball_light.png",
---	[5] = "battle/ball_dark.png",
---}
---Ball.type = {
---	[1] = "images/puzzle/block/b_water.png",
---	[2] = "images/puzzle/block/b_fire.png",
---	[3] = "images/puzzle/block/b_tree.png",
---	[4] = "images/puzzle/block/b_light.png",
---	[5] = "images/puzzle/block/b_dark.png",
---}
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
 	[2] = { cc.p(-60*Ball.scalePer,3*Ball.scalePer),
@@ -65,7 +48,7 @@ Ball.vertexes = {
 		cc.p( -57*Ball.scalePer, 27*Ball.scalePer )}
 }
 
-Ball.BOOM = 100
+Ball.BOOM = 1000
 
 function Ball:ctor()
 end
@@ -79,6 +62,9 @@ end
 function Ball:init(type)
 	self:enableNodeEvents()
 	self._type = type
+	
+	self:setTag(type)
+	
 	self._image = cc.Sprite:create()
 	WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[type])
 	self._image:setAnchorPoint(cc.p(0.5,0.5))
@@ -221,7 +207,7 @@ function Ball:addPuzzleNumber(num)
 		local puzzleNumber = ccui.TextAtlas:create()
 		puzzleNumber:setProperty(num, GameConst.FONT.NUMBER, 17, 22, "0")
 		puzzleNumber:setScale(1.5)
-		puzzleNumber:setTag(self.TAG.NUMBER)
+		puzzleNumber:setTag(GameConst.PUZZLEOBJTAG.T_Number)
 		puzzleNumber:setPosition(cc.p(self:getPositionX(),self:getPositionY() + 100))
 		self:getParent():addChild(puzzleNumber,1111)
 		self:getParent():reorderChild(puzzleNumber,11111)
@@ -238,14 +224,13 @@ function Ball:addPuzzleNumber(num)
 	end
 end
 function Ball:removePuzzleNumber()
-	if self:getParent():getChildByTag(self.TAG.NUMBER) ~= nil then
-		self:getParent():removeChildByTag(self.TAG.NUMBER)
+	if self:getParent():getChildByTag(GameConst.PUZZLEOBJTAG.T_Number) ~= nil then
+		self:getParent():removeChildByTag(GameConst.PUZZLEOBJTAG.T_Number)
 	end
 end
 function Ball:getType()
 	return self._type
 end
-
 function Ball:addBoom(num)
 	if num > 6 then
 		self:setName("boom")
@@ -357,4 +342,31 @@ function Ball:setGrayNode(node, flag)
 		v:getGLProgram()
 	end
 end
+-----------------------------------------------------------------------------
+-- スキル関連
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+-- 水石を 火石に変換。
+-- 火石を森石に変換。
+-- 森石を闇石に変換。
+-- 闇石を光石に変換。
+-- 光石を水石に変換。
+function Ball:changeBall(toType)
+	self:setGrayNode(self._image, true)
+    self.type = toType
+	self:setTag(toType)
+	
+	local function callBack()
+		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[toType])
+	end
+	
+	local action1 = cc.ScaleTo:create(0.5,0.1)
+	local action2 = cc.CallFunc:create(callBack)
+	local action3 = cc.ScaleTo:create(0.5,1)
+	local act = cc.Sequence:create(action1,action2,action3)
+	self._image:runAction(act)
+	
+end
+
 return Ball

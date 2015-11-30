@@ -10,3 +10,12 @@ PuzzleManager.isAllColorPuzzle = false
 function PuzzleManager:resetAll()
 	self.isAllColorPuzzle = false
 end
+
+function PuzzleManager:changeBall(fromTag,toTag)
+    local data = {
+        type = 2,
+		from= fromTag,
+		to = toTag
+    }
+	EventDispatchManager:broadcastEventDispatcher("CARD_SKILL_DRAWED",data)
+end
