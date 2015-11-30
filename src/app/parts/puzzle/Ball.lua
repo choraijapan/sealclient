@@ -91,6 +91,10 @@ function Ball:init(type)
 	self:setPhysicsBody(self._frame)
 end
 
+function Ball:reOrder(order)
+	self:getParent():reorderChild(self,order)
+end
+
 function Ball:brokenBullet()
 	if self:getName() ~= "boom" then
 		self:broken()

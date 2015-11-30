@@ -167,6 +167,7 @@ function GameUtils:createBlockLayer()
 	layer:addChild(block)
 	return layer
 end
+
 ------------------------------------
 -- @UI
 function GameUtils:createPauseLayer()

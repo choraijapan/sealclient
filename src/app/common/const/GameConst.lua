@@ -104,7 +104,8 @@ GameConst.CardType = {
 	ATK = 1,
 	DEF = 2,
 	HEAL = 3,
-	CONTROL = 4
+	CONTROL = 4,
+	REMOVE = 5
 }
 
 GameConst.DEBUFF = {
@@ -119,5 +120,18 @@ GameConst.PUZZLEOBJTAG = {
 	T_Line = 300,
 	T_Number = 400
 }
+
+GameConst.ZOrder = {
+	Z_BallBg = 0,
+	Z_Ball = 1,
+	Z_Line = 2,
+	Z_BossBg = 0,
+	Z_Boss = 11,
+	Z_Deck = 20,
+	Z_FerverBar = 30,
+	Z_Dialog = 999,
+	Z_Dark = 1000,
+}
+
 
 GameConst.PUZZLE_SCENE_TAG = 500

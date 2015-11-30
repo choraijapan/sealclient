@@ -72,7 +72,7 @@ function PuzzleCardNode:init()
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {1,2}, --change from , to
+					value = {2,1}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -87,8 +87,8 @@ function PuzzleCardNode:init()
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
-					type = 1,
-					value = 50000,
+					type = 5, -- remove ball
+					value = 1,
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -104,7 +104,7 @@ function PuzzleCardNode:init()
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {3,2}, --change from , to
+					value = {3,1}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -120,7 +120,7 @@ function PuzzleCardNode:init()
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {4,2}, --change from , to
+					value = {4,1}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -206,27 +206,9 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 	elseif skill.type == GameConst.CardType.CONTROL then
 		print("##############Control############")
 		PuzzleManager:changeBall(skill.value[1],skill.value[2])
-
-		--		if id == 1 then
-		--			PuzzleManager.isAllColorPuzzle = true
-		--			-- Effect
-		--			local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_1,nil)
-		--			self:getParent():addChild(emitter,0)
-		--
-		--			local schedulerID = nil
-		--			local function callBack()
-		--				PuzzleManager.isAllColorPuzzle = false
-		--				if schedulerID then
-		--					cc.Director:getInstance():getScheduler():unscheduleScriptEntry(schedulerID)
-		--				end
-		--				self:getParent():removeChild(emitter)
-		--			end
-		--			schedulerID = cc.Director:getInstance():getScheduler():scheduleScriptFunc(callBack, 15, false)
-		--		elseif id == 2 then
-		--			PuzzleManager:changeBall(3,2)
-		--		end
-
-
+	elseif skill.type == GameConst.CardType.REMOVE then
+		print("##############REMOVE############")
+		PuzzleManager:removeBall(1)
 	end
 end
 --------------------------------------------------------------------------------
@@ -237,7 +219,6 @@ function PuzzleCardNode:touchCard(obj)
 		self:drawSkill(obj)
 	end
 end
-
 --------------------------------------------------------------------------------
 -- skill 発動　３.5秒のEffect と　攻撃のダメージをBOSSに与えるため、BroadCastする
 function PuzzleCardNode:drawSkill(obj)
@@ -250,10 +231,11 @@ function PuzzleCardNode:drawSkill(obj)
 	local mask = GameUtils:createMaskLayer()
 	mask:setTouchEnabled(true)
 	local action1 = cc.DelayTime:create(1)
-	local action2 = cc.FadeOut:create(0.1)
-	local action3 = cc.RemoveSelf:create()
-	local action4 = cc.CallFunc:create(stopAction)
-	mask:runAction(cc.Sequence:create(action1, action2,action3,action4))
+	local action2 = cc.DelayTime:create(0.1)
+	local action3 = cc.CallFunc:create(stopAction)
+	local action4 = cc.FadeOut:create(0.3)
+	local action5 = cc.RemoveSelf:create()
+	mask:runAction(cc.Sequence:create(action1, action2,action3,action4,action5))
 	local cardSprite = cc.Sprite:create("images/boss/20151018.png") --TODO
 	local cardSpriteSize = cardSprite:getContentSize()
 

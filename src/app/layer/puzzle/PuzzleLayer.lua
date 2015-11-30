@@ -51,18 +51,6 @@ local isFerverTime = false
 local ferverBar = nil
 local ferverEffect = nil
 
---各Layerの表示順番
-local ZOrder = {
-	Z_BallBg = 0,
-	Z_Ball = 1,
-	Z_Line = 2,
-	--	Z_BossBg = 10,
-	Z_BossBg = 0,
-	Z_Boss = 11,
-	Z_Deck = 20,
-	Z_FerverBar = 30,
-	Z_Dialog = 999,
-}
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
@@ -72,6 +60,7 @@ end
 -- create
 function PuzzleLayer:create()
 	local layer = PuzzleLayer.new()
+	layer:setName("PUZZLE_LAYER")
 	layer:init()
 	return layer
 end
@@ -97,7 +86,6 @@ function PuzzleLayer:init()
 
 	self:addBossSprite()
 	self:addPuzzle()
-
 
 	self:addSchedule()  -- 更新
 	self:addTouch()     -- 触摸
@@ -170,7 +158,7 @@ function PuzzleLayer:addBalls()
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
 	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
-	self:addChild(ball,ZOrder.Z_Ball)
+	self:addChild(ball,GameConst.ZOrder.Z_Ball)
 end
 --------------------------------------------------------------------------------
 --播放音乐
@@ -187,7 +175,7 @@ function PuzzleLayer:addBG()
 	local puzzleLayer = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
 	self.bg1 = WidgetObj:searchWidgetByName(puzzleLayer,"Bg1","cc.Sprite")
 	self.bg2 = WidgetObj:searchWidgetByName(puzzleLayer,"Bg2","cc.Sprite")
-	self:addChild(puzzleLayer,ZOrder.Z_BossBg)
+	self:addChild(puzzleLayer,GameConst.ZOrder.Z_BossBg)
 	self:moveBG()
 end
 --------------------------------------------------------------------------------
@@ -260,9 +248,9 @@ function PuzzleLayer:addTouch()
 							startPos = obj2:getNode():getPosition()
 						}
 						self.puzzleCardNode:ballToCard(data)
-
+						self:setFerverPt(data.count)
 					end
-					self:setFerverPt(#boomAround)
+					
 					arr:getBody():getNode():broken()
 					startBall = nil
 					_bullets = {}
@@ -434,7 +422,7 @@ function PuzzleLayer:addFerverBar()
 	ferverBar:setBarChangeRate(cc.p(1, 0))
 	ferverBar:setPosition(cc.p(124, 23.5))
 	ferverBar:setScale(2)
-	self:addChild(ferverBar,ZOrder.Z_FerverBar)
+	self:addChild(ferverBar,GameConst.ZOrder.Z_FerverBar)
 end
 --------------------------------------------------------------------------------
 --
@@ -450,14 +438,14 @@ end
 -- cardsを追加する
 function PuzzleLayer:addCards()
 	self.puzzleCardNode = PuzzleCardNode:create()
-	self:addChild(self.puzzleCardNode, ZOrder.Z_Deck)
+	self:addChild(self.puzzleCardNode, GameConst.ZOrder.Z_Deck)
 end
 --------------------------------------------------------------------------------
 --
 -- BOSSをinitする
 function PuzzleLayer:addBossSprite()
 	self.boss = BossSprite:create()
-	self:addChild(self.boss,ZOrder.Z_Boss)
+	self:addChild(self.boss,GameConst.ZOrder.Z_Boss)
 end
 --------------------------------------------------------------------------------
 --
@@ -494,7 +482,7 @@ function PuzzleLayer:update(dt)
 			end
 		end
 		local node = DrawLine:create(_bulletVicts)
-		self:addChild(node,ZOrder.Z_Line,GameConst.PUZZLEOBJTAG.T_Line)
+		self:addChild(node,GameConst.ZOrder.Z_Line,GameConst.PUZZLEOBJTAG.T_Line)
 		_bulletVicts = {}
 	end
 
