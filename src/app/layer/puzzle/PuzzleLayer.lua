@@ -351,33 +351,29 @@ function PuzzleLayer:addTouch()
 		_curBallTag = nil
 		local type = 1
 		local lastPos = nil
-		local location = touch:getLocation()
-		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
-		if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
 
-			if next(_bullets) ~= nil then
-				for key, var in ipairs(_bullets) do
-					if  #_bullets > 1 then
-						if  #_bullets == key then
-							_bullets[#_bullets]:addBoom(#_bullets)
-							type = _bullets[1]:getTag()
-							lastPos = _bullets[#_bullets]:getPosition()
-							print("###### type"..type)
-						end
-						var:removeAllEffect()
-						var:brokenBullet()
-					end
-				end
+		if next(_bullets) ~= nil then
+			for key, var in ipairs(_bullets) do
 				if  #_bullets > 1 then
-					local data = {
-						action = "atkBoss",
-						type = type,
-						count = #_bullets,
-						startPos = lastPos,
-					}
-					self.puzzleCardNode:ballToCard(data)
-					self:setFerverPt(#_bullets)
+					if  #_bullets == key then
+						_bullets[#_bullets]:addBoom(#_bullets)
+						type = _bullets[1]:getTag()
+						lastPos = _bullets[#_bullets]:getPosition()
+						print("###### type"..type)
+					end
+					var:removeAllEffect()
+					var:brokenBullet()
 				end
+			end
+			if  #_bullets > 1 then
+				local data = {
+					action = "atkBoss",
+					type = type,
+					count = #_bullets,
+					startPos = lastPos,
+				}
+				self.puzzleCardNode:ballToCard(data)
+				self:setFerverPt(#_bullets)
 			end
 		end
 
