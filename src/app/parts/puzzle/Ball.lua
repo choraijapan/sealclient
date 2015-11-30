@@ -353,7 +353,7 @@ end
 -- 闇石を光石に変換。
 -- 光石を水石に変換。
 function Ball:changeBall(toType)
-	self:setGrayNode(self._image, true)
+--	self:setGrayNode(self._image, true)
 	self.type = toType
 	self:setTag(toType)
 
