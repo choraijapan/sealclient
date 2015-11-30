@@ -273,7 +273,7 @@ function BossSprite:startAtk()
 	self:atkEffect()
 	local data = {
 		action = "atk",
-		damage = "500",
+		damage = "2200",
 	}
 	EventDispatchManager:broadcastEventDispatcher(BOSS_ATK_EVENT,data)
 	print("##########  attack start")
