@@ -15,6 +15,10 @@ PuzzleLayer.gameTime = nil                --
 
 PuzzleLayer.boss = nil                    -- boss
 
+PuzzleLayer.combolTimer = 4
+PuzzleLayer.combolNumber = 0
+PuzzleLayer.UI_Combol = nil
+
 PuzzleLayer.wall = nil
 PuzzleLayer.puzzleCardNode = nil
 PuzzleLayer.cards = {
@@ -80,13 +84,13 @@ function PuzzleLayer:init()
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
 	--    self:moveBG()       -- 背景移动
-
+	
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addCards()             -- 初期化（自分）
 
 	self:addBossSprite()
 	self:addPuzzle()
-
+	self:addCombol()
 	self:addSchedule()  -- 更新
 	self:addTouch()     -- 触摸
 
@@ -201,7 +205,17 @@ function PuzzleLayer:addSchedule()
 		self:update(dt)
 	end
 	self:scheduleUpdateWithPriorityLua(update,0)
-
+	
+	-- コンボの更新
+	local function updateDt(dt)
+		self.combolTimer = self.combolTimer - 1
+		if self.combolTimer <= 0 then
+			self.combolNumber = 0
+			self.UI_Combol:setOpacity(0)
+		end
+	end
+	schedule(self, updateDt, 1)
+	
 	-- 更新UI
 	local function updateGame()
 		self:updateGame()
@@ -240,17 +254,18 @@ function PuzzleLayer:addTouch()
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 					for _, obj2 in ipairs(boomAround) do
 						obj2:getNode():brokenBullet()
-
 						local data = {
 							action = "atkBoss",
 							type = obj2:getNode():getTag(),
 							count = 1,
+							combol = self.combolNumber,
+							isFerver = isFerverTime,
 							startPos = obj2:getNode():getPosition()
 						}
 						self.puzzleCardNode:ballToCard(data)
 						self:setFerverPt(data.count)
 					end
-					
+					self:updateCombol()
 					arr:getBody():getNode():broken()
 					startBall = nil
 					_bullets = {}
@@ -358,10 +373,15 @@ function PuzzleLayer:addTouch()
 					action = "atkBoss",
 					type = type,
 					count = #_bullets,
+					combol = self.combolNumber,
+					isFerver = isFerverTime,
 					startPos = lastPos,
 				}
 				self.puzzleCardNode:ballToCard(data)
 				self:setFerverPt(#_bullets)
+				if  #_bullets > 2 then
+					self:updateCombol()
+				end
 			end
 		end
 
@@ -608,5 +628,23 @@ function PuzzleLayer:DrawLineRemove()
 			line:remove()
 			break
 		end
+	end
+end
+--------------------------------------------------------------------------------
+-- コンボ
+function PuzzleLayer:addCombol()
+	self.UI_Combol = ccui.TextAtlas:create()
+	self.UI_Combol:setProperty(self.combolNumber, GameConst.FONT.NUMBER_MYELLOW, 25, 30, "0")
+	self.UI_Combol:setPosition(cc.p(80,AppConst.WIN_SIZE.height/2 + 200))
+	self.puzzleCardNode:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
+	self.UI_Combol:setOpacity(0)
+end
+function PuzzleLayer:updateCombol()
+	self.combolTimer = 4
+	if self.UI_Combol ~= nil then
+		self.UI_Combol:setOpacity(255)
+		self.combolNumber = self.combolNumber + 1
+		self.UI_Combol:setString(self.combolNumber)
+		GameUtils:addCombolEffect(self.UI_Combol)
 	end
 end

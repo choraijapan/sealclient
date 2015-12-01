@@ -15,6 +15,24 @@ GameUtils.TouchFlag = false
 ---#############################################################################
 --------------------------------------------------------------------------------
 -- @Effect
+-- Number：コンボとが連鎖とがの数字のアニメ
+function GameUtils:addNumberEffect(obj)
+	local action1 = cc.ScaleTo:create(0.1, 4)
+	local action2 = cc.ScaleTo:create(0.1, 3)
+	local action3 = cc.DelayTime:create(1.5)
+	local action4 = cc.FadeOut:create(0.5)
+	local action5 = cc.DelayTime:create(0.5)
+	local action6 = cc.RemoveSelf:create()
+	obj:runAction(cc.Sequence:create(action1, action2,action3))
+end
+function GameUtils:addCombolEffect(obj)
+	local action1 = cc.ScaleTo:create(0.1, 3)
+	local action2 = cc.ScaleTo:create(0.1, 2)
+	local action3 = cc.DelayTime:create(1.5)
+	obj:runAction(cc.Sequence:create(action1, action2,action3))
+end
+--------------------------------------------------------------------------------
+-- @Effect
 -- createParticle
 function GameUtils:createParticle(plist,img)
 	local particle = cc.ParticleSystemQuad:create(plist)

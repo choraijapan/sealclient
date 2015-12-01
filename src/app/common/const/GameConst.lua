@@ -55,6 +55,21 @@ GameConst.CSB = {
 GameConst.FONT = {
 	NUMBER = "images/font/labelatlas.png",
 	NUMBER_YELLOW = "images/font/number_quest_medium_yellow.png",
+	NUMBER_FWHITE = "images/font/number_quest_floor_white.png",
+	NUMBER_MBLUE = "images/font/number_quest_medium_blue.png",
+	NUMBER_MGREEN = "images/font/number_quest_medium_green.png",
+	NUMBER_MHEAL = "images/font/number_quest_medium_kaihuku.png",
+	NUMBER_MRED = "images/font/number_quest_medium_red.png",
+	NUMBER_MGRAY = "images/font/number_quest_medium_white_gray.png",
+	NUMBER_MWHITE = "images/font/number_quest_medium_white.png",
+	NUMBER_MYELLOW = "images/font/number_quest_medium_yellow.png",
+	NUMBER_SGREEN = "images/font/number_quest_small_green.png",
+	NUMBER_SWHITE = "images/font/number_quest_small_white.png",
+	NUMBER_XPWHITE = "images/font/number_quest_xlarge_purewhite.png",
+	NUMBER_XBLUE = "images/font/number_quest_xxlarge_blue.png",
+	NUMBER_XXGREEN = "images/font/number_quest_xxlarge_green.png",
+	NUMBER_XXRED = "images/font/number_quest_xxlarge_red.png",
+	NUMBER_XXYELLOW = "images/font/number_quest_xxlarge_yellow.png"
 }
 
 GameConst.PARTICLE = {
@@ -129,6 +144,7 @@ GameConst.ZOrder = {
 	Z_Boss = 11,
 	Z_Deck = 20,
 	Z_FerverBar = 30,
+	Z_Combol = 30,
 	Z_Dialog = 999,
 	Z_Dark = 1000,
 }

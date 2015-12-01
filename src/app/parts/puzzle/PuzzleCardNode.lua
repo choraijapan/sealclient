@@ -332,8 +332,12 @@ function PuzzleCardNode:ballToCard(data)
 				local action1 = cc.JumpBy:create(0.3, cc.p(0,0), 10, 1)
 				var.CCUI_Card:getParent():runAction(cc.Sequence:create(action1))
 
-				-- attack boos ： skill effect on boss
-				data.damage = data.count * var.atk.value
+				-- attack boos ： skill effect on boss  TODO 計算式
+				local ferverPoint = 1
+				if data.isFerver then
+					ferverPoint = 2
+				end
+				data.damage = ferverPoint * (1 + data.combol/100) * data.count * var.atk.value
 				data.effect = var.atk.effect
 				self:atkBoss(data)
 
