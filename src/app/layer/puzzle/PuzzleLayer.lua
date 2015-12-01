@@ -254,7 +254,6 @@ function PuzzleLayer:addTouch()
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 					for _, obj2 in ipairs(boomAround) do
 						obj2:getNode():brokenBullet()
-						self:updateCombol()
 						local data = {
 							action = "atkBoss",
 							type = obj2:getNode():getTag(),
@@ -266,7 +265,7 @@ function PuzzleLayer:addTouch()
 						self.puzzleCardNode:ballToCard(data)
 						self:setFerverPt(data.count)
 					end
-
+					self:updateCombol()
 					arr:getBody():getNode():broken()
 					startBall = nil
 					_bullets = {}
@@ -380,7 +379,9 @@ function PuzzleLayer:addTouch()
 				}
 				self.puzzleCardNode:ballToCard(data)
 				self:setFerverPt(#_bullets)
-				self:updateCombol()
+				if  #_bullets > 2 then
+					self:updateCombol()
+				end
 			end
 		end
 
