@@ -70,7 +70,7 @@ function PuzzleManager:removeBall(id)
 
 	local action1 = cc.ScaleTo:create(0,0)
 	local action2 = cc.ScaleTo:create(0.5,1)
-	local action3 = cc.DelayTime:create(1.5)
+	local action3 = cc.DelayTime:create(1)
 	local action4 = cc.CallFunc:create(callBack)
 	removeSharp:runAction(cc.Sequence:create(action1, action2, action3, action4))
 end

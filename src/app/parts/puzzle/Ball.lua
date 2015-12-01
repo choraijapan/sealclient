@@ -213,16 +213,7 @@ function Ball:addPuzzleNumber(num)
 		puzzleNumber:setPosition(cc.p(self:getPositionX(),self:getPositionY() + 100))
 		self:getParent():addChild(puzzleNumber,1111)
 		self:getParent():reorderChild(puzzleNumber,11111)
-		local action1 = cc.ScaleTo:create(0.1, 4)
-		if num > 5 then
-			action1 = cc.ScaleTo:create(0.1, 6)
-		end
-		local action2 = cc.ScaleTo:create(0.1, 3)
-		local action3 = cc.DelayTime:create(1.5)
-		local action4 = cc.FadeOut:create(0.5)
-		local action5 = cc.DelayTime:create(0.5)
-		local action6 = cc.RemoveSelf:create()
-		puzzleNumber:runAction(cc.Sequence:create(action1, action2,action3,action4,action5,action6))
+		GameUtils:addNumberEffect(puzzleNumber)
 	end
 end
 function Ball:removePuzzleNumber()
