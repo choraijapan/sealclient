@@ -88,7 +88,7 @@ frameworks/cocos2d-x/cocos/platform/android/java/bin/*
 frameworks/cocos2d-x/tools/simulator/libsimulator/proj.ios_mac/build
 frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/build
 proj.android/assets/*
-Simulator/
+Simulator/debugruntime/
 game_client/debugruntime
 runtime
 
