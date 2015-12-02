@@ -47,7 +47,7 @@ BossSprite.color = {
 function BossSprite:ctor()
 	self.active = true
 	self.canBeAttack = false
-	self.hpMax = 5000000
+	self.hpMax = 15000000
 	self.hp = self.hpMax
 	self.atk = 1
 	self.power = 1.0
@@ -97,25 +97,24 @@ function BossSprite:addEventDispatcher()
 			local card_atk = cc.ParticleSystemQuad:create(effectFile)
 			card_atk:setPosition(self:getPosition())
 			card_atk:setDuration(0.5)
-			self:getParent():addChild(card_atk,1111111)
-			
-			
---			local cache = cc.SpriteFrameCache:getInstance()
---			cache:addSpriteFrames("battle/skill_aobao.plist")
---			
---			local sprite = cc.Sprite:createWithSpriteFrameName("blizzard_0001.png")
---			
---			local animFrames = {}
---			for i = 0, 11 do 
---				local str = string.format("blizzard_%04d.png",(i+1))
---				local frame = cache:getSpriteFrame(str)
---				print("############"..str)
---				animFrames[i + 1] = frame
---			end
---			local animation = cc.Animation:createWithSpriteFrames(animFrames,0.1)
---			sprite:runAction(cc.Animate:create(animation))
---			
---			self:addChild(sprite)
+			self:getParent():addChild(card_atk,GameConst.ZOrder.Z_EffectAtkBoss)
+
+			--			local cache = cc.SpriteFrameCache:getInstance()
+			--			cache:addSpriteFrames("battle/skill_aobao.plist")
+			--
+			--			local sprite = cc.Sprite:createWithSpriteFrameName("blizzard_0001.png")
+			--
+			--			local animFrames = {}
+			--			for i = 0, 11 do
+			--				local str = string.format("blizzard_%04d.png",(i+1))
+			--				local frame = cache:getSpriteFrame(str)
+			--				print("############"..str)
+			--				animFrames[i + 1] = frame
+			--			end
+			--			local animation = cc.Animation:createWithSpriteFrames(animFrames,0.1)
+			--			sprite:runAction(cc.Animate:create(animation))
+			--
+			--			self:addChild(sprite)
 		end
 	end
 
@@ -144,7 +143,7 @@ function BossSprite:addHp()
 	self.bar_hp:setPosition(cc.p(1,self.sprite:getContentSize().height/2 -7))
 	self:addChild(bar_bg)
 	self:addChild(self.bar_hp)
---	self:addChild(self.label_hp)
+	--	self:addChild(self.label_hp)
 
 	local to = cc.ProgressTo:create(1, 100)
 	self.bar_hp:runAction(cc.RepeatForever:create(to))
@@ -154,7 +153,7 @@ end
 -- hurt
 function BossSprite:hurt(damageValue)
 	self.hp = self.hp - damageValue
---	self.label_hp:setString(self.hp)
+	--	self.label_hp:setString(self.hp)
 
 	local hpPer = (self.hp / self.hpMax)*100
 	local to = cc.ProgressTo:create(0.5, hpPer)
@@ -227,56 +226,66 @@ function BossSprite:setDebuffOn(data)
 	--    end
 end
 function BossSprite:addAI()
-	local atkLeftTime = ccui.TextAtlas:create()
-	atkLeftTime:setScale(1.5)
-	atkLeftTime:setPosition(cc.p(240,-100))
-	self:addChild(atkLeftTime)
-    
-	local text_turn = cc.Sprite:create(GameConst.PUZZLE_PNG.LEFT_TIME)
-	text_turn:setPosition(cc.p(240,-60))
-	self:addChild(text_turn)
---	local bossSkill = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
---	bossSkill:setPosition(cc.p(240,-60))
---	self:addChild(bossSkill)
+	local function addSkill(skillObj)
+		local timer = 0
+		local node = cc.Node:create()
+		node:setPosition(skillObj.pos)
+		local sprite = cc.Sprite:create(skillObj.icon)
+		sprite:setAnchorPoint(0.5)
+		local atkLeftTime = ccui.TextAtlas:create()
 
-	-- 更新时间
-	local function updateTime()
-		self.time = self.time + 1
-		if self.time % 15 ~= 0 then
-			--模仿魔兽世界插件的倒计时［BOSS发动技能倒计时］
-			if self.debuff.type == GameConst.DEBUFF.FREEZE then
---				bossSkill:setString(string.format("Perfect,You have stopped it!"))
-				self.debuff.type = nil
-				self.time = 1
+		local text_turn = cc.Sprite:create(GameConst.PUZZLE_PNG.LEFT_TIME)
+		text_turn:setPosition(cc.p(-55,0))
+		node:addChild(text_turn)
+		node:addChild(sprite)
+		node:addChild(atkLeftTime)
+		self:addChild(node)
+		local function skill()
+			if timer % skillObj.time ~= 0 then
+				if self.debuff.type == GameConst.DEBUFF.FREEZE then
+					self.debuff.type = nil
+				else
+					atkLeftTime:setProperty(skillObj.time - timer % skillObj.time, GameConst.FONT.NUMBER_YELLOW, 25, 30, "0")
+				end
 			else
---				bossSkill:setString("あと")
-				atkLeftTime:setProperty(15 - self.time, GameConst.FONT.NUMBER_YELLOW, 25, 30, "0")
+				self:startAtk(skillObj)
 			end
-
-		else
-			self.time = 0
-			self:startAtk()
-
 		end
+		local function updateTime()
+			timer = timer + 1
+			skill()
+		end
+		schedule(self, updateTime, 1)
 	end
-	schedule(self, updateTime, 1)
+	local skill1 = {
+		skillId  = "NORMALATK",
+		icon 	 = "images/boss/boss_skill.png",
+		time 	 = 6,
+		pos 	 = cc.p(260,-100),
+		action = "atk",
+		damage = "1200",
+		effect = "images/puzzle/effect/particle/boss_atk_effect_fire.plist"
+	}
 
-
-	--    local a1 = cc.DelayTime:create(20)
-	--    local a2 = cc.DelayTime:create(20)
-	--    local action1 = cc.Spawn:create(a1,a2)
-	--    local action2 = cc.CallFunc:create(start)
-	--    self:runAction(cc.RepeatForever:create(cc.Sequence:create(action1, action2)))
+	local skill2 = {
+		skillId  = "YAONIMING",
+		icon 	 = "images/boss/boss_skill_2.png",
+		time 	 = 60,
+		pos 	 = cc.p(260,-30),
+		action = "atk",
+		damage = "12200",
+		effect = "images/puzzle/effect/particle/gimmick_poisonbreath.plist"
+	}
+	addSkill(skill1)
+	addSkill(skill2)
 end
 
-function BossSprite:startAtk()
+function BossSprite:startAtk(skillData)
 	self:atkEffect()
-	local data = {
-		action = "atk",
-		damage = "2200",
-	}
-	EventDispatchManager:broadcastEventDispatcher(BOSS_ATK_EVENT,data)
-	print("##########  attack start")
+	local effect = GameUtils:createParticle(skillData.effect,nil)
+	effect:setPosition(cc.p(0,0))
+	self:addChild(effect,111)
+	EventDispatchManager:broadcastEventDispatcher(BOSS_ATK_EVENT,skillData)
 end
 
 function BossSprite:addHurt(data)

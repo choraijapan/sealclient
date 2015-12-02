@@ -144,6 +144,7 @@ GameConst.ZOrder = {
 	Z_Deck = 20,
 	Z_FerverBar = 30,
 	Z_Combol = 30,
+	Z_EffectAtkBoss = 30,
 	Z_Dialog = 999,
 	Z_Dark = 1000,
 }

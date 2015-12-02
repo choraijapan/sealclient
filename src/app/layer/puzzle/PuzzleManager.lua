@@ -30,8 +30,8 @@ end
 PuzzleManager.REMOVE_SHARP = {
 
 	}
-function PuzzleManager:removeBall(id)
-	local removeSharp = cc.LayerColor:create(cc.c4b(255,255,255,0),200,1500)
+function PuzzleManager:removeBall(width)
+	local removeSharp = cc.LayerColor:create(cc.c4b(255,255,255,0),100*width,1500)
 	removeSharp:setPositionX(AppConst.WIN_SIZE.width/2 - removeSharp:getContentSize().width/2)
 	local blockLayer = GameUtils:createBlockLayer()
 	local bg = cc.LayerColor:create(cc.c4b(0,0,0,200),1500,1500)

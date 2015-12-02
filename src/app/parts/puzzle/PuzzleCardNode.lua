@@ -71,8 +71,8 @@ function PuzzleCardNode:init()
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
-					type = 4, -- control:change
-					value = {2,1}, --change from , to
+					type = 1, -- atk
+					value = 1000000, --
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -104,7 +104,7 @@ function PuzzleCardNode:init()
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {3,1}, --change from , to
+					value = {5,3}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -120,7 +120,7 @@ function PuzzleCardNode:init()
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {4,1}, --change from , to
+					value = {4,3}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -135,8 +135,8 @@ function PuzzleCardNode:init()
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
-					type = 3,
-					value = 6000,
+					type = 3, -- Healing
+					value = 10000,
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
@@ -151,8 +151,8 @@ function PuzzleCardNode:init()
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
-					type = 4, -- control:change
-					value = {1,2}, --change from , to
+					type = 1, -- atk
+					value = 1500000, --
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			}
@@ -208,7 +208,7 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 		PuzzleManager:changeBall(skill.value[1],skill.value[2])
 	elseif skill.type == GameConst.CardType.REMOVE then
 		print("##############REMOVE############")
-		PuzzleManager:removeBall(1)
+		PuzzleManager:removeBall(skill.value)
 	end
 end
 --------------------------------------------------------------------------------

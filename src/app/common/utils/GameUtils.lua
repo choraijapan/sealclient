@@ -40,8 +40,9 @@ function GameUtils:createParticle(plist,img)
 		particle:setTexture(cc.Director:getInstance():getTextureCache():addImage(img))
 	end
 	particle:setAnchorPoint(cc.p(0.5, 0.5))
-	particle:setScale(1.5)
+--	particle:setScale(1.5)
 	particle:setAutoRemoveOnFinish(true)
+	particle:setPosition(cc.p(0,0))
 	return particle
 end
 
