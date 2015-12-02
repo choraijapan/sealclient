@@ -11,7 +11,7 @@ GameConst.ATTRIBUTE = {
 	FIRE 	= 2,
 	TREE 	= 3,
 	LIGHT 	= 4,
-	DARK 	= 5,
+	DARK 	= 5
 }
 
 GameConst.BALL_PNG = {
@@ -22,7 +22,6 @@ GameConst.BALL_PNG = {
 	[5] = "images/puzzle/block/b_dark.png",
 	["BOOM"] = "images/puzzle/block/ball_dark.png"
 }
-
 
 GameConst.CARD_FRAME_PNG = {
 	[1] = "images/common/monster_thum_blue.png",

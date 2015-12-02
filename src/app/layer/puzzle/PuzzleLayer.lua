@@ -30,8 +30,6 @@ PuzzleLayer.cards = {
 	card6 = nil
 }
 
-local TYPES = 5
-
 local offside = nil
 
 local MAX_BULLET = 45
@@ -151,7 +149,7 @@ end
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:addBalls()
-	local typeId = math.random(1,TYPES)
+	local typeId = math.random(1,GameUtils:tablelength(GameConst.ATTRIBUTE))
 	local ball = Ball:create(typeId)
 
 	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
