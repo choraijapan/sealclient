@@ -5,7 +5,7 @@ local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
 local BossSprite = require("app.parts.puzzle.BossSprite")
 
-PuzzleLayer = class("PuzzleLayer", cc.Layer)
+local PuzzleLayer = class("PuzzleLayer", cc.Layer)
 PuzzleLayer.stateGamePlaying = 0
 PuzzleLayer.stateGameOver = 1
 PuzzleLayer.resultWin = 1
@@ -63,10 +63,9 @@ end
 --------------------------------------------------------------------------------
 -- create
 function PuzzleLayer:create()
-	local layer = PuzzleLayer.new()
-	layer:setName("PUZZLE_LAYER")
-	layer:init()
-	return layer
+	self:setName("PUZZLE_LAYER")
+	self:init()
+	return self
 end
 --------------------------------------------------------------------------------
 -- create
@@ -648,3 +647,5 @@ function PuzzleLayer:updateCombol()
 		GameUtils:addCombolEffect(self.UI_Combol)
 	end
 end
+
+return PuzzleLayer
