@@ -62,10 +62,10 @@ function PuzzleCardNode:init()
 		card = {
 			[1] = {
 				id = "images/card/weapon_menu_playerimage_arrow.png",
-				hp = 4000,
+				hp = 6000,
 				attribute = GameConst.ATTRIBUTE.FIRE,
 				atk = {
-					value = 8241,
+					value = 12241,
 					effect = GameConst.PARTICLE.ATK_FIRE
 				},
 				skill = {
@@ -78,42 +78,42 @@ function PuzzleCardNode:init()
 			},
 			[2] = {
 				id = "images/card/weapon_menu_playerimage_axe.png",
-				hp = 4000,
+				hp = 6000,
 				attribute = GameConst.ATTRIBUTE.WATER,
 				atk = {
-					value = 8241,
+					value = 12241,
 					effect = GameConst.PARTICLE.ATK_FIRE
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 5, -- remove ball
-					value = 1,
+					value = 4,
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
 			[3] = {
 				id = "images/card/weapon_menu_playerimage_wond.png",
-				hp = 4000,
-				attribute = GameConst.ATTRIBUTE.LIGHT,
+				hp = 8000,
+				attribute = GameConst.ATTRIBUTE.FIRE,
 				atk = {
-					value = 8241,
+					value = 12241,
 					effect = GameConst.PARTICLE.ATK_FIRE
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
-					value = {5,3}, --change from , to
+					value = {4,3}, --change from , to
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
 			[4] = {
 				id = "images/card/weapon_menu_playerimage_twinsword.png",
-				hp = 4000,
+				hp = 9000,
 				attribute = GameConst.ATTRIBUTE.DARK,
 				atk = {
-					value = 8241,
+					value = 12241,
 					effect = GameConst.PARTICLE.ATK_FIRE
 				},
 				skill = {
@@ -126,39 +126,38 @@ function PuzzleCardNode:init()
 			},
 			[5] = {
 				id = "images/card/weapon_menu_playerimage_axe.png",
-				hp = 4000,
+				hp = 14000,
 				attribute = GameConst.ATTRIBUTE.TREE,
 				atk = {
-					value = 8241,
+					value = 12241,
 					effect = GameConst.PARTICLE.ATK_FOREST
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 3, -- Healing
-					value = 10000,
+					value = 20000,
 					effect = GameConst.PARTICLE.ATK_SWORD
 				}
 			},
-			[6] = {
-				id = "images/card/weapon_menu_playerimage_sword.png",
-				hp = 4000,
-				attribute = GameConst.ATTRIBUTE.FIRE,
-				atk = {
-					value = 8241,
-					effect = GameConst.PARTICLE.ATK_FIRE
-				},
-				skill = {
-					name = "人生はただ一度だけ切り",
-					description = "人生はただ一度だけ切り",
-					type = 1, -- atk
-					value = 1500000, --
-					effect = GameConst.PARTICLE.ATK_SWORD
-				}
-			}
+--			[6] = {
+--				id = "images/card/weapon_menu_playerimage_sword.png",
+--				hp = 4000,
+--				attribute = GameConst.ATTRIBUTE.FIRE,
+--				atk = {
+--					value = 8241,
+--					effect = GameConst.PARTICLE.ATK_FIRE
+--				},
+--				skill = {
+--					name = "人生はただ一度だけ切り",
+--					description = "人生はただ一度だけ切り",
+--					type = 1, -- atk
+--					value = 1500000, --
+--					effect = GameConst.PARTICLE.ATK_SWORD
+--				}
+--			}
 		}
 	}
-
 	self.hpBar = WidgetObj:searchWidgetByName(self,"HpBar","ccui.LoadingBar")
 
 	for i,v in ipairs(jsonData.card) do
@@ -186,7 +185,7 @@ function PuzzleCardNode:init()
 	self.isActive = true
 	self.hpBar:setPercent(100)
 
-	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 30))
+	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 50))
 end
 
 --------------------------------------------------------------------------------
@@ -228,6 +227,7 @@ function PuzzleCardNode:drawSkill(obj)
 
 	self:setEnergy(obj,0)
 	-- Effectを表示する
+	local node = cc.Node:create()
 	local mask = GameUtils:createMaskLayer()
 	mask:setTouchEnabled(true)
 	local action1 = cc.DelayTime:create(1)
@@ -235,7 +235,7 @@ function PuzzleCardNode:drawSkill(obj)
 	local action3 = cc.CallFunc:create(stopAction)
 	local action4 = cc.FadeOut:create(0.3)
 	local action5 = cc.RemoveSelf:create()
-	mask:runAction(cc.Sequence:create(action1, action2,action3,action4,action5))
+	node:runAction(cc.Sequence:create(action1, action2,action3,action4,action5))
 	local cardSprite = cc.Sprite:create("images/boss/20151018.png") --TODO
 	local cardSpriteSize = cardSprite:getContentSize()
 
@@ -258,19 +258,20 @@ function PuzzleCardNode:drawSkill(obj)
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
-	local emitter = GameUtils:createParticle(GameConst.PARTICLE.SNOW,GameConst.PARTICLE_PNG.SNOW)
+--	local emitter = GameUtils:createParticle(GameConst.PARTICLE.SNOW,GameConst.PARTICLE_PNG.SNOW)
+	
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
-
 	local text = createText(obj.skill.name)
-	mask:addChild(emitter, 0)
-	mask:addChild(blockLayer, 1)
-	mask:addChild(cardSprite, 2)
-	mask:addChild(text, 3)
-
-	self:getParent():addChild(mask,999)
+	node:addChild(mask,0)
+--	node:addChild(emitter, 1)
+	node:addChild(blockLayer, 2)
+	node:addChild(cardSprite, 3)
+	node:addChild(text, 4)
+	
+	self:addChild(node,999)
 	-- TODO 攻撃BroadCast
-
+	
 end
 
 --------------------------------------------------------------------------------

@@ -10,16 +10,16 @@ GameConst.ATTRIBUTE = {
 	WATER 	= 1,
 	FIRE 	= 2,
 	TREE 	= 3,
-	LIGHT 	= 4,
-	DARK 	= 5
+--	LIGHT 	= 4,
+	DARK 	= 4
 }
 
 GameConst.BALL_PNG = {
 	[1] = "images/puzzle/block/b_water.png",
 	[2] = "images/puzzle/block/b_fire.png",
 	[3] = "images/puzzle/block/b_tree.png",
-	[4] = "images/puzzle/block/b_light.png",
-	[5] = "images/puzzle/block/b_dark.png",
+--	[4] = "images/puzzle/block/b_light.png",
+	[4] = "images/puzzle/block/b_dark.png",
 	["BOOM"] = "images/puzzle/block/ball_dark.png"
 }
 
@@ -28,7 +28,7 @@ GameConst.CARD_FRAME_PNG = {
 	[2] = "images/common/monster_thum_red.png",
 	[3] = "images/common/monster_thum_green.png",
 	[4] = "images/common/monster_thum_yellow.png",
-	[5] = "images/common/monster_thum_blue_red.png" --TODO 仮素材もないです
+--	[5] = "images/common/monster_thum_blue_red.png" --TODO 仮素材もないです
 }
 
 GameConst.ATTRIBUTE_EFFECT = {

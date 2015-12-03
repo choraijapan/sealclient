@@ -32,7 +32,7 @@ PuzzleLayer.cards = {
 
 local offside = nil
 
-local MAX_BULLET = 45
+local MAX_BULLET = 35
 local _time = 0
 local _curBallTag = nil
 local _bulletVicts = nil
@@ -632,7 +632,7 @@ end
 function PuzzleLayer:addCombol()
 	self.UI_Combol = ccui.TextAtlas:create()
 	self.UI_Combol:setProperty(self.combolNumber, GameConst.FONT.NUMBER_MYELLOW, 25, 30, "0")
-	self.UI_Combol:setPosition(cc.p(80,AppConst.WIN_SIZE.height/2 + 200))
+	self.UI_Combol:setPosition(cc.p(AppConst.WIN_SIZE.width - 80,AppConst.WIN_SIZE.height/2))
 	self.puzzleCardNode:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
 	self.UI_Combol:setOpacity(0)
 end
