@@ -9,7 +9,7 @@ local StandardScene = require('core.base.scene.StandardScene')
 local MenuScene = class("MenuScene",StandardScene)
 
 local CONST_MENU_SETTINGS = {
-	Sample_01 = 'app/scene/puzzle/PuzzleScene',
+	MS01 = 'app/scene/puzzle/PuzzleScene',
 	Sample_02 = 'app/scene/map/MapScene',
 	Sample_03 = 'app/scene/quest/QuestScene',
 	Sample_04 = nil,
@@ -34,7 +34,6 @@ end
 -- onEnter
 function MenuScene:onEnter()
 	--	SceneManager:changeScene(CONST_MENU_SETTINGS.Sample_03,nil)
-
 	self.m.menuNode = WidgetLoader:loadCsbFile("scene/MenuScene.csb")
 	self.scene:addChild(self.m.menuNode)
 

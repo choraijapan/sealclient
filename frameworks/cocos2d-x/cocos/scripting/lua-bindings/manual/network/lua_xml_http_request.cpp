@@ -50,7 +50,8 @@ _isAsync(false),
 _isNetwork(true),
 _withCredentialsValue(true),
 _errorFlag(false),
-_isAborted(false)
+_isAborted(false),
+_buffer(nullptr)
 {
     _httpHeader.clear();
     _requestHeader.clear();
@@ -252,6 +253,7 @@ void LuaMinXmlHttpRequest::_sendRequest()
             _readyState = DONE;
             _data.assign(buffer->begin(), buffer->end());
             _dataSize = buffer->size();
+            _buffer = buffer;
         }
         else
         {
@@ -277,6 +279,11 @@ void LuaMinXmlHttpRequest::_sendRequest()
 void LuaMinXmlHttpRequest::getByteData(unsigned char* byteData)
 {
     memcpy((char*)byteData, _data.c_str(), _dataSize);
+}
+
+std::vector<char>* LuaMinXmlHttpRequest::getBufferData()
+{
+    return _buffer;
 }
 
 /* function to regType */
@@ -716,12 +723,10 @@ static int lua_get_XMLHttpRequest_response(lua_State* L)
             return 0;
         }
         
-        //        std::vector<char>* buffer = self->getBufferData();
-        //
-        //        lua_pushlstring(L,&(*buffer)[0],buffer->size());
+       std::vector<char>* buffer = self->getBufferData();
+       lua_pushlstring(L,&(*buffer)[0],buffer->size());
         
-        lua_pushlstring(L,self->getDataStr().c_str(),self->getDataSize());
-        
+       // lua_pushlstring(L,self->getDataStr().c_str(),self->getDataSize());
         
         int n = lua_gettop(L);
         

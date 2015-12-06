@@ -96,6 +96,9 @@ public:
     
     void getByteData(unsigned char* byteData);
     
+    // mine added
+    std::vector<char>* getBufferData();
+    
     inline std::string getDataStr() { return _data; }
     
     inline size_t getDataSize() {   return _dataSize; }
@@ -105,6 +108,8 @@ public:
     
     inline void setAborted(bool isAborted) { _isAborted = isAborted; }
     inline bool getAborted() { return _isAborted; }
+    
+    
     
 private:
     void _gotHeader(std::string header);
@@ -128,6 +133,10 @@ private:
     std::map<std::string, std::string>   _requestHeader;
     bool                                 _errorFlag;
     bool                                 _isAborted;
+    
+    // mine Added
+    std::vector<char>*                   _buffer;
+
 };
 
 TOLUA_API int register_xml_http_request(lua_State* L);
