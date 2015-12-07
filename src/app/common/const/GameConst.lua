@@ -81,7 +81,7 @@ GameConst.PARTICLE = {
 	SKILL_1         = "images/puzzle/effect/particle/fireWall.plist", -- TODO cardのスキルエフェクト
 	
 	SNOW           = "images/puzzle/effect/particle/particle_snow.plist",
-	BALL_BROKEN    = "images/puzzle/effect/particle/puzzle.plist",
+	BALL_BROKEN    = "images/puzzle/effect/particle/block_change_fire.plist",
 	FERVER         = "images/puzzle/effect/particle/fireWall.plist",
 	BOOM           = "images/puzzle/effect/particle/particle_boom.plist",
 	HEAL           = "images/puzzle/effect/particle/gauge_bar_heal.plist",
