@@ -194,7 +194,6 @@ end
 -- cardSkillDrawed
 function PuzzleCardNode:cardSkillDrawed(skill)
 	if skill.type == GameConst.CardType.ATK then
-		print("##############ATK############")
 		local data = {
 			action = "atkBoss",
 			damage = skill.value,
@@ -202,13 +201,10 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 		}
 		self:atkBoss(data)
 	elseif skill.type == GameConst.CardType.HEAL then
-		print("##############Healing############")
 		self:cardHeal(skill.value)
 	elseif skill.type == GameConst.CardType.CONTROL then
-		print("##############Control############")
 		PuzzleManager:changeBall(skill.value[1],skill.value[2])
 	elseif skill.type == GameConst.CardType.REMOVE then
-		print("##############REMOVE############")
 		PuzzleManager:removeBall(skill.value)
 	end
 end

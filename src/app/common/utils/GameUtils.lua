@@ -221,7 +221,6 @@ end
 -- @UI
 -- pauseGame
 function GameUtils:pauseGame()
-	print("############### PAUSE ##############")
 	GameUtils.TouchFlag = false
 --	cc.Director:getInstance():pause()
 	cc.SimpleAudioEngine:getInstance():pauseMusic()
@@ -250,7 +249,6 @@ end
 ------------------------------------
 -- @UI
 function GameUtils:resumeGame()
-	print("############### RESUME ##############")
 	GameUtils.TouchFlag = false
 	cc.Director:getInstance():resume()
 	cc.Director:getInstance():startAnimation()

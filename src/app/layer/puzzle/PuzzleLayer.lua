@@ -94,10 +94,8 @@ function PuzzleLayer:init()
 	_fingerPosition = nil
 
 	local function callBack(event)
-		print("############ BOSS_ATK_EVENT !!!")
 		local data = event._data
 		if data.action == "atk" then
-			print("############ BOSS_ATK_EVENT !!! Atked")
 			PuzzleManager:addHurtEffect()
 			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 			--			for _, obj in ipairs(all) do
@@ -114,9 +112,7 @@ function PuzzleLayer:init()
 	-- Interface , Card Skill発動する時呼ぶ
 	------------------------------------------------------------------------
 	local function skillDrawed(event)
-		print("############ skillDrawed !!!")
 		local data = event._data
-		print("############ type : "..data.type)
 		if data.type == 2 then
 			PuzzleManager:changeBall(data.from,data.to)
 		end
@@ -228,7 +224,6 @@ end
 --
 function PuzzleLayer:addTouch()
 	local function onTouchBegan(touch, event)
-		print("################# touch began")
 		touchIdx = 1
 		touchIdx2 = 1
 		local idx = 1
@@ -246,7 +241,6 @@ function PuzzleLayer:addTouch()
 				return false
 			else
 				if  arr:getBody():getNode():getName() == "boom" then
-					print("#################### BOOM Touched")
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 					for _, obj2 in ipairs(boomAround) do
 						obj2:getNode():brokenBullet()
@@ -307,8 +301,6 @@ function PuzzleLayer:addTouch()
 				local p1 = _bullets[#_bullets]:getPosition()
 				local p2 = self.curTouchBall:getPosition()
 				local distance = cc.pGetDistance(p1,p2)
-				print("#########distance:"..distance)
-				print("######### r : "..2 * math.sqrt(3) * self.curTouchBall.circleSize)
 				if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
 					touchIdx = touchIdx + 1
 					_bullets[touchIdx] = self.curTouchBall
@@ -358,7 +350,6 @@ function PuzzleLayer:addTouch()
 						_bullets[#_bullets]:addBoom(#_bullets)
 						type = _bullets[1]:getTag()
 						lastPos = _bullets[#_bullets]:getPosition()
-						print("###### type"..type)
 					end
 					var:removeAllEffect()
 					var:brokenBullet()

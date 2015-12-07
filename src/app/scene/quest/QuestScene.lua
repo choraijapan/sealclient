@@ -76,8 +76,8 @@ function test()
 		local touchBeginPoint = nil
 		local function onTouchesBegan(touches, event)
 			for i,v in ipairs(touches) do 
-				print("x"..":"..v:getLocation().x)
-				print("y"..":"..v:getLocation().y) 
+--				print("x"..":"..v:getLocation().x)
+--				print("y"..":"..v:getLocation().y) 
 			end
 			return true
 		end
