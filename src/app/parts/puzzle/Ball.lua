@@ -101,9 +101,10 @@ function Ball:brokenBullet()
 	end
 end
 function Ball:broken()
-	local particle = cc.ParticleSystemQuad:create(GameConst.PARTICLE.BALL_BROKEN)
+	local particle = GameUtils:createParticle(GameConst.PARTICLE.BALL_BROKEN,nil)
+--	local particle = cc.ParticleSystemQuad:create(GameConst.PARTICLE.BALL_BROKEN)
 	particle:setPosition(cc.p(0,0))
-	particle:setScale(0.2)
+--	particle:setScale(0.2)
 	particle:setAutoRemoveOnFinish(true)
 	particle:setPosition(cc.p(self:getPositionX(),self:getPositionY()))
 
@@ -173,8 +174,9 @@ end
 function Ball:addBallTouchEffect()
 	if self:getName() ~= "boom" then
 		self:setName("big")
-		local action1 = cc.ScaleTo:create(0.1,1.2)
-		self._image:runAction(cc.Sequence:create(action1))
+		local action1 = cc.ScaleTo:create(0.1,1.5)
+		local action2 = cc.ScaleTo:create(0.1,1.2)
+		self._image:runAction(cc.Sequence:create(action1,action2))
 		self:getParent():reorderChild(self,2)
 		self:addGlowEffect(self._image,255,1.05,-1)
 	end

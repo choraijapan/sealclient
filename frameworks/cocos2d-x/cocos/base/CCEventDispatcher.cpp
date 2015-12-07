@@ -840,7 +840,12 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
     if (nullptr == oneByOneListeners && nullptr == allAtOnceListeners)
         return;
     
+    
     bool isNeedsMutableSet = (oneByOneListeners && allAtOnceListeners);
+    
+    if (allAtOnceListeners) {
+        isNeedsMutableSet = false;
+    }
     
     const std::vector<Touch*>& originalTouches = event->getTouches();
     std::vector<Touch*> mutableTouches(originalTouches.size());

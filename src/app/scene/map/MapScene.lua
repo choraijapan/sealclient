@@ -1,28 +1,25 @@
 -------------------------------------------------------------------------------
--- core TestScene
--- @date 2015/05/15
--- @author masahiro mine
+-- @date 2015/12/7
 -------------------------------------------------------------------------------
 
 local StandardScene = require('core.base.scene.StandardScene')
 local MapScene = class("MapScene",StandardScene)
 
-
-
-local count = 13
 -- init
 function MapScene:init(...)
-	DebugLog:debug(count)
 	self.m = {}
 end
 
-
 -- onEnter
 function MapScene:onEnter()
---	SceneManager:changeScene(CONST_MENU_SETTINGS.Sample_03,nil)
-	local worldMapParts = require("app.parts.WorldMapParts")
-	local partsWorldMap = worldMapParts.new()
-	self.scene:addChild(partsWorldMap)
+	self.m.menuNode = WidgetLoader:loadCsbFile("scene/MapScene.csb")
+	self.scene:addChild(self.m.menuNode)
+
+	local button = WidgetObj:searchWidgetByName(self.m.menuNode,"MS01",WidgetConst.OBJ_TYPE.Button)
+	TouchManager:pressedDown(button,
+		function()
+			SceneManager:changeScene('app/scene/puzzle/PuzzleScene',nil)
+		end)
 end
 
 -- onExit

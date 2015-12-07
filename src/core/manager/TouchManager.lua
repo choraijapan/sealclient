@@ -45,7 +45,6 @@ function TouchManager:touchOneByOne(node, callBack)
 	local eventDispatcher = node:getEventDispatcher()
 	eventDispatcher:addEventListenerWithFixedPriority(listener,-1)
 --	cc.EventDispatcher:addEventListenerWithFixedPriority(listener,-1)
-
 end
 
 --------------------------------------------------------------------------------

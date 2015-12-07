@@ -25,6 +25,7 @@ PuzzleCardNode.hp = 0
 PuzzleCardNode.maxHp = 0
 PuzzleCardNode.cardNode = {}
 PuzzleCardNode.hpBar = nil
+PuzzleCardNode.ferverBar = nil
 --------------------------------------------------------------------------------
 -- UI変数
 
@@ -56,7 +57,7 @@ end
 function PuzzleCardNode:init()
 	self:addSchedule()
 	self:addEventDispatcher()
-
+	self:addFerverBar()
 	-- TODO 通信,JSON情報
 	local jsonData = {
 		card = {
@@ -185,7 +186,8 @@ function PuzzleCardNode:init()
 	self.isActive = true
 	self.hpBar:setPercent(100)
 
-	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 50))
+	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 0))
+--	self.gameCardNode:setPosition(cc.p(0,20))
 end
 
 --------------------------------------------------------------------------------
@@ -427,6 +429,17 @@ function PuzzleCardNode:isAllDead()
 		end
 		return isActive
 		]]--
+end
+
+function PuzzleCardNode:addFerverBar()
+	local bg = WidgetObj:searchWidgetByName(self,"EnBar","ccui.LoadingBar")
+	self.ferverBar = cc.ProgressTimer:create(cc.Sprite:create(GameConst.PUZZLE_PNG.FERVER_BAR))
+	self.ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
+	self.ferverBar:setAnchorPoint(cc.p(0,0))
+	self.ferverBar:setMidpoint(cc.p(0, 0))
+	self.ferverBar:setBarChangeRate(cc.p(1, 0))
+	self.ferverBar:setContentSize(106,20)
+	bg:addChild(self.ferverBar,GameConst.ZOrder.Z_FerverBar)
 end
 
 return PuzzleCardNode

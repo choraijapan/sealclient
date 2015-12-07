@@ -50,7 +50,6 @@ local curBall = nil
 
 local ferver = 0
 local isFerverTime = false
-local ferverBar = nil
 local ferverEffect = nil
 
 --------------------------------------------------------------------------------
@@ -81,7 +80,7 @@ function PuzzleLayer:init()
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
 	--    self:moveBG()       -- 背景移动
-	
+
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addCards()             -- 初期化（自分）
 
@@ -90,8 +89,6 @@ function PuzzleLayer:init()
 	self:addCombol()
 	self:addSchedule()  -- 更新
 	self:addTouch()     -- 触摸
-
-	self:addFerverBar()
 
 	_bulletVicts = {}
 	_fingerPosition = nil
@@ -131,19 +128,19 @@ end
 function PuzzleLayer:addPuzzle()
 	local vec =
 		{
-			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height-1),
-			cc.p(1, AppConst.VISIBLE_SIZE.height-1),
-			cc.p(1, 80),
-			cc.p(AppConst.VISIBLE_SIZE.width/3, 30),
-			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 30),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, 80),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height-1)
+			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height+100),
+			cc.p(1, AppConst.VISIBLE_SIZE.height+100),
+			cc.p(1, 50),
+			cc.p(AppConst.VISIBLE_SIZE.width/3, 0),
+			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 0),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, 50),
+			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height+100)
 		}
 
 	self.wall = cc.Node:create()
 	local edge = cc.PhysicsBody:createEdgeChain(vec,cc.PhysicsMaterial(0,0,0.8),5)
 	self.wall:setPhysicsBody(edge)
-	self.wall:setPosition(cc.p(0,30))
+	self.wall:setPosition(cc.p(0,10))
 	self:addChild(self.wall)
 end
 --------------------------------------------------------------------------------
@@ -152,9 +149,11 @@ function PuzzleLayer:addBalls()
 	local typeId = math.random(1,GameUtils:tablelength(GameConst.ATTRIBUTE))
 	local ball = Ball:create(typeId)
 
-	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
-	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
-	--	local randomY = AppConst.WIN_SIZE.height*1/2 + 60
+		local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
+		local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+--	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
+--	local randomY = math.random(AppConst.WIN_SIZE.height + 60 ,AppConst.WIN_SIZE.height + 100)
+
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
 	local pBall = ball:getPhysicsBody()
@@ -202,7 +201,7 @@ function PuzzleLayer:addSchedule()
 		self:update(dt)
 	end
 	self:scheduleUpdateWithPriorityLua(update,0)
-	
+
 	-- コンボの更新
 	local function updateDt(dt)
 		self.combolTimer = self.combolTimer - 1
@@ -212,7 +211,7 @@ function PuzzleLayer:addSchedule()
 		end
 	end
 	schedule(self, updateDt, 1)
-	
+
 	-- 更新UI
 	local function updateGame()
 		self:updateGame()
@@ -419,27 +418,14 @@ function PuzzleLayer:setFerverPt(count)
 			ferverEffect:setAnchorPoint(cc.p(0, 0))
 			ferverEffect:setDuration(15)
 			local to = cc.ProgressTo:create(15, 0)
-			ferverBar:runAction(cc.RepeatForever:create(to))
+			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
 
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
-			ferverBar:runAction(cc.RepeatForever:create(to))
+			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 		end
 	end
-end
-
-------------------------------------
---   addFerverBar
-function PuzzleLayer:addFerverBar()
-	ferverBar = cc.ProgressTimer:create(cc.Sprite:create(GameConst.PUZZLE_PNG.FERVER_BAR))
-	ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
-	ferverBar:setAnchorPoint(cc.p(0,0))
-	ferverBar:setMidpoint(cc.p(0, 0))
-	ferverBar:setBarChangeRate(cc.p(1, 0))
-	ferverBar:setPosition(cc.p(124, 23.5))
-	ferverBar:setScale(2)
-	self:addChild(ferverBar,GameConst.ZOrder.Z_FerverBar)
 end
 --------------------------------------------------------------------------------
 --
@@ -504,7 +490,7 @@ function PuzzleLayer:update(dt)
 	end
 
 	if isFerverTime then
-		if ferverBar:getPercentage() == 0 then
+		if self.puzzleCardNode.ferverBar:getPercentage() == 0 then
 			isFerverTime = false
 			ferver = 0
 		end
@@ -632,7 +618,7 @@ end
 function PuzzleLayer:addCombol()
 	self.UI_Combol = ccui.TextAtlas:create()
 	self.UI_Combol:setProperty(self.combolNumber, GameConst.FONT.NUMBER_MYELLOW, 25, 30, "0")
-	self.UI_Combol:setPosition(cc.p(AppConst.WIN_SIZE.width - 80,AppConst.WIN_SIZE.height/2))
+	self.UI_Combol:setPosition(cc.p(AppConst.WIN_SIZE.width - 80,AppConst.WIN_SIZE.height/2 + 150))
 	self.puzzleCardNode:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
 	self.UI_Combol:setOpacity(0)
 end
