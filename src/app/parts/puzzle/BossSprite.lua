@@ -255,7 +255,7 @@ function BossSprite:addAI()
 			timer = timer + 1
 			skill()
 		end
-		schedule(self, updateTime, 1)
+		schedule(self.sprite, updateTime, 1)
 	end
 	
 	

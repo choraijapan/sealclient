@@ -224,6 +224,11 @@ end
 --
 function PuzzleLayer:addTouch()
 	local function onTouchBegan(touch, event)
+		for key, var in pairs(self.boss:getChildren()) do
+			var:stopAllActions()
+		end
+		self:stopAllActions()
+
 		touchIdx = 1
 		touchIdx2 = 1
 		local idx = 1
