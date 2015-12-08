@@ -15,11 +15,14 @@ GameConst.ATTRIBUTE = {
 }
 
 GameConst.BALL_PNG = {
-	[1] = "images/puzzle/block/b_water.png",
-	[2] = "images/puzzle/block/b_fire.png",
-	[3] = "images/puzzle/block/b_tree.png",
---	[4] = "images/puzzle/block/b_light.png",
-	[4] = "images/puzzle/block/b_dark.png",
+--	[1] = "images/puzzle/block/b_water.png",
+--	[2] = "images/puzzle/block/b_fire.png",
+--	[3] = "images/puzzle/block/b_tree.png",
+--	[4] = "images/puzzle/block/b_dark.png",
+	[1] = "images/puzzle/block/block_mike_l.png",
+	[2] = "images/puzzle/block/block_pooh_l.png",
+	[3] = "images/puzzle/block/block_marie_l.png",
+	[4] = "images/puzzle/block/block_perry_l.png",
 	["BOOM"] = "images/puzzle/block/ball_dark.png"
 }
 
@@ -107,7 +110,7 @@ GameConst.PARTICLE_PNG = {
 }
 
 GameConst.PUZZLE_PNG = {
-	FERVER_BAR     = "images/puzzle/ui/bar_ferver.png",
+	FERVER_BAR     = "images/puzzle/ui/hp_player.png",
 	BOSS_HP_BAR    = "images/puzzle/ui/gauge_green.png",
 	BOSS_HP_BG     = "images/puzzle/ui/boss_gauge_green.png",
 	

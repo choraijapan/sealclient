@@ -259,6 +259,35 @@ function GameUtils:resumeGame()
 		cc.Director:getInstance():popScene()
 	end
 end
+------------------------------------
+-- @UI
+function GameUtils:pauseAll(root)
+	if root == nil then
+		return nil
+	end
+	local childList = root:getChildren()
+	for idx, child in ipairs(childList) do
+		if child then
+			child:pause()
+			self:pauseAll(child)
+		end
+	end
+	return #childList
+end
+
+function GameUtils:resumeAll(root)
+	if root == nil then
+		return nil
+	end
+	local childList = root:getChildren()
+	for idx, child in ipairs(childList) do
+		if child then
+			child:resume()
+			self:resumeAll(child)
+		end
+	end
+	return #childList
+end
 
 ------------------------------------
 -- 便利メソッド

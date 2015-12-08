@@ -181,18 +181,18 @@ function PuzzleCardNode:init()
 		self.cards[i].skill = v.skill			
 		self.hp = self.hp + v.hp
 	end
-
 	self.maxHp = self.hp
 	self.isActive = true
 	self.hpBar:setPercent(100)
 
-	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 0))
+	self.gameCardNode:setPosition(cc.p(0, 0))
 --	self.gameCardNode:setPosition(cc.p(0,20))
 end
 
 --------------------------------------------------------------------------------
 -- cardSkillDrawed
 function PuzzleCardNode:cardSkillDrawed(skill)
+	GameUtils:resumeAll(self:getParent())
 	if skill.type == GameConst.CardType.ATK then
 		local data = {
 			action = "atkBoss",
@@ -212,6 +212,7 @@ end
 -- touchCard
 function PuzzleCardNode:touchCard(obj)
 	if obj.energy >= 100 and self.isActive then
+		GameUtils:pauseAll(self:getParent())
 		-- スキル発動
 		self:drawSkill(obj)
 	end
@@ -434,7 +435,6 @@ function PuzzleCardNode:addFerverBar()
 	self.ferverBar:setAnchorPoint(cc.p(0,0))
 	self.ferverBar:setMidpoint(cc.p(0, 0))
 	self.ferverBar:setBarChangeRate(cc.p(1, 0))
-	self.ferverBar:setContentSize(106,20)
 	bg:addChild(self.ferverBar,GameConst.ZOrder.Z_FerverBar)
 end
 
