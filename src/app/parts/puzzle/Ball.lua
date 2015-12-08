@@ -90,6 +90,9 @@ function Ball:init(type)
 	self._frame:setRotationEnable(true)
 	self._frame:setMoment(800) --モーメント(大きいほど回転しにくい)
 	self._frame:setMass(self.MASS) --重さ
+	self._frame:setCategoryBitmask(1)
+	self._frame:setCollisionBitmask(0x01)
+	self._frame:setContactTestBitmask(2)
 	self:setPhysicsBody(self._frame)
 end
 
