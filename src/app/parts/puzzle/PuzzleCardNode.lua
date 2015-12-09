@@ -67,14 +67,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.FIRE,
 				atk = {
 					value = 12241,
-					effect = GameConst.PARTICLE.ATK_FIRE
+					effect = "images/particles/effect_prt_142_1.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 1, -- atk
 					value = 1000000, --
-					effect = GameConst.PARTICLE.ATK_SWORD
+					effect = "images/particles/effect_prt_142_1.plist"
 				}
 			},
 			[2] = {
@@ -202,11 +202,11 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 			damage = skill.value,
 			effect = skill.effect
 		}
+		callBack()
 		self:atkBoss(data)
-		callBack()
 	elseif skill.type == GameConst.CardType.HEAL then
-		self:cardHeal(skill.value)
 		callBack()
+		self:cardHeal(skill.value)
 	elseif skill.type == GameConst.CardType.CONTROL then
 		PuzzleManager:changeBall(skill.value[1],skill.value[2],callBack)
 	elseif skill.type == GameConst.CardType.REMOVE then
