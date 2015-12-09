@@ -52,6 +52,14 @@ local ferver = 0
 local isFerverTime = false
 local ferverEffect = nil
 local touchPoint = nil
+
+--------------------------------------------------------------------------------
+-- UI
+local CCUI_CSB = "scene/puzzle/PuzzleScene.csb"
+local CCUI_PuzzleLayer = nil
+local CCUI_ButtonMenu = nil
+local CCUI_Bg1 = nil
+local CCUI_Bg2 = nil
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
@@ -77,6 +85,20 @@ end
 --------------------------------------------------------------------------------
 -- init
 function PuzzleLayer:init()
+	CCUI_PuzzleLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
+	self:addChild(CCUI_PuzzleLayer,GameConst.ZOrder.Z_BossBg)
+	
+	CCUI_Bg1 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"Bg1","cc.Sprite")
+	CCUI_Bg2 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"Bg2","cc.Sprite")
+	CCUI_ButtonMenu = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"MenuButton",WidgetConst.OBJ_TYPE.Button)
+	
+	TouchManager:pressedDown(CCUI_ButtonMenu,
+		function()
+			SceneManager:changeScene("app/scene/top/TopScene",nil) 
+		end)
+	
+	
+	
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
 	--    self:moveBG()       -- 背景移动
@@ -179,22 +201,18 @@ end
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:addBG()
-	local puzzleLayer = WidgetLoader:loadCsbFile("scene/puzzle/PuzzleScene.csb")
-	self.bg1 = WidgetObj:searchWidgetByName(puzzleLayer,"Bg1","cc.Sprite")
-	self.bg2 = WidgetObj:searchWidgetByName(puzzleLayer,"Bg2","cc.Sprite")
-	self:addChild(puzzleLayer,GameConst.ZOrder.Z_BossBg)
 	self:moveBG()
 end
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:moveBG()
-	local height = self.bg1:getContentSize().height
+	local height = CCUI_Bg1:getContentSize().height
 	local function updateBG()
-		self.bg1:setPositionY(self.bg1:getPositionY() - 1)
-		self.bg2:setPositionY(self.bg1:getPositionY() + height)
-		if self.bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
-			self.bg1, self.bg2 = self.bg2, self.bg1
-			self.bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
+		CCUI_Bg1:setPositionY(CCUI_Bg1:getPositionY() - 1)
+		CCUI_Bg2:setPositionY(CCUI_Bg1:getPositionY() + height)
+		if CCUI_Bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
+			CCUI_Bg1, CCUI_Bg2 = CCUI_Bg2, CCUI_Bg1
+			CCUI_Bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
 		end
 	end
 	schedule(self, updateBG, 0)
