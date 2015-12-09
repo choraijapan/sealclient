@@ -8,10 +8,10 @@ Ball.MASS = 10
 Ball._state = 0
 Ball._frame = nil
 Ball._image = nil
---Ball.scalePer = 0.9 --元の値
---Ball.circleSize = 48 --元の値
-Ball.scalePer = 0.65
-Ball.circleSize = 47
+Ball.scalePer = 0.9 --元の値
+Ball.circleSize = 48 --元の値
+--Ball.scalePer = 0.65
+--Ball.circleSize = 49
 
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
@@ -344,27 +344,6 @@ end
 -- スキル関連
 -----------------------------------------------------------------------------
 
------------------------------------------------------------------------------
--- 水石を 火石に変換。
--- 火石を森石に変換。
--- 森石を闇石に変換。
--- 闇石を光石に変換。
--- 光石を水石に変換。
-function Ball:changeBall(toType)
---	self:setGrayNode(self._image, true)
-	self.type = toType
-	self:setTag(toType)
 
-	local function callBack()
-		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[toType])
-	end
-
-	local action1 = cc.ScaleTo:create(0.5,0.1)
-	local action2 = cc.CallFunc:create(callBack)
-	local action3 = cc.ScaleTo:create(0.5,1)
-	local act = cc.Sequence:create(action1,action2,action3)
-	self._image:runAction(act)
-
-end
 
 return Ball

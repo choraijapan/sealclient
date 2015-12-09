@@ -13,15 +13,27 @@ end
 -------------------------------------------------------------------------------
 -- SKILL
 -- Ballを転換する
-function PuzzleManager:changeBall(fromTag,toTag)
+function PuzzleManager:changeBall(fromTag,toTag,callBack)
+	
 	local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 	for _, obj in ipairs(all) do
 		if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
 			if obj:getNode():getTag() == fromTag then
-				obj:getNode():changeBall(toTag)
+--				self:changeBall(obj:getNode(),toTag)
+				obj:getNode().type = toTag
+				obj:getNode():setTag(toTag)
+				local function changeImg()
+					WidgetLoader:setSpriteImage(obj:getNode()._image, GameConst.BALL_PNG[toTag])
+				end
+				local action1 = cc.ScaleTo:create(0.5,0.1)
+				local action2 = cc.CallFunc:create(changeImg)
+				local action3 = cc.ScaleTo:create(0.5,1)
+				local act = cc.Sequence:create(action1,action2,action3)
+				obj:getNode()._image:runAction(act)
 			end
 		end
 	end
+	callBack()
 end
 
 -------------------------------------------------------------------------------
@@ -30,7 +42,7 @@ end
 PuzzleManager.REMOVE_SHARP = {
 
 	}
-function PuzzleManager:removeBall(width)
+function PuzzleManager:removeBall(width,callBack)
 	local removeSharp = cc.LayerColor:create(cc.c4b(255,255,255,0),100*width,1500)
 	removeSharp:setPositionX(AppConst.WIN_SIZE.width/2 - removeSharp:getContentSize().width/2)
 	local blockLayer = GameUtils:createBlockLayer()
@@ -57,7 +69,7 @@ function PuzzleManager:removeBall(width)
 		end
 	end
 
-	local function callBack()
+	local function actEnd()
 		for key, obj in ipairs(balls) do
 			if  #balls == key then
 				balls[key]:getNode():addBoom(#balls)
@@ -66,12 +78,13 @@ function PuzzleManager:removeBall(width)
 		end
 		local action = cc.RemoveSelf:create()
 		node:runAction(action)
+		callBack()
 	end
 
 	local action1 = cc.ScaleTo:create(0,0)
 	local action2 = cc.ScaleTo:create(0.5,1)
 	local action3 = cc.DelayTime:create(1)
-	local action4 = cc.CallFunc:create(callBack)
+	local action4 = cc.CallFunc:create(actEnd)
 	removeSharp:runAction(cc.Sequence:create(action1, action2, action3, action4))
 end
 -------------------------------------------------------------------------------

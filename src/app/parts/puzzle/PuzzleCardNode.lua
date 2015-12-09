@@ -63,7 +63,7 @@ function PuzzleCardNode:init()
 		card = {
 			[1] = {
 				id = "images/card/weapon_menu_playerimage_arrow.png",
-				hp = 6000,
+				hp = 600000,
 				attribute = GameConst.ATTRIBUTE.FIRE,
 				atk = {
 					value = 12241,
@@ -192,7 +192,10 @@ end
 --------------------------------------------------------------------------------
 -- cardSkillDrawed
 function PuzzleCardNode:cardSkillDrawed(skill)
-	GameUtils:resumeAll(self:getParent())
+	local function callBack()
+		GameUtils:resumeAll(self:getParent())
+	end
+	
 	if skill.type == GameConst.CardType.ATK then
 		local data = {
 			action = "atkBoss",
@@ -200,12 +203,14 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 			effect = skill.effect
 		}
 		self:atkBoss(data)
+		callBack()
 	elseif skill.type == GameConst.CardType.HEAL then
 		self:cardHeal(skill.value)
+		callBack()
 	elseif skill.type == GameConst.CardType.CONTROL then
-		PuzzleManager:changeBall(skill.value[1],skill.value[2])
+		PuzzleManager:changeBall(skill.value[1],skill.value[2],callBack)
 	elseif skill.type == GameConst.CardType.REMOVE then
-		PuzzleManager:removeBall(skill.value)
+		PuzzleManager:removeBall(skill.value,callBack)
 	end
 end
 --------------------------------------------------------------------------------

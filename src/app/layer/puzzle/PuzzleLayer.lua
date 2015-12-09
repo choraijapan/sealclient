@@ -78,7 +78,7 @@ end
 -- init
 function PuzzleLayer:init()
 	--    self:loadingMusic() -- 背景音乐
---	self:addBG()        -- 初始化背景
+	self:addBG()        -- 初始化背景
 	--    self:moveBG()       -- 背景移动
 
 	self:initGameState()                -- 初始化游戏数据状态
@@ -140,7 +140,7 @@ function PuzzleLayer:addPuzzle()
 	self:addChild(self.wall)
 	
 	touchPoint = cc.Node:create()
-	local tpFrame = cc.PhysicsBody:createCircle(30, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
+	local tpFrame = cc.PhysicsBody:createCircle(20, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	tpFrame:setDynamic(false) --重力干渉を受けるか
 	touchPoint:setTag(555)
 	tpFrame:setCategoryBitmask(2)
@@ -349,6 +349,7 @@ function PuzzleLayer:addTouch()
 
 
 	local function onTouchEnded(touch, event)
+		touchPoint:setPosition(cc.p(9999,9999))
 		GameUtils.TouchFlag = false
 		startBall = nil
 		curBall = nil
@@ -406,17 +407,14 @@ function PuzzleLayer:addTouch()
 	
 	
 	local function onContactBegin(contact)
-		print("########################contact")
 		local bodyA = contact:getShapeA():getBody():getNode()
 		local bodyB = contact:getShapeB():getBody():getNode()
-		local A = bodyA:getTag()
-		local B = bodyB:getTag()
-		print("########################A"..A)
-		print("########################B"..B)
-		if A > 10 then
+		local tagA = bodyA:getTag()
+		local tagB = bodyB:getTag()
+		if tagA > 10 then
 			self.curTouchBall = bodyB
 		end
-		if B > 10 then
+		if tagB > 10 then
 			self.curTouchBall = bodyA
 		end
 		
@@ -459,14 +457,11 @@ function PuzzleLayer:addTouch()
 		else
 			_fingerPosition = nil
 		end
-		
-		
-		
 		return true 
 	end
 	local contactListener = cc.EventListenerPhysicsContact:create()
 	contactListener:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)
-	dispatcher:addEventListenerWithFixedPriority(contactListener, 1)
+	dispatcher:addEventListenerWithSceneGraphPriority(contactListener, self)
 	
 end
 
