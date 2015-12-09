@@ -12,6 +12,8 @@ Ball.scalePer = 0.9 --元の値
 Ball.circleSize = 48 --元の値
 --Ball.scalePer = 0.65
 --Ball.circleSize = 49
+--Ball.scalePer = 0.6 --元の値
+--Ball.circleSize = 48 --元の値
 
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},

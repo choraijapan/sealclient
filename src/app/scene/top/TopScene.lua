@@ -24,7 +24,7 @@ function TopScene:onEnter()
 	local CCUI_QuestPanel = WidgetObj:searchWidgetByName(self.m.csb,"QuestPanel",WidgetConst.OBJ_TYPE.Panel)
 	TouchManager:pressedDown(CCUI_QuestPanel,
 		function()
-			SceneManager:changeScene("app/scene/puzzle/PuzzleScene", nil)
+			SceneManager:changeScene("app/scene/map/MapScene.lua", nil)
 		end)
 		
 end
