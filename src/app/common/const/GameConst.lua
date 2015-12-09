@@ -35,11 +35,16 @@ GameConst.CARD_FRAME_PNG = {
 }
 
 GameConst.ATTRIBUTE_EFFECT = {
-	[1] 	= "images/puzzle/effect/particle/block_effect.plist",
-	[2] 	= "images/puzzle/effect/particle/block_effect.plist",
-	[3] 	= "images/puzzle/effect/particle/block_effect.plist",
-	[4] 	= "images/puzzle/effect/particle/block_effect.plist",
-	[5] 	= "images/puzzle/effect/particle/block_effect.plist", --TODO
+--	[1] 	= "images/puzzle/effect/particle/block_effect.plist",
+--	[2] 	= "images/puzzle/effect/particle/block_effect.plist",
+--	[3] 	= "images/puzzle/effect/particle/block_effect.plist",
+--	[4] 	= "images/puzzle/effect/particle/block_effect.plist",
+--	[5] 	= "images/puzzle/effect/particle/block_effect.plist", --TODO
+	[1] 	= "images/particles/effect_prt_104_2_2.plist",
+	[2] 	= "images/particles/effect_prt_104_1.plist",
+	[3] 	= "images/particles/effect_prt_104_3.plist",
+	[4] 	= "images/particles/effect_prt_104_6.plist",
+--	[5] 	= "images/puzzle/effect/particle/block_effect.plist", --TODO
 }
 
 GameConst.EFFECT_PNG = {
