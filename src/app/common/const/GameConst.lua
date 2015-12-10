@@ -83,18 +83,30 @@ GameConst.FONT = {
 	NUMBER_XXYELLOW = "images/font/number_quest_xxlarge_yellow.png"
 }
 
+GameConst.PARTICLE_BROKEN = {
+	[1]    = "images/particles/effect_prt_104_2.plist",
+	[2]    = "images/particles/effect_prt_104_1_2.plist",
+	[3]    = "images/particles/effect_prt_104_3.plist",
+	[4]    = "images/particles/effect_prt_510.plist",
+	[5]    = "images/particles/effect_prt_10021.plist",
+}
 GameConst.PARTICLE = {
 	[1]            = "images/puzzle/effect/particle/thumbnail_skill_water.plist",
 	[2]            = "images/puzzle/effect/particle/thumbnail_skill_fire.plist",
 	[3]            = "images/puzzle/effect/particle/thumbnail_skill_forest.plist",
 	[4]            = "images/puzzle/effect/particle/thumbnail_skill_thunder.plist",
-	[5]            = "images/puzzle/effect/particle/block_effect.plist", --TODO
+	
+	
+--	BALL_BROKEN    = "images/puzzle/effect/particle/block_change_fire.plist",
+	BALL_BROKEN    = "images/particles/effect_prt_104_1.plist",
+	
+
 	
 	SKILL_1         = "images/puzzle/effect/particle/fireWall.plist", -- TODO cardのスキルエフェクト
 	
 	SNOW           = "images/puzzle/effect/particle/particle_snow.plist",
-	BALL_BROKEN    = "images/puzzle/effect/particle/block_change_fire.plist",
-	FERVER         = "images/puzzle/effect/particle/fireWall.plist",
+	
+	FERVER         = "images/particles/eff_page_723_3.plist",
 	BOOM           = "images/puzzle/effect/particle/particle_boom.plist",
 	HEAL           = "images/puzzle/effect/particle/gauge_bar_heal.plist",
 

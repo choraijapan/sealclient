@@ -1,5 +1,5 @@
 local PuzzleResultLayer = require("app.layer.puzzle.PuzzleResultLayer")
-local ResultScene = require("app.scene.puzzle.ResultScene")
+--local ResultScene = require("app.scene.puzzle.ResultScene")
 local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
@@ -680,9 +680,11 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
-	local scene = ResultScene:create()
-	local tt = cc.TransitionCrossFade:create(1.0, scene)
-	cc.Director:getInstance():replaceScene(tt)
+--	local scene = ResultScene:create()
+--	local tt = cc.TransitionCrossFade:create(1.0, scene)
+--	cc.Director:getInstance():replaceScene(tt)
+	SceneManager:changeScene("app/scene/puzzle/ResultScene",nil)
+	
 end
 --------------------------------------------------------------------------------
 --

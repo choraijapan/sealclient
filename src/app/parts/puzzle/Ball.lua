@@ -51,7 +51,7 @@ Ball.vertexes = {
 		cc.p( -57*Ball.scalePer, 27*Ball.scalePer )}
 }
 
-Ball.BOOM = 1000
+Ball.BOOM = 5
 
 function Ball:ctor()
 end
@@ -108,7 +108,9 @@ function Ball:brokenBullet()
 	end
 end
 function Ball:broken()
-	local particle = GameUtils:createParticle(GameConst.PARTICLE.BALL_BROKEN,nil)
+
+	print("#######"..self:getTag())
+	local particle = GameUtils:createParticle(GameConst.PARTICLE_BROKEN[self:getTag()],nil)
 --	local particle = cc.ParticleSystemQuad:create(GameConst.PARTICLE.BALL_BROKEN)
 	particle:setPosition(cc.p(0,0))
 --	particle:setScale(0.2)

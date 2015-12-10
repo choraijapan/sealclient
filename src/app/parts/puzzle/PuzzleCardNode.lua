@@ -63,7 +63,7 @@ function PuzzleCardNode:init()
 		card = {
 			[1] = {
 				id = "images/card/weapon_menu_playerimage_arrow.png",
-				hp = 600000,
+				hp = 6000,
 				attribute = GameConst.ATTRIBUTE.FIRE,
 				atk = {
 					value = 12241,
@@ -83,14 +83,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.WATER,
 				atk = {
 					value = 12241,
-					effect = "images/particles/effect_prt_161_2.plist"
+					effect = "images/particles/effect_prt_1025.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 5, -- remove ball
 					value = 4,
-					effect = GameConst.PARTICLE.ATK_SWORD
+					effect = "images/particles/effect_prt_1025.plist"
 				}
 			},
 			[3] = {
@@ -115,14 +115,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.DARK,
 				atk = {
 					value = 12241,
-					effect = "images/particles/effect_prt_121.plist"
+					effect = "images/particles/effect_prt_1012R.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
 					value = {4,3}, --change from , to
-					effect = GameConst.PARTICLE.ATK_SWORD
+					effect = "images/particles/effect_prt_1012R.plist"
 				}
 			},
 			[5] = {
@@ -131,14 +131,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.TREE,
 				atk = {
 					value = 12241,
-					effect = "images/particles/effect_prt_1050.plist"
+					effect = "images/particles/eff_page_723_1.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 3, -- Healing
 					value = 20000,
-					effect = "images/particles/effect_prt_1086.plist"
+					effect = "images/particles/eff_page_723_1.plist"
 				}
 			},
 --			[6] = {
