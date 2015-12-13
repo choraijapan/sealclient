@@ -67,14 +67,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.FIRE,
 				atk = {
 					value = 12241,
-					effect = GameConst.PARTICLE.ATK_FIRE
+					effect = "images/particles/effect_prt_142_1.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 1, -- atk
 					value = 1000000, --
-					effect = GameConst.PARTICLE.ATK_SWORD
+					effect = "images/particles/effect_prt_142_1.plist"
 				}
 			},
 			[2] = {
@@ -83,14 +83,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.WATER,
 				atk = {
 					value = 12241,
-					effect = GameConst.PARTICLE.ATK_FIRE
+					effect = "images/particles/effect_prt_1025.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 5, -- remove ball
 					value = 4,
-					effect = GameConst.PARTICLE.ATK_SWORD
+					effect = "images/particles/effect_prt_1025.plist"
 				}
 			},
 			[3] = {
@@ -99,7 +99,7 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.FIRE,
 				atk = {
 					value = 12241,
-					effect = GameConst.PARTICLE.ATK_FIRE
+					effect = "images/particles/effect_prt_142_1.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
@@ -115,14 +115,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.DARK,
 				atk = {
 					value = 12241,
-					effect = GameConst.PARTICLE.ATK_FIRE
+					effect = "images/particles/effect_prt_1012R.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 4, -- control:change
 					value = {4,3}, --change from , to
-					effect = GameConst.PARTICLE.ATK_SWORD
+					effect = "images/particles/effect_prt_1012R.plist"
 				}
 			},
 			[5] = {
@@ -131,14 +131,14 @@ function PuzzleCardNode:init()
 				attribute = GameConst.ATTRIBUTE.TREE,
 				atk = {
 					value = 12241,
-					effect = GameConst.PARTICLE.ATK_FOREST
+					effect = "images/particles/eff_page_723_1.plist"
 				},
 				skill = {
 					name = "人生はただ一度だけ切り",
 					description = "人生はただ一度だけ切り",
 					type = 3, -- Healing
 					value = 20000,
-					effect = GameConst.PARTICLE.ATK_SWORD
+					effect = "images/particles/eff_page_723_1.plist"
 				}
 			},
 --			[6] = {
@@ -181,37 +181,43 @@ function PuzzleCardNode:init()
 		self.cards[i].skill = v.skill			
 		self.hp = self.hp + v.hp
 	end
-
 	self.maxHp = self.hp
 	self.isActive = true
 	self.hpBar:setPercent(100)
 
-	self.gameCardNode:setPosition(cc.p(0,cc.Director:getInstance():getWinSize().height*1/2 + 0))
+	self.gameCardNode:setPosition(cc.p(0, 0))
 --	self.gameCardNode:setPosition(cc.p(0,20))
 end
 
 --------------------------------------------------------------------------------
 -- cardSkillDrawed
 function PuzzleCardNode:cardSkillDrawed(skill)
+	local function callBack()
+		GameUtils:resumeAll(self:getParent())
+	end
+	
 	if skill.type == GameConst.CardType.ATK then
 		local data = {
 			action = "atkBoss",
 			damage = skill.value,
 			effect = skill.effect
 		}
+		callBack()
 		self:atkBoss(data)
 	elseif skill.type == GameConst.CardType.HEAL then
+		callBack()
 		self:cardHeal(skill.value)
 	elseif skill.type == GameConst.CardType.CONTROL then
-		PuzzleManager:changeBall(skill.value[1],skill.value[2])
+		PuzzleManager:changeBall(skill.value[1],skill.value[2],callBack)
 	elseif skill.type == GameConst.CardType.REMOVE then
-		PuzzleManager:removeBall(skill.value)
+		PuzzleManager:removeBall(skill.value,callBack)
 	end
 end
 --------------------------------------------------------------------------------
 -- touchCard
 function PuzzleCardNode:touchCard(obj)
 	if obj.energy >= 100 and self.isActive then
+		GameUtils:pauseAll(self:getParent())
 		-- スキル発動
 		self:drawSkill(obj)
 	end
@@ -434,7 +440,6 @@ function PuzzleCardNode:addFerverBar()
 	self.ferverBar:setAnchorPoint(cc.p(0,0))
 	self.ferverBar:setMidpoint(cc.p(0, 0))
 	self.ferverBar:setBarChangeRate(cc.p(1, 0))
-	self.ferverBar:setContentSize(106,20)
 	bg:addChild(self.ferverBar,GameConst.ZOrder.Z_FerverBar)
 end
 

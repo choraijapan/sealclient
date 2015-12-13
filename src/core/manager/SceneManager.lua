@@ -19,6 +19,6 @@ function SceneManager:changeScene(scene_path, ...)
 			cc.Director:getInstance():runWithScene(scene_class.scene)
 		end
 	end
-	CacheUtils:removeAllAppLua()
+	CacheUtils:removeAllAppLua(true)
 	
 end

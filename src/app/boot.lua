@@ -20,6 +20,11 @@ function Application:main()
 	SceneManager:changeScene("app/scene/menu/MenuScene", nil)
 --    SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
     --	SceneManager:changeScene("app/scene/puzzle/PuzzleScene.lua",nil)
-end
+--	SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
+--	SceneManager:changeScene("app/scene/title/TitleScene", nil)
 
+local ttt = require("app.data.db.BaseDB")
+local t = 1
+
+end
 return Application

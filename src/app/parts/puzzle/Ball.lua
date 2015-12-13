@@ -8,9 +8,13 @@ Ball.MASS = 10
 Ball._state = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.9
-Ball.circleSize = 48
---Ball.scalePer = 0.5
+Ball.scalePer = 0.9 --元の値
+Ball.circleSize = 48 --元の値
+--Ball.scalePer = 0.65
+--Ball.circleSize = 49
+--Ball.scalePer = 0.6 --元の値
+--Ball.circleSize = 48 --元の値
+
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
 	[2] = { cc.p(-60*Ball.scalePer,3*Ball.scalePer),
@@ -47,7 +51,7 @@ Ball.vertexes = {
 		cc.p( -57*Ball.scalePer, 27*Ball.scalePer )}
 }
 
-Ball.BOOM = 1000
+Ball.BOOM = 5
 
 function Ball:ctor()
 end
@@ -88,6 +92,9 @@ function Ball:init(type)
 	self._frame:setRotationEnable(true)
 	self._frame:setMoment(800) --モーメント(大きいほど回転しにくい)
 	self._frame:setMass(self.MASS) --重さ
+	self._frame:setCategoryBitmask(1)
+	self._frame:setCollisionBitmask(0x01)
+	self._frame:setContactTestBitmask(2)
 	self:setPhysicsBody(self._frame)
 end
 
@@ -101,7 +108,9 @@ function Ball:brokenBullet()
 	end
 end
 function Ball:broken()
-	local particle = GameUtils:createParticle(GameConst.PARTICLE.BALL_BROKEN,nil)
+
+	print("#######"..self:getTag())
+	local particle = GameUtils:createParticle(GameConst.PARTICLE_BROKEN[self:getTag()],nil)
 --	local particle = cc.ParticleSystemQuad:create(GameConst.PARTICLE.BALL_BROKEN)
 	particle:setPosition(cc.p(0,0))
 --	particle:setScale(0.2)
@@ -339,27 +348,6 @@ end
 -- スキル関連
 -----------------------------------------------------------------------------
 
------------------------------------------------------------------------------
--- 水石を 火石に変換。
--- 火石を森石に変換。
--- 森石を闇石に変換。
--- 闇石を光石に変換。
--- 光石を水石に変換。
-function Ball:changeBall(toType)
---	self:setGrayNode(self._image, true)
-	self.type = toType
-	self:setTag(toType)
 
-	local function callBack()
-		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[toType])
-	end
-
-	local action1 = cc.ScaleTo:create(0.5,0.1)
-	local action2 = cc.CallFunc:create(callBack)
-	local action3 = cc.ScaleTo:create(0.5,1)
-	local act = cc.Sequence:create(action1,action2,action3)
-	self._image:runAction(act)
-
-end
 
 return Ball

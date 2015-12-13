@@ -24,6 +24,8 @@ BossSprite.label_hp           = nil
 BossSprite.bar_hp             = nil
 BossSprite.action             = nil
 BossSprite.time               = nil
+BossSprite.skill1 			  = nil
+BossSprite.skill2 			  = nil
 
 local SPRITE_CARD_ATK         = "SPRITE_CARD_ATK"
 local BOSS_ATK_EVENT          = "BOSS_ATK_EVENT"
@@ -55,6 +57,28 @@ function BossSprite:ctor()
 	self.bulleSpeed = 900
 	self.bulletPowerValue = 1
 	self.delayTime = 0.1
+	
+	self.skill1 = {
+		skillId  = "NORMALATK",
+		icon 	 = "images/boss/boss_skill.png",
+		time 	 = 6,
+		pos 	 = cc.p(0,-100),
+		action = "atk",
+		damage = "1200",
+		effect = "images/puzzle/effect/particle/boss_atk_effect_fire.plist"
+	}
+
+	self.skill2 = {
+		skillId  = "YAONIMING",
+		icon 	 = "images/boss/boss_skill_2.png",
+		time 	 = 60,
+		pos 	 = cc.p(66,-100),
+		action = "atk",
+		damage = "15000",
+		effect = "images/puzzle/effect/particle/gimmick_poisonbreath.plist"
+	}
+	
+	
 end
 --------------------------------------------------------------------------------
 -- init
@@ -255,32 +279,11 @@ function BossSprite:addAI()
 			timer = timer + 1
 			skill()
 		end
-		schedule(self, updateTime, 1)
+		schedule(self.sprite, updateTime, 1)
 	end
 	
-	
-	
-	local skill1 = {
-		skillId  = "NORMALATK",
-		icon 	 = "images/boss/boss_skill.png",
-		time 	 = 6,
-		pos 	 = cc.p(0,-100),
-		action = "atk",
-		damage = "1200",
-		effect = "images/puzzle/effect/particle/boss_atk_effect_fire.plist"
-	}
-
-	local skill2 = {
-		skillId  = "YAONIMING",
-		icon 	 = "images/boss/boss_skill_2.png",
-		time 	 = 60,
-		pos 	 = cc.p(66,-100),
-		action = "atk",
-		damage = "12200",
-		effect = "images/puzzle/effect/particle/gimmick_poisonbreath.plist"
-	}
-	addSkill(skill1)
-	addSkill(skill2)
+	addSkill(self.skill1)
+	addSkill(self.skill2)
 end
 
 function BossSprite:startAtk(skillData)
