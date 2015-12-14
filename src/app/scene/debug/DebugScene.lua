@@ -52,6 +52,8 @@ function DebugScene:init(...)
 	self.m = {}
 end
 
+local baseApi = require("app.network.api.BaseApi")
+
 local testTable = require("app.data.master.TestTable")
 -- onEnter
 function DebugScene:onEnter()
@@ -94,6 +96,8 @@ function DebugScene:onEnter()
 	}
 
 	testTable:update(updateQueyr, " id = 29")
+	
+	baseApi:request(nil)
 end
 
 -- onExit

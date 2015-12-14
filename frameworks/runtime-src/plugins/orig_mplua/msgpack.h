@@ -41,7 +41,7 @@ extern "C" {
     
 #include "lauxlib.h"
     
-    void LUA_EXTENSIONS_DLL luaopen_msgpackorig(lua_State *L);
+    int LUA_EXTENSIONS_DLL luaopen_msgpackorig(lua_State *L);
     
 #if __cplusplus
 }

@@ -20,6 +20,7 @@ require("core.manager.SceneManager")
 require("core.manager.TouchManager")
 require("core.manager.ScheduleManager")
 require("core.manager.EventDispatchManager")
+require("core.manager.NetworkManager")
 
 require("core.common.config.CleanUpList")
 require("core.common.config.Environment")

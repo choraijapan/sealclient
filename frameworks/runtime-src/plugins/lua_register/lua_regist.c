@@ -7,10 +7,12 @@ extern "C" {
 // socket
 #include "lsqlite3.h"
 #include "lua_cjson.h"
+#include "orig_mplua/msgpack.h"
 
 static luaL_Reg luax_exts[] = {
     {"lsqlite3", luaopen_lsqlite3},
     {"cjson", luaopen_cjson},
+    
     {NULL, NULL}
 };
 
