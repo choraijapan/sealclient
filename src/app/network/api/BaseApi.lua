@@ -1,4 +1,4 @@
-local mp = require("msgpack")
+local mp = require("msgpackcpp")
 local BaseApi = class("BaseApi")
 
 function BaseApi:request(data)

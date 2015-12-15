@@ -103,7 +103,7 @@ namespace msgpack {
                 return 1;
             }
             
-            const char* const MpLuaPkgName = "msgpack";
+            const char* const MpLuaPkgName = "msgpackcpp";
             const struct luaL_Reg MpLuaLib[] = {
                 {"Packer", &createPacker},
                 {"pack", &pack},

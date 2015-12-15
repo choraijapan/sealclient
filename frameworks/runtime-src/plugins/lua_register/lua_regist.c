@@ -12,7 +12,8 @@ extern "C" {
 static luaL_Reg luax_exts[] = {
     {"lsqlite3", luaopen_lsqlite3},
     {"cjson", luaopen_cjson},
-    
+    {"msgpackcpp", luaopen_msgpackorig},
+
     {NULL, NULL}
 };
 
