@@ -14,7 +14,7 @@ extern "C" {
 
 #include "lauxlib.h"
 
-void LUA_EXTENSIONS_DLL luaopen_lua_sqlite(lua_State *L);
+void LUA_EXTENSIONS_DLL luaopen_all_plugins(lua_State *L);
     
 #if __cplusplus
 }

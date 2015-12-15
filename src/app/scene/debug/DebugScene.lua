@@ -96,8 +96,7 @@ function DebugScene:onEnter()
 	}
 
 	testTable:update(updateQueyr, " id = 29")
-	local test = require("msgpackcpp")
-	--baseApi:request(nil)
+	baseApi:request(nil)
 end
 
 -- onExit

@@ -1,4 +1,5 @@
-local mp = require("msgpackcpp")
+local msgPack = require("msgpackcpp")
+    
 local BaseApi = class("BaseApi")
 
 function BaseApi:request(data)
@@ -14,8 +15,8 @@ function BaseApi:request(data)
 	}
 	
 	local tbl = { a=123, b="any", c={"ta","bl","e",1,2,3} }
-	local packed = mp.pack(tbl)
-	local unpacked_table = mp.unpack(packed)
+	local packed = msgPack.pack(data1)
+	local unpacked_table = msgPack.unpack(packed)
 	
 end
 

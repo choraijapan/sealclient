@@ -13,11 +13,10 @@ static luaL_Reg luax_exts[] = {
     {"lsqlite3", luaopen_lsqlite3},
     {"cjson", luaopen_cjson},
     {"msgpackcpp", luaopen_msgpackorig},
-
     {NULL, NULL}
 };
 
-void luaopen_lua_sqlite(lua_State *L)
+void luaopen_all_plugins(lua_State *L)
 {
     // load extensions
     luaL_Reg* lib = luax_exts;

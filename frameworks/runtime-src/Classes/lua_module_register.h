@@ -31,8 +31,8 @@ static int lua_module_register(lua_State* L)
     
     // regist plugins
     register_all_custlua(L);
-    luaopen_lua_sqlite(L);
-    luaopen_msgpackorig(L);
+    luaopen_all_plugins(L);
+   // luaopen_msgpackorig(L);
     return 1;
 }
 
