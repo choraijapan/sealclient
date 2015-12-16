@@ -5,6 +5,7 @@
 Game = {}
 
 require("app.common.const.GameConst")
+require("app.common.const.EnvironmentConst")
 require("app.common.const.AppConst")
 require("app.common.const.DBConst")
 require("app.common.utils.GameUtils")
