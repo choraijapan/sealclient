@@ -1,16 +1,7 @@
 local GachaBall = require("app/parts/gacha/GachaBall")
+local GachaAnimationLayer = require("app/layer/gacha/GachaAnimationLayer")
 local GachaLayer = class("GachaLayer", cc.Layer)
-
 GachaLayer.wall = nil
-GachaLayer.cards = {
-	card1 = nil,
-	card2 = nil,
-	card3 = nil,
-	card4 = nil,
-	card5 = nil,
-	card6 = nil
-}
-
 local MAX_BULLET = 15
 
 --------------------------------------------------------------------------------
@@ -48,14 +39,23 @@ function GachaLayer:init()
 			self:removeSelf()
 		end)
 		
+
 	TouchManager:pressedDown(CCUI_DrawButton,
 		function()
 			CCUI_FirstPanel:setVisible(false)
+			self:drawGacha()
+--			self:addBalls()
 		end)
+	self:addPuzzle()
+end
 
---	self:addPuzzle()
---	self:addSchedule()  -- 更新
---	self:addTouch()     -- 触摸
+function GachaLayer:drawGacha()
+	local layer = GachaAnimationLayer:create()
+	
+	
+	
+	
+	self:addChild(layer,1)
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
