@@ -4,6 +4,7 @@
 
 local StandardScene = require('core.base.scene.StandardScene')
 local TopScene = class("TopScene",StandardScene)
+local GachaLayer = require("app/layer/gacha/GachaLayer")
 
 -- init
 function TopScene:init(...)
@@ -27,6 +28,16 @@ function TopScene:onEnter()
 			SceneManager:changeScene("app/scene/map/MapScene.lua", nil)
 		end)
 		
+	local CCUI_GachaButton = WidgetObj:searchWidgetByName(self.m.csb,"GachaButton",WidgetConst.OBJ_TYPE.Button)
+	TouchManager:pressedDown(CCUI_GachaButton,
+		function()
+			self:addGachaLayer()
+		end)
+
+end
+
+function TopScene:addGachaLayer()
+	self.scene:addChild(GachaLayer:create(),1)
 end
 
 -- onExit

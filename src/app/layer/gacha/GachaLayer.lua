@@ -20,9 +20,9 @@ end
 --------------------------------------------------------------------------------
 -- create
 function GachaLayer:create()
-	self:setName("GACHA_LAYER")
-	self:init()
-	return self
+	local layer = GachaLayer.new()
+	layer:init()
+	return layer
 end
 --------------------------------------------------------------------------------
 -- init
@@ -36,25 +36,18 @@ function GachaLayer:init()
 
 	TouchManager:pressedDown(CCUI_BackButton,
 		function()
-			self:removeSelf()
+			self:removeFromParent()
 		end)
 		
 
 	TouchManager:pressedDown(CCUI_DrawButton,
 		function()
-			CCUI_FirstPanel:setVisible(false)
 			self:drawGacha()
---			self:addBalls()
 		end)
-	self:addPuzzle()
 end
 
 function GachaLayer:drawGacha()
 	local layer = GachaAnimationLayer:create()
-	
-	
-	
-	
 	self:addChild(layer,1)
 end
 --------------------------------------------------------------------------------
