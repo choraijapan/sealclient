@@ -10,7 +10,7 @@ require("app.common.const.DBConst")
 require("app.common.utils.GameUtils")
 
 
-Game.BaseDb = require("app.data.db.BaseDB")
+--Game.BaseDb = require("app.data.db.BaseDB")
 local t = 1
 
 
