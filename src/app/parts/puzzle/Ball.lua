@@ -183,6 +183,7 @@ end
 function Ball:addBallTouchEffect()
 	if self:getName() ~= "boom" then
 		self:setName("big")
+		cc.SimpleAudioEngine:getInstance():playEffect("sound/se08.m4a")
 		local action1 = cc.ScaleTo:create(0.1,1.5)
 		local action2 = cc.ScaleTo:create(0.1,1.2)
 		self._image:runAction(cc.Sequence:create(action1,action2))

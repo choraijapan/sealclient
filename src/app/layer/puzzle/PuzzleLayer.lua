@@ -272,6 +272,7 @@ function PuzzleLayer:addTouch()
 			else
 				if  arr:getBody():getNode():getName() == "boom" then
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
+					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 					for _, obj2 in ipairs(boomAround) do
 						obj2:getNode():brokenBullet()
 						local data = {
@@ -379,6 +380,7 @@ function PuzzleLayer:addTouch()
 			for key, var in ipairs(_bullets) do
 				if  #_bullets > 1 then
 					if  #_bullets == key then
+						cc.SimpleAudioEngine:getInstance():playEffect("sound/se29.m4a")
 						_bullets[#_bullets]:addBoom(#_bullets)
 						type = _bullets[1]:getTag()
 						lastPos = _bullets[#_bullets]:getPosition()
@@ -499,11 +501,11 @@ function PuzzleLayer:setFerverPt(count)
 			ferverEffect:setPosition(cc.p(0,0))
 			ferverEffect:setScale(4)
 			ferverEffect:setAnchorPoint(cc.p(0, 0))
-			ferverEffect:setDuration(15)
-			local to = cc.ProgressTo:create(15, 0)
+			ferverEffect:setDuration(10)
+			local to = cc.ProgressTo:create(10, 0)
 			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
-
+			cc.SimpleAudioEngine:getInstance():playBackgroundMusic("sound/bgm35.m4a",false)
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
 			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))

@@ -83,7 +83,7 @@ end
 --------------------------------------------------------------------------------
 -- init
 function BossSprite:init()
-
+	cc.SimpleAudioEngine:getInstance():playBackgroundMusic("sound/bgm31.m4a",true)
 	self:addArmature()
 	self:addHp()
 	self:addEventDispatcher()
