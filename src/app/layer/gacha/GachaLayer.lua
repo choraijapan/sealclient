@@ -10,7 +10,6 @@ local CCUI_CSB = "layer/gacha/GachaLayer.csb"
 local CCUI_GachaLayer = nil
 local CCUI_FirstPanel = nil
 local CCUI_BackButton = nil
-local CCUI_DrawButton = nil
 local CCUI_Bg1 = nil
 local CCUI_Bg2 = nil
 --------------------------------------------------------------------------------
@@ -32,15 +31,20 @@ function GachaLayer:init()
 
 	CCUI_FirstPanel = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"FirstPanel",WidgetConst.OBJ_TYPE.Panel)
 	CCUI_BackButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"BackButton",WidgetConst.OBJ_TYPE.Button)
-	CCUI_DrawButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"DrawButton",WidgetConst.OBJ_TYPE.Button)
+	local CCUI_DrawNormalButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"DrawNormalButton",WidgetConst.OBJ_TYPE.Button)
+	local CCUI_DrawRareButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"DrawRareButton",WidgetConst.OBJ_TYPE.Button)
 
 	TouchManager:pressedDown(CCUI_BackButton,
 		function()
 			self:removeFromParent()
 		end)
-		
 
-	TouchManager:pressedDown(CCUI_DrawButton,
+	TouchManager:pressedDown(CCUI_DrawNormalButton,
+		function()
+			self:drawGacha()
+		end)
+		
+	TouchManager:pressedDown(CCUI_DrawRareButton,
 		function()
 			self:drawGacha()
 		end)
