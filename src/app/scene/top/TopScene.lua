@@ -16,18 +16,19 @@ function TopScene:onEnter()
 	self.m.csb = WidgetLoader:loadCsbFile("scene/TopScene.csb")
 	self.scene:addChild(self.m.csb)
 
+
 	local CCUI_ButtonMenu = WidgetObj:searchWidgetByName(self.m.csb,"ButtonMenu",WidgetConst.OBJ_TYPE.Button)
 	TouchManager:pressedDown(CCUI_ButtonMenu,
 		function()
 			SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
 		end)
-		
+
 	local CCUI_QuestPanel = WidgetObj:searchWidgetByName(self.m.csb,"QuestPanel",WidgetConst.OBJ_TYPE.Panel)
 	TouchManager:pressedDown(CCUI_QuestPanel,
 		function()
 			SceneManager:changeScene("app/scene/map/MapScene.lua", nil)
 		end)
-		
+
 	local CCUI_GachaButton = WidgetObj:searchWidgetByName(self.m.csb,"GachaButton",WidgetConst.OBJ_TYPE.Button)
 	TouchManager:pressedDown(CCUI_GachaButton,
 		function()
@@ -37,7 +38,11 @@ function TopScene:onEnter()
 end
 
 function TopScene:addGachaLayer()
-	self.scene:addChild(GachaLayer:create(),1)
+	local layer = GachaLayer:create()
+	self.m.csb:addChild(layer,1)
+	local CCUI_HeaderNode = WidgetObj:searchWidgetByName(self.m.csb,"HeaderNode",WidgetConst.OBJ_TYPE.Node)
+	self.m.csb:reorderChild(CCUI_HeaderNode,55)
+--	self.m.csb:reorderChild(layer,1)
 end
 
 -- onExit

@@ -28,7 +28,7 @@ end
 -- init
 function GachaLayer:init()
 	CCUI_GachaLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
-	self:addChild(CCUI_GachaLayer,GameConst.ZOrder.Z_BossBg)
+	self:addChild(CCUI_GachaLayer,0)
 
 	CCUI_FirstPanel = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"FirstPanel",WidgetConst.OBJ_TYPE.Panel)
 	CCUI_BackButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"BackButton",WidgetConst.OBJ_TYPE.Button)
