@@ -505,7 +505,7 @@ function PuzzleLayer:setFerverPt(count)
 			local to = cc.ProgressTo:create(10, 0)
 			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
-			cc.SimpleAudioEngine:getInstance():playBackgroundMusic("sound/bgm35.m4a",false)
+			cc.SimpleAudioEngine:getInstance():playEffect("sound/bgm35.m4a",false)
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
 			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
