@@ -96,7 +96,16 @@ function DebugScene:onEnter()
 	}
 
 	testTable:update(updateQueyr, " id = 29")
-	baseApi:request(nil)
+	--baseApi:request(nil)
+	
+	-- test createDir
+	local is = GameFileUtils:isDirectoryExist(GameFileUtils:getDownloadPath())
+	if is == false then
+		GameFileUtils:createDirectory(GameFileUtils:getDownloadPath())
+	else
+		GameFileUtils:removeDirectory(GameFileUtils:getDownloadPath())
+	end
+	
 end
 
 -- onExit

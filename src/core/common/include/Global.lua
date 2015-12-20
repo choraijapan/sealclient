@@ -31,5 +31,6 @@ require('core.extension.WidgetLoader')
 
 
 require('core.utils.utf8')
+require('core.common.GameFileUtils')
 
 
