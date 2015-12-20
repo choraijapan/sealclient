@@ -1,7 +1,7 @@
 require("lsqlite3")
 
 local BaseDB = class("BaseDB")
-BaseDB.path = nil
+BaseDB.type = nil
 BaseDB.db_name = nil
 BaseDB.table_name = nil
 BaseDB.col_def = nil
@@ -9,7 +9,14 @@ BaseDB.db = nil
 
 function BaseDB:open()
 	if self.db == nil then
-		self.db = sqlite3.open(self.path.."/"..self.db_name)
+		local test = EnvironmentConst.DB_PATH
+		local path = GameFileUtils:getDbPath(self.type)
+		
+		if GameFileUtils:isDirectoryExist(path) == false then
+		  GameFileUtils:createDirectory(path)
+		end
+		
+		self.db = sqlite3.open(path..self.db_name)
 	end
 end
 
