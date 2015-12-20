@@ -380,7 +380,7 @@ function PuzzleLayer:addTouch()
 			for key, var in ipairs(_bullets) do
 				if  #_bullets > 1 then
 					if  #_bullets == key then
-						cc.SimpleAudioEngine:getInstance():playEffect("sound/se29.m4a")
+						cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.BALL_BROKEN)
 						_bullets[#_bullets]:addBoom(#_bullets)
 						type = _bullets[1]:getTag()
 						lastPos = _bullets[#_bullets]:getPosition()
@@ -505,7 +505,8 @@ function PuzzleLayer:setFerverPt(count)
 			local to = cc.ProgressTo:create(10, 0)
 			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
-			cc.SimpleAudioEngine:getInstance():playEffect("sound/bgm35.m4a",false)
+			cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.FERVER,false)
+			
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
 			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
