@@ -23,7 +23,8 @@ GameConst.BALL_PNG = {
 --	[2] = "images/puzzle/block/3.png",
 --	[3] = "images/puzzle/block/5.png",
 --	[4] = "images/puzzle/block/7.png",
-	["BOOM"] = "images/puzzle/block/ball_dark.png"
+	["BOOM"] = "images/puzzle/block/ball_dark.png",
+	["BOOM10"] = "images/puzzle/block/ball_tree.png"
 }
 
 GameConst.CARD_FRAME_PNG = {
@@ -85,6 +86,7 @@ GameConst.PARTICLE_BROKEN = {
 	[3]    = "images/particles/effect_prt_104_3.plist",
 	[4]    = "images/particles/effect_prt_510.plist",
 	[5]    = "images/particles/effect_prt_10021.plist",
+	[6]    = "images/particles/effect_prt_10021.plist"
 }
 GameConst.PARTICLE = {
 	[1]            = "images/puzzle/effect/particle/thumbnail_skill_water.plist",

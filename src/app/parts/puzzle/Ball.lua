@@ -52,6 +52,7 @@ Ball.vertexes = {
 }
 
 Ball.BOOM = 5
+Ball.BOOM10 = 6
 
 function Ball:ctor()
 end
@@ -103,10 +104,28 @@ function Ball:reOrder(order)
 end
 
 function Ball:brokenBullet()
-	if self:getName() ~= "boom" then
+	if self:getName() ~= "boom" and self:getName() ~= "boom10" then
+		print("################## What is this **** "..self:getName())
 		self:broken()
 	end
 end
+
+local broken10Count = 0
+function Ball:broken10()
+	broken10Count = broken10Count + 1
+	
+	local action1 = cc.ScaleTo:create(0.3,1 + broken10Count/20)
+	self:runAction(cc.Sequence:create(action1))
+	
+	if broken10Count > 20 then
+		self:broken()
+		broken10Count = 0
+		return true
+	else
+		return false
+	end
+end
+
 function Ball:broken()
 
 	print("#######"..self:getTag())
@@ -153,7 +172,7 @@ function Ball:onEnter()
 end
 
 function Ball:addBallHint()
-	if self:getName() ~= "boom" and self:getName() ~= "touched" then
+	if self:getName() ~= "boom" and self:getName() ~= "boom10" and self:getName() ~= "touched" then
 		self:setName("big")
 		--		self._image:setScale(1.2)
 		--		self._image:setColor(cc.c3b(123,123,123))
@@ -181,7 +200,7 @@ function Ball:addGlowEffect(sprite, opacity, scale,order)
 end
 
 function Ball:addBallTouchEffect()
-	if self:getName() ~= "boom" then
+	if self:getName() ~= "boom" and self:getName() ~= "boom10" then
 		self:setName("big")
 		cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.PUZZLE_TOUCH)
 		local action1 = cc.ScaleTo:create(0.1,1.5)
@@ -193,21 +212,21 @@ function Ball:addBallTouchEffect()
 end
 
 function Ball:removeAllEffect()
-	if self:getName() ~= "boom" then
+	if self:getName() ~= "boom" and self:getName() ~= "boom10" then
 		self:setName("normal")
 		self:removeBallTouchEffect()
 	end
 end
 
 function Ball:removeSingleEffect()
-	if self:getName() ~= "boom" then
+	if self:getName() ~= "boom" and self:getName() ~= "boom10" then
 		self:setName("touched")
 		self:removeBallTouchEffect()
 	end
 end
 
 function Ball:removeBallTouchEffect()
-	if self:getName() ~= "boom" then
+	if self:getName() ~= "boom" and self:getName() ~= "boom10" then
 		self._image:stopAllActions()
 		self._image:setScale(1)
 		self:setGrayNode(self._image, false)
@@ -217,7 +236,7 @@ function Ball:removeBallTouchEffect()
 end
 
 function Ball:addPuzzleNumber(num)
-	if self:getName() ~= "boom" then
+	if self:getName() ~= "boom" and self:getName() ~= "boom10" then
 		local puzzleNumber = ccui.TextAtlas:create()
 		puzzleNumber:setProperty(num, GameConst.FONT.NUMBER, 17, 22, "0")
 		puzzleNumber:setScale(1.5)
@@ -235,7 +254,19 @@ function Ball:removePuzzleNumber()
 end
 
 function Ball:addBoom(num)
-	if num > 6 then
+	if num > 5 then
+		self:setName("boom10")
+		self:setTag(Ball.BOOM10)
+		local particle = GameUtils:createParticle(GameConst.PARTICLE.BOOM,nil)
+		particle:setAutoRemoveOnFinish(true)
+		particle:setPosition(cc.p(0,0))
+		particle:setScale(0.9)
+		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG["BOOM10"])
+		self:addChild(particle,1111)
+		self:getParent():reorderChild(self,3)
+	end
+	
+	if num == 5 then
 		self:setName("boom")
 		self:setTag(Ball.BOOM)
 		--		self._image:setVisible(false)
