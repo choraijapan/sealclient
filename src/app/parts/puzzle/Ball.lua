@@ -15,6 +15,9 @@ Ball.circleSize = 48 --元の値
 --Ball.scalePer = 0.6 --元の値
 --Ball.circleSize = 48 --元の値
 
+Ball.BOOM = 5
+Ball.BOOM10 = 6
+
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
 	[2] = { cc.p(-60*Ball.scalePer,3*Ball.scalePer),
@@ -50,9 +53,6 @@ Ball.vertexes = {
 		cc.p( -42*Ball.scalePer,-46*Ball.scalePer ),
 		cc.p( -57*Ball.scalePer, 27*Ball.scalePer )}
 }
-
-Ball.BOOM = 5
-Ball.BOOM10 = 6
 
 function Ball:ctor()
 end
@@ -110,16 +110,18 @@ function Ball:brokenBullet()
 	end
 end
 
-local broken10Count = 0
-function Ball:broken10()
-	broken10Count = broken10Count + 1
+--------------------------------------------------------------------------------
+-- 連打ボールを爆発条件
+Ball.touchBoomXCount = 0
+function Ball:brokenBoomX()
+	self.touchBoomXCount = self.touchBoomXCount + 1
 	
-	local action1 = cc.ScaleTo:create(0.3,1 + broken10Count/20)
+	local action1 = cc.ScaleTo:create(0.3,1 + self.touchBoomXCount/20)
 	self:runAction(cc.Sequence:create(action1))
 	
-	if broken10Count > 20 then
+	if self.touchBoomXCount == 10 then
 		self:broken()
-		broken10Count = 0
+		self.touchBoomXCount = 0
 		return true
 	else
 		return false

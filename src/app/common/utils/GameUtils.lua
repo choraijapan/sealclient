@@ -8,7 +8,7 @@
 -- @date 2015/10/28
 -------------------------------------------------------------------------------
 GameUtils = class("GameUtils")
-GameUtils.TouchFlag = false
+GameUtils.IsGameActive = false
 
 ---#############################################################################
 ---### Effect関連
@@ -221,13 +221,13 @@ end
 -- @UI
 -- pauseGame
 function GameUtils:pauseGame()
-	GameUtils.TouchFlag = false
+	GameUtils.IsGameActive = false
 --	cc.Director:getInstance():pause()
 	cc.SimpleAudioEngine:getInstance():pauseMusic()
 	cc.SimpleAudioEngine:getInstance():pauseAllEffects()
 
 	local curScene = cc.Director:getInstance():getRunningScene()
-	local renderTexture = cc.RenderTexture:create(AppConst.WIN_SIZE.width, AppConst.WIN_SIZE.height);
+	local renderTexture = cc.RenderTexture:create(AppConst.WIN_SIZE.width, AppConst.WIN_SIZE.height)
 
 	if curScene:getTag() == GameConst.PUZZLE_SCENE_TAG then
 		renderTexture:begin()
@@ -249,7 +249,7 @@ end
 ------------------------------------
 -- @UI
 function GameUtils:resumeGame()
-	GameUtils.TouchFlag = false
+	GameUtils.IsGameActive = false
 	cc.Director:getInstance():resume()
 	cc.Director:getInstance():startAnimation()
 	cc.SimpleAudioEngine:getInstance():resumeMusic()

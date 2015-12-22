@@ -15,14 +15,6 @@ GameConst.BALL_PNG = {
 	[2] = "images/puzzle/block/b_fire.png",
 	[3] = "images/puzzle/block/b_tree.png",
 	[4] = "images/puzzle/block/b_dark.png",
---	[1] = "images/puzzle/block/block_mike_l.png",
---	[2] = "images/puzzle/block/block_pooh_l.png",
---	[3] = "images/puzzle/block/block_marie_l.png",
---	[4] = "images/puzzle/block/block_perry_l.png",
---	[1] = "images/puzzle/block/1.png",
---	[2] = "images/puzzle/block/3.png",
---	[3] = "images/puzzle/block/5.png",
---	[4] = "images/puzzle/block/7.png",
 	["BOOM"] = "images/puzzle/block/ball_dark.png",
 	["BOOM10"] = "images/puzzle/block/ball_tree.png"
 }

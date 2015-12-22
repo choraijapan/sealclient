@@ -260,7 +260,7 @@ function PuzzleLayer:addTouch()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 
-		if GameUtils.TouchFlag then
+		if GameUtils.IsGameActive then
 			return
 		end
 
@@ -275,7 +275,7 @@ function PuzzleLayer:addTouch()
 					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 
 					self:updateCombol()
-					if arr:getBody():getNode():broken10() then
+					if arr:getBody():getNode():brokenBoomX() then
 						local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 						for _, obj2 in ipairs(boomAround) do
 							obj2:getNode():brokenBullet()
@@ -319,7 +319,7 @@ function PuzzleLayer:addTouch()
 					_bullets2 = {}
 					self.curTouchBall = nil
 				else
-					GameUtils.TouchFlag = true
+					GameUtils.IsGameActive = true
 					startBall = arr:getBody():getNode()
 					_curBallTag = arr:getBody():getNode():getTag()
 					self.curTouchBall = arr:getBody():getNode()
@@ -343,7 +343,7 @@ function PuzzleLayer:addTouch()
 		return true
 	end
 	local function onTouchMoved(touch, event)
-		GameUtils.TouchFlag = true
+		GameUtils.IsGameActive = true
 		self.curTouchBall = nil
 		local location = touch:getLocation()
 		touchPoint:setPosition(cc.p(location.x,location.y))
@@ -395,7 +395,7 @@ function PuzzleLayer:addTouch()
 
 	local function onTouchEnded(touch, event)
 		touchPoint:setPosition(cc.p(9999,9999))
-		GameUtils.TouchFlag = false
+		GameUtils.IsGameActive = false
 		startBall = nil
 		curBall = nil
 		_curBallTag = nil
@@ -585,7 +585,7 @@ function PuzzleLayer:update(dt)
 
 	self:DrawLineRemove()
 
-	if GameUtils.TouchFlag == false then
+	if GameUtils.IsGameActive == false then
 		curBall = nil
 		_curBallTag = nil
 		_bullets = {}
