@@ -270,7 +270,8 @@ function PuzzleLayer:addTouch()
 			if _curBallTag ~= nil and _curBallTag ~= arr:getBody():getNode():getTag() then
 				return false
 			else
-				if  arr:getBody():getNode():getName() == "boom10" then
+				
+				if  GameUtils:inTable({"boom7","boom8"},arr:getBody():getNode():getName()) then
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 
@@ -296,7 +297,7 @@ function PuzzleLayer:addTouch()
 					_bullets = {}
 					_bullets2 = {}
 					self.curTouchBall = nil
-				elseif  arr:getBody():getNode():getName() == "boom" then
+				elseif isFerverTime or GameUtils:inTable(GameConst.BOOM.KINDS,arr:getBody():getNode():getName()) then
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 					for _, obj2 in ipairs(boomAround) do
@@ -401,7 +402,15 @@ function PuzzleLayer:addTouch()
 		_curBallTag = nil
 		local type = 1
 		local lastPos = nil
-
+		
+		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+		for _, obj in ipairs(all) do
+			if obj:getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
+				obj:getNode():removePuzzleNumber()
+				obj:getNode():removeAllEffect()
+			end
+		end
+		
 		if next(_bullets) ~= nil then
 			for key, var in ipairs(_bullets) do
 				if  #_bullets > 1 then
@@ -429,14 +438,6 @@ function PuzzleLayer:addTouch()
 				if  #_bullets > 2 then
 					self:updateCombol()
 				end
-			end
-		end
-
-		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
-		for _, obj in ipairs(all) do
-			if obj:getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
-				obj:getNode():removePuzzleNumber()
-				obj:getNode():removeAllEffect()
 			end
 		end
 

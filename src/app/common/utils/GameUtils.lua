@@ -296,3 +296,20 @@ function GameUtils:tablelength(T)
 	for _ in pairs(T) do count = count + 1 end
 	return count
 end
+
+function GameUtils:isTableContains(tb,obj)
+	for _,v in pairs(tb) do
+		if v == obj then
+			return true
+		end
+	end
+	return false
+end
+
+function GameUtils:inTable(tbl, item)
+	for key, value in pairs(tbl) do
+		if value == item then return true end
+	end
+	return false
+end
+

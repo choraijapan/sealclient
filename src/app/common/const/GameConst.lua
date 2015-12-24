@@ -15,8 +15,39 @@ GameConst.BALL_PNG = {
 	[2] = "images/puzzle/block/b_fire.png",
 	[3] = "images/puzzle/block/b_tree.png",
 	[4] = "images/puzzle/block/b_dark.png",
-	["BOOM"] = "images/puzzle/block/ball_dark.png",
-	["BOOM10"] = "images/puzzle/block/ball_tree.png"
+}
+
+GameConst.BOOM = {
+	KINDS = {"boom5","boom6","boom7","boom8"},
+	[1] = {
+		name = "boom5",
+		tag = 5,
+		image = "images/puzzle/block/ball_light.png",
+	},
+	[2] = {
+		name = "boom6",
+		tag = 6,
+		image = "images/puzzle/block/ball_fire.png",
+	},
+	[3] = {
+		name = "boom7",
+		tag = 7,
+		image = "images/puzzle/block/ball_water.png",
+	},
+	[4] = {
+		name = "boom8",
+		tag = 8,
+		image = "images/puzzle/block/ball_tree.png",
+	}
+}
+
+GameConst.PARTICLE_BROKEN = {
+	[1]    = "images/particles/effect_prt_104_2.plist",
+	[2]    = "images/particles/effect_prt_104_1_2.plist",
+	[3]    = "images/particles/effect_prt_104_3.plist",
+	[4]    = "images/particles/effect_prt_510.plist",
+	[5]    = "images/particles/effect_prt_10021.plist",
+	[6]    = "images/particles/effect_prt_10021.plist"
 }
 
 GameConst.CARD_FRAME_PNG = {
@@ -28,11 +59,11 @@ GameConst.CARD_FRAME_PNG = {
 }
 
 GameConst.ATTRIBUTE_EFFECT = {
---	[1] 	= "images/puzzle/effect/particle/block_effect.plist",
---	[2] 	= "images/puzzle/effect/particle/block_effect.plist",
---	[3] 	= "images/puzzle/effect/particle/block_effect.plist",
---	[4] 	= "images/puzzle/effect/particle/block_effect.plist",
---	[5] 	= "images/puzzle/effect/particle/block_effect.plist", --TODO
+	--	[1] 	= "images/puzzle/effect/particle/block_effect.plist",
+	--	[2] 	= "images/puzzle/effect/particle/block_effect.plist",
+	--	[3] 	= "images/puzzle/effect/particle/block_effect.plist",
+	--	[4] 	= "images/puzzle/effect/particle/block_effect.plist",
+	--	[5] 	= "images/puzzle/effect/particle/block_effect.plist", --TODO
 	[1] 	= "images/particles/effect_prt_104_2_2.plist",
 	[2] 	= "images/particles/effect_prt_104_1.plist",
 	[3] 	= "images/particles/effect_prt_104_3.plist",
@@ -72,35 +103,26 @@ GameConst.FONT = {
 	NUMBER_XXYELLOW = "images/font/number_quest_xxlarge_yellow.png"
 }
 
-GameConst.PARTICLE_BROKEN = {
-	[1]    = "images/particles/effect_prt_104_2.plist",
-	[2]    = "images/particles/effect_prt_104_1_2.plist",
-	[3]    = "images/particles/effect_prt_104_3.plist",
-	[4]    = "images/particles/effect_prt_510.plist",
-	[5]    = "images/particles/effect_prt_10021.plist",
-	[6]    = "images/particles/effect_prt_10021.plist"
-}
+
 GameConst.PARTICLE = {
 	[1]            = "images/puzzle/effect/particle/thumbnail_skill_water.plist",
 	[2]            = "images/puzzle/effect/particle/thumbnail_skill_fire.plist",
 	[3]            = "images/puzzle/effect/particle/thumbnail_skill_forest.plist",
 	[4]            = "images/puzzle/effect/particle/thumbnail_skill_thunder.plist",
 	
-	
---	BALL_BROKEN    = "images/puzzle/effect/particle/block_change_fire.plist",
+	--	BALL_BROKEN    = "images/puzzle/effect/particle/block_change_fire.plist",
 	BALL_BROKEN    = "images/particles/effect_prt_104_1.plist",
-	
 
-	
 	SKILL_1         = "images/puzzle/effect/particle/fireWall.plist", -- TODO cardのスキルエフェクト
+	SKILL_BG 	   = "images/particles/eff_page_504.plist",
 	
 	SNOW           = "images/puzzle/effect/particle/particle_snow.plist",
-	
+
 	FERVER         = "images/particles/eff_page_723_3.plist",
 	BOOM           = "images/puzzle/effect/particle/particle_boom.plist",
 	HEAL           = "images/puzzle/effect/particle/gauge_bar_heal.plist",
 
-	
+
 	ATK_FIRE       = "images/puzzle/effect/particle/firebig_aura.plist",
 	ATK_FOREST     = "images/puzzle/effect/particle/forestbig_aura.plist",
 	ATK_THUNDER    = "images/puzzle/effect/particle/thunderbig_aura.plist",
@@ -124,7 +146,7 @@ GameConst.PUZZLE_PNG = {
 	FERVER_BAR     = "images/puzzle/ui/hp_player.png",
 	BOSS_HP_BAR    = "images/puzzle/ui/gauge_green.png",
 	BOSS_HP_BG     = "images/puzzle/ui/boss_gauge_green.png",
-	
+
 	LEFT_TIME      = "images/puzzle/text/text_turn.png",
 }
 

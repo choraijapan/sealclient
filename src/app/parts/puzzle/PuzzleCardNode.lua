@@ -262,14 +262,16 @@ function PuzzleCardNode:drawSkill(obj)
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
---	local emitter = GameUtils:createParticle(GameConst.PARTICLE.SNOW,GameConst.PARTICLE_PNG.SNOW)
 	
+	local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_BG,nil)
+	emitter:setScale(1.5)
+	emitter:setPosition(cc.p(0,AppConst.VISIBLE_SIZE.height/2))
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
 	local text = createText(obj.skill.name)
 	node:addChild(mask,0)
---	node:addChild(emitter, 1)
 	node:addChild(blockLayer, 2)
+	node:addChild(emitter,2)
 	node:addChild(cardSprite, 3)
 	node:addChild(text, 4)
 	
