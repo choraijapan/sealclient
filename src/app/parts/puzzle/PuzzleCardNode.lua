@@ -141,22 +141,22 @@ function PuzzleCardNode:init()
 					effect = "images/particles/eff_page_723_1.plist"
 				}
 			},
---			[6] = {
---				id = "images/card/weapon_menu_playerimage_sword.png",
---				hp = 4000,
---				attribute = GameConst.ATTRIBUTE.FIRE,
---				atk = {
---					value = 8241,
---					effect = GameConst.PARTICLE.ATK_FIRE
---				},
---				skill = {
---					name = "人生はただ一度だけ切り",
---					description = "人生はただ一度だけ切り",
---					type = 1, -- atk
---					value = 1500000, --
---					effect = GameConst.PARTICLE.ATK_SWORD
---				}
---			}
+		--			[6] = {
+		--				id = "images/card/weapon_menu_playerimage_sword.png",
+		--				hp = 4000,
+		--				attribute = GameConst.ATTRIBUTE.FIRE,
+		--				atk = {
+		--					value = 8241,
+		--					effect = GameConst.PARTICLE.ATK_FIRE
+		--				},
+		--				skill = {
+		--					name = "人生はただ一度だけ切り",
+		--					description = "人生はただ一度だけ切り",
+		--					type = 1, -- atk
+		--					value = 1500000, --
+		--					effect = GameConst.PARTICLE.ATK_SWORD
+		--				}
+		--			}
 		}
 	}
 	self.hpBar = WidgetObj:searchWidgetByName(self,"HpBar","ccui.LoadingBar")
@@ -178,7 +178,7 @@ function PuzzleCardNode:init()
 		self.cards[i].energy = 0
 		self.cards[i].attribute = v.attribute
 		self.cards[i].atk =  v.atk
-		self.cards[i].skill = v.skill			
+		self.cards[i].skill = v.skill
 		self.hp = self.hp + v.hp
 	end
 	self.maxHp = self.hp
@@ -186,7 +186,7 @@ function PuzzleCardNode:init()
 	self.hpBar:setPercent(100)
 
 	self.gameCardNode:setPosition(cc.p(0, 0))
---	self.gameCardNode:setPosition(cc.p(0,20))
+	--	self.gameCardNode:setPosition(cc.p(0,20))
 end
 
 --------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ function PuzzleCardNode:cardSkillDrawed(skill)
 	local function callBack()
 		GameUtils:resumeAll(self:getParent())
 	end
-	
+
 	if skill.type == GameConst.CardType.ATK then
 		local data = {
 			action = "atkBoss",
@@ -254,18 +254,19 @@ function PuzzleCardNode:drawSkill(obj)
 	-- create card character
 	local function createCardCara()
 		cardSprite:setAnchorPoint(cc.p(0.5,0.5))
-		cardSprite:setPosition(cc.p(-cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
+		cardSprite:setPosition(cc.p(AppConst.VISIBLE_SIZE.width + 100,AppConst.VISIBLE_SIZE.height/2))
 		local action1 = cc.DelayTime:create(0.1)
 		local action2 = cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
-		local action3 =  cc.MoveTo:create(0.7,cc.p(AppConst.VISIBLE_SIZE.width/2+10,AppConst.VISIBLE_SIZE.height/2))
-		local action4 =  cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width + cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
+		local action3 =  cc.MoveTo:create(0.7,cc.p(AppConst.VISIBLE_SIZE.width/2 - 10,AppConst.VISIBLE_SIZE.height/2))
+		local action4 =  cc.MoveTo:create(0.1,cc.p(-AppConst.VISIBLE_SIZE.width - cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
-	
+
 	local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_BG,nil)
-	emitter:setScale(1.5)
-	emitter:setPosition(cc.p(0,AppConst.VISIBLE_SIZE.height/2))
+	emitter:setScaleY(1.5)
+	emitter:setScaleX(-1.5)
+	emitter:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2 + 100,AppConst.VISIBLE_SIZE.height/2))
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
 	local text = createText(obj.skill.name)
@@ -274,10 +275,10 @@ function PuzzleCardNode:drawSkill(obj)
 	node:addChild(emitter,2)
 	node:addChild(cardSprite, 3)
 	node:addChild(text, 4)
-	
+
 	self:addChild(node,999)
 	-- TODO 攻撃BroadCast
-	
+
 end
 
 --------------------------------------------------------------------------------
