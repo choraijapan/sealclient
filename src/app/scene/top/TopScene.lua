@@ -4,7 +4,8 @@
 
 local StandardScene = require('core.base.scene.StandardScene')
 local TopScene = class("TopScene",StandardScene)
-local GachaLayer = require("app/layer/gacha/GachaLayer")
+local GachaLayer = require("app.layer.gacha.GachaLayer")
+local CardLayer = require("app.layer.card.CardLayer")
 
 -- init
 function TopScene:init(...)
@@ -35,6 +36,12 @@ function TopScene:onEnter()
 			self:addGachaLayer()
 		end)
 
+
+	local CCUI_CardsButton = WidgetObj:searchWidgetByName(self.m.csb,"CardsButton",WidgetConst.OBJ_TYPE.Button)
+	TouchManager:pressedDown(CCUI_CardsButton,
+		function()
+			self:addCardLayer()
+		end)
 end
 
 function TopScene:addGachaLayer()
@@ -42,8 +49,15 @@ function TopScene:addGachaLayer()
 	self.m.csb:addChild(layer,1)
 	local CCUI_HeaderNode = WidgetObj:searchWidgetByName(self.m.csb,"HeaderNode",WidgetConst.OBJ_TYPE.Node)
 	self.m.csb:reorderChild(CCUI_HeaderNode,55)
---	self.m.csb:reorderChild(layer,1)
 end
+
+function TopScene:addCardLayer()
+	local layer = CardLayer:create()
+	self.m.csb:addChild(layer,1)
+	local CCUI_HeaderNode = WidgetObj:searchWidgetByName(self.m.csb,"HeaderNode",WidgetConst.OBJ_TYPE.Node)
+	self.m.csb:reorderChild(CCUI_HeaderNode,55)
+end
+
 
 -- onExit
 function TopScene:onExit()

@@ -182,7 +182,7 @@ end
 -- createBlockLayer
 function GameUtils:createBlockLayer()
 	local layer = cc.Layer:create()
-	local block = WidgetLoader:loadCsbFile("parts/common/BlockLayer.csb")
+	local block = WidgetLoader:loadCsbFile("layer/common/BlockLayer.csb")
 	layer:addChild(block)
 	return layer
 end
@@ -191,7 +191,7 @@ end
 -- @UI
 function GameUtils:createPauseLayer()
 	local layer = cc.Layer:create()
-	local block = WidgetLoader:loadCsbFile("parts/puzzle/PuzzlePauseLayer.csb")
+	local block = WidgetLoader:loadCsbFile("layer/puzzle/PuzzlePauseLayer.csb")
 
 	local buttonResume = WidgetObj:searchWidgetByName(block,"ButtonResume","ccui.Button")
 
