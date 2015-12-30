@@ -23,6 +23,7 @@
  ****************************************************************************/
 #include "AssetsManager.h"
 
+
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <stdio.h>
@@ -46,6 +47,8 @@
 #else // from our embedded sources
 #include "unzip.h"
 #endif
+
+#include "crypto/CCCrypto.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -181,17 +184,17 @@ bool AssetsManager::checkUpdate()
     }
     
     string recordedVersion = UserDefault::getInstance()->getStringForKey(keyOfVersion().c_str());
-    if (recordedVersion == _version)
-    {
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
-            if (this->_delegate)
-                this->_delegate->onError(ErrorCode::NO_NEW_VERSION);
-        });
-        CCLOG("there is not new version");
-        // Set resource search path.
-        setSearchPath();
-        return false;
-    }
+//    if (recordedVersion == _version)
+//    {
+//        Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
+//            if (this->_delegate)
+//                this->_delegate->onError(ErrorCode::NO_NEW_VERSION);
+//        });
+//        CCLOG("there is not new version");
+//        // Set resource search path.
+//        setSearchPath();
+//        return false;
+//    }
     
     CCLOG("there is a new version: %s", _version.c_str());
     
@@ -285,6 +288,7 @@ void AssetsManager::update()
 
 bool AssetsManager::uncompress()
 {
+    
     // Open the zip file
     string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
     unzFile zipfile = unzOpen(outFileName.c_str());
@@ -361,6 +365,8 @@ bool AssetsManager::uncompress()
                 
                 FILE *out = fopen(dir.c_str(), "r");
                 
+                
+                
                 if(!out)
                 {
                     if (!createDirectory(dir.c_str()))
@@ -399,6 +405,7 @@ bool AssetsManager::uncompress()
             
             // Create a file to store current file.
             FILE *out = fopen(fullPath.c_str(), "wb");
+            
             if (! out)
             {
                 CCLOG("can not open destination file %s", fullPath.c_str());
@@ -557,6 +564,13 @@ bool AssetsManager::downLoad()
     CCLOG("succeed downloading package %s", _packageUrl.c_str());
     
     fclose(fp);
+    
+    FILE *md5Fp = fopen(outFileName.c_str(), "r");
+    
+    char *checkSum = CCCrypto::getFileMd5Hash(md5Fp);
+
+    fclose(md5Fp);
+    
     return true;
 }
 

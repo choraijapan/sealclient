@@ -12,6 +12,6 @@ require("app.common.utils.GameUtils")
 
 
 Game.BaseDb = require("app.data.db.BaseDB")
-
+Game.BaseApi = require("app.network.api.BaseApi")
 
 

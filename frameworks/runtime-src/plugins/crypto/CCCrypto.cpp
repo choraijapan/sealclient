@@ -76,6 +76,43 @@ void CCCrypto::sha1(unsigned char* input, int inputLength,
     sha1.getDigest(buffer, bufferLength);
 }
 
+char* CCCrypto::bin2hex(unsigned char* bin, int binLength)
+{
+    static const char* hextable = "0123456789abcdef";
+    
+    int hexLength = binLength * 2 + 1;
+    char* hex = new char[hexLength];
+    memset(hex, 0, sizeof(char) * hexLength);
+    
+    int ci = 0;
+    for (int i = 0; i < 16; ++i)
+    {
+        unsigned char c = bin[i];
+        hex[ci++] = hextable[(c >> 4) & 0x0f];
+        hex[ci++] = hextable[c & 0x0f];
+    }
+    
+    return hex;
+}
+
+char* CCCrypto::getFileMd5Hash(FILE *fp){
+    unsigned char b[1024];
+    unsigned char md[CCCrypto::MD5_BUFFER_LENGTH];
+    char* md5_hash;
+    size_t n;
+    MD5_CTX ctx;
+    MD5_EX_Init(&ctx);
+    
+    while((n=fread(b,sizeof(char),1024,fp))>0){
+        MD5_EX_Update(&ctx,b,n);
+    }
+    MD5_EX_Final(md, &ctx);
+    
+    md5_hash = CCCrypto::bin2hex(md, CCCrypto::MD5_BUFFER_LENGTH);
+    return md5_hash;
+}
+
+
 #if CC_LUA_ENGINE_ENABLED > 0
 
 LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
@@ -151,25 +188,6 @@ cocos2d::LUA_STRING CCCrypto::sha1Lua(char* input, char* key, bool isRawOutput)
     }
     
     return 1;
-}
-
-char* CCCrypto::bin2hex(unsigned char* bin, int binLength)
-{
-    static const char* hextable = "0123456789abcdef";
-    
-    int hexLength = binLength * 2 + 1;
-    char* hex = new char[hexLength];
-    memset(hex, 0, sizeof(char) * hexLength);
-    
-    int ci = 0;
-    for (int i = 0; i < 16; ++i)
-    {
-        unsigned char c = bin[i];
-        hex[ci++] = hextable[(c >> 4) & 0x0f];
-        hex[ci++] = hextable[c & 0x0f];
-    }
-    
-    return hex;
 }
 
 #endif

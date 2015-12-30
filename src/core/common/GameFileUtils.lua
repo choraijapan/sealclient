@@ -31,10 +31,16 @@ function GameFileUtils:isFileExist(path)
 end
 
 function GameFileUtils:createDirectory(path)
+	if self:isDirectoryExist(path) then
+		return false;
+	end
 	return cc.FileUtils:getInstance():createDirectory(path)
 end
 
 function GameFileUtils:removeDirectory(path)
+	if self:isDirectoryExist(path) == false then
+		return false;
+	end
 	return cc.FileUtils:getInstance():removeDirectory(path)
 end
 

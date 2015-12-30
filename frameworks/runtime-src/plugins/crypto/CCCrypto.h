@@ -62,6 +62,10 @@ public:
     static void sha1(unsigned char* input, int inputLength,
                      unsigned char* key, int keyLength,
                      unsigned char* buffer, int bufferLength);
+    
+    static char* bin2hex(unsigned char* bin, int binLength);
+    
+    static char* getFileMd5Hash(FILE *file);
 
 #pragma mark -
 #pragma mark for Lua
@@ -133,7 +137,6 @@ private:
                                                  const char* input,
                                                  int inputLength);
     
-    static char* bin2hex(unsigned char* bin, int binLength);
 #endif /* CC_LUA_ENGINE_ENABLED */
     
 };

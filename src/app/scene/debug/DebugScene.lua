@@ -52,61 +52,148 @@ function DebugScene:init(...)
 	self.m = {}
 end
 
-local baseApi = require("app.network.api.BaseApi")
+local resourceVersionApi = require("app.network.api.reource.ResourceVersionApi")
 
 local testTable = require("app.data.master.TestTable")
 -- onEnter
 function DebugScene:onEnter()
-	local a = nil
-	--a = testTable:insert(record)
-	testTable:deleteById(29)
-	testTable:deleteById(103)
-	testTable:deleteById(104)
+--	local a = nil
+--	--a = testTable:insert(record)
+--	testTable:deleteById(29)
+--	testTable:deleteById(103)
+--	testTable:deleteById(104)
+--
+--	a = testTable:find()
+--	a = testTable:findAll()
+--
+--	local i = {
+--		id = 29,
+--		content = "c 29"
+--	}
+--	a = testTable:insert(i)
+--	a = testTable:find()
+--	a = testTable:findAll()
+--
+--    
+--    local recoreds = {}
+--    local i1 = {
+--        id = "103",
+--        content = "c 103"
+--    }
+--	local i2 = {
+--		id = "104",
+--		content = "c 104"
+--	}
+--	
+--	recoreds[1] = i1
+--	recoreds[2] = i2
+--    
+--	testTable:batchInsert(recoreds)
+--    
+--    
+--	local updateQueyr = {
+--		content = "test3"
+--	}
+--
+--	testTable:update(updateQueyr, " id = 29")
+--	--baseApi:request(nil)
+--	
+--	-- test createDir
+--	local is = GameFileUtils:isDirectoryExist(GameFileUtils:getDownloadPath())
+--	if is == false then
+--		GameFileUtils:createDirectory(GameFileUtils:getDownloadPath())
+--	else
+--		GameFileUtils:removeDirectory(GameFileUtils:getDownloadPath())
+--	end
+--	resourceVersionApi:updateVersionFile()
 
-	a = testTable:find()
-	a = testTable:findAll()
+	local debugTable = require("src.app.scene.debug.DebugTable")
+	debugTable:init()
+	--self:TestResVerUpdate()
 
-	local i = {
-		id = 29,
-		content = "c 29"
-	}
-	a = testTable:insert(i)
-	a = testTable:find()
-	a = testTable:findAll()
+	self:AseetsDownload()
+end
 
-    
-    local recoreds = {}
-    local i1 = {
-        id = "103",
-        content = "c 103"
-    }
-	local i2 = {
-		id = "104",
-		content = "c 104"
-	}
+-- onExit
+function DebugScene:TestResVerUpdate()
+	local resVerTable = require("app.data.user.ResourceVerTable")
+	resourceVersionApi:updateVersionFile(function(res)
+		for key, var1 in pairs(res) do
+			local record = resVerTable:find(string.format("WHERE path = '%s' AND file = '%s'",var.path, var.file))
+			if record == nil then
+				local insert = {
+					path  = var.path,
+					file  = var.file,
+					checksum = var.checksum,
+					update_flg = 0
+				}
+				resVerTable:insert(insert)
+			elseif record.checksum ~= var.checksum then
+
+				local update = {
+					checksum = var.checksum,
+					update_flg = 0,
+				}
+				resVerTable:updateById(update,record.id)
+			end
+		end
+	end)
+end
+
+-- onExit
+function DebugScene:AseetsDownload()
+	local assetsManager       = nil
+
+	local resVerTable = require("app.data.user.ResourceVerTable")
+	local download_records = resVerTable:find("WHERE update_flg = 0 ")
 	
-	recoreds[1] = i1
-	recoreds[2] = i2
-    
-	testTable:batchInsert(recoreds)
-    
-    
-	local updateQueyr = {
-		content = "test3"
-	}
-
-	testTable:update(updateQueyr, " id = 29")
-	--baseApi:request(nil)
+	local res_download_path = GameFileUtils:getDownloadPath()
+	GameFileUtils:createDirectory(res_download_path)
 	
-	-- test createDir
-	local is = GameFileUtils:isDirectoryExist(GameFileUtils:getDownloadPath())
-	if is == false then
-		GameFileUtils:createDirectory(GameFileUtils:getDownloadPath())
-	else
-		GameFileUtils:removeDirectory(GameFileUtils:getDownloadPath())
+	
+	
+	local function onError(errorCode)
+		if errorCode == cc.ASSETSMANAGER_NO_NEW_VERSION then
+		elseif errorCode == cc.ASSETSMANAGER_NETWORK then
+		end
+	end
+
+	local function onProgress( percent )
+		DebugLog.debug(string.format("downloading %d%%",percent))
+	end
+
+	local function onSuccess()
+	
+		DebugLog.debug("downloading ok")
+	end
+
+	local function getAssetsManager()
+		if nil == assetsManager then
+			assetsManager = cc.AssetsManager:new("http://192.168.33.10/app/dl/res/Default/Button_Disable.png.zip",
+				"https://raw.github.com/samuele3hu/AssetsManagerTest/master/version",
+				res_download_path)
+			assetsManager:retain()
+			assetsManager:setDelegate(onError, cc.ASSETSMANAGER_PROTOCOL_ERROR )
+			assetsManager:setDelegate(onProgress, cc.ASSETSMANAGER_PROTOCOL_PROGRESS)
+			assetsManager:setDelegate(onSuccess, cc.ASSETSMANAGER_PROTOCOL_SUCCESS )
+			assetsManager:setConnectionTimeout(3)
+		end
+
+		return assetsManager
 	end
 	
+	getAssetsManager():update()
+--	
+--	for key, var in pairs(download_records) do
+--		
+--	end
+	
+	
+	
+	
+	
 end
+
 
 -- onExit
 function DebugScene:onExit()

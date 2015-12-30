@@ -2,7 +2,7 @@
     
 local BaseApi = class("BaseApi")
 
-function BaseApi:request(param, callback)
+function BaseApi:request(api, param, callback)
 	
 	--response
 	local function baseCallback(success, res)
@@ -18,10 +18,13 @@ function BaseApi:request(param, callback)
 		end
     end
 
-
-	local param = {}
-	local url = "http://www.baidu.com/"
-	NetworkManager:request("mypage/index.msgpack",param, baseCallback)
+	if param == nil then
+		param = {} 
+	end
+--	local url = "http://www.baidu.com/"
+	--NetworkManager:request("mypage/index.msgpack",param, baseCallback)
+	NetworkManager:request(api,param, baseCallback)
+	
 --	
 --	local data1 = {
 --	   a = 1,
