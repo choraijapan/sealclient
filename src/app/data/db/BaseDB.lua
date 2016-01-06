@@ -15,7 +15,6 @@ function BaseDB:open()
 		if GameFileUtils:isDirectoryExist(path) == false then
 		  GameFileUtils:createDirectory(path)
 		end
-		
 		self.db = sqlite3.open(path..self.db_name)
 	end
 end
@@ -26,6 +25,7 @@ function BaseDB:close()
 end
 
 function BaseDB:exec(query)
+	self:open()
 	self.db:exec(query)
 end
 

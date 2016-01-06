@@ -49,6 +49,7 @@
 #endif
 
 #include "crypto/CCCrypto.h"
+#include "sqlite3.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -98,6 +99,10 @@ AssetsManager::AssetsManager(const char* packageUrl/* =nullptr */, const char* v
 , _delegate(nullptr)
 , _isDownloading(false)
 , _shouldDeleteDelegateWhenExit(false)
+, _id(-1)
+, _path("")
+, _file("")
+, _checkSum("")
 {
     checkStoragePath();
 }
@@ -205,6 +210,8 @@ void AssetsManager::downloadAndUncompress()
 {
     do
     {
+        this->updateDownloadTarget();
+        
         if (_downloadedVersion != _version)
         {
             if (! downLoad()) break;
@@ -558,6 +565,10 @@ bool AssetsManager::downLoad()
         });
         CCLOG("error when download package");
         fclose(fp);
+        this->_id = -1;
+        this->_path = "";
+        this->_file = "";
+        this->_checkSum = "";
         return false;
     }
     
@@ -566,11 +577,23 @@ bool AssetsManager::downLoad()
     fclose(fp);
     
     FILE *md5Fp = fopen(outFileName.c_str(), "r");
-    
     char *checkSum = CCCrypto::getFileMd5Hash(md5Fp);
+    
+    if (strcmp(this->_checkSum.c_str(), checkSum) != 0) {
+        // 失敗
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
+            if (this->_delegate)
+                this->_delegate->onError(ErrorCode::NETWORK);
+        });
+    }
 
     fclose(md5Fp);
     
+    this->updateDownloadFlg(this->_id);
+    this->_id = -1;
+    this->_path = "";
+    this->_file = "";
+    this->_checkSum = "";
     return true;
 }
 
@@ -654,6 +677,7 @@ AssetsManager* AssetsManager::create(const char* packageUrl, const char* version
     manager->setDelegate(delegate);
     manager->_shouldDeleteDelegateWhenExit = true;
     manager->autorelease();
+    
     return manager;
 }
 
@@ -697,5 +721,69 @@ void AssetsManager::destroyStoragePath()
     system(command.c_str());    
 #endif
 }
+
+void AssetsManager::updateDownloadTarget(){
+    char dbPath[256] = {0};
+    sprintf(dbPath,"%s%s",FileUtils::getInstance()->getWritablePath().c_str(),"user/user.db");
+
+    sqlite3 *pDB = NULL;
+    int err = sqlite3_open(dbPath, &pDB);
+    if(err != SQLITE_OK){
+        /* TODO:エラー処理 */
+        sqlite3_close(pDB);
+        return;
+    }
+    const char *sql = "select * from resource_ver where update_flg = 1 limit 1";
+    sqlite3_stmt *stmt=NULL;
+    sqlite3_prepare(pDB, sql, (int)strlen(sql), &stmt, NULL);
+    
+    // stmtの内部バッファを一旦クリア
+//    sqlite3_reset(stmt);
+    
+    // stmtのSQLを実行し、結果を一列づつ取得
+    int r;
+    while (SQLITE_ROW == (r=sqlite3_step(stmt))){
+        int  id = sqlite3_column_int(stmt, 0);
+        const unsigned char *path = sqlite3_column_text(stmt, 1);
+        const unsigned char *file = sqlite3_column_text(stmt, 2);
+        const unsigned char *checksum = sqlite3_column_text(stmt, 3);
+        
+        this->_id = id;
+        this->_path = std::string((const char*)path);
+        this->_file = std::string((const char*)file);
+        this->_checkSum = std::string((const char*)checksum);
+    }
+    if (SQLITE_DONE!=r){
+        // エラー
+        sqlite3_close(pDB);
+        return;
+    }
+    
+    // stmt を開放
+    sqlite3_finalize(stmt);
+    sqlite3_close(pDB);
+}
+
+void AssetsManager::updateDownloadFlg(int id){
+    
+    char *errorMessage = 0;
+    char dbPath[256] = {0};
+    sprintf(dbPath,"%s%s",FileUtils::getInstance()->getWritablePath().c_str(),"user/user.db");
+
+    sqlite3 *pDB = NULL;
+    int err = sqlite3_open(dbPath, &pDB);
+    if(err != SQLITE_OK){
+        /* TODO:エラー処理 */
+        sqlite3_close(pDB);
+        return;
+    }
+
+    char updateSql[256] = {0};
+    sprintf(updateSql,"update resource_ver set update_flg = 2 where id = %d",id);
+    int status = sqlite3_exec(pDB, updateSql, nullptr, nullptr, &errorMessage);
+    if(status != SQLITE_OK) CCLOG("update: %s", errorMessage);
+    sqlite3_close(pDB);
+}
+
 
 NS_CC_EXT_END;

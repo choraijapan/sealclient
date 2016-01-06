@@ -179,6 +179,10 @@ private:
      */
     void destroyStoragePath();
     
+    void updateDownloadTarget();
+
+    void updateDownloadFlg(int id);
+    
 private:
     //! The path to store downloaded resources.
     std::string _storagePath;
@@ -202,6 +206,12 @@ private:
     
     std::string keyOfVersion() const;
     std::string keyOfDownloadedVersion() const;
+    
+    int _id;
+    std::string _path;
+    std::string _file;
+    std::string _checkSum;
+    
 };
 
 class AssetsManagerDelegateProtocol
