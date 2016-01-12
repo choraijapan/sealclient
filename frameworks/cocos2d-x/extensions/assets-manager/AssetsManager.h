@@ -45,6 +45,7 @@ class AssetsManagerDelegateProtocol;
 class CC_EX_DLL AssetsManager : public Node
 {
 public:
+    
     enum class ErrorCode
     {
         // Error caused by creating a file to store downloaded data
@@ -66,6 +67,13 @@ public:
          -- ...
          */
         UNCOMPRESS,
+    };
+    
+    struct DownloadInfo {
+        int _id;
+        std::string _path;
+        std::string _file;
+        std::string _checkSum;
     };
     
     /* @brief Creates a AssetsManager with new package url, version code url and storage path.
@@ -163,7 +171,7 @@ public:
     friend int assetsManagerProgressFunc(void *, double, double, double, double);
 
 protected:
-    bool downLoad();
+    bool downLoad(DownloadInfo info);
     void checkStoragePath();
     bool uncompress();
     bool createDirectory(const char *path);
@@ -179,7 +187,9 @@ private:
      */
     void destroyStoragePath();
     
-    void updateDownloadTarget();
+   
+
+    std::vector<DownloadInfo> getDownloadIdList();
 
     void updateDownloadFlg(int id);
     
@@ -207,10 +217,8 @@ private:
     std::string keyOfVersion() const;
     std::string keyOfDownloadedVersion() const;
     
-    int _id;
-    std::string _path;
-    std::string _file;
-    std::string _checkSum;
+    
+   
     
 };
 
