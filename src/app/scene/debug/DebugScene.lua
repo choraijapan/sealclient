@@ -110,7 +110,9 @@ function DebugScene:onEnter()
 	local debugTable = require("src.app.scene.debug.DebugTable")
 	debugTable:init()
 	--self:TestResVerUpdate()
-
+--	cc.AssetsManager:new("http://192.168.33.10/app/dl/res/Default/Button_Disable.png.zip",
+--		"https://raw.github.com/samuele3hu/AssetsManagerTest/master/version",
+--		res_download_path)
 	self:AseetsDownload()
 end
 
@@ -118,7 +120,7 @@ end
 function DebugScene:TestResVerUpdate()
 	local resVerTable = require("app.data.user.ResourceVerTable")
 	resourceVersionApi:updateVersionFile(function(res)
-		for key, var1 in pairs(res) do
+		for key, var in pairs(res) do
 			local record = resVerTable:find(string.format("WHERE path = '%s' AND file = '%s'",var.path, var.file))
 			if record == nil then
 				local insert = {
@@ -169,8 +171,8 @@ function DebugScene:AseetsDownload()
 
 	local function getAssetsManager()
 		if nil == assetsManager then
-			assetsManager = cc.AssetsManager:new("http://192.168.33.10/app/dl/res/Default/Button_Disable.png.zip",
-				"https://raw.github.com/samuele3hu/AssetsManagerTest/master/version",
+			assetsManager = cc.AssetsManager:new("http://192.168.33.10/static/download",
+				"",
 				res_download_path)
 			assetsManager:retain()
 			assetsManager:setDelegate(onError, cc.ASSETSMANAGER_PROTOCOL_ERROR )

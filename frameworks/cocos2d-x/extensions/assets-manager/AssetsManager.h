@@ -173,7 +173,7 @@ public:
 protected:
     bool downLoad(DownloadInfo info);
     void checkStoragePath();
-    bool uncompress();
+    bool uncompress(DownloadInfo info);
     bool createDirectory(const char *path);
     void setSearchPath();
     void downloadAndUncompress();

@@ -184,21 +184,6 @@ bool AssetsManager::checkUpdate()
         return false;
     }
     
-    string recordedVersion = UserDefault::getInstance()->getStringForKey(keyOfVersion().c_str());
-//    if (recordedVersion == _version)
-//    {
-//        Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
-//            if (this->_delegate)
-//                this->_delegate->onError(ErrorCode::NO_NEW_VERSION);
-//        });
-//        CCLOG("there is not new version");
-//        // Set resource search path.
-//        setSearchPath();
-//        return false;
-//    }
-    
-  //  CCLOG("there is a new version: %s", _version.c_str());
-    
     return true;
 }
 
@@ -209,9 +194,6 @@ void AssetsManager::downloadAndUncompress()
 
     bool success = true;
     for (DownloadInfo info: downloadIdList) {
-        string zipfileName = this->_storagePath + TEMP_PACKAGE_FILE_NAME;
-        remove(zipfileName.c_str());
-        
         do
         {
             if (! downLoad(info))  {
@@ -219,18 +201,10 @@ void AssetsManager::downloadAndUncompress()
                 break;
             }
             
-//            Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
-//                UserDefault::getInstance()->setStringForKey(this->keyOfDownloadedVersion().c_str(),
-//                                                            this->_version.c_str());
-//                UserDefault::getInstance()->flush();
-//            });
-            
             // Uncompress zip file.
-            if (! uncompress())
+            if (! uncompress(info))
             {
                 Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
-//                    UserDefault::getInstance()->setStringForKey(this->keyOfDownloadedVersion().c_str(),"");
-//                    UserDefault::getInstance()->flush();
                     if (this->_delegate)
                         this->_delegate->onError(ErrorCode::UNCOMPRESS);
                 });
@@ -238,24 +212,12 @@ void AssetsManager::downloadAndUncompress()
                 break;
             }
             
-            Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this] {
-                this->updateDownloadFlg(info._id);
-//                // Record new version code.
-//                UserDefault::getInstance()->setStringForKey(this->keyOfVersion().c_str(), this->_version.c_str());
-//                
-//                // Unrecord downloaded version code.
-//                UserDefault::getInstance()->setStringForKey(this->keyOfDownloadedVersion().c_str(), "");
-//                UserDefault::getInstance()->flush();
-//                
-                // Set resource search path.
-                // this->setSearchPath();
-                
-                // Delete unloaded zip file.
-                if (remove(zipfileName.c_str()) != 0)
-                {
-                    CCLOG("can not remove downloaded zip file %s", zipfileName.c_str());
-                }
-            });
+            string zipfileName = _storagePath + info._path + "/" + info._file;
+            if (! FileUtils::getInstance()->removeFile(zipfileName));
+            {
+                CCLOG("can not remove downloaded zip file %s", zipfileName.c_str());
+            }
+            this->updateDownloadFlg(info._id);
             
         } while (0);
         
@@ -274,35 +236,15 @@ void AssetsManager::update()
     
     _isDownloading = true;
     
-    // 1. Urls of package and version should be valid;
-    // 2. Package should be a zip file.
-//    if (_versionFileUrl.size() == 0 ||
-//        _packageUrl.size() == 0 ||
-//        std::string::npos == _packageUrl.find(".zip"))
-//    {
-//        CCLOG("no version file url, or no package url, or the package is not a zip file");
-//        _isDownloading = false;
-//        return;
-//    }
-    
-    // Check if there is a new version.
-//    if (! checkUpdate())
-//    {
-//        _isDownloading = false;
-//        return;
-//    }
-    
-    // Is package already downloaded?
-    //_downloadedVersion = UserDefault::getInstance()->getStringForKey(keyOfDownloadedVersion().c_str());
     auto t = std::thread(&AssetsManager::downloadAndUncompress, this);
     t.detach();
 }
 
-bool AssetsManager::uncompress()
+bool AssetsManager::uncompress(AssetsManager::DownloadInfo info)
 {
     
     // Open the zip file
-    string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
+    string outFileName = _storagePath + info._path + "/" + info._file;
     unzFile zipfile = unzOpen(outFileName.c_str());
     if (! zipfile)
     {
@@ -345,7 +287,7 @@ bool AssetsManager::uncompress()
             return false;
         }
         
-        const string fullPath = _storagePath + fileName;
+        const string fullPath = _storagePath + info._path + "/" + fileName;
         
         // Check if this entry is a directory or a file.
         const size_t filenameLength = strlen(fileName);
@@ -353,7 +295,7 @@ bool AssetsManager::uncompress()
         {
             // Entry is a direcotry, so create it.
             // If the directory exists, it will failed scilently.
-            if (!createDirectory(fullPath.c_str()))
+            if (!FileUtils::getInstance()->createDirectory(fullPath.c_str()))
             {
                 CCLOG("can not create directory %s", fullPath.c_str());
                 unzClose(zipfile);
@@ -373,15 +315,13 @@ bool AssetsManager::uncompress()
             
             while(index != std::string::npos)
             {
-                const string dir=_storagePath+fileNameStr.substr(0,index);
+                const string dir=_storagePath + info._path + "/" + fileNameStr.substr(0,index);
                 
                 FILE *out = fopen(dir.c_str(), "r");
                 
-                
-                
                 if(!out)
                 {
-                    if (!createDirectory(dir.c_str()))
+                    if (!FileUtils::getInstance()->createDirectory(dir.c_str()))
                     {
                         CCLOG("can not create directory %s", dir.c_str());
                         unzClose(zipfile);
@@ -535,7 +475,8 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
 bool AssetsManager::downLoad(AssetsManager::DownloadInfo info)
 {
     // Create a file to save package.
-    const string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
+    FileUtils::getInstance()->createDirectory(_storagePath + info._path);
+    const string outFileName = _storagePath + info._path + "/" + info._file;
     FILE *fp = fopen(outFileName.c_str(), "wb");
     if (! fp)
     {
@@ -550,7 +491,7 @@ bool AssetsManager::downLoad(AssetsManager::DownloadInfo info)
     char downloadUrl[256] ={0};
     
     sprintf(downloadUrl, "%s/%s/%s", _packageUrl.c_str(),info._path.c_str(),info._file.c_str());
-    
+    _curl = curl_easy_init();
     // Download pacakge
     CURLcode res;
     curl_easy_setopt(_curl, CURLOPT_URL, downloadUrl);
@@ -581,19 +522,19 @@ bool AssetsManager::downLoad(AssetsManager::DownloadInfo info)
     
     fclose(fp);
     
-    FILE *md5Fp = fopen(outFileName.c_str(), "r");
-    char *checkSum = CCCrypto::getFileMd5Hash(md5Fp);
-    
-    if (strcmp(info._checkSum.c_str(), checkSum) != 0) {
-        // 失敗
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
-            if (this->_delegate)
-                this->_delegate->onError(ErrorCode::NETWORK);
-        });
-        return false;
-    }
-
-    fclose(md5Fp);
+//    FILE *md5Fp = fopen(outFileName.c_str(), "r");
+//    char *checkSum = CCCrypto::getFileMd5Hash(md5Fp);
+//    
+//    if (strcmp(info._checkSum.c_str(), checkSum) != 0) {
+//        // 失敗
+//        Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
+//            if (this->_delegate)
+//                this->_delegate->onError(ErrorCode::NETWORK);
+//        });
+//        return false;
+//    }
+//
+//    fclose(md5Fp);
     return true;
 }
 
