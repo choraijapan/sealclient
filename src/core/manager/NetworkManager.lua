@@ -3,22 +3,23 @@ NetworkManager = class("NetworkManager")
 local cjson = require("cjson")
 local msgPack = require("msgpackcpp")
 
-function NetworkManager:request(api,param,callback)
+function NetworkManager:request(api,type,param,callback)
 	if EnvironmentConst.HTTP_DATA_TYPE == cc.XMLHTTPREQUEST_RESPONSE_MSGPACK then
-	   self:request_msgpack(api,param,callback)
+	   self:request_msgpack(api,type,param,callback)
 	end
 	
 	if EnvironmentConst.HTTP_DATA_TYPE == cc.XMLHTTPREQUEST_RESPONSE_JSON then
-		self:request_json(api,param,callback)
+		self:request_json(api,type,param,callback)
 	end
 end
 
-function NetworkManager:request_msgpack(api,param,callback)
+
+function NetworkManager:request_msgpack(api,type,param,callback)
 
 	local xhr = cc.XMLHttpRequest:new()
 	xhr.responseType = cc.XMLHTTPREQUEST_RESPONSE_MSGPACK
 
-	xhr:open("POST", EnvironmentConst.HTTP_SERVER_URL..api)
+	xhr:open(type, EnvironmentConst.HTTP_SERVER_URL..api)
 
 	local function onResponse()
 		if xhr.readyState == 4 and (xhr.status >= 200 and xhr.status < 207) then
@@ -37,12 +38,12 @@ function NetworkManager:request_msgpack(api,param,callback)
 end
 
 
-function NetworkManager:request_json(api,param,callback)
+function NetworkManager:request_json(api,type,param,callback)
 
 	local xhr = cc.XMLHttpRequest:new()
 	xhr.responseType = cc.XMLHTTPREQUEST_RESPONSE_JSON
 
-	xhr:open("POST", EnvironmentConst.HTTP_SERVER_URL..api)
+	xhr:open(type, EnvironmentConst.HTTP_SERVER_URL..api)
 
 	local function onResponse()
 		if xhr.readyState == 4 and (xhr.status >= 200 and xhr.status < 207) then

@@ -2,6 +2,8 @@
     
 local BaseApi = class("BaseApi")
 
+BaseApi.request_type = "POST"
+
 function BaseApi:request(api, param, callback)
 	
 	--response
@@ -18,23 +20,11 @@ function BaseApi:request(api, param, callback)
 		end
     end
 
+
 	if param == nil then
 		param = {} 
 	end
---	local url = "http://www.baidu.com/"
-	--NetworkManager:request("mypage/index.msgpack",param, baseCallback)
-	NetworkManager:request(api,param, baseCallback)
-	
---	
---	local data1 = {
---	   a = 1,
---	   b = "お破y路Fだfdさfdさfdさfdさfdさ"
---	}
---	
---	local tbl = { a=123, b="any", c={"ta","bl","e",1,2,3} }
---	local packed = msgPack.pack(data1)
---	local unpacked_table = msgPack.unpack(packed)
-	
+	NetworkManager:request(api,self.request_type,param, baseCallback)
 end
 
 

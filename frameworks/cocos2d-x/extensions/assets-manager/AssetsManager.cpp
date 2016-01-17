@@ -100,11 +100,13 @@ AssetsManager::AssetsManager(const char* packageUrl/* =nullptr */, const char* v
 , _isDownloading(false)
 , _shouldDeleteDelegateWhenExit(false)
 {
+    _curl = curl_easy_init();
     checkStoragePath();
 }
 
 AssetsManager::~AssetsManager()
 {
+    curl_easy_cleanup(_curl);
     if (_shouldDeleteDelegateWhenExit)
     {
         delete _delegate;
@@ -149,37 +151,14 @@ static size_t getVersionCode(void *ptr, size_t size, size_t nmemb, void *userdat
 
 bool AssetsManager::checkUpdate()
 {
-    if (_versionFileUrl.size() == 0) return false;
-    
-    _curl = curl_easy_init();
-    if (! _curl)
-    {
-        CCLOG("can not init curl");
-        return false;
-    }
-    
-    // Clear _version before assign new value.
-    _version.clear();
-    
-    CURLcode res;
-    curl_easy_setopt(_curl, CURLOPT_URL, _versionFileUrl.c_str());
-    curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
-    curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, getVersionCode);
-    curl_easy_setopt(_curl, CURLOPT_WRITEDATA, &_version);
-    if (_connectionTimeout) curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
-    curl_easy_setopt(_curl, CURLOPT_NOSIGNAL, 1L);
-    curl_easy_setopt(_curl, CURLOPT_LOW_SPEED_LIMIT, LOW_SPEED_LIMIT);
-    curl_easy_setopt(_curl, CURLOPT_LOW_SPEED_TIME, LOW_SPEED_TIME);
-    curl_easy_setopt(_curl, CURLOPT_FOLLOWLOCATION, 1 );
-    res = curl_easy_perform(_curl);
-    
-    if (res != 0)
+    std::vector<DownloadInfo> downloadIdList = this->getDownloadIdList();
+    if (downloadIdList.empty())
     {
         Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
             if (this->_delegate)
-                this->_delegate->onError(ErrorCode::NETWORK);
+                this->_delegate->onError(ErrorCode::NO_NEW_VERSION);
         });
-        CCLOG("can not get version file content, error code is %d", res);
+        CCLOG("there is no new version");
         curl_easy_cleanup(_curl);
         return false;
     }
@@ -213,10 +192,7 @@ void AssetsManager::downloadAndUncompress()
             }
             
             string zipfileName = _storagePath + info._path + "/" + info._file;
-            if (! FileUtils::getInstance()->removeFile(zipfileName));
-            {
-                CCLOG("can not remove downloaded zip file %s", zipfileName.c_str());
-            }
+            FileUtils::getInstance()->removeFile(zipfileName);
             this->updateDownloadFlg(info._id);
             
         } while (0);
@@ -465,8 +441,6 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
             if (manager->_delegate)
                 manager->_delegate->onProgress(percent);
         });
-        
-        CCLOG("downloading... %d%%", percent);
     }
     
     return 0;
@@ -506,7 +480,7 @@ bool AssetsManager::downLoad(AssetsManager::DownloadInfo info)
     curl_easy_setopt(_curl, CURLOPT_FOLLOWLOCATION, 1 );
 
     res = curl_easy_perform(_curl);
-    curl_easy_cleanup(_curl);
+    
     if (res != 0)
     {
         Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
@@ -518,7 +492,7 @@ bool AssetsManager::downLoad(AssetsManager::DownloadInfo info)
         return false;
     }
     
-    CCLOG("succeed downloading package %s", _packageUrl.c_str());
+    CCLOG("succeed downloading package %s/%s/%s", _packageUrl.c_str(),info._path.c_str(),info._file.c_str());
     
     fclose(fp);
     

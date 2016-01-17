@@ -109,32 +109,33 @@ function DebugScene:onEnter()
 
 	local debugTable = require("src.app.scene.debug.DebugTable")
 	debugTable:init()
-	--self:TestResVerUpdate()
+--	self:TestResVerUpdate()
 --	cc.AssetsManager:new("http://192.168.33.10/app/dl/res/Default/Button_Disable.png.zip",
 --		"https://raw.github.com/samuele3hu/AssetsManagerTest/master/version",
 --		res_download_path)
 	self:AseetsDownload()
 end
 
+
 -- onExit
 function DebugScene:TestResVerUpdate()
 	local resVerTable = require("app.data.user.ResourceVerTable")
 	resourceVersionApi:updateVersionFile(function(res)
 		for key, var in pairs(res) do
-			local record = resVerTable:find(string.format("WHERE path = '%s' AND file = '%s'",var.path, var.file))
+			local record = resVerTable:find(string.format("WHERE path = '%s' AND file = '%s'",var[1], var[2]))
 			if record == nil then
 				local insert = {
-					path  = var.path,
-					file  = var.file,
-					checksum = var.checksum,
-					update_flg = 0
+					path  = var[1],
+					file  = var[2],
+					checksum = var[3],
+					update_flg = 1
 				}
 				resVerTable:insert(insert)
 			elseif record.checksum ~= var.checksum then
 
 				local update = {
 					checksum = var.checksum,
-					update_flg = 0,
+					update_flg = 1,
 				}
 				resVerTable:updateById(update,record.id)
 			end
@@ -142,31 +143,38 @@ function DebugScene:TestResVerUpdate()
 	end)
 end
 
+
 -- onExit
 function DebugScene:AseetsDownload()
 	local assetsManager       = nil
 
 	local resVerTable = require("app.data.user.ResourceVerTable")
-	local download_records = resVerTable:find("WHERE update_flg = 0 ")
 	
 	local res_download_path = GameFileUtils:getDownloadPath()
 	GameFileUtils:createDirectory(res_download_path)
 	
-	
-	
 	local function onError(errorCode)
+		assetsManager:release()
 		if errorCode == cc.ASSETSMANAGER_NO_NEW_VERSION then
 		elseif errorCode == cc.ASSETSMANAGER_NETWORK then
 		end
 	end
 
 	local function onProgress( percent )
-		DebugLog.debug(string.format("downloading %d%%",percent))
+	   if (percent <= 0) then
+			percent = 0
+	   end
+	   DebugLog:debug(percent)
 	end
 
 	local function onSuccess()
 	
-		DebugLog.debug("downloading ok")
+		DebugLog:debug("downloading ok")
+		local re = resVerTable:find("WHERE update_flg = 1 ")
+		if not re then
+		  assetsManager:release()
+		end
+		
 	end
 
 	local function getAssetsManager()
@@ -185,14 +193,6 @@ function DebugScene:AseetsDownload()
 	end
 	
 	getAssetsManager():update()
---	
---	for key, var in pairs(download_records) do
---		
---	end
-	
-	
-	
-	
 	
 end
 
