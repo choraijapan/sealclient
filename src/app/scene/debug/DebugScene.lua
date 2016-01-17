@@ -180,7 +180,7 @@ function DebugScene:AseetsDownload()
 	local function getAssetsManager()
 		if nil == assetsManager then
 			assetsManager = cc.AssetsManager:new("http://192.168.33.10/static/download",
-				"",
+			    cc.FileUtils:getInstance():getWritablePath().."user/user.db",
 				res_download_path)
 			assetsManager:retain()
 			assetsManager:setDelegate(onError, cc.ASSETSMANAGER_PROTOCOL_ERROR )

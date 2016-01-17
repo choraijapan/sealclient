@@ -644,11 +644,9 @@ std::vector<AssetsManager::DownloadInfo> AssetsManager::getDownloadIdList(){
     
     std::vector<AssetsManager::DownloadInfo> downloadIdList;
     
-    char dbPath[256] = {0};
-    sprintf(dbPath,"%s%s",FileUtils::getInstance()->getWritablePath().c_str(),"user/user.db");
-
+   
     sqlite3 *pDB = NULL;
-    int err = sqlite3_open(dbPath, &pDB);
+    int err = sqlite3_open(_versionFileUrl.c_str(), &pDB);
     if(err != SQLITE_OK){
         /* TODO:エラー処理 */
         sqlite3_close(pDB);
@@ -691,11 +689,9 @@ std::vector<AssetsManager::DownloadInfo> AssetsManager::getDownloadIdList(){
 void AssetsManager::updateDownloadFlg(int id){
     
     char *errorMessage = 0;
-    char dbPath[256] = {0};
-    sprintf(dbPath,"%s%s",FileUtils::getInstance()->getWritablePath().c_str(),"user/user.db");
-
+    
     sqlite3 *pDB = NULL;
-    int err = sqlite3_open(dbPath, &pDB);
+    int err = sqlite3_open(_versionFileUrl.c_str(), &pDB);
     if(err != SQLITE_OK){
         /* TODO:エラー処理 */
         sqlite3_close(pDB);
