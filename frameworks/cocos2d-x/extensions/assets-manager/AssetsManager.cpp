@@ -159,7 +159,6 @@ bool AssetsManager::checkUpdate()
                 this->_delegate->onError(ErrorCode::NO_NEW_VERSION);
         });
         CCLOG("there is no new version");
-        curl_easy_cleanup(_curl);
         return false;
     }
     
@@ -208,6 +207,10 @@ void AssetsManager::downloadAndUncompress()
 
 void AssetsManager::update()
 {
+    if (!this->checkUpdate()) {
+        return;
+    }
+    
     if (_isDownloading) return;
     
     _isDownloading = true;
