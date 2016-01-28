@@ -20,7 +20,7 @@ function ScenePuzzle:init(...)
 --	require('app.layer.puzzle.PuzzleLayer')
 	self.scene:addChild(PuzzleLayer:create(),1)
 	local function update(dt)
-		for var=0, 3 do
+		for var=0, 2 do
 			self.scene:getPhysicsWorld():step(dt/1)
 		end
 	end

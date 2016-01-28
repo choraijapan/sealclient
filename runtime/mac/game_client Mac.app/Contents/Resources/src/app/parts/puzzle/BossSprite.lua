@@ -49,7 +49,7 @@ BossSprite.color = {
 function BossSprite:ctor()
 	self.active = true
 	self.canBeAttack = false
-	self.hpMax = 10000000
+	self.hpMax = 200000
 	self.hp = self.hpMax
 	self.atk = 1
 	self.power = 1.0
@@ -83,7 +83,7 @@ end
 --------------------------------------------------------------------------------
 -- init
 function BossSprite:init()
-
+	cc.SimpleAudioEngine:getInstance():playBackgroundMusic("sound/bgm31.m4a",true)
 	self:addArmature()
 	self:addHp()
 	self:addEventDispatcher()

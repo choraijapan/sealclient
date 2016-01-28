@@ -4,7 +4,7 @@ local ConfirmLayer = class("ConfirmLayer",cc.Layer)
 --------------------------------------------------------------------------------
 -- const変数
 local TAG = "ConfirmLayer:"
-local CSBFILE = "parts/puzzle/ConfirmLayer.csb"
+local CSBFILE = "layer/puzzle/ConfirmLayer.csb"
 --------------------------------------------------------------------------------
 -- メンバ変数
 --------------------------------------------------------------------------------

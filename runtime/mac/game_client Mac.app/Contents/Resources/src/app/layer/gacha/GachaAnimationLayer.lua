@@ -1,17 +1,4 @@
 local GachaAnimationLayer = class("GachaAnimationLayer", cc.Layer)
-
-GachaAnimationLayer.wall = nil
-GachaAnimationLayer.cards = {
-	card1 = nil,
-	card2 = nil,
-	card3 = nil,
-	card4 = nil,
-	card5 = nil,
-	card6 = nil
-}
-
-local MAX_BULLET = 15
-
 --------------------------------------------------------------------------------
 -- UI
 local CCUI_CSB = "layer/gacha/GachaAnimationLayer.csb"
@@ -24,16 +11,22 @@ end
 --------------------------------------------------------------------------------
 -- create
 function GachaAnimationLayer:create()
-	self:init()
-	return self
+	local layer = GachaAnimationLayer.new()
+	layer:init()
+	return layer
 end
 --------------------------------------------------------------------------------
 -- init
 function GachaAnimationLayer:init()
 	CCUI_GachaAnimationLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
-	self:addChild(CCUI_GachaAnimationLayer,1)
+	self:addChild(CCUI_GachaAnimationLayer)
 	
-	CCUI_ResultPanel = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"ResutlPanel",WidgetConst.OBJ_TYPE.Panel)
+	local tl = WidgetLoader:loadCsbAnimation(CCUI_CSB)
+	self:runAction(tl)
+--	tl:gotoFrameAndPlay(0,false)
+	tl:play("gacha",false)
+	
+	CCUI_ResultPanel = WidgetObj:searchWidgetByName(CCUI_GachaAnimationLayer,"ResultPanel",WidgetConst.OBJ_TYPE.Panel)
 	TouchManager:pressedDown(CCUI_ResultPanel,
 		function()
 			self:removeSelf()

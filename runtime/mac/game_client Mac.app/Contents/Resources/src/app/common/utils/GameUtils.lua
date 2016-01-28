@@ -8,7 +8,7 @@
 -- @date 2015/10/28
 -------------------------------------------------------------------------------
 GameUtils = class("GameUtils")
-GameUtils.TouchFlag = false
+GameUtils.IsGameActive = false
 
 ---#############################################################################
 ---### Effect関連
@@ -182,7 +182,7 @@ end
 -- createBlockLayer
 function GameUtils:createBlockLayer()
 	local layer = cc.Layer:create()
-	local block = WidgetLoader:loadCsbFile("parts/common/BlockLayer.csb")
+	local block = WidgetLoader:loadCsbFile("layer/common/BlockLayer.csb")
 	layer:addChild(block)
 	return layer
 end
@@ -191,7 +191,7 @@ end
 -- @UI
 function GameUtils:createPauseLayer()
 	local layer = cc.Layer:create()
-	local block = WidgetLoader:loadCsbFile("parts/puzzle/PuzzlePauseLayer.csb")
+	local block = WidgetLoader:loadCsbFile("layer/puzzle/PuzzlePauseLayer.csb")
 
 	local buttonResume = WidgetObj:searchWidgetByName(block,"ButtonResume","ccui.Button")
 
@@ -221,13 +221,13 @@ end
 -- @UI
 -- pauseGame
 function GameUtils:pauseGame()
-	GameUtils.TouchFlag = false
+	GameUtils.IsGameActive = false
 --	cc.Director:getInstance():pause()
 	cc.SimpleAudioEngine:getInstance():pauseMusic()
 	cc.SimpleAudioEngine:getInstance():pauseAllEffects()
 
 	local curScene = cc.Director:getInstance():getRunningScene()
-	local renderTexture = cc.RenderTexture:create(AppConst.WIN_SIZE.width, AppConst.WIN_SIZE.height);
+	local renderTexture = cc.RenderTexture:create(AppConst.WIN_SIZE.width, AppConst.WIN_SIZE.height)
 
 	if curScene:getTag() == GameConst.PUZZLE_SCENE_TAG then
 		renderTexture:begin()
@@ -249,7 +249,7 @@ end
 ------------------------------------
 -- @UI
 function GameUtils:resumeGame()
-	GameUtils.TouchFlag = false
+	GameUtils.IsGameActive = false
 	cc.Director:getInstance():resume()
 	cc.Director:getInstance():startAnimation()
 	cc.SimpleAudioEngine:getInstance():resumeMusic()
@@ -296,3 +296,20 @@ function GameUtils:tablelength(T)
 	for _ in pairs(T) do count = count + 1 end
 	return count
 end
+
+function GameUtils:isTableContains(tb,obj)
+	for _,v in pairs(tb) do
+		if v == obj then
+			return true
+		end
+	end
+	return false
+end
+
+function GameUtils:inTable(tbl, item)
+	for key, value in pairs(tbl) do
+		if value == item then return true end
+	end
+	return false
+end
+

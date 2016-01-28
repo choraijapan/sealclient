@@ -89,6 +89,30 @@
 		<data>
 		71coSwyKOAIQWSJnXF0B+RIdqcI=
 		</data>
+		<key>Resources/res/images/card/ArrowLeft_47x53.png</key>
+		<data>
+		p1Ee/9jWgfYZQwC5P326UtdBgng=
+		</data>
+		<key>Resources/res/images/card/ArrowRight_47x53.png</key>
+		<data>
+		KQqrhNr2LZrfNfT1BEjfFZP8bqM=
+		</data>
+		<key>Resources/res/images/card/bg_evolution_top.png</key>
+		<data>
+		B17cxKWSSRG9HDV7LtzDo1TU9NM=
+		</data>
+		<key>Resources/res/images/card/bg_house_night.jpg</key>
+		<data>
+		YO82lpl7WLm+k1SMgkfWVkWDJZA=
+		</data>
+		<key>Resources/res/images/card/bg_questarea_webview.png</key>
+		<data>
+		0wGK5oBgdmsNtU/WoBjWbN+u8u8=
+		</data>
+		<key>Resources/res/images/card/strengthen_result_monster_bg.png</key>
+		<data>
+		3tYxtV+R6K88FULZTph4MT86xeY=
+		</data>
 		<key>Resources/res/images/card/weapon_menu_playerimage_arrow.png</key>
 		<data>
 		elBMIbpQHF1gL8f0uQz/ppdY4BY=
@@ -109,6 +133,10 @@
 		<data>
 		+79BjNx/9D79V+kmh/pVzvgfbpM=
 		</data>
+		<key>Resources/res/images/common/142Z14521-0.png</key>
+		<data>
+		irP7LBLZNLp20OwIfpcuc4EreZw=
+		</data>
 		<key>Resources/res/images/common/battle_heart_icon.png</key>
 		<data>
 		NNFuWykFRtpzvT3llrodsGlZD0U=
@@ -116,6 +144,38 @@
 		<key>Resources/res/images/common/bg_long.png</key>
 		<data>
 		OJg9PH0V/cEqM5IDKeNWvlSTN/s=
+		</data>
+		<key>Resources/res/images/common/btn_105x83b_1.png</key>
+		<data>
+		FkxhldBCsN4CT4aZxzTVN57R6AQ=
+		</data>
+		<key>Resources/res/images/common/btn_105x83b_2.png</key>
+		<data>
+		zWaG24MJ0nG8DHNY1LWjkpKCqFY=
+		</data>
+		<key>Resources/res/images/common/btn_105x83r_1.png</key>
+		<data>
+		tG8gActK9G79IWPb4DX+PBIhjg8=
+		</data>
+		<key>Resources/res/images/common/btn_105x83r_2.png</key>
+		<data>
+		Dl8B4jwo6mEpLX/sBSF8uE3r6gk=
+		</data>
+		<key>Resources/res/images/common/btn_140x62b_1.png</key>
+		<data>
+		O+XGmLmVeualdRVAJVDZsDyIWHA=
+		</data>
+		<key>Resources/res/images/common/btn_140x62b_2.png</key>
+		<data>
+		gnMFuNc/NF/bUP2FUtJuWO4FS7E=
+		</data>
+		<key>Resources/res/images/common/btn_140x62r_1.png</key>
+		<data>
+		bHq5wJ8OmYOKvetSLCqo+jhirqM=
+		</data>
+		<key>Resources/res/images/common/btn_140x62r_2.png</key>
+		<data>
+		alBH1Hf+DZLnnzZursoMVguR/DE=
 		</data>
 		<key>Resources/res/images/common/btn_151x84_1.png</key>
 		<data>
@@ -125,6 +185,46 @@
 		<data>
 		xifLGw2LVmEKHVlP936QBIFutRA=
 		</data>
+		<key>Resources/res/images/common/btn_188x64b_1.png</key>
+		<data>
+		WDkF0kp+w7LzedrFSn7nWYbQ2E8=
+		</data>
+		<key>Resources/res/images/common/btn_188x64b_2.png</key>
+		<data>
+		mU2sU7qXJ1tau/2+pb4eUA28AoY=
+		</data>
+		<key>Resources/res/images/common/btn_188x64r_1.png</key>
+		<data>
+		MoeVxebS2//0SoCLkyBIRfDGpXU=
+		</data>
+		<key>Resources/res/images/common/btn_188x64r_2.png</key>
+		<data>
+		yew5NBIvdaKIQk1kN8Pl3sygNoQ=
+		</data>
+		<key>Resources/res/images/common/btn_188x64y_1.png</key>
+		<data>
+		jdpOImfWLu5SuKflTbUdQNOJCD8=
+		</data>
+		<key>Resources/res/images/common/btn_188x64y_2.png</key>
+		<data>
+		oNa10cn05j0WV4co/3/yR3cRmek=
+		</data>
+		<key>Resources/res/images/common/btn_84x84_1.png</key>
+		<data>
+		M+aRsns8gG58ulRWX3AN+EBVnqU=
+		</data>
+		<key>Resources/res/images/common/btn_84x84_2.png</key>
+		<data>
+		2diciqR1Gc0n0vd46OkkD07P20s=
+		</data>
+		<key>Resources/res/images/common/btn_98x84_1.png</key>
+		<data>
+		A9Tzo2mgEt9xnwPt+m+b6imYYns=
+		</data>
+		<key>Resources/res/images/common/btn_98x84_2.png</key>
+		<data>
+		L9sI99FU7z/V9HlwlgZIbuH9U8A=
+		</data>
 		<key>Resources/res/images/common/btn_back_1.png</key>
 		<data>
 		aWRSSRiKXCU7kR/zFOyApDcVUGs=
@@ -132,6 +232,30 @@
 		<key>Resources/res/images/common/btn_back_2.png</key>
 		<data>
 		nT08xXSiLNJMSWSwXmApIGdf4B4=
+		</data>
+		<key>Resources/res/images/common/btn_header_back_1.png</key>
+		<data>
+		I3GKZWUls5nnlUH9ejk/VTkX0Wo=
+		</data>
+		<key>Resources/res/images/common/btn_header_back_2.png</key>
+		<data>
+		kD8506k+XDUuUI3w+hyl2YuOP/I=
+		</data>
+		<key>Resources/res/images/common/btn_main_1.png</key>
+		<data>
+		AD7dF/ZLrDi4hNmBChJP1ll9DVI=
+		</data>
+		<key>Resources/res/images/common/btn_main_2.png</key>
+		<data>
+		RadFq5SMD5gL8oDOIsAfLHK6HtI=
+		</data>
+		<key>Resources/res/images/common/btn_right_1.png</key>
+		<data>
+		ZmVHqyLwpXdk1Bd7IVhyESwoeuc=
+		</data>
+		<key>Resources/res/images/common/btn_right_2.png</key>
+		<data>
+		pEXhrP2dkVO88rdwuq488g9pyaQ=
 		</data>
 		<key>Resources/res/images/common/button_no.png</key>
 		<data>
@@ -197,6 +321,10 @@
 		<data>
 		3WmXjCBd9KGEHc8XZjoKUZXaccU=
 		</data>
+		<key>Resources/res/images/common/logo.png</key>
+		<data>
+		uVTkKBN4ofbLN+VrbST9x4hhr5I=
+		</data>
 		<key>Resources/res/images/common/luck_exp_bar.png</key>
 		<data>
 		BPMv8Zd1xQhMOWFdI5Id0PInngE=
@@ -208,6 +336,14 @@
 		<key>Resources/res/images/common/main_l_btn2.png</key>
 		<data>
 		RadFq5SMD5gL8oDOIsAfLHK6HtI=
+		</data>
+		<key>Resources/res/images/common/main_s_btn1.png</key>
+		<data>
+		3fTUP61IBgizKcVgQPaXemYfmaM=
+		</data>
+		<key>Resources/res/images/common/main_s_btn2.png</key>
+		<data>
+		mIguheWmH9Kpam2gjx+PciFuE8E=
 		</data>
 		<key>Resources/res/images/common/monster_deck_bg.png</key>
 		<data>
@@ -305,13 +441,45 @@
 		<data>
 		thoZlE/FN+MrVf0mFDVjvgB9DQY=
 		</data>
+		<key>Resources/res/images/common/ope_info_frame.png</key>
+		<data>
+		cSJfz6pHq3fWdJ2zwc1+w9NKrMg=
+		</data>
+		<key>Resources/res/images/download/images/bar_contents_download.png</key>
+		<data>
+		/oL31JfQXnfAvDD9EwzXzFI9sS0=
+		</data>
 		<key>Resources/res/images/download/images/bar_contents_download1.png</key>
 		<data>
 		fqlw8+uAi+UoC8i55prCSMS0jFY=
 		</data>
+		<key>Resources/res/images/download/images/bar_contents_download2.png</key>
+		<data>
+		kZu7TyIpecLNGoER3Fz7tGSkCnU=
+		</data>
+		<key>Resources/res/images/download/images/bg_area_download.png</key>
+		<data>
+		sI01pbh729D9kQsOy2604Kls790=
+		</data>
 		<key>Resources/res/images/download/images/bg_contents_download.png</key>
 		<data>
 		6cr21HoAt32KKUz2wrVxI55Ey7w=
+		</data>
+		<key>Resources/res/images/download/images/bg_delete_download.png</key>
+		<data>
+		NQKEUExhJMYF0yeW96kVRXzbnMk=
+		</data>
+		<key>Resources/res/images/download/images/bg_repair_download.png</key>
+		<data>
+		GAWcbnUm3Al+OnQfmEHQDbV1mX4=
+		</data>
+		<key>Resources/res/images/download/images/font_32pt_download.png</key>
+		<data>
+		UgSLl+wQYFYCE8UCWvNS0VpF3mQ=
+		</data>
+		<key>Resources/res/images/download/images/logo_pocodan_s.png</key>
+		<data>
+		a8UpWHxDnksJvrBhT4j3REczY9o=
 		</data>
 		<key>Resources/res/images/download/images/tips_bg.png</key>
 		<data>
@@ -329,9 +497,41 @@
 		<data>
 		lOOSh6+WeusRZIiEutWUHZXOCrM=
 		</data>
+		<key>Resources/res/images/download/images/tips_content_004.png</key>
+		<data>
+		CwoQJSTPo49dxNWEymzxVAiCPyk=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_005.png</key>
+		<data>
+		W8cscKflvuTXXFmWMAOLvH+xDr4=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_006.png</key>
+		<data>
+		5PFWI78+rDn2lLcuza/Zp//r2pg=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_007.png</key>
+		<data>
+		3L5uFU+Xm6EaEUwOrTFixmmoIwU=
+		</data>
 		<key>Resources/res/images/download/images/tips_content_008.png</key>
 		<data>
 		6JA0zAuk1+iWdV1ViZvzrrS2t/Q=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_009.png</key>
+		<data>
+		IvsRMgl8fw1BN7d/VhnJvI7xoMY=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_010.png</key>
+		<data>
+		ON0+luyD501mwU3zsjxRGUj0N6Q=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_011.png</key>
+		<data>
+		nIiFHDdWBGUx9gJn413wGPdu6QY=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_012.png</key>
+		<data>
+		/lukjdfXqFw1MPaByFGZXLRFFVw=
 		</data>
 		<key>Resources/res/images/download/images/tips_title_001.png</key>
 		<data>
@@ -341,13 +541,45 @@
 		<data>
 		ChWGkaB4Cb9EumMBlwYf/eg3COw=
 		</data>
+		<key>Resources/res/images/download/images/tips_title_003.png</key>
+		<data>
+		DeX6CGNlY7h7acBRfVa9jhpYxpk=
+		</data>
 		<key>Resources/res/images/download/images/tips_title_004.png</key>
 		<data>
 		aWTn9rqZSHCdLSMSXSGa8saRxQ4=
 		</data>
+		<key>Resources/res/images/download/images/tips_title_005.png</key>
+		<data>
+		CnWdELK1svrd6nSTiqr4yn8nFsM=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_006.png</key>
+		<data>
+		ENNutDzeXQkAqiIfLuuQMG2M3dE=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_007.png</key>
+		<data>
+		3jyJXuu+iG4+6jzxl1qPOS4rvOA=
+		</data>
 		<key>Resources/res/images/download/images/tips_title_008.png</key>
 		<data>
 		Ia+ZGBKUKq9vWWHUAHW+dv4ny+w=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_009.png</key>
+		<data>
+		ID37bQIe9ZEfc+uy1yjsYaQf+eM=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_010.png</key>
+		<data>
+		rbD4hoRbghA1VcJIUgDLTAI0UX8=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_011.png</key>
+		<data>
+		ubXHJrUo7o9x8VaLPMb8q2dZDfM=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_012.png</key>
+		<data>
+		gj4EpoeCx9W5SjyEZzymvWBWihQ=
 		</data>
 		<key>Resources/res/images/font/arial-14.fnt</key>
 		<data>
@@ -428,6 +660,30 @@
 		<key>Resources/res/images/gacha/bg_base.png</key>
 		<data>
 		iBwXqv5rEi2T76BV/5YgQNyiHLA=
+		</data>
+		<key>Resources/res/images/gacha/gacha_normal_summons_btn1.png</key>
+		<data>
+		Q1yyHK84w5MSBqmMCmuMCxd1ZZI=
+		</data>
+		<key>Resources/res/images/gacha/gacha_normal_summons_btn2.png</key>
+		<data>
+		OFGWYEIzCeB2FUiaQoSEah1Uc1g=
+		</data>
+		<key>Resources/res/images/gacha/gacha_rare_summons_btn1.png</key>
+		<data>
+		sAHd634yj1IKIFYQZUr1s6OFmzE=
+		</data>
+		<key>Resources/res/images/gacha/gacha_rare_summons_btn2.png</key>
+		<data>
+		KjC4EjsMxUWYgRDNY3Lk9Ah1YZA=
+		</data>
+		<key>Resources/res/images/gacha/win_button_close.png</key>
+		<data>
+		/q7lFGLzbjtznTJEjPFFqLNGfqw=
+		</data>
+		<key>Resources/res/images/gacha/win_language.png</key>
+		<data>
+		fTnjxRu/4/XfjFjITr+bHmiLD18=
 		</data>
 		<key>Resources/res/images/map/MS01.png</key>
 		<data>
@@ -1521,6 +1777,30 @@
 		<data>
 		c9SNkadJ7glkS404ljvPsLKHt3M=
 		</data>
+		<key>Resources/res/images/puzzle/road/004/bottom.png</key>
+		<data>
+		PByNsH39BQ/0FV2tg58ZWx0VEnk=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/middle.png</key>
+		<data>
+		yNIKS2rV/6tJmHTEyKk6cwEZaCc=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/object_1.png</key>
+		<data>
+		meXvX9W6gV6FX6toD5beRQTXqsY=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/object_2.png</key>
+		<data>
+		QIROPSmzxcjMWv/zlw9VjOh0SCY=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/sample.png</key>
+		<data>
+		b2U6bLC1THtW9Xph5hZuYPygm8w=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/top.png</key>
+		<data>
+		2rAM/qm856LBlRFKzzJkGl6Ndco=
+		</data>
 		<key>Resources/res/images/puzzle/road/puzzle_road_1.jpg</key>
 		<data>
 		2onpSzOOQeKPEPiFsCKiU8DXuAw=
@@ -1861,6 +2141,10 @@
 		<data>
 		M+TcgosZTTFopr+MHPaiLzjPy0Y=
 		</data>
+		<key>Resources/res/images/title/images/notice_image_960.jpg</key>
+		<data>
+		cWnMbCsk3YNUUiJsQPoP0xFTfPo=
+		</data>
 		<key>Resources/res/images/top/bg_base.png</key>
 		<data>
 		iBwXqv5rEi2T76BV/5YgQNyiHLA=
@@ -2009,13 +2293,29 @@
 		<data>
 		VEDn7lrwKVPS4k9y64Wl5t1anAU=
 		</data>
+		<key>Resources/res/layer/card/CardBaseLayer.csb</key>
+		<data>
+		GOTcx2nJrwMS4Gc92j5VXuZYOic=
+		</data>
+		<key>Resources/res/layer/common/BlockLayer.csb</key>
+		<data>
+		3m/wYMtgZohh45BTY44t4W4aQjg=
+		</data>
 		<key>Resources/res/layer/gacha/GachaAnimationLayer.csb</key>
 		<data>
-		Nmeh3BK3rI1ArgrQ8VBT7qdwwSg=
+		oxW6qLe43rVedndRitA8P2VvQmc=
 		</data>
 		<key>Resources/res/layer/gacha/GachaLayer.csb</key>
 		<data>
-		VQpTAn1eOHBkOqqz9LHvfIEdx9k=
+		fm74pYmxn9vw060l7Lwi7PaFhsI=
+		</data>
+		<key>Resources/res/layer/puzzle/ConfirmLayer.csb</key>
+		<data>
+		ZciLFlPy90L4spJph3Gi6/Ev9uA=
+		</data>
+		<key>Resources/res/layer/puzzle/PuzzlePauseLayer.csb</key>
+		<data>
+		CkXioZsyHQ1aUMlHw5Pg9Za3dfA=
 		</data>
 		<key>Resources/res/parts/common/BackButtonNode.csb</key>
 		<data>
@@ -2027,11 +2327,11 @@
 		</data>
 		<key>Resources/res/parts/common/CardNode.csb</key>
 		<data>
-		F0NiLZoafK+97c1NBb7UOFf52KE=
+		QwnjaEqV+s8tR1ZY0eLPF95LsCQ=
 		</data>
 		<key>Resources/res/parts/common/FooterNode.csb</key>
 		<data>
-		C3zp4XF3Qij24d3HriS6zcZPMQU=
+		6r6kJzyZv8+2li9bZkK1jjti3pI=
 		</data>
 		<key>Resources/res/parts/common/HeaderNode.csb</key>
 		<data>
@@ -2051,7 +2351,7 @@
 		</data>
 		<key>Resources/res/parts/puzzle/PuzzleCardNode.csb</key>
 		<data>
-		QYEkCpSpaEnYrp4uITnIyCVyc/g=
+		bDBFqo/PKHzXJBV6pJG7GcimtcI=
 		</data>
 		<key>Resources/res/parts/puzzle/PuzzleFooterNode.csb</key>
 		<data>
@@ -2075,7 +2375,7 @@
 		</data>
 		<key>Resources/res/scene/TestScene.csb</key>
 		<data>
-		QAOc+c3D1MLC3HhcggvsF3Leq7Y=
+		FtKfSDdfTVf3skcFVB/+DfcV2+I=
 		</data>
 		<key>Resources/res/scene/TitleScene.csb</key>
 		<data>
@@ -2087,19 +2387,43 @@
 		</data>
 		<key>Resources/res/scene/puzzle/PauseScene.csb</key>
 		<data>
-		Ktffyhb1lga9oY7oCxuhbM7OlIU=
+		agpMAnvitYcHc8D0uAb7P4+2GhI=
 		</data>
 		<key>Resources/res/scene/puzzle/PuzzleScene.csb</key>
 		<data>
-		fJ3rPpff05M7TINZjwUni7ulh3w=
+		7ELAbb4XxZ6AdfjuubQnwlzx3NQ=
 		</data>
 		<key>Resources/res/scene/puzzle/ResultScene.csb</key>
 		<data>
 		jkONIW7jwRyMzJdxXcy7JRBA4Fs=
 		</data>
+		<key>Resources/res/sound/bgm31.m4a</key>
+		<data>
+		3crKgPQp7I4tygPrZqnNHxjy9II=
+		</data>
+		<key>Resources/res/sound/bgm35.m4a</key>
+		<data>
+		bnAkgZuf7Q0dt6bLrqVC/ge2nVg=
+		</data>
+		<key>Resources/res/sound/se08.m4a</key>
+		<data>
+		ZsZQbpbZkkpHbzh8wSPMaqNRm+s=
+		</data>
+		<key>Resources/res/sound/se23.m4a</key>
+		<data>
+		+sZ4vTyO6PXSDDpzpj+9evMNZ4M=
+		</data>
+		<key>Resources/res/sound/se29.m4a</key>
+		<data>
+		3AR5k3VW4UidszFrKh3plZLkX+o=
+		</data>
+		<key>Resources/res/sound/se35.m4a</key>
+		<data>
+		fKjmEB/nPY8a3hvfqrNLcLjok/E=
+		</data>
 		<key>Resources/src/app/boot.lua</key>
 		<data>
-		OoKvt5B0rq4JKlZEVrbwYs48vns=
+		9ZedVySVlXAgj/hwg/4Wzty1cvs=
 		</data>
 		<key>Resources/src/app/common/const/AppConst.lua</key>
 		<data>
@@ -2109,37 +2433,53 @@
 		<data>
 		gexCxKYf55Q1Xlw4a84hVrlfpSw=
 		</data>
+		<key>Resources/src/app/common/const/EnvironmentConst.lua</key>
+		<data>
+		a/pX9Mjwxyl1z0pPEPjMuF+V688=
+		</data>
 		<key>Resources/src/app/common/const/GameConst.lua</key>
 		<data>
-		GvFBbNPo9DOLqSn4WjeybXoVt+w=
+		ApYap/JCAG00e9y9XyBvLBstQRY=
 		</data>
 		<key>Resources/src/app/common/include/Global.lua</key>
 		<data>
-		EGNAN0eNCViQddIgKi3bYlLCv9Y=
+		VfR3Hs+CDdd8Lwil6djNlcIdhhY=
 		</data>
 		<key>Resources/src/app/common/utils/GameUtils.lua</key>
 		<data>
-		6tbBB5AGDPxjENM2CvI5Y1hLbaA=
+		ofB6dJvfpBAcCBorDnQ7J8ynlsE=
 		</data>
 		<key>Resources/src/app/data/db/BaseDB.lua</key>
 		<data>
-		eSIfZzNGa//63PxzQBDOAj3GfD8=
+		aKgB4FmlBgdaK8Myr9D3HW/rE5E=
+		</data>
+		<key>Resources/src/app/data/master/CardData.lua</key>
+		<data>
+		2f1wf1UBVTM2WlaT/0ZfMybUPSQ=
 		</data>
 		<key>Resources/src/app/data/master/TestTable.lua</key>
 		<data>
-		NvF2h09Fsm/icRCpouGoZr7w8A8=
+		xAtKMdYYRwVkyI754BMkYV7t6M8=
+		</data>
+		<key>Resources/src/app/data/user/ResourceVerTable.lua</key>
+		<data>
+		9yv0jrE3s1ZyYqCA6/HBgImYKy0=
+		</data>
+		<key>Resources/src/app/layer/card/CardLayer.lua</key>
+		<data>
+		UsRLC7Qxy8owqiTL/raBoNgWGsI=
 		</data>
 		<key>Resources/src/app/layer/gacha/GachaAnimationLayer.lua</key>
 		<data>
-		+2AUFGw7wwGuoJs+COSYWjrHKl8=
+		oH2mKHtxgXBKpqiX9QFjRG82rUQ=
 		</data>
 		<key>Resources/src/app/layer/gacha/GachaLayer.lua</key>
 		<data>
-		oegd1+610OlRjufxizqGvAULOlI=
+		8TJ++wcjXyWkuGCom44SMI0n7uA=
 		</data>
 		<key>Resources/src/app/layer/puzzle/PuzzleLayer.lua</key>
 		<data>
-		JJqQhZ8b0xqpiMoIOYL/ir2TdLQ=
+		JNtl/1sLnFjjHXEbAoWWNNMrOoo=
 		</data>
 		<key>Resources/src/app/layer/puzzle/PuzzleManager.lua</key>
 		<data>
@@ -2151,7 +2491,15 @@
 		</data>
 		<key>Resources/src/app/network/api/BaseApi.lua</key>
 		<data>
-		coKhslg87MpXWyjdBle+kgmYcX0=
+		Fw9NCWSObl/OZ4/V+5FTJzCAHEA=
+		</data>
+		<key>Resources/src/app/network/api/UserApi.lua</key>
+		<data>
+		XgqYsECapps0H3YDGK2aw7jxS+A=
+		</data>
+		<key>Resources/src/app/network/api/reource/ResourceVersionApi.lua</key>
+		<data>
+		pG3VUrh6jB/No+srkRipxmU5MFY=
 		</data>
 		<key>Resources/src/app/parts/AreaMapParts.lua</key>
 		<data>
@@ -2167,19 +2515,19 @@
 		</data>
 		<key>Resources/src/app/parts/gacha/GachaBall.lua</key>
 		<data>
-		EWSD7D0OJl0V91MQWy4Ag0jv1Sw=
+		3D2d/2jRAvvmKYlE/J70PrYJLFs=
 		</data>
 		<key>Resources/src/app/parts/puzzle/Ball.lua</key>
 		<data>
-		7d2XKflgc6Rp/LPe/O7jVDZsRgA=
+		TMxbIFSU3ty+BGYKKUsDYxECKo8=
 		</data>
 		<key>Resources/src/app/parts/puzzle/BossSprite.lua</key>
 		<data>
-		+zc7Ah51lJDZ5ud/XgQieWEcoO4=
+		tjrbbDPZDwaJa9txq1oXNJhkyGA=
 		</data>
 		<key>Resources/src/app/parts/puzzle/ConfirmLayer.lua</key>
 		<data>
-		Db+FwL43hxKrSQX1CkaR/FpjU5g=
+		Rx6KST3dxE7EgMgDyuxzsfY+RqY=
 		</data>
 		<key>Resources/src/app/parts/puzzle/DrawLine.lua</key>
 		<data>
@@ -2187,19 +2535,23 @@
 		</data>
 		<key>Resources/src/app/parts/puzzle/PuzzleCardNode.lua</key>
 		<data>
-		cgz4+2Klxf8hU6P6F/FNwR5RcFI=
+		jHhr3D5XFRikuUzUmH476KZktCc=
 		</data>
 		<key>Resources/src/app/scene/debug/DebugScene.lua</key>
 		<data>
-		7VFGleqNUetuzFtsuq164cZPChI=
+		nFcBWXLK07hlxFtWZeTuyV6659c=
+		</data>
+		<key>Resources/src/app/scene/debug/DebugTable.lua</key>
+		<data>
+		oAmzxjIj/oJ7yiNl4jrcsLUsV2o=
 		</data>
 		<key>Resources/src/app/scene/download/DownloadScene.lua</key>
 		<data>
-		pZYdEkPhB8KH+gtJUfp7wk50DAE=
+		/suJjrAi25r8ufBEuiBiq7ZVmrY=
 		</data>
 		<key>Resources/src/app/scene/gacha/GachaScene.lua</key>
 		<data>
-		ddVElEGlId+br/+ZWvqb+xFgfik=
+		JEnC0EahYjz0faD8rct3cNLBKGM=
 		</data>
 		<key>Resources/src/app/scene/map/MapScene.lua</key>
 		<data>
@@ -2211,7 +2563,7 @@
 		</data>
 		<key>Resources/src/app/scene/puzzle/PuzzleScene.lua</key>
 		<data>
-		hE9c06Zoow7AbjYZvbbOuKv5iak=
+		iKRCqEDB/nxuUZIFJYDDj2x1+us=
 		</data>
 		<key>Resources/src/app/scene/puzzle/ResultScene.lua</key>
 		<data>
@@ -2227,7 +2579,7 @@
 		</data>
 		<key>Resources/src/app/scene/top/TopScene.lua</key>
 		<data>
-		FEtvyiL91NwFYT7h3o4W+o1aOzo=
+		ZbLXm6F6mPBQskz/Ig+tXHNnZtk=
 		</data>
 		<key>Resources/src/cocos/cocos2d/Cocos2d.lua</key>
 		<data>
@@ -2471,7 +2823,7 @@
 		</data>
 		<key>Resources/src/core/base/scene/StandardScene.lua</key>
 		<data>
-		xG2woc9r8tgw0g00pELxzd4cpeg=
+		rkCSo7FmrTlP8kE4qtbd1l6A9SU=
 		</data>
 		<key>Resources/src/core/boot.lua</key>
 		<data>
@@ -2484,6 +2836,10 @@
 		<key>Resources/src/core/common/DebugLog.lua</key>
 		<data>
 		NDl5cp5EkZM20ulbHMQ9LC44xiY=
+		</data>
+		<key>Resources/src/core/common/GameFileUtils.lua</key>
+		<data>
+		6Vf/qD/ejxzcHqtm8+zxym9RZ0c=
 		</data>
 		<key>Resources/src/core/common/VisibleRect.lua</key>
 		<data>
@@ -2511,7 +2867,7 @@
 		</data>
 		<key>Resources/src/core/common/include/Global.lua</key>
 		<data>
-		NMTR58nF4PzOYUntGPR1yYsL9NQ=
+		PvytXYDqzU9nmIZ+pZYG0hjf8Jw=
 		</data>
 		<key>Resources/src/core/extension/WidgetLoader.lua</key>
 		<data>
@@ -2527,7 +2883,7 @@
 		</data>
 		<key>Resources/src/core/manager/NetworkManager.lua</key>
 		<data>
-		9pXe6R182Jk097N3e5oKK7SIreA=
+		kwL0dN7v3c+cOW29/cIXGXGI14c=
 		</data>
 		<key>Resources/src/core/manager/SceneManager.lua</key>
 		<data>
@@ -2666,6 +3022,30 @@
 		<data>
 		71coSwyKOAIQWSJnXF0B+RIdqcI=
 		</data>
+		<key>Resources/res/images/card/ArrowLeft_47x53.png</key>
+		<data>
+		p1Ee/9jWgfYZQwC5P326UtdBgng=
+		</data>
+		<key>Resources/res/images/card/ArrowRight_47x53.png</key>
+		<data>
+		KQqrhNr2LZrfNfT1BEjfFZP8bqM=
+		</data>
+		<key>Resources/res/images/card/bg_evolution_top.png</key>
+		<data>
+		B17cxKWSSRG9HDV7LtzDo1TU9NM=
+		</data>
+		<key>Resources/res/images/card/bg_house_night.jpg</key>
+		<data>
+		YO82lpl7WLm+k1SMgkfWVkWDJZA=
+		</data>
+		<key>Resources/res/images/card/bg_questarea_webview.png</key>
+		<data>
+		0wGK5oBgdmsNtU/WoBjWbN+u8u8=
+		</data>
+		<key>Resources/res/images/card/strengthen_result_monster_bg.png</key>
+		<data>
+		3tYxtV+R6K88FULZTph4MT86xeY=
+		</data>
 		<key>Resources/res/images/card/weapon_menu_playerimage_arrow.png</key>
 		<data>
 		elBMIbpQHF1gL8f0uQz/ppdY4BY=
@@ -2686,6 +3066,10 @@
 		<data>
 		+79BjNx/9D79V+kmh/pVzvgfbpM=
 		</data>
+		<key>Resources/res/images/common/142Z14521-0.png</key>
+		<data>
+		irP7LBLZNLp20OwIfpcuc4EreZw=
+		</data>
 		<key>Resources/res/images/common/battle_heart_icon.png</key>
 		<data>
 		NNFuWykFRtpzvT3llrodsGlZD0U=
@@ -2693,6 +3077,38 @@
 		<key>Resources/res/images/common/bg_long.png</key>
 		<data>
 		OJg9PH0V/cEqM5IDKeNWvlSTN/s=
+		</data>
+		<key>Resources/res/images/common/btn_105x83b_1.png</key>
+		<data>
+		FkxhldBCsN4CT4aZxzTVN57R6AQ=
+		</data>
+		<key>Resources/res/images/common/btn_105x83b_2.png</key>
+		<data>
+		zWaG24MJ0nG8DHNY1LWjkpKCqFY=
+		</data>
+		<key>Resources/res/images/common/btn_105x83r_1.png</key>
+		<data>
+		tG8gActK9G79IWPb4DX+PBIhjg8=
+		</data>
+		<key>Resources/res/images/common/btn_105x83r_2.png</key>
+		<data>
+		Dl8B4jwo6mEpLX/sBSF8uE3r6gk=
+		</data>
+		<key>Resources/res/images/common/btn_140x62b_1.png</key>
+		<data>
+		O+XGmLmVeualdRVAJVDZsDyIWHA=
+		</data>
+		<key>Resources/res/images/common/btn_140x62b_2.png</key>
+		<data>
+		gnMFuNc/NF/bUP2FUtJuWO4FS7E=
+		</data>
+		<key>Resources/res/images/common/btn_140x62r_1.png</key>
+		<data>
+		bHq5wJ8OmYOKvetSLCqo+jhirqM=
+		</data>
+		<key>Resources/res/images/common/btn_140x62r_2.png</key>
+		<data>
+		alBH1Hf+DZLnnzZursoMVguR/DE=
 		</data>
 		<key>Resources/res/images/common/btn_151x84_1.png</key>
 		<data>
@@ -2702,6 +3118,46 @@
 		<data>
 		xifLGw2LVmEKHVlP936QBIFutRA=
 		</data>
+		<key>Resources/res/images/common/btn_188x64b_1.png</key>
+		<data>
+		WDkF0kp+w7LzedrFSn7nWYbQ2E8=
+		</data>
+		<key>Resources/res/images/common/btn_188x64b_2.png</key>
+		<data>
+		mU2sU7qXJ1tau/2+pb4eUA28AoY=
+		</data>
+		<key>Resources/res/images/common/btn_188x64r_1.png</key>
+		<data>
+		MoeVxebS2//0SoCLkyBIRfDGpXU=
+		</data>
+		<key>Resources/res/images/common/btn_188x64r_2.png</key>
+		<data>
+		yew5NBIvdaKIQk1kN8Pl3sygNoQ=
+		</data>
+		<key>Resources/res/images/common/btn_188x64y_1.png</key>
+		<data>
+		jdpOImfWLu5SuKflTbUdQNOJCD8=
+		</data>
+		<key>Resources/res/images/common/btn_188x64y_2.png</key>
+		<data>
+		oNa10cn05j0WV4co/3/yR3cRmek=
+		</data>
+		<key>Resources/res/images/common/btn_84x84_1.png</key>
+		<data>
+		M+aRsns8gG58ulRWX3AN+EBVnqU=
+		</data>
+		<key>Resources/res/images/common/btn_84x84_2.png</key>
+		<data>
+		2diciqR1Gc0n0vd46OkkD07P20s=
+		</data>
+		<key>Resources/res/images/common/btn_98x84_1.png</key>
+		<data>
+		A9Tzo2mgEt9xnwPt+m+b6imYYns=
+		</data>
+		<key>Resources/res/images/common/btn_98x84_2.png</key>
+		<data>
+		L9sI99FU7z/V9HlwlgZIbuH9U8A=
+		</data>
 		<key>Resources/res/images/common/btn_back_1.png</key>
 		<data>
 		aWRSSRiKXCU7kR/zFOyApDcVUGs=
@@ -2709,6 +3165,30 @@
 		<key>Resources/res/images/common/btn_back_2.png</key>
 		<data>
 		nT08xXSiLNJMSWSwXmApIGdf4B4=
+		</data>
+		<key>Resources/res/images/common/btn_header_back_1.png</key>
+		<data>
+		I3GKZWUls5nnlUH9ejk/VTkX0Wo=
+		</data>
+		<key>Resources/res/images/common/btn_header_back_2.png</key>
+		<data>
+		kD8506k+XDUuUI3w+hyl2YuOP/I=
+		</data>
+		<key>Resources/res/images/common/btn_main_1.png</key>
+		<data>
+		AD7dF/ZLrDi4hNmBChJP1ll9DVI=
+		</data>
+		<key>Resources/res/images/common/btn_main_2.png</key>
+		<data>
+		RadFq5SMD5gL8oDOIsAfLHK6HtI=
+		</data>
+		<key>Resources/res/images/common/btn_right_1.png</key>
+		<data>
+		ZmVHqyLwpXdk1Bd7IVhyESwoeuc=
+		</data>
+		<key>Resources/res/images/common/btn_right_2.png</key>
+		<data>
+		pEXhrP2dkVO88rdwuq488g9pyaQ=
 		</data>
 		<key>Resources/res/images/common/button_no.png</key>
 		<data>
@@ -2774,6 +3254,10 @@
 		<data>
 		3WmXjCBd9KGEHc8XZjoKUZXaccU=
 		</data>
+		<key>Resources/res/images/common/logo.png</key>
+		<data>
+		uVTkKBN4ofbLN+VrbST9x4hhr5I=
+		</data>
 		<key>Resources/res/images/common/luck_exp_bar.png</key>
 		<data>
 		BPMv8Zd1xQhMOWFdI5Id0PInngE=
@@ -2785,6 +3269,14 @@
 		<key>Resources/res/images/common/main_l_btn2.png</key>
 		<data>
 		RadFq5SMD5gL8oDOIsAfLHK6HtI=
+		</data>
+		<key>Resources/res/images/common/main_s_btn1.png</key>
+		<data>
+		3fTUP61IBgizKcVgQPaXemYfmaM=
+		</data>
+		<key>Resources/res/images/common/main_s_btn2.png</key>
+		<data>
+		mIguheWmH9Kpam2gjx+PciFuE8E=
 		</data>
 		<key>Resources/res/images/common/monster_deck_bg.png</key>
 		<data>
@@ -2882,13 +3374,45 @@
 		<data>
 		thoZlE/FN+MrVf0mFDVjvgB9DQY=
 		</data>
+		<key>Resources/res/images/common/ope_info_frame.png</key>
+		<data>
+		cSJfz6pHq3fWdJ2zwc1+w9NKrMg=
+		</data>
+		<key>Resources/res/images/download/images/bar_contents_download.png</key>
+		<data>
+		/oL31JfQXnfAvDD9EwzXzFI9sS0=
+		</data>
 		<key>Resources/res/images/download/images/bar_contents_download1.png</key>
 		<data>
 		fqlw8+uAi+UoC8i55prCSMS0jFY=
 		</data>
+		<key>Resources/res/images/download/images/bar_contents_download2.png</key>
+		<data>
+		kZu7TyIpecLNGoER3Fz7tGSkCnU=
+		</data>
+		<key>Resources/res/images/download/images/bg_area_download.png</key>
+		<data>
+		sI01pbh729D9kQsOy2604Kls790=
+		</data>
 		<key>Resources/res/images/download/images/bg_contents_download.png</key>
 		<data>
 		6cr21HoAt32KKUz2wrVxI55Ey7w=
+		</data>
+		<key>Resources/res/images/download/images/bg_delete_download.png</key>
+		<data>
+		NQKEUExhJMYF0yeW96kVRXzbnMk=
+		</data>
+		<key>Resources/res/images/download/images/bg_repair_download.png</key>
+		<data>
+		GAWcbnUm3Al+OnQfmEHQDbV1mX4=
+		</data>
+		<key>Resources/res/images/download/images/font_32pt_download.png</key>
+		<data>
+		UgSLl+wQYFYCE8UCWvNS0VpF3mQ=
+		</data>
+		<key>Resources/res/images/download/images/logo_pocodan_s.png</key>
+		<data>
+		a8UpWHxDnksJvrBhT4j3REczY9o=
 		</data>
 		<key>Resources/res/images/download/images/tips_bg.png</key>
 		<data>
@@ -2906,9 +3430,41 @@
 		<data>
 		lOOSh6+WeusRZIiEutWUHZXOCrM=
 		</data>
+		<key>Resources/res/images/download/images/tips_content_004.png</key>
+		<data>
+		CwoQJSTPo49dxNWEymzxVAiCPyk=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_005.png</key>
+		<data>
+		W8cscKflvuTXXFmWMAOLvH+xDr4=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_006.png</key>
+		<data>
+		5PFWI78+rDn2lLcuza/Zp//r2pg=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_007.png</key>
+		<data>
+		3L5uFU+Xm6EaEUwOrTFixmmoIwU=
+		</data>
 		<key>Resources/res/images/download/images/tips_content_008.png</key>
 		<data>
 		6JA0zAuk1+iWdV1ViZvzrrS2t/Q=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_009.png</key>
+		<data>
+		IvsRMgl8fw1BN7d/VhnJvI7xoMY=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_010.png</key>
+		<data>
+		ON0+luyD501mwU3zsjxRGUj0N6Q=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_011.png</key>
+		<data>
+		nIiFHDdWBGUx9gJn413wGPdu6QY=
+		</data>
+		<key>Resources/res/images/download/images/tips_content_012.png</key>
+		<data>
+		/lukjdfXqFw1MPaByFGZXLRFFVw=
 		</data>
 		<key>Resources/res/images/download/images/tips_title_001.png</key>
 		<data>
@@ -2918,13 +3474,45 @@
 		<data>
 		ChWGkaB4Cb9EumMBlwYf/eg3COw=
 		</data>
+		<key>Resources/res/images/download/images/tips_title_003.png</key>
+		<data>
+		DeX6CGNlY7h7acBRfVa9jhpYxpk=
+		</data>
 		<key>Resources/res/images/download/images/tips_title_004.png</key>
 		<data>
 		aWTn9rqZSHCdLSMSXSGa8saRxQ4=
 		</data>
+		<key>Resources/res/images/download/images/tips_title_005.png</key>
+		<data>
+		CnWdELK1svrd6nSTiqr4yn8nFsM=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_006.png</key>
+		<data>
+		ENNutDzeXQkAqiIfLuuQMG2M3dE=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_007.png</key>
+		<data>
+		3jyJXuu+iG4+6jzxl1qPOS4rvOA=
+		</data>
 		<key>Resources/res/images/download/images/tips_title_008.png</key>
 		<data>
 		Ia+ZGBKUKq9vWWHUAHW+dv4ny+w=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_009.png</key>
+		<data>
+		ID37bQIe9ZEfc+uy1yjsYaQf+eM=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_010.png</key>
+		<data>
+		rbD4hoRbghA1VcJIUgDLTAI0UX8=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_011.png</key>
+		<data>
+		ubXHJrUo7o9x8VaLPMb8q2dZDfM=
+		</data>
+		<key>Resources/res/images/download/images/tips_title_012.png</key>
+		<data>
+		gj4EpoeCx9W5SjyEZzymvWBWihQ=
 		</data>
 		<key>Resources/res/images/font/arial-14.fnt</key>
 		<data>
@@ -3005,6 +3593,30 @@
 		<key>Resources/res/images/gacha/bg_base.png</key>
 		<data>
 		iBwXqv5rEi2T76BV/5YgQNyiHLA=
+		</data>
+		<key>Resources/res/images/gacha/gacha_normal_summons_btn1.png</key>
+		<data>
+		Q1yyHK84w5MSBqmMCmuMCxd1ZZI=
+		</data>
+		<key>Resources/res/images/gacha/gacha_normal_summons_btn2.png</key>
+		<data>
+		OFGWYEIzCeB2FUiaQoSEah1Uc1g=
+		</data>
+		<key>Resources/res/images/gacha/gacha_rare_summons_btn1.png</key>
+		<data>
+		sAHd634yj1IKIFYQZUr1s6OFmzE=
+		</data>
+		<key>Resources/res/images/gacha/gacha_rare_summons_btn2.png</key>
+		<data>
+		KjC4EjsMxUWYgRDNY3Lk9Ah1YZA=
+		</data>
+		<key>Resources/res/images/gacha/win_button_close.png</key>
+		<data>
+		/q7lFGLzbjtznTJEjPFFqLNGfqw=
+		</data>
+		<key>Resources/res/images/gacha/win_language.png</key>
+		<data>
+		fTnjxRu/4/XfjFjITr+bHmiLD18=
 		</data>
 		<key>Resources/res/images/map/MS01.png</key>
 		<data>
@@ -4098,6 +4710,30 @@
 		<data>
 		c9SNkadJ7glkS404ljvPsLKHt3M=
 		</data>
+		<key>Resources/res/images/puzzle/road/004/bottom.png</key>
+		<data>
+		PByNsH39BQ/0FV2tg58ZWx0VEnk=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/middle.png</key>
+		<data>
+		yNIKS2rV/6tJmHTEyKk6cwEZaCc=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/object_1.png</key>
+		<data>
+		meXvX9W6gV6FX6toD5beRQTXqsY=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/object_2.png</key>
+		<data>
+		QIROPSmzxcjMWv/zlw9VjOh0SCY=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/sample.png</key>
+		<data>
+		b2U6bLC1THtW9Xph5hZuYPygm8w=
+		</data>
+		<key>Resources/res/images/puzzle/road/004/top.png</key>
+		<data>
+		2rAM/qm856LBlRFKzzJkGl6Ndco=
+		</data>
 		<key>Resources/res/images/puzzle/road/puzzle_road_1.jpg</key>
 		<data>
 		2onpSzOOQeKPEPiFsCKiU8DXuAw=
@@ -4438,6 +5074,10 @@
 		<data>
 		M+TcgosZTTFopr+MHPaiLzjPy0Y=
 		</data>
+		<key>Resources/res/images/title/images/notice_image_960.jpg</key>
+		<data>
+		cWnMbCsk3YNUUiJsQPoP0xFTfPo=
+		</data>
 		<key>Resources/res/images/top/bg_base.png</key>
 		<data>
 		iBwXqv5rEi2T76BV/5YgQNyiHLA=
@@ -4586,13 +5226,29 @@
 		<data>
 		VEDn7lrwKVPS4k9y64Wl5t1anAU=
 		</data>
+		<key>Resources/res/layer/card/CardBaseLayer.csb</key>
+		<data>
+		GOTcx2nJrwMS4Gc92j5VXuZYOic=
+		</data>
+		<key>Resources/res/layer/common/BlockLayer.csb</key>
+		<data>
+		3m/wYMtgZohh45BTY44t4W4aQjg=
+		</data>
 		<key>Resources/res/layer/gacha/GachaAnimationLayer.csb</key>
 		<data>
-		Nmeh3BK3rI1ArgrQ8VBT7qdwwSg=
+		oxW6qLe43rVedndRitA8P2VvQmc=
 		</data>
 		<key>Resources/res/layer/gacha/GachaLayer.csb</key>
 		<data>
-		VQpTAn1eOHBkOqqz9LHvfIEdx9k=
+		fm74pYmxn9vw060l7Lwi7PaFhsI=
+		</data>
+		<key>Resources/res/layer/puzzle/ConfirmLayer.csb</key>
+		<data>
+		ZciLFlPy90L4spJph3Gi6/Ev9uA=
+		</data>
+		<key>Resources/res/layer/puzzle/PuzzlePauseLayer.csb</key>
+		<data>
+		CkXioZsyHQ1aUMlHw5Pg9Za3dfA=
 		</data>
 		<key>Resources/res/parts/common/BackButtonNode.csb</key>
 		<data>
@@ -4604,11 +5260,11 @@
 		</data>
 		<key>Resources/res/parts/common/CardNode.csb</key>
 		<data>
-		F0NiLZoafK+97c1NBb7UOFf52KE=
+		QwnjaEqV+s8tR1ZY0eLPF95LsCQ=
 		</data>
 		<key>Resources/res/parts/common/FooterNode.csb</key>
 		<data>
-		C3zp4XF3Qij24d3HriS6zcZPMQU=
+		6r6kJzyZv8+2li9bZkK1jjti3pI=
 		</data>
 		<key>Resources/res/parts/common/HeaderNode.csb</key>
 		<data>
@@ -4628,7 +5284,7 @@
 		</data>
 		<key>Resources/res/parts/puzzle/PuzzleCardNode.csb</key>
 		<data>
-		QYEkCpSpaEnYrp4uITnIyCVyc/g=
+		bDBFqo/PKHzXJBV6pJG7GcimtcI=
 		</data>
 		<key>Resources/res/parts/puzzle/PuzzleFooterNode.csb</key>
 		<data>
@@ -4652,7 +5308,7 @@
 		</data>
 		<key>Resources/res/scene/TestScene.csb</key>
 		<data>
-		QAOc+c3D1MLC3HhcggvsF3Leq7Y=
+		FtKfSDdfTVf3skcFVB/+DfcV2+I=
 		</data>
 		<key>Resources/res/scene/TitleScene.csb</key>
 		<data>
@@ -4664,19 +5320,43 @@
 		</data>
 		<key>Resources/res/scene/puzzle/PauseScene.csb</key>
 		<data>
-		Ktffyhb1lga9oY7oCxuhbM7OlIU=
+		agpMAnvitYcHc8D0uAb7P4+2GhI=
 		</data>
 		<key>Resources/res/scene/puzzle/PuzzleScene.csb</key>
 		<data>
-		fJ3rPpff05M7TINZjwUni7ulh3w=
+		7ELAbb4XxZ6AdfjuubQnwlzx3NQ=
 		</data>
 		<key>Resources/res/scene/puzzle/ResultScene.csb</key>
 		<data>
 		jkONIW7jwRyMzJdxXcy7JRBA4Fs=
 		</data>
+		<key>Resources/res/sound/bgm31.m4a</key>
+		<data>
+		3crKgPQp7I4tygPrZqnNHxjy9II=
+		</data>
+		<key>Resources/res/sound/bgm35.m4a</key>
+		<data>
+		bnAkgZuf7Q0dt6bLrqVC/ge2nVg=
+		</data>
+		<key>Resources/res/sound/se08.m4a</key>
+		<data>
+		ZsZQbpbZkkpHbzh8wSPMaqNRm+s=
+		</data>
+		<key>Resources/res/sound/se23.m4a</key>
+		<data>
+		+sZ4vTyO6PXSDDpzpj+9evMNZ4M=
+		</data>
+		<key>Resources/res/sound/se29.m4a</key>
+		<data>
+		3AR5k3VW4UidszFrKh3plZLkX+o=
+		</data>
+		<key>Resources/res/sound/se35.m4a</key>
+		<data>
+		fKjmEB/nPY8a3hvfqrNLcLjok/E=
+		</data>
 		<key>Resources/src/app/boot.lua</key>
 		<data>
-		OoKvt5B0rq4JKlZEVrbwYs48vns=
+		9ZedVySVlXAgj/hwg/4Wzty1cvs=
 		</data>
 		<key>Resources/src/app/common/const/AppConst.lua</key>
 		<data>
@@ -4686,37 +5366,53 @@
 		<data>
 		gexCxKYf55Q1Xlw4a84hVrlfpSw=
 		</data>
+		<key>Resources/src/app/common/const/EnvironmentConst.lua</key>
+		<data>
+		a/pX9Mjwxyl1z0pPEPjMuF+V688=
+		</data>
 		<key>Resources/src/app/common/const/GameConst.lua</key>
 		<data>
-		GvFBbNPo9DOLqSn4WjeybXoVt+w=
+		ApYap/JCAG00e9y9XyBvLBstQRY=
 		</data>
 		<key>Resources/src/app/common/include/Global.lua</key>
 		<data>
-		EGNAN0eNCViQddIgKi3bYlLCv9Y=
+		VfR3Hs+CDdd8Lwil6djNlcIdhhY=
 		</data>
 		<key>Resources/src/app/common/utils/GameUtils.lua</key>
 		<data>
-		6tbBB5AGDPxjENM2CvI5Y1hLbaA=
+		ofB6dJvfpBAcCBorDnQ7J8ynlsE=
 		</data>
 		<key>Resources/src/app/data/db/BaseDB.lua</key>
 		<data>
-		eSIfZzNGa//63PxzQBDOAj3GfD8=
+		aKgB4FmlBgdaK8Myr9D3HW/rE5E=
+		</data>
+		<key>Resources/src/app/data/master/CardData.lua</key>
+		<data>
+		2f1wf1UBVTM2WlaT/0ZfMybUPSQ=
 		</data>
 		<key>Resources/src/app/data/master/TestTable.lua</key>
 		<data>
-		NvF2h09Fsm/icRCpouGoZr7w8A8=
+		xAtKMdYYRwVkyI754BMkYV7t6M8=
+		</data>
+		<key>Resources/src/app/data/user/ResourceVerTable.lua</key>
+		<data>
+		9yv0jrE3s1ZyYqCA6/HBgImYKy0=
+		</data>
+		<key>Resources/src/app/layer/card/CardLayer.lua</key>
+		<data>
+		UsRLC7Qxy8owqiTL/raBoNgWGsI=
 		</data>
 		<key>Resources/src/app/layer/gacha/GachaAnimationLayer.lua</key>
 		<data>
-		+2AUFGw7wwGuoJs+COSYWjrHKl8=
+		oH2mKHtxgXBKpqiX9QFjRG82rUQ=
 		</data>
 		<key>Resources/src/app/layer/gacha/GachaLayer.lua</key>
 		<data>
-		oegd1+610OlRjufxizqGvAULOlI=
+		8TJ++wcjXyWkuGCom44SMI0n7uA=
 		</data>
 		<key>Resources/src/app/layer/puzzle/PuzzleLayer.lua</key>
 		<data>
-		JJqQhZ8b0xqpiMoIOYL/ir2TdLQ=
+		JNtl/1sLnFjjHXEbAoWWNNMrOoo=
 		</data>
 		<key>Resources/src/app/layer/puzzle/PuzzleManager.lua</key>
 		<data>
@@ -4728,7 +5424,15 @@
 		</data>
 		<key>Resources/src/app/network/api/BaseApi.lua</key>
 		<data>
-		coKhslg87MpXWyjdBle+kgmYcX0=
+		Fw9NCWSObl/OZ4/V+5FTJzCAHEA=
+		</data>
+		<key>Resources/src/app/network/api/UserApi.lua</key>
+		<data>
+		XgqYsECapps0H3YDGK2aw7jxS+A=
+		</data>
+		<key>Resources/src/app/network/api/reource/ResourceVersionApi.lua</key>
+		<data>
+		pG3VUrh6jB/No+srkRipxmU5MFY=
 		</data>
 		<key>Resources/src/app/parts/AreaMapParts.lua</key>
 		<data>
@@ -4744,19 +5448,19 @@
 		</data>
 		<key>Resources/src/app/parts/gacha/GachaBall.lua</key>
 		<data>
-		EWSD7D0OJl0V91MQWy4Ag0jv1Sw=
+		3D2d/2jRAvvmKYlE/J70PrYJLFs=
 		</data>
 		<key>Resources/src/app/parts/puzzle/Ball.lua</key>
 		<data>
-		7d2XKflgc6Rp/LPe/O7jVDZsRgA=
+		TMxbIFSU3ty+BGYKKUsDYxECKo8=
 		</data>
 		<key>Resources/src/app/parts/puzzle/BossSprite.lua</key>
 		<data>
-		+zc7Ah51lJDZ5ud/XgQieWEcoO4=
+		tjrbbDPZDwaJa9txq1oXNJhkyGA=
 		</data>
 		<key>Resources/src/app/parts/puzzle/ConfirmLayer.lua</key>
 		<data>
-		Db+FwL43hxKrSQX1CkaR/FpjU5g=
+		Rx6KST3dxE7EgMgDyuxzsfY+RqY=
 		</data>
 		<key>Resources/src/app/parts/puzzle/DrawLine.lua</key>
 		<data>
@@ -4764,19 +5468,23 @@
 		</data>
 		<key>Resources/src/app/parts/puzzle/PuzzleCardNode.lua</key>
 		<data>
-		cgz4+2Klxf8hU6P6F/FNwR5RcFI=
+		jHhr3D5XFRikuUzUmH476KZktCc=
 		</data>
 		<key>Resources/src/app/scene/debug/DebugScene.lua</key>
 		<data>
-		7VFGleqNUetuzFtsuq164cZPChI=
+		nFcBWXLK07hlxFtWZeTuyV6659c=
+		</data>
+		<key>Resources/src/app/scene/debug/DebugTable.lua</key>
+		<data>
+		oAmzxjIj/oJ7yiNl4jrcsLUsV2o=
 		</data>
 		<key>Resources/src/app/scene/download/DownloadScene.lua</key>
 		<data>
-		pZYdEkPhB8KH+gtJUfp7wk50DAE=
+		/suJjrAi25r8ufBEuiBiq7ZVmrY=
 		</data>
 		<key>Resources/src/app/scene/gacha/GachaScene.lua</key>
 		<data>
-		ddVElEGlId+br/+ZWvqb+xFgfik=
+		JEnC0EahYjz0faD8rct3cNLBKGM=
 		</data>
 		<key>Resources/src/app/scene/map/MapScene.lua</key>
 		<data>
@@ -4788,7 +5496,7 @@
 		</data>
 		<key>Resources/src/app/scene/puzzle/PuzzleScene.lua</key>
 		<data>
-		hE9c06Zoow7AbjYZvbbOuKv5iak=
+		iKRCqEDB/nxuUZIFJYDDj2x1+us=
 		</data>
 		<key>Resources/src/app/scene/puzzle/ResultScene.lua</key>
 		<data>
@@ -4804,7 +5512,7 @@
 		</data>
 		<key>Resources/src/app/scene/top/TopScene.lua</key>
 		<data>
-		FEtvyiL91NwFYT7h3o4W+o1aOzo=
+		ZbLXm6F6mPBQskz/Ig+tXHNnZtk=
 		</data>
 		<key>Resources/src/cocos/cocos2d/Cocos2d.lua</key>
 		<data>
@@ -5048,7 +5756,7 @@
 		</data>
 		<key>Resources/src/core/base/scene/StandardScene.lua</key>
 		<data>
-		xG2woc9r8tgw0g00pELxzd4cpeg=
+		rkCSo7FmrTlP8kE4qtbd1l6A9SU=
 		</data>
 		<key>Resources/src/core/boot.lua</key>
 		<data>
@@ -5061,6 +5769,10 @@
 		<key>Resources/src/core/common/DebugLog.lua</key>
 		<data>
 		NDl5cp5EkZM20ulbHMQ9LC44xiY=
+		</data>
+		<key>Resources/src/core/common/GameFileUtils.lua</key>
+		<data>
+		6Vf/qD/ejxzcHqtm8+zxym9RZ0c=
 		</data>
 		<key>Resources/src/core/common/VisibleRect.lua</key>
 		<data>
@@ -5088,7 +5800,7 @@
 		</data>
 		<key>Resources/src/core/common/include/Global.lua</key>
 		<data>
-		NMTR58nF4PzOYUntGPR1yYsL9NQ=
+		PvytXYDqzU9nmIZ+pZYG0hjf8Jw=
 		</data>
 		<key>Resources/src/core/extension/WidgetLoader.lua</key>
 		<data>
@@ -5104,7 +5816,7 @@
 		</data>
 		<key>Resources/src/core/manager/NetworkManager.lua</key>
 		<data>
-		9pXe6R182Jk097N3e5oKK7SIreA=
+		kwL0dN7v3c+cOW29/cIXGXGI14c=
 		</data>
 		<key>Resources/src/core/manager/SceneManager.lua</key>
 		<data>

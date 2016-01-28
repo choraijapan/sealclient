@@ -3,7 +3,8 @@ local Ball = class("Ball", cc.Sprite)
 Ball.DENSITY = 10
 Ball.RESTIUTION = 0
 Ball.FRICTION = 0.4
-Ball.MASS = 10
+Ball.MASS = 10 --重さ
+Ball.MOMENT = 1200 -- モーメント(大きいほど回転しにくい)
 
 Ball._state = 0
 Ball._frame = nil
@@ -14,6 +15,11 @@ Ball.circleSize = 48 --元の値
 --Ball.circleSize = 49
 --Ball.scalePer = 0.6 --元の値
 --Ball.circleSize = 48 --元の値
+
+Ball.BOOM = 5
+Ball.BOOM10 = 6
+
+
 
 Ball.vertexes = {
 	[1] = {cc.p(41*Ball.scalePer,22*Ball.scalePer),cc.p(59*Ball.scalePer,-20*Ball.scalePer),cc.p(45*Ball.scalePer,-44*Ball.scalePer),cc.p(-41*Ball.scalePer,-51*Ball.scalePer),cc.p(-59*Ball.scalePer,-26*Ball.scalePer),cc.p(-43*Ball.scalePer,23*Ball.scalePer),cc.p(-27*Ball.scalePer,50*Ball.scalePer),cc.p(-1*Ball.scalePer,63*Ball.scalePer)},
@@ -50,8 +56,6 @@ Ball.vertexes = {
 		cc.p( -42*Ball.scalePer,-46*Ball.scalePer ),
 		cc.p( -57*Ball.scalePer, 27*Ball.scalePer )}
 }
-
-Ball.BOOM = 5
 
 function Ball:ctor()
 end
@@ -90,7 +94,7 @@ function Ball:init(type)
 	--	self._frame = cc.PhysicsBody:createPolygon(vertexes, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	self._frame:setDynamic(true) --重力干渉を受けるか
 	self._frame:setRotationEnable(true)
-	self._frame:setMoment(800) --モーメント(大きいほど回転しにくい)
+	self._frame:setMoment(self.MOMENT) --モーメント(大きいほど回転しにくい)
 	self._frame:setMass(self.MASS) --重さ
 	self._frame:setCategoryBitmask(1)
 	self._frame:setCollisionBitmask(0x01)
@@ -103,25 +107,44 @@ function Ball:reOrder(order)
 end
 
 function Ball:brokenBullet()
-	if self:getName() ~= "boom" then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false then
 		self:broken()
 	end
 end
+
+--------------------------------------------------------------------------------
+-- 連打ボールを爆発条件
+Ball.touchBoomXCount = 0
+function Ball:brokenBoomX()
+	self.touchBoomXCount = self.touchBoomXCount + 1
+
+	local action1 = cc.ScaleTo:create(0.3,1 + self.touchBoomXCount/20)
+	self:runAction(cc.Sequence:create(action1))
+
+	if self.touchBoomXCount == 10 then
+		self:broken()
+		self.touchBoomXCount = 0
+		return true
+	else
+		return false
+	end
+end
+
 function Ball:broken()
 
-	print("#######"..self:getTag())
-	local particle = GameUtils:createParticle(GameConst.PARTICLE_BROKEN[self:getTag()],nil)
---	local particle = cc.ParticleSystemQuad:create(GameConst.PARTICLE.BALL_BROKEN)
-	particle:setPosition(cc.p(0,0))
---	particle:setScale(0.2)
-	particle:setAutoRemoveOnFinish(true)
-	particle:setPosition(cc.p(self:getPositionX(),self:getPositionY()))
+	--	print("#######"..self:getTag())
+	--	local particle = GameUtils:createParticle(GameConst.PARTICLE_BROKEN[self:getTag()],nil)
+	--	local particle = cc.ParticleSystemQuad:create(GameConst.PARTICLE.BALL_BROKEN)
+	--	particle:setPosition(cc.p(0,0))
+	--	particle:setScale(0.2)
+	--	particle:setAutoRemoveOnFinish(true)
+	--	particle:setPosition(cc.p(self:getPositionX(),self:getPositionY()))
 
 	--	self:stopAllActions()
 	--	self:removeFromParent()
 
 	local function actionEnd()
-		self:getParent():addChild(particle,999)
+		--		self:getParent():addChild(particle,999)
 		self:getParent():reorderChild(self,3)
 	end
 
@@ -153,7 +176,7 @@ function Ball:onEnter()
 end
 
 function Ball:addBallHint()
-	if self:getName() ~= "boom" and self:getName() ~= "touched" then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false and self:getName() ~= "touched" then
 		self:setName("big")
 		--		self._image:setScale(1.2)
 		--		self._image:setColor(cc.c3b(123,123,123))
@@ -181,8 +204,9 @@ function Ball:addGlowEffect(sprite, opacity, scale,order)
 end
 
 function Ball:addBallTouchEffect()
-	if self:getName() ~= "boom" then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false then
 		self:setName("big")
+		cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.PUZZLE_TOUCH)
 		local action1 = cc.ScaleTo:create(0.1,1.5)
 		local action2 = cc.ScaleTo:create(0.1,1.2)
 		self._image:runAction(cc.Sequence:create(action1,action2))
@@ -192,21 +216,21 @@ function Ball:addBallTouchEffect()
 end
 
 function Ball:removeAllEffect()
-	if self:getName() ~= "boom" then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false then
 		self:setName("normal")
 		self:removeBallTouchEffect()
 	end
 end
 
 function Ball:removeSingleEffect()
-	if self:getName() ~= "boom" then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false then
 		self:setName("touched")
 		self:removeBallTouchEffect()
 	end
 end
 
 function Ball:removeBallTouchEffect()
-	if self:getName() ~= "boom" then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false then
 		self._image:stopAllActions()
 		self._image:setScale(1)
 		self:setGrayNode(self._image, false)
@@ -216,7 +240,7 @@ function Ball:removeBallTouchEffect()
 end
 
 function Ball:addPuzzleNumber(num)
-	if self:getName() ~= "boom" then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false then
 		local puzzleNumber = ccui.TextAtlas:create()
 		puzzleNumber:setProperty(num, GameConst.FONT.NUMBER, 17, 22, "0")
 		puzzleNumber:setScale(1.5)
@@ -234,20 +258,19 @@ function Ball:removePuzzleNumber()
 end
 
 function Ball:addBoom(num)
-	if num > 6 then
-		self:setName("boom")
-		self:setTag(Ball.BOOM)
-		--		self._image:setVisible(false)
-		--		local particle = cc.ParticleSystemQuad:create("images/effect/particle_boom.plist")
+	if num > 5 then
+		local boomId = math.random(1,4)
+		self:setName(GameConst.BOOM[boomId].name)
+		self:setTag(GameConst.BOOM[boomId].tag)
+		WidgetLoader:setSpriteImage(self._image, GameConst.BOOM[boomId].image)
 
 		local particle = GameUtils:createParticle(GameConst.PARTICLE.BOOM,nil)
-
 		particle:setAutoRemoveOnFinish(true)
 		particle:setPosition(cc.p(0,0))
-		particle:setScale(0.9)
-		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG["BOOM"])
 		self:addChild(particle,1111)
+
 		self:getParent():reorderChild(self,3)
+		self._image:setScale(0.9)
 	end
 end
 

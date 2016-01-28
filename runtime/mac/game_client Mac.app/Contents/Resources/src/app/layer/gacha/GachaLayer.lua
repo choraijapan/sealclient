@@ -1,16 +1,7 @@
 local GachaBall = require("app/parts/gacha/GachaBall")
+local GachaAnimationLayer = require("app/layer/gacha/GachaAnimationLayer")
 local GachaLayer = class("GachaLayer", cc.Layer)
-
 GachaLayer.wall = nil
-GachaLayer.cards = {
-	card1 = nil,
-	card2 = nil,
-	card3 = nil,
-	card4 = nil,
-	card5 = nil,
-	card6 = nil
-}
-
 local MAX_BULLET = 15
 
 --------------------------------------------------------------------------------
@@ -19,7 +10,6 @@ local CCUI_CSB = "layer/gacha/GachaLayer.csb"
 local CCUI_GachaLayer = nil
 local CCUI_FirstPanel = nil
 local CCUI_BackButton = nil
-local CCUI_DrawButton = nil
 local CCUI_Bg1 = nil
 local CCUI_Bg2 = nil
 --------------------------------------------------------------------------------
@@ -29,33 +19,40 @@ end
 --------------------------------------------------------------------------------
 -- create
 function GachaLayer:create()
-	self:setName("GACHA_LAYER")
-	self:init()
-	return self
+	local layer = GachaLayer.new()
+	layer:init()
+	return layer
 end
 --------------------------------------------------------------------------------
 -- init
 function GachaLayer:init()
 	CCUI_GachaLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
-	self:addChild(CCUI_GachaLayer,GameConst.ZOrder.Z_BossBg)
+	self:addChild(CCUI_GachaLayer,0)
 
 	CCUI_FirstPanel = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"FirstPanel",WidgetConst.OBJ_TYPE.Panel)
 	CCUI_BackButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"BackButton",WidgetConst.OBJ_TYPE.Button)
-	CCUI_DrawButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"DrawButton",WidgetConst.OBJ_TYPE.Button)
+	local CCUI_DrawNormalButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"DrawNormalButton",WidgetConst.OBJ_TYPE.Button)
+	local CCUI_DrawRareButton = WidgetObj:searchWidgetByName(CCUI_GachaLayer,"DrawRareButton",WidgetConst.OBJ_TYPE.Button)
 
 	TouchManager:pressedDown(CCUI_BackButton,
 		function()
-			self:removeSelf()
-		end)
-		
-	TouchManager:pressedDown(CCUI_DrawButton,
-		function()
-			CCUI_FirstPanel:setVisible(false)
+			self:removeFromParent()
 		end)
 
---	self:addPuzzle()
---	self:addSchedule()  -- 更新
---	self:addTouch()     -- 触摸
+	TouchManager:pressedDown(CCUI_DrawNormalButton,
+		function()
+			self:drawGacha()
+		end)
+		
+	TouchManager:pressedDown(CCUI_DrawRareButton,
+		function()
+			self:drawGacha()
+		end)
+end
+
+function GachaLayer:drawGacha()
+	local layer = GachaAnimationLayer:create()
+	self:addChild(layer,1)
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
