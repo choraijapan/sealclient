@@ -2,8 +2,7 @@ local BlockLayer = require("app.parts.common.BlockLayer")
 --------------------------------------------------------------------------------
 -- PuzzleCardNode
 local PuzzleCardNode = class("PuzzleCardNode", cc.Node)
-
-require("app.layer.puzzle.PuzzleManager")
+local PuzzleManager = require("app.layer.puzzle.PuzzleManager")
 --------------------------------------------------------------------------------
 -- const変数
 local TAG = "PuzzleCardNode:"

@@ -26,6 +26,11 @@ function ConfirmLayer:create()
 			SceneManager:changeScene('app/scene/puzzle/PuzzleScene',nil)
 		end)
 	
+	local close = WidgetObj:searchWidgetByName(CCUI_CSB,"CloseButton",WidgetConst.OBJ_TYPE.Button)
+	TouchManager:pressedDown(close,
+		function()
+			layer:removeFromParent()
+		end)
 	return layer
 end
 

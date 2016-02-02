@@ -2,7 +2,7 @@
 -- @date 2015/11/24
 -- 各スキルのメソッド
 -------------------------------------------------------------------------------
-PuzzleManager = class("PuzzleManager")
+local PuzzleManager = class("PuzzleManager")
 
 -------------------------------------------------------------------------------
 ---　全部のボールを繋げることができる。
@@ -99,3 +99,4 @@ function PuzzleManager:addHurtEffect()
 	sprite:runAction(cc.Sequence:create(action1,action2))
 	scene:addChild(sprite,999)
 end
+return PuzzleManager

@@ -4,7 +4,7 @@
 -- @author masahiro mine
 -------------------------------------------------------------------------------
 require("app.common.include.Global")
-require("app.layer.puzzle.PuzzleManager")
+local PuzzleManager = require("app.layer.puzzle.PuzzleManager")
 local PhysicsScene = require('core.base.scene.PhysicsScene')
 local PuzzleLayer = require("app/layer/puzzle/PuzzleLayer").new()
 local ScenePuzzle = class("ScenePuzzle",PhysicsScene)

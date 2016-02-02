@@ -12,6 +12,7 @@ local CCUI_GachaButton = nil
 --------------------------------------------------------------------------------
 -- ctor
 function CardLayer:ctor()
+	self:setTag(GameConst.LAYERID.CARD)
 end
 --------------------------------------------------------------------------------
 -- create

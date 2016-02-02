@@ -4,6 +4,7 @@ local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
 local BossSprite = require("app.parts.puzzle.BossSprite")
+local PuzzleManager = require("app.layer.puzzle.PuzzleManager")
 
 local PuzzleLayer = class("PuzzleLayer", cc.Layer)
 PuzzleLayer.stateGamePlaying = 0
