@@ -92,14 +92,14 @@ void LuaWebSocket::onMessage(WebSocket* ws, const WebSocket::Data& data)
 {
     LuaWebSocket* luaWs = dynamic_cast<LuaWebSocket*>(ws);
     if (NULL != luaWs) {
-        if (data.isBinary) {
-            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)this,ScriptHandlerMgr::HandlerType::WEBSOCKET_MESSAGE);
-            if (0 != handler) {
-                SendBinaryMessageToLua(handler, (const unsigned char*)data.bytes, (int)data.len);
-            }
-        }
-        else{
-                
+//        if (data.isBinary) {
+//            int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)this,ScriptHandlerMgr::HandlerType::WEBSOCKET_MESSAGE);
+//            if (0 != handler) {
+//                SendBinaryMessageToLua(handler, (const unsigned char*)data.bytes, (int)data.len);
+//            }
+//        }
+//        else{
+        
             int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)this,ScriptHandlerMgr::HandlerType::WEBSOCKET_MESSAGE);
             if (0 != handler)
             {
@@ -110,7 +110,7 @@ void LuaWebSocket::onMessage(WebSocket* ws, const WebSocket::Data& data)
                     stack->executeFunctionByHandler(handler,  1);
                 }
             }
-        }
+//        }
     }
 }
     
@@ -345,14 +345,14 @@ static int tolua_Cocos2d_WebSocket_sendString00(lua_State* tolua_S)
         if ( NULL == data)
             return 0;
 
-        if (strlen(data) != size)
-        {
+//        if (strlen(data) != size)
+//        {
             self->send((const unsigned char*)data, (unsigned int)size);
-        }
-        else
-        {
-            self->send(data);
-        }
+//        }
+//        else
+//        {
+//            self->send(data);
+//        }
     }
     return 0;
 #ifndef TOLUA_RELEASE
