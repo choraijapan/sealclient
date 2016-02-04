@@ -289,7 +289,7 @@ function GameUtils:resumeAll(root)
 	return #childList
 end
 
-------------------------------------
+------------------------------------------------------------------------
 -- 便利メソッド
 function GameUtils:tablelength(T)
 	local count = 0
@@ -313,3 +313,17 @@ function GameUtils:inTable(tbl, item)
 	return false
 end
 
+---------------------------------
+-- lua table をstringとして出力する
+function GameUtils:dumpTable(o)
+	if type(o) == 'table' then
+		local s = '{ '
+		for k,v in pairs(o) do
+			if type(k) ~= 'number' then k = '"'..k..'"' end
+			s = s .. '['..k..'] = ' .. dump(v) .. ','
+		end
+		return s .. '} '
+	else
+		return tostring(o)
+	end
+end

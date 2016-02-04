@@ -55,8 +55,26 @@ end
 local resourceVersionApi = require("app.network.api.reource.ResourceVersionApi")
 
 local testTable = require("app.data.master.TestTable")
+
+local userApi = require("app.network.api.UserApi")
+
+
+
+
+
+
+
+
+
 -- onEnter
 function DebugScene:onEnter()
+	
+	local function callback(res)
+		print("#########"..dumpTable(res))
+	end
+	
+	userApi:test(callback)
+	
 --	local a = nil
 --	--a = testTable:insert(record)
 --	testTable:deleteById(29)
@@ -107,13 +125,13 @@ function DebugScene:onEnter()
 --	end
 --	resourceVersionApi:updateVersionFile()
 
-	local debugTable = require("src.app.scene.debug.DebugTable")
-	debugTable:init()
+--	local debugTable = require("src.app.scene.debug.DebugTable")
+--	debugTable:init()
 --	self:TestResVerUpdate()
 --	cc.AssetsManager:new("http://192.168.33.10/app/dl/res/Default/Button_Disable.png.zip",
 --		"https://raw.github.com/samuele3hu/AssetsManagerTest/master/version",
 --		res_download_path)
-	self:AseetsDownload()
+--	self:AseetsDownload()
 end
 
 

@@ -167,7 +167,7 @@ function PuzzleCardNode:init()
 		self.cards[i].CCUI_Card = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"Card","ccui.ImageView")
 		self.cards[i].CCUI_CardFrame = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"CardFrame","ccui.ImageView")
 		self.cards[i].CCUI_EnergyBar = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"EnergyBar","ccui.LoadingBar")
-		self.cards[i].CCUI_CardBg = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"CardFrame","ccui.Panel")
+		self.cards[i].CCUI_CardBg = WidgetObj:searchWidgetByName(self.cards[i].CCUI_CardNode,"CardBg","ccui.Panel")
 		self.cards[i].CCUI_Card:loadTexture(v.id)
 		self.cards[i].CCUI_CardFrame:loadTexture(GameConst.CARD_FRAME_PNG[v.attribute])
 		self.cards[i].CCUI_EnergyBar:setPercent(0)
@@ -180,6 +180,7 @@ function PuzzleCardNode:init()
 		self.cards[i].atk =  v.atk
 		self.cards[i].skill = v.skill
 		self.hp = self.hp + v.hp
+		
 	end
 	self.maxHp = self.hp
 	self.isActive = true

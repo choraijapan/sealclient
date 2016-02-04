@@ -1,6 +1,6 @@
 local TestTable = class("TestTable", Game.BaseDb)
 
-TestTable.path = cc.FileUtils:getInstance():getWritablePath()
+TestTable.type = EnvironmentConst.DB.TYPE_MASTER
 TestTable.db_name = "test.db"
 TestTable.table_name = "test"
 TestTable.col_def = {

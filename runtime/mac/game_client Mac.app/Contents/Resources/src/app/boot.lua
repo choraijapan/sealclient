@@ -19,12 +19,9 @@ function Application:main()
     cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(640, 1136, cc.ResolutionPolicy.SHOW_ALL)
 	SceneManager:changeScene("app/scene/menu/MenuScene", nil)
 --    SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
-    --	SceneManager:changeScene("app/scene/puzzle/PuzzleScene.lua",nil)
+--	SceneManager:changeScene("app/scene/puzzle/PuzzleScene.lua",nil)
 --	SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
 --	SceneManager:changeScene("app/scene/title/TitleScene", nil)
-
-local ttt = require("app.data.db.BaseDB")
-local t = 1
-
+--	SceneManager:changeScene("src/app/scene/top/TopScene", nil)
 end
 return Application

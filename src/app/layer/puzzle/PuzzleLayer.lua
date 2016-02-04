@@ -53,6 +53,7 @@ local isFerverTime = false
 local ferverEffect = nil
 local touchPoint = nil
 
+local debug = true
 --------------------------------------------------------------------------------
 -- UI
 local CCUI_CSB = "scene/puzzle/PuzzleScene.csb"
@@ -60,6 +61,10 @@ local CCUI_PuzzleLayer = nil
 local CCUI_ButtonMenu = nil
 local CCUI_Bg1 = nil
 local CCUI_Bg2 = nil
+local CCUI_bottom_1 = nil
+local CCUI_bottom_2 = nil
+local CCUI_bottom_3 = nil
+
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
@@ -92,6 +97,10 @@ function PuzzleLayer:init()
 	CCUI_Bg2 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"Bg2","cc.Sprite")
 	CCUI_ButtonMenu = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"MenuButton",WidgetConst.OBJ_TYPE.Button)
 
+	CCUI_bottom_1 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_1","cc.Sprite")
+	CCUI_bottom_2 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_2","cc.Sprite")
+	CCUI_bottom_3 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_3","cc.Sprite")
+
 	TouchManager:pressedDown(CCUI_ButtonMenu,
 		function()
 			SceneManager:changeScene("app/scene/top/TopScene",nil)
@@ -101,7 +110,7 @@ function PuzzleLayer:init()
 
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
-	--    self:moveBG()       -- 背景移动
+	--	    self:moveBG()       -- 背景移动
 
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addCards()             -- 初期化（自分）
@@ -206,16 +215,62 @@ end
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:moveBG()
-	local height = CCUI_Bg1:getContentSize().height
+	local height = CCUI_bottom_1:getContentSize().height
+	local posx = CCUI_bottom_1:getPositionX()
+	local posy = CCUI_bottom_1:getPositionY()
+	local scale = CCUI_bottom_1:getScale()
+	local _y = 0.2
+	local _sc = 1.002
+	local bottom_x = nil
+
+	local timer = 1
 	local function updateBG()
-		CCUI_Bg1:setPositionY(CCUI_Bg1:getPositionY() - 1)
-		CCUI_Bg2:setPositionY(CCUI_Bg1:getPositionY() + height)
-		if CCUI_Bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
-			CCUI_Bg1, CCUI_Bg2 = CCUI_Bg2, CCUI_Bg1
-			CCUI_Bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
+		timer = timer + 1
+		if debug then
+			return
+		end
+
+		if timer%500 == 0 and self.boss == nil then
+			self:addBossSprite()
+			debug = true
+			timer = 1
+		end
+
+
+		CCUI_bottom_1:setScale(CCUI_bottom_1:getScale() *math.pow(2, 0)* _sc)
+		CCUI_bottom_1:setPositionY(CCUI_bottom_1:getPositionY()- _y)
+		CCUI_bottom_2:setScale(CCUI_bottom_1:getScale() * math.pow(2, 1)* _sc)
+		CCUI_bottom_2:setPositionY(CCUI_bottom_1:getPositionY()- height * CCUI_bottom_1:getScale())
+		CCUI_bottom_3:setScale(CCUI_bottom_1:getScale() * math.pow(2, 2)* _sc)
+		CCUI_bottom_3:setPositionY(CCUI_bottom_2:getPositionY()- height * CCUI_bottom_2:getScale())
+
+		if posy - CCUI_bottom_1:getPositionY() >= height * scale   then
+			if bottom_x == nil then
+				bottom_x = cc.Sprite:create("images/puzzle/road/004/bottom.png")
+				self:addChild(bottom_x)
+				bottom_x:setScale(CCUI_bottom_1:getScale()/2)
+				bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
+			end
+
+			bottom_x:setAnchorPoint(0.5,1)
+			--			bottom_x:setScale(CCUI_bottom_1:getScale()/2)
+			--			bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
+			bottom_x:setScale(CCUI_bottom_1:getScale() * math.pow(2, -1)* _sc)
+			bottom_x:setPosition(cc.p(posx,bottom_x:getPositionY() - _y))
 		end
 	end
+
 	schedule(self, updateBG, 0)
+	--
+	--	local function updateBG()
+	--		CCUI_Bg1:setPositionY(CCUI_Bg1:getPositionY() - 1)
+	--		CCUI_Bg2:setPositionY(CCUI_Bg1:getPositionY() + height)
+	--		if CCUI_Bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
+	--			CCUI_Bg1, CCUI_Bg2 = CCUI_Bg2, CCUI_Bg1
+	--			CCUI_Bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
+	--		end
+	--	end
+	--	schedule(self, updateBG, 0)
 end
 
 --------------------------------------------------------------------------------
@@ -270,7 +325,7 @@ function PuzzleLayer:addTouch()
 			if _curBallTag ~= nil and _curBallTag ~= arr:getBody():getNode():getTag() then
 				return false
 			else
-				
+
 				if  GameUtils:inTable({"boom7","boom8"},arr:getBody():getNode():getName()) then
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
@@ -402,7 +457,7 @@ function PuzzleLayer:addTouch()
 		_curBallTag = nil
 		local type = 1
 		local lastPos = nil
-		
+
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 		for _, obj in ipairs(all) do
 			if obj:getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
@@ -410,7 +465,7 @@ function PuzzleLayer:addTouch()
 				obj:getNode():removeAllEffect()
 			end
 		end
-		
+
 		if next(_bullets) ~= nil then
 			for key, var in ipairs(_bullets) do
 				if  #_bullets > 1 then
@@ -677,9 +732,12 @@ function PuzzleLayer:checkGameOver()
 		return
 	end
 	--You Win
-	if  self.boss:isActive() == false then
-		self.gameState = self.stateGameOver
-		self:gameResult(true)
+	if self.boss ~= nil and self.boss:isActive() == false then
+		--		self.gameState = self.stateGameOver
+		--		self:gameResult(true)
+		self.boss:removeSelf()
+		self.boss = nil
+		debug = false
 	end
 	--You Lost
 	if self.puzzleCardNode:isAllDead() then

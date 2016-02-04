@@ -15,9 +15,9 @@ function GachaBall:ctor()
 end
 
 function GachaBall:create(type)
-	local GachaBall = GachaBall.new()
-	GachaBall:init(type)
-	return GachaBall
+	local ball = GachaBall.new()
+	ball:init(type)
+	return ball
 end
 
 function GachaBall:init(type)

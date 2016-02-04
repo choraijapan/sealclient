@@ -15,6 +15,5 @@ function StandardScene:createScene(scene_type)
 	self.mainLayer = mainLayer
 end
 
-
 return StandardScene
 

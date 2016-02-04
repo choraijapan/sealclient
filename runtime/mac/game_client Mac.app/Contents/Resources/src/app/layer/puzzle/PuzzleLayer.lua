@@ -53,6 +53,7 @@ local isFerverTime = false
 local ferverEffect = nil
 local touchPoint = nil
 
+local debug = true
 --------------------------------------------------------------------------------
 -- UI
 local CCUI_CSB = "scene/puzzle/PuzzleScene.csb"
@@ -60,6 +61,10 @@ local CCUI_PuzzleLayer = nil
 local CCUI_ButtonMenu = nil
 local CCUI_Bg1 = nil
 local CCUI_Bg2 = nil
+local CCUI_bottom_1 = nil
+local CCUI_bottom_2 = nil
+local CCUI_bottom_3 = nil
+
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
@@ -87,21 +92,25 @@ end
 function PuzzleLayer:init()
 	CCUI_PuzzleLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
 	self:addChild(CCUI_PuzzleLayer,GameConst.ZOrder.Z_BossBg)
-	
+
 	CCUI_Bg1 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"Bg1","cc.Sprite")
 	CCUI_Bg2 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"Bg2","cc.Sprite")
 	CCUI_ButtonMenu = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"MenuButton",WidgetConst.OBJ_TYPE.Button)
-	
+
+	CCUI_bottom_1 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_1","cc.Sprite")
+	CCUI_bottom_2 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_2","cc.Sprite")
+	CCUI_bottom_3 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_3","cc.Sprite")
+
 	TouchManager:pressedDown(CCUI_ButtonMenu,
 		function()
-			SceneManager:changeScene("app/scene/top/TopScene",nil) 
+			SceneManager:changeScene("app/scene/top/TopScene",nil)
 		end)
-	
-	
-	
+
+
+
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
-	--    self:moveBG()       -- 背景移动
+	--	    self:moveBG()       -- 背景移动
 
 	self:initGameState()                -- 初始化游戏数据状态
 	self:addCards()             -- 初期化（自分）
@@ -160,7 +169,7 @@ function PuzzleLayer:addPuzzle()
 	self.wall:setPhysicsBody(edge)
 	self.wall:setPosition(cc.p(0,20))
 	self:addChild(self.wall)
-	
+
 	touchPoint = cc.Node:create()
 	local tpFrame = cc.PhysicsBody:createCircle(20, cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	tpFrame:setDynamic(false) --重力干渉を受けるか
@@ -169,7 +178,7 @@ function PuzzleLayer:addPuzzle()
 	tpFrame:setCollisionBitmask(0x01)
 	tpFrame:setContactTestBitmask(1)
 	touchPoint:setPhysicsBody(tpFrame)
-	
+
 	self:addChild(touchPoint)
 end
 --------------------------------------------------------------------------------
@@ -178,10 +187,10 @@ function PuzzleLayer:addBalls()
 	local typeId = math.random(1,GameUtils:tablelength(GameConst.ATTRIBUTE))
 	local ball = Ball:create(typeId)
 
-		local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
-		local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
---	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
---	local randomY = math.random(AppConst.WIN_SIZE.height + 60 ,AppConst.WIN_SIZE.height + 100)
+	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
+	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+	--	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
+	--	local randomY = math.random(AppConst.WIN_SIZE.height + 60 ,AppConst.WIN_SIZE.height + 100)
 
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
@@ -206,16 +215,62 @@ end
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:moveBG()
-	local height = CCUI_Bg1:getContentSize().height
+	local height = CCUI_bottom_1:getContentSize().height
+	local posx = CCUI_bottom_1:getPositionX()
+	local posy = CCUI_bottom_1:getPositionY()
+	local scale = CCUI_bottom_1:getScale()
+	local _y = 0.2
+	local _sc = 1.002
+	local bottom_x = nil
+
+	local timer = 1
 	local function updateBG()
-		CCUI_Bg1:setPositionY(CCUI_Bg1:getPositionY() - 1)
-		CCUI_Bg2:setPositionY(CCUI_Bg1:getPositionY() + height)
-		if CCUI_Bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
-			CCUI_Bg1, CCUI_Bg2 = CCUI_Bg2, CCUI_Bg1
-			CCUI_Bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
+		timer = timer + 1
+		if debug then
+			return
+		end
+
+		if timer%500 == 0 and self.boss == nil then
+			self:addBossSprite()
+			debug = true
+			timer = 1
+		end
+
+
+		CCUI_bottom_1:setScale(CCUI_bottom_1:getScale() *math.pow(2, 0)* _sc)
+		CCUI_bottom_1:setPositionY(CCUI_bottom_1:getPositionY()- _y)
+		CCUI_bottom_2:setScale(CCUI_bottom_1:getScale() * math.pow(2, 1)* _sc)
+		CCUI_bottom_2:setPositionY(CCUI_bottom_1:getPositionY()- height * CCUI_bottom_1:getScale())
+		CCUI_bottom_3:setScale(CCUI_bottom_1:getScale() * math.pow(2, 2)* _sc)
+		CCUI_bottom_3:setPositionY(CCUI_bottom_2:getPositionY()- height * CCUI_bottom_2:getScale())
+
+		if posy - CCUI_bottom_1:getPositionY() >= height * scale   then
+			if bottom_x == nil then
+				bottom_x = cc.Sprite:create("images/puzzle/road/004/bottom.png")
+				self:addChild(bottom_x)
+				bottom_x:setScale(CCUI_bottom_1:getScale()/2)
+				bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
+			end
+
+			bottom_x:setAnchorPoint(0.5,1)
+			--			bottom_x:setScale(CCUI_bottom_1:getScale()/2)
+			--			bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
+			bottom_x:setScale(CCUI_bottom_1:getScale() * math.pow(2, -1)* _sc)
+			bottom_x:setPosition(cc.p(posx,bottom_x:getPositionY() - _y))
 		end
 	end
+
 	schedule(self, updateBG, 0)
+	--
+	--	local function updateBG()
+	--		CCUI_Bg1:setPositionY(CCUI_Bg1:getPositionY() - 1)
+	--		CCUI_Bg2:setPositionY(CCUI_Bg1:getPositionY() + height)
+	--		if CCUI_Bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
+	--			CCUI_Bg1, CCUI_Bg2 = CCUI_Bg2, CCUI_Bg1
+	--			CCUI_Bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
+	--		end
+	--	end
+	--	schedule(self, updateBG, 0)
 end
 
 --------------------------------------------------------------------------------
@@ -260,18 +315,46 @@ function PuzzleLayer:addTouch()
 		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
 		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
 
-		if GameUtils.TouchFlag then
+		if GameUtils.IsGameActive then
 			return
 		end
-		
+
 		touchPoint:setPosition(cc.p(location.x,location.y))
 
 		if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
 			if _curBallTag ~= nil and _curBallTag ~= arr:getBody():getNode():getTag() then
 				return false
 			else
-				if  arr:getBody():getNode():getName() == "boom" then
+
+				if  GameUtils:inTable({"boom7","boom8"},arr:getBody():getNode():getName()) then
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
+					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
+
+					self:updateCombol()
+					if arr:getBody():getNode():brokenBoomX() then
+						local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
+						for _, obj2 in ipairs(boomAround) do
+							obj2:getNode():brokenBullet()
+							local data = {
+								action = "atkBoss",
+								type = obj2:getNode():getTag(),
+								count = 1,
+								combol = self.combolNumber,
+								isFerver = isFerverTime,
+								startPos = obj2:getNode():getPosition()
+							}
+							self.puzzleCardNode:ballToCard(data)
+							self:setFerverPt(data.count)
+						end
+					end
+
+					startBall = nil
+					_bullets = {}
+					_bullets2 = {}
+					self.curTouchBall = nil
+				elseif isFerverTime or GameUtils:inTable(GameConst.BOOM.KINDS,arr:getBody():getNode():getName()) then
+					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
+					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 					for _, obj2 in ipairs(boomAround) do
 						obj2:getNode():brokenBullet()
 						local data = {
@@ -292,7 +375,7 @@ function PuzzleLayer:addTouch()
 					_bullets2 = {}
 					self.curTouchBall = nil
 				else
-					GameUtils.TouchFlag = true
+					GameUtils.IsGameActive = true
 					startBall = arr:getBody():getNode()
 					_curBallTag = arr:getBody():getNode():getTag()
 					self.curTouchBall = arr:getBody():getNode()
@@ -316,69 +399,78 @@ function PuzzleLayer:addTouch()
 		return true
 	end
 	local function onTouchMoved(touch, event)
-		GameUtils.TouchFlag = true
+		GameUtils.IsGameActive = true
 		self.curTouchBall = nil
 		local location = touch:getLocation()
 		touchPoint:setPosition(cc.p(location.x,location.y))
-		
---		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
---		if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
---			self.curTouchBall = arr:getBody():getNode()
---		end
---		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
---			if next(_bullets) == nil then
---				_bullets[touchIdx] = self.curTouchBall
---			elseif isTableContains(_bullets,self.curTouchBall) == false then
---				local p1 = _bullets[#_bullets]:getPosition()
---				local p2 = self.curTouchBall:getPosition()
---				local distance = cc.pGetDistance(p1,p2)
---				if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
---					touchIdx = touchIdx + 1
---					_bullets[touchIdx] = self.curTouchBall
---					if touchIdx > 1 then
---						_bullets[touchIdx-1]:removeSingleEffect()
---						_bullets[touchIdx-1]:removePuzzleNumber()
---					end
---					if next(_bullets) ~= nil then
---						_bullets[touchIdx]:addBallTouchEffect()
---						_bullets[touchIdx]:addPuzzleNumber(touchIdx)
---					end
---				end
---			else
---				local obj1 = _bullets[#_bullets]
---				local obj2 = _bullets[#_bullets-1]
---				if self.curTouchBall == obj2 then
---					touchIdx = touchIdx - 1
---					obj1:removeAllEffect()
---					obj2:addBallTouchEffect()
---					table.remove(_bullets,#_bullets)
---				end
---			end
---		elseif self.curTouchBall ~= nil and self.curTouchBall:getTag() ~= _curBallTag then
---
---		end
---
---		if #_bullets < 2 then
---			_fingerPosition = location
---		else
---			_fingerPosition = nil
---		end
+
+		--		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
+		--		if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
+		--			self.curTouchBall = arr:getBody():getNode()
+		--		end
+		--		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
+		--			if next(_bullets) == nil then
+		--				_bullets[touchIdx] = self.curTouchBall
+		--			elseif isTableContains(_bullets,self.curTouchBall) == false then
+		--				local p1 = _bullets[#_bullets]:getPosition()
+		--				local p2 = self.curTouchBall:getPosition()
+		--				local distance = cc.pGetDistance(p1,p2)
+		--				if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
+		--					touchIdx = touchIdx + 1
+		--					_bullets[touchIdx] = self.curTouchBall
+		--					if touchIdx > 1 then
+		--						_bullets[touchIdx-1]:removeSingleEffect()
+		--						_bullets[touchIdx-1]:removePuzzleNumber()
+		--					end
+		--					if next(_bullets) ~= nil then
+		--						_bullets[touchIdx]:addBallTouchEffect()
+		--						_bullets[touchIdx]:addPuzzleNumber(touchIdx)
+		--					end
+		--				end
+		--			else
+		--				local obj1 = _bullets[#_bullets]
+		--				local obj2 = _bullets[#_bullets-1]
+		--				if self.curTouchBall == obj2 then
+		--					touchIdx = touchIdx - 1
+		--					obj1:removeAllEffect()
+		--					obj2:addBallTouchEffect()
+		--					table.remove(_bullets,#_bullets)
+		--				end
+		--			end
+		--		elseif self.curTouchBall ~= nil and self.curTouchBall:getTag() ~= _curBallTag then
+		--
+		--		end
+		--
+		--		if #_bullets < 2 then
+		--			_fingerPosition = location
+		--		else
+		--			_fingerPosition = nil
+		--		end
 	end
 
 
 	local function onTouchEnded(touch, event)
 		touchPoint:setPosition(cc.p(9999,9999))
-		GameUtils.TouchFlag = false
+		GameUtils.IsGameActive = false
 		startBall = nil
 		curBall = nil
 		_curBallTag = nil
 		local type = 1
 		local lastPos = nil
 
+		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+		for _, obj in ipairs(all) do
+			if obj:getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
+				obj:getNode():removePuzzleNumber()
+				obj:getNode():removeAllEffect()
+			end
+		end
+
 		if next(_bullets) ~= nil then
 			for key, var in ipairs(_bullets) do
 				if  #_bullets > 1 then
 					if  #_bullets == key then
+						cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.BALL_BROKEN)
 						_bullets[#_bullets]:addBoom(#_bullets)
 						type = _bullets[1]:getTag()
 						lastPos = _bullets[#_bullets]:getPosition()
@@ -404,14 +496,6 @@ function PuzzleLayer:addTouch()
 			end
 		end
 
-		local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
-		for _, obj in ipairs(all) do
-			if obj:getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
-				obj:getNode():removePuzzleNumber()
-				obj:getNode():removeAllEffect()
-			end
-		end
-
 		_bullets = {}
 		_bullets2 = {}
 	end
@@ -421,9 +505,9 @@ function PuzzleLayer:addTouch()
 	listener:registerScriptHandler(onTouchMoved, cc.Handler.EVENT_TOUCH_MOVED)
 	listener:registerScriptHandler(onTouchEnded, cc.Handler.EVENT_TOUCH_ENDED)
 	dispatcher:addEventListenerWithSceneGraphPriority(listener, self)
-	
-	
-	
+
+
+
 	local function onContactBegin(contact)
 		local bodyA = contact:getShapeA():getBody():getNode()
 		local bodyB = contact:getShapeB():getBody():getNode()
@@ -435,8 +519,8 @@ function PuzzleLayer:addTouch()
 		if tagB > 10 then
 			self.curTouchBall = bodyA
 		end
-		
-		
+
+
 		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
 			if next(_bullets) == nil then
 				_bullets[touchIdx] = self.curTouchBall
@@ -475,12 +559,12 @@ function PuzzleLayer:addTouch()
 		else
 			_fingerPosition = nil
 		end
-		return true 
+		return true
 	end
 	local contactListener = cc.EventListenerPhysicsContact:create()
 	contactListener:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)
 	dispatcher:addEventListenerWithSceneGraphPriority(contactListener, self)
-	
+
 end
 
 
@@ -499,10 +583,11 @@ function PuzzleLayer:setFerverPt(count)
 			ferverEffect:setPosition(cc.p(0,0))
 			ferverEffect:setScale(4)
 			ferverEffect:setAnchorPoint(cc.p(0, 0))
-			ferverEffect:setDuration(15)
-			local to = cc.ProgressTo:create(15, 0)
+			ferverEffect:setDuration(10)
+			local to = cc.ProgressTo:create(10, 0)
 			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
+			cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.FERVER,false)
 
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
@@ -556,7 +641,7 @@ function PuzzleLayer:update(dt)
 
 	self:DrawLineRemove()
 
-	if GameUtils.TouchFlag == false then
+	if GameUtils.IsGameActive == false then
 		curBall = nil
 		_curBallTag = nil
 		_bullets = {}
@@ -647,9 +732,12 @@ function PuzzleLayer:checkGameOver()
 		return
 	end
 	--You Win
-	if  self.boss:isActive() == false then
-		self.gameState = self.stateGameOver
-		self:gameResult(true)
+	if self.boss ~= nil and self.boss:isActive() == false then
+		--		self.gameState = self.stateGameOver
+		--		self:gameResult(true)
+		self.boss:removeSelf()
+		self.boss = nil
+		debug = false
 	end
 	--You Lost
 	if self.puzzleCardNode:isAllDead() then
@@ -680,11 +768,11 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
---	local scene = ResultScene:create()
---	local tt = cc.TransitionCrossFade:create(1.0, scene)
---	cc.Director:getInstance():replaceScene(tt)
+	--	local scene = ResultScene:create()
+	--	local tt = cc.TransitionCrossFade:create(1.0, scene)
+	--	cc.Director:getInstance():replaceScene(tt)
 	SceneManager:changeScene("app/scene/puzzle/ResultScene",nil)
-	
+
 end
 --------------------------------------------------------------------------------
 --

@@ -22,22 +22,22 @@ function DownloadScene:onEnter()
 	local function updateTime()
 		if percent < 100 then
 			
-			percent = percent + 1
-			
-			if percent == 3 then
-				percent = 38
-			end
+			percent = percent + 20
 			
 			if percent == 40 then
-				percent = 66
+				percent = 45
+			end
+			
+			if percent == 45 then
+				percent = 50
 			end
 			
 			if percent == 70 then
 				percent = 87
 			end
 			
-			if percent == 90 then
-				percent = 97
+			if percent >= 100 then
+				percent = 100
 			end
 			
 			CCUI_LoadingBar:setPercent(percent)
@@ -45,7 +45,6 @@ function DownloadScene:onEnter()
 			CCUI_LoadingBar:setPercent(100)
 			SceneManager:changeScene("app/scene/top/TopScene", nil)
 		end
-		
 	end
 	schedule(CCUI_LoadingBar, updateTime, 1)
 end

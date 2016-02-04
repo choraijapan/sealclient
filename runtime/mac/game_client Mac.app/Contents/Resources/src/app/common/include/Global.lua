@@ -5,12 +5,13 @@
 Game = {}
 
 require("app.common.const.GameConst")
+require("app.common.const.EnvironmentConst")
 require("app.common.const.AppConst")
 require("app.common.const.DBConst")
 require("app.common.utils.GameUtils")
 
 
 --Game.BaseDb = require("app.data.db.BaseDB")
-local t = 1
+Game.BaseApi = require("app.network.api.BaseApi")
 
 
