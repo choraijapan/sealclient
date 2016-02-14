@@ -38,7 +38,7 @@ function MenuScene:onEnter()
 	self.scene:addChild(self.m.menuNode)
 
 	for key, var in pairs(CONST_MENU_SETTINGS) do
-		local button = WidgetObj:searchWidgetByName(self.m.menuNode,buttonNm,WidgetConst.OBJ_TYPE.Button)
+--		local button = WidgetObj:searchWidgetByName(self.m.menuNode,buttonNm,WidgetConst.OBJ_TYPE.Button)
 		self:clickButton(key, var)
 	end
 end

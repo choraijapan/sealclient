@@ -1,7 +1,9 @@
 MultiManager = class("MultiManager")
 
 function MultiManager:connect(param)
-	local wsUrl = string.format("%s/%d/%d",NetWorkConst.WS.URL,8080,123)
+	local userName = param.userName
+	local port = param.port
+	local wsUrl = string.format("%s:%d/%d",NetWorkConst.WS.URL,8080,userName)
 	WebSocketManager:connect(wsUrl,param, self.onConnect,self.onMessage,self.onClose,self.onError)
 end
 
@@ -26,9 +28,13 @@ function MultiManager:leaveRoom()
 end
 
 function MultiManager:emit(param)
+	if (cc.WEBSOCKET_STATE_OPEN ~= self:getStatus()) then
+		return
+	end
     if (param.c == nil) then
 		param.c = NetWorkConst.WS.MSG_CODE.MSG
     end 
+	WebSocketManager:emit(param,callback)
 end
 
 function MultiManager:close()
@@ -36,7 +42,7 @@ function MultiManager:close()
 end
 
 function MultiManager:getStatus()
-	WebSocketManager:getStatus()
+	return WebSocketManager:getStatus()
 end
 
 MultiManager.onConnect = nil

@@ -20,8 +20,8 @@ function Application:main()
 --	SceneManager:changeScene("app/scene/menu/MenuScene", nil)
 --    SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
 --	SceneManager:changeScene("app/scene/puzzle/PuzzleScene.lua",nil)
---	SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
+	SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
 --	SceneManager:changeScene("app/scene/title/TitleScene", nil)
-	SceneManager:changeScene("src/app/scene/top/TopScene", nil)
+--	SceneManager:changeScene("src/app/scene/top/TopScene", nil)
 end
 return Application
