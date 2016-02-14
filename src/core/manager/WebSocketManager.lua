@@ -22,19 +22,8 @@ WebSocketManager.onConnect = function(data)
 	end
 end
 
-local function utf8_from(t)
-	local bytearr = {}
-	for _, v in ipairs(t) do
-		local utf8byte = v < 0 and (0xff + v + 1) or v
-		table.insert(bytearr, string.char(utf8byte))
-	end
-	return table.concat(bytearr)
-end
-
-
 WebSocketManager.onMessage = function(data)
     if WebSocketManager.onMessageCallBack ~= nil then
-		--local testdata = utf8_from(data)d
 		WebSocketManager.onMessageCallBack(msgPack.unpack(data))
 	end
 end
@@ -67,11 +56,11 @@ function WebSocketManager:connect(url,param, onConnect,onMessage,onClose,onError
 end
 
 function WebSocketManager:emit(data,callback)
-	local testData = msgPack.pack(data)
-	self.wsSendBinary:sendString(testData)
+	self.wsSendBinary:sendString(msgPack.pack(data))
 end
 
-function WebSocketManager:disconnect(callback)
+function WebSocketManager:close(callback)
+    self.wsSendBinary:close()
 end
 
 -- cc.WEBSOCKET_STATE_CONNECTING 
@@ -79,5 +68,5 @@ end
 -- cc.WEBSOCKET_STATE_CLOSING
 -- cc.WEBSOCKET_STATE_CLOSED
 function WebSocketManager:getStatus()
-	return wsSendBinary:getReadyState()
+	return self.wsSendBinary:getReadyState()
 end
