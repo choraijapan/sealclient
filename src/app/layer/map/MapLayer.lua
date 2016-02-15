@@ -27,23 +27,11 @@ local msscale = 1
 function MapLayer:init()
 	CCUI_MapLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
 	local CCUI_Map_0001 = WidgetLoader:loadCsbFile("layer/map/Map_0001.csb")
-	self:addChild(CCUI_MapLayer,0)
-	
---	local scrollView = WidgetObj:searchWidgetByName(CCUI_MapLayer,"ScrollView_1",WidgetConst.OBJ_TYPE.ScrollView)
---	local scrollNode = WidgetObj:searchWidgetByName(CCUI_MapLayer,"ScrollView_1",WidgetConst.OBJ_TYPE.Sprite)
 	
 	local scrollView = cc.ScrollView:create(AppConst.WIN_SIZE)
---	scrollView:setViewSize(cc.size(screenSize.width,screenSize.height))
---	local scrollNode = cc.Layer:create() -- 等同于display.newLayer()
 	self:addChild(scrollView)
 	local screenSize = AppConst.WIN_SIZE
---	local function scrollViewDidScroll()
---		print("###### scrollViewDidScroll ######")
---	end
---	local function scrollViewDidZoom()
---		print("###### scrollViewDidZoom ######")
---	end
---
+
 	if nil ~= scrollView then
 		scrollView:setContainer(CCUI_Map_0001)
 		scrollView:setViewSize(cc.size(screenSize.width,screenSize.height))
@@ -53,47 +41,16 @@ function MapLayer:init()
 		scrollView:setDirection(cc.SCROLLVIEW_DIRECTION_BOTH )
 		scrollView:setClippingToBounds(true)
 		scrollView:setBounceable(false)
---		scrollView:registerScriptHandler(scrollViewDidScroll,cc.SCROLLVIEW_SCRIPT_SCROLL)
---		scrollView:registerScriptHandler(scrollViewDidZoom,cc.SCROLLVIEW_SCRIPT_ZOOM)
 	end
---	
---	local firstDistance = 0
---	local nextDistance = 0
---	local function onTouchsEvent(eventType,touchs)
---		if #touchs >= 6 then
---			if eventType=="began" then
---				firstDistance = cc.pGetDistance(cc.p(touchs[1],touchs[2]),cc.p(touchs[5],touchs[6]))
---				firstDistance = math.abs(firstDistance)
---				print("####### began"..firstDistance)
---			elseif eventType == "moved" then
---				nextDistance = cc.pGetDistance(cc.p(touchs[1],touchs[2]),cc.p(touchs[5],touchs[6]))
---				nextDistance = math.abs(nextDistance)
---				msscale = nextDistance/firstDistance * msscale
---				
---				if msscale < 1 then
---					msscale = 1
---				elseif msscale > 3 then
---					msscale = 3
---				end
---				
---				print("####### msscale"..msscale)
---				scrollView:setScale(msscale)
---				firstDistance = nextDistance
---			end
---		end
---	end
---
---	self:setTouchEnabled(true)
---	self:registerScriptTouchHandler(onTouchsEvent,true)
---
-	local CCUI_EventButton = WidgetObj:searchWidgetByName(CCUI_Map_0001,"BtnEvent_1",WidgetConst.OBJ_TYPE.Button)
+	
+	local CCUI_EventButton = WidgetObj:searchWidgetByName(CCUI_Map_0001,"ImageView_Event1",WidgetConst.OBJ_TYPE.Image)
 	TouchManager:pressedDown(CCUI_EventButton,
 		function()
-			print("####### Event 1 ######")
+			print("####### Image_1 ######")
 			local layer = ConfirmLayer:create()
 			self:addChild(layer)
 		end)
-
+	
 	self:transformScaleScrollView(self,scrollView)
 end
 
