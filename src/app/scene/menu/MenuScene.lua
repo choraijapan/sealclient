@@ -15,7 +15,7 @@ local CONST_MENU_SETTINGS = {
 	Sample_04 = 'app/scene/top/TopScene.lua',
     Sample_05 = 'app/scene/debug/DebugScene',
 	Sample_06 = 'app/scene/gacha/GachaScene',
-	Sample_07 = nil,
+	Sample_07 = 'app/scene/debug/WSDebugScene',
 	Sample_08 = nil,
 	Sample_09 = nil,
 	Sample_10 = nil,
@@ -38,7 +38,7 @@ function MenuScene:onEnter()
 	self.scene:addChild(self.m.menuNode)
 
 	for key, var in pairs(CONST_MENU_SETTINGS) do
-		local button = WidgetObj:searchWidgetByName(self.m.menuNode,buttonNm,WidgetConst.OBJ_TYPE.Button)
+--		local button = WidgetObj:searchWidgetByName(self.m.menuNode,buttonNm,WidgetConst.OBJ_TYPE.Button)
 		self:clickButton(key, var)
 	end
 end
