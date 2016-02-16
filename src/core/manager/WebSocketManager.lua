@@ -55,11 +55,11 @@ function WebSocketManager:connect(url,param, onConnect,onMessage,onClose,onError
 	self.wsSendBinary:registerScriptHandler(self.onError,cc.WEBSOCKET_ERROR)
 end
 
-function WebSocketManager:emit(data,callback)
+function WebSocketManager:emit(data)
 	self.wsSendBinary:sendString(msgPack.pack(data))
 end
 
-function WebSocketManager:close(callback)
+function WebSocketManager:close()
     self.wsSendBinary:close()
 end
 

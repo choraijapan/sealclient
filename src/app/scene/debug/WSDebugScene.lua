@@ -77,11 +77,7 @@ function WSDebugScene:onEnter()
 
 	TouchManager:pressedDown(btn_send,
 		function()
-			local param = {}
-			param.c = NetWorkConst.WS.CUST_OP_CODE.ACK
-			param.v = {}
-			param.v.msg = TXT_SEND_MESSAGE:getString()
-			MultiManager:emit(param)
+			MultiManager:emit(NetWorkConst.WS.CUST_OP_CODE.ACK,TXT_SEND_MESSAGE:getString())
 		end)
 
 	TouchManager:pressedDown(btn_close,

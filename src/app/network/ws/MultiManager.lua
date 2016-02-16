@@ -8,33 +8,28 @@ function MultiManager:connect(param)
 end
 
 function MultiManager:createRoom(roomName)
-    local param = {}
-    param.c = NetWorkConst.WS.MSG_CODE.CREATE_ROOM
-    param.v = roomName
-	MultiManager:emit(param)
+	MultiManager:emit(NetWorkConst.WS.MSG_CODE.CREATE_ROOM,roomName)
 end
 
 function MultiManager:joinRoom(roomName)
-	local param = {}
-	param.c = NetWorkConst.WS.MSG_CODE.JOIN_ROOM
-	param.v = roomName
-	MultiManager:emit(param)
+	MultiManager:emit(NetWorkConst.WS.MSG_CODE.JOIN_ROOM,roomName)
 end
 
 function MultiManager:leaveRoom()
-	local param = {}
-	param.c = NetWorkConst.WS.MSG_CODE.LEAVE_ROOM
-	MultiManager:emit(param)
+	MultiManager:emit(NetWorkConst.WS.MSG_CODE.LEAVE_ROOM,nil)
 end
 
-function MultiManager:emit(param)
+function MultiManager:emit(code,data)
+	local param = {}
+	param.c = code
+	param.v = data
 	if (cc.WEBSOCKET_STATE_OPEN ~= self:getStatus()) then
 		return
 	end
-    if (param.c == nil) then
+	if (param.c == nil) then
 		param.c = NetWorkConst.WS.MSG_CODE.MSG
-    end 
-	WebSocketManager:emit(param,callback)
+	end 
+	WebSocketManager:emit(param)
 end
 
 function MultiManager:close()
