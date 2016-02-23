@@ -43,8 +43,9 @@ function MapLayer:init()
 		scrollView:setBounceable(false)
 	end
 	
-	local CCUI_EventButton = WidgetObj:searchWidgetByName(CCUI_Map_0001,"ImageView_Event1",WidgetConst.OBJ_TYPE.Image)
-	TouchManager:pressedDown(CCUI_EventButton,
+	local CCUI_Node10001 = WidgetObj:searchWidgetByName(CCUI_Map_0001,"Node10001",WidgetConst.OBJ_TYPE.Node)
+	local CCUI_Quest10001 = WidgetObj:searchWidgetByName(CCUI_Node10001,"QuestUnLocked",WidgetConst.OBJ_TYPE.Image)
+	TouchManager:pressedDown(CCUI_Quest10001,
 		function()
 			print("####### Image_1 ######")
 			local layer = ConfirmLayer:create()
