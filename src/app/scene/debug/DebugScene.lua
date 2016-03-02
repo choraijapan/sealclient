@@ -56,9 +56,9 @@ local resourceVersionApi = require("app.network.api.reource.ResourceVersionApi")
 
 local testTable = require("app.data.master.TestTable")
 
+local AreaData = require("app.data.master.AreaData")
+
 local userApi = require("app.network.api.UserApi")
-
-
 
 
 
@@ -69,11 +69,16 @@ local userApi = require("app.network.api.UserApi")
 -- onEnter
 function DebugScene:onEnter()
 	
-	local function callback(res)
-		print("#########"..dumpTable(res))
-	end
+--	local function callback(res)
+--		print("#########"..dumpTable(res))
+--	end
 	
-	userApi:test(callback)
+--	userApi:test(callback)
+	
+	AreaData:initById(1)
+	print("##########"..AreaData.getId())
+	print("##########"..AreaData.getName())
+	print("##########"..AreaData.getDiscription())
 	
 --	local a = nil
 --	--a = testTable:insert(record)

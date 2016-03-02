@@ -7,8 +7,8 @@
 local CardData = class("CardData", Game.BaseDb)
 
 CardData.type = EnvironmentConst.DB.TYPE_MASTER
-CardData.db_name = "test.db"
-CardData.table_name = "carddata"
+CardData.db_name = "master.db"
+CardData.table_name = "area_data"
 CardData.col_def = {
     id = "int",
     name = "card name",
@@ -18,9 +18,5 @@ CardData.col_def = {
     skillId = 0,
     hp = 0,
 }
-
-function CardData:test()
-
-end
 
 return CardData
