@@ -2,7 +2,8 @@ local GachaBall = require("app/parts/gacha/GachaBall")
 local GachaAnimationLayer = require("app/layer/gacha/GachaAnimationLayer")
 local ConfirmLayer = require("app.parts.puzzle.ConfirmLayer")
 local MapLayer = class("MapLayer", cc.Layer)
-
+--マスターデータ
+local AreaData = require("app.data.master.AreaData")
 --------------------------------------------------------------------------------
 -- UI
 local CCUI_CSB = "layer/map/MapLayer.csb"
@@ -16,15 +17,16 @@ end
 -- create
 function MapLayer:create()
 	local layer = MapLayer.new()
-	layer:init()
 	return layer
 end
+
 --------------------------------------------------------------------------------
 -- init
 --local firstDistance = 1
 --local nextDistance = 1
 local msscale = 1
-function MapLayer:init()
+function MapLayer:init(currArea)
+	--currArea 現在のArea
 	CCUI_MapLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
 	local CCUI_Map_0001 = WidgetLoader:loadCsbFile("layer/map/Map_0001.csb")
 	
@@ -38,7 +40,7 @@ function MapLayer:init()
 		scrollView:setPosition(cc.p(0,0))
 		scrollView:setScale(msscale)
 		scrollView:ignoreAnchorPointForPosition(true)
-		scrollView:setDirection(cc.SCROLLVIEW_DIRECTION_BOTH )
+		scrollView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL )
 		scrollView:setClippingToBounds(true)
 		scrollView:setBounceable(false)
 	end
@@ -53,6 +55,13 @@ function MapLayer:init()
 		end)
 	
 	self:transformScaleScrollView(self,scrollView)
+end
+
+function MapLayer:initMasterData(areaId)
+	AreaData:initById(areaId)
+	print("##########"..AreaData.getId())
+	print("##########"..AreaData.getName())
+	print("##########"..AreaData.getDiscription())
 end
 
 function MapLayer:transformScaleScrollView(parent, scrollView)

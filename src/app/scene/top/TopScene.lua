@@ -91,6 +91,7 @@ function TopScene:addMapLayer()
 	if self.m.csb:getChildByTag(GameConst.LAYERID.MAP) then
 		return
 	end
+	layer:init()
 	self.m.csb:addChild(layer,1)
 	local CCUI_HeaderNode = WidgetObj:searchWidgetByName(self.m.csb,"HeaderNode",WidgetConst.OBJ_TYPE.Node)
 	local CCUI_FooterNode = WidgetObj:searchWidgetByName(self.m.csb,"FooterNode",WidgetConst.OBJ_TYPE.Node)
