@@ -10,6 +10,7 @@
 GameUtils = class("GameUtils")
 GameUtils.IsGameActive = false
 
+local cjson = require("cjson")
 ---#############################################################################
 ---### Effect関連
 ---#############################################################################
@@ -327,3 +328,18 @@ function GameUtils:dumpTable(o)
 		return tostring(o)
 	end
 end
+
+function GameUtils:tableFromJson (fileName)  
+	local t   
+	local jsonString  
+	local fileUtils = cc.FileUtils:getInstance()
+	local path = fileUtils:fullPathForFilename(fileName)
+	local myfile = io.open(path,"r")  
+	if myfile == nil then  
+		return nil  
+	end  
+	jsonString = myfile:read("*a")  
+	t = cjson.decode(jsonString)  
+	myfile.close()  
+	return t  
+end  

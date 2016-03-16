@@ -8,6 +8,7 @@
 local StandardScene = require('core.base.scene.StandardScene')
 local DebugScene = class("DebugScene",StandardScene)
 
+local cjson = require("cjson")
 
 --require("lsqlite3")
 ---- local db = sqlite3.open_memory()
@@ -68,6 +69,9 @@ local userApi = require("app.network.api.UserApi")
 
 -- onEnter
 function DebugScene:onEnter()
+	
+	local area_data = GameUtils:tableFromJson("data/area_data.json")
+	print("######area_data>"..area_data["1"].name)
 	
 --	local function callback(res)
 --		print("#########"..dumpTable(res))
