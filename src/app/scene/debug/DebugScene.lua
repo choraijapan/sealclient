@@ -61,7 +61,7 @@ local AreaData = require("app.data.master.AreaData")
 
 local userApi = require("app.network.api.UserApi")
 
-
+local dataManager = require("app.data.DataManager")
 
 
 
@@ -70,20 +70,21 @@ local userApi = require("app.network.api.UserApi")
 -- onEnter
 function DebugScene:onEnter()
 	
-	local area_data = GameUtils:tableFromJson("data/area_data.json")
-	print("######area_data>"..area_data["1"].name)
+	local data = dataManager:getData("data/master/area_data.json")
+	local row = data["1"]
+	print("######## row :"..row["name"])
+	
+--	local area_data = GameUtils:tableFromJson("data/area_data.json")
+--	print("######area_data>"..area_data["1"].name)
+	
+	
 	
 --	local function callback(res)
 --		print("#########"..dumpTable(res))
 --	end
 	
 --	userApi:test(callback)
-	
-	AreaData:initById(1)
-	print("##########"..AreaData.getId())
-	print("##########"..AreaData.getName())
-	print("##########"..AreaData.getDiscription())
-	
+
 --	local a = nil
 --	--a = testTable:insert(record)
 --	testTable:deleteById(29)
