@@ -71,7 +71,7 @@ local dataManager = require("app.data.DataManager")
 function DebugScene:onEnter()
 	
 	local data = dataManager:getData("data/master/area_data.json")
-	local row = data["1"]
+	local row = data[tostring(1)]
 	print("######## row :"..row["name"])
 	
 --	local area_data = GameUtils:tableFromJson("data/area_data.json")

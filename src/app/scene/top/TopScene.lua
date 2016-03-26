@@ -9,7 +9,7 @@ local userApi = require("app.network.api.UserApi")
 -- 各コンポーネント
 local GachaLayer = require("app.layer.gacha.GachaLayer")
 local CardLayer = require("app.layer.card.CardLayer")
-local MapLayer = require("app.layer.map.MapLayer")
+--local MapLayer = require("app.layer.map.MapLayer")
 
 local m_UserName = ""
 local m_UserGold = 1
@@ -41,7 +41,7 @@ function TopScene:onEnter()
 	self.m.csb = WidgetLoader:loadCsbFile("scene/TopScene.csb")
 	self.scene:addChild(self.m.csb)
 	self:onAssignCCSMemberVariable()
-	self:addMapLayer()
+--	self:addMapLayer()
 	self:onHttpRequest()
 end
 -------------------------------------------------------------------------------
@@ -60,12 +60,12 @@ function TopScene:onHttpRequest()
 		m_UserBattlePtMax = data["max_battle_pt"]
 		-------------------------------------
 		--通信結果を設定する
-		CCUI_Label_UserName:setString(m_UserName)
+--		CCUI_Label_UserName:setString(m_UserName)
 		CCUI_Label_UserGold:setString(m_UserGold)
 		CCUI_Label_UserGem:setString(m_UserGem)
 		CCUI_Label_UserLevel:setString(m_UserLevel)
 		CCUI_Label_UserExp:setString(m_UserExp)
-		CCUI_Label_UserBattlePt:setString(m_UserBattlePt)
+--		CCUI_Label_UserBattlePt:setString(m_UserBattlePt)
 	end
 	userApi:Request(callback)
 end
@@ -73,16 +73,17 @@ end
 -- onAssignCCSMemberVariable
 -- Cocos Studio画面上の各コンポーネント
 function TopScene:onAssignCCSMemberVariable()
-	CCUI_Label_UserName = WidgetObj:searchWidgetByName(self.m.csb,"label_UserName",WidgetConst.OBJ_TYPE.Label)
+--	CCUI_Label_UserName = WidgetObj:searchWidgetByName(self.m.csb,"label_UserName",WidgetConst.OBJ_TYPE.Label)
 	CCUI_Label_UserGold = WidgetObj:searchWidgetByName(self.m.csb,"label_UserGold",WidgetConst.OBJ_TYPE.Label)
 	CCUI_Label_UserGem = WidgetObj:searchWidgetByName(self.m.csb,"label_UserGem",WidgetConst.OBJ_TYPE.Label)
 	CCUI_Label_UserLevel = WidgetObj:searchWidgetByName(self.m.csb,"label_UserLevel",WidgetConst.OBJ_TYPE.Label)
 	CCUI_Label_UserExp = WidgetObj:searchWidgetByName(self.m.csb,"label_UserExp",WidgetConst.OBJ_TYPE.Label)
-	CCUI_Label_UserBattlePt = WidgetObj:searchWidgetByName(self.m.csb,"label_UserBattlePt",WidgetConst.OBJ_TYPE.Label)
-	CCUI_GachaButton = WidgetObj:searchWidgetByName(self.m.csb,"GachaButton",WidgetConst.OBJ_TYPE.Button)
-	CCUI_CardsButton = WidgetObj:searchWidgetByName(self.m.csb,"CardsButton",WidgetConst.OBJ_TYPE.Button)
-	TouchManager:pressedDown(CCUI_GachaButton,function() self:addGachaLayer() end)
-	TouchManager:pressedDown(CCUI_CardsButton,function() self:addCardLayer() end)
+--	CCUI_Label_UserBattlePt = WidgetObj:searchWidgetByName(self.m.csb,"label_UserBattlePt",WidgetConst.OBJ_TYPE.Label)
+--	CCUI_GachaButton = WidgetObj:searchWidgetByName(self.m.csb,"GachaButton",WidgetConst.OBJ_TYPE.Button)
+--	CCUI_CardsButton = WidgetObj:searchWidgetByName(self.m.csb,"CardsButton",WidgetConst.OBJ_TYPE.Button)
+
+--	TouchManager:pressedDown(CCUI_GachaButton,function() self:addGachaLayer() end)
+--	TouchManager:pressedDown(CCUI_CardsButton,function() self:addCardLayer() end)
 end
 -------------------------------------------------------------------------------
 -- マップ
