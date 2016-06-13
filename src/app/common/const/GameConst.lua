@@ -11,10 +11,10 @@ GameConst.SOUND = {
 }
 
 GameConst.BALL_PNG = {
-	[1] = "images/puzzle/block/b_water.png",
-	[2] = "images/puzzle/block/b_fire.png",
-	[3] = "images/puzzle/block/b_tree.png",
-	[4] = "images/puzzle/block/b_dark.png",
+	[1] = "images/puzzle/block/donut_1.png",
+	[2] = "images/puzzle/block/donut_2.png",
+	[3] = "images/puzzle/block/donut_3.png",
+	[4] = "images/puzzle/block/donut_4.png",
 }
 
 GameConst.BOOM = {
@@ -22,22 +22,22 @@ GameConst.BOOM = {
 	[1] = {
 		name = "boom5",
 		tag = 5,
-		image = "images/puzzle/block/ball_light.png",
+		image = "images/puzzle/block/donut_1.png",
 	},
 	[2] = {
 		name = "boom6",
 		tag = 6,
-		image = "images/puzzle/block/ball_fire.png",
+		image = "images/puzzle/block/donut_2.png",
 	},
 	[3] = {
 		name = "boom7",
 		tag = 7,
-		image = "images/puzzle/block/ball_water.png",
+		image = "images/puzzle/block/donut_3.png",
 	},
 	[4] = {
 		name = "boom8",
 		tag = 8,
-		image = "images/puzzle/block/ball_tree.png",
+		image = "images/puzzle/block/donut_4.png",
 	}
 }
 

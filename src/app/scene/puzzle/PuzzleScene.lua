@@ -1,7 +1,6 @@
 -------------------------------------------------------------------------------
 -- core BattleScene
 -- @date 2015/05/15
--- @author masahiro mine
 -------------------------------------------------------------------------------
 require("app.common.include.Global")
 local PuzzleManager = require("app.layer.puzzle.PuzzleManager")

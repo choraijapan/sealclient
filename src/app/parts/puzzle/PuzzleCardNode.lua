@@ -245,7 +245,7 @@ function PuzzleCardNode:drawSkill(obj)
 
 	local function createText(txt)
 		local str = cc.Label:createWithSystemFont("", "HelveticaNeue-Bold", 30)
-		str:setPosition(cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2-cardSpriteSize.height/2))
+		str:setPosition(cc.p(AppConst.DESIGN_SIZE.width/2,AppConst.DESIGN_SIZE.height/2-cardSpriteSize.height/2))
 		str:setColor(cc.c3b(255,255,0))
 		str:setString(txt)
 		return str
@@ -254,18 +254,18 @@ function PuzzleCardNode:drawSkill(obj)
 	-- create card character
 	local function createCardCara()
 		cardSprite:setAnchorPoint(cc.p(0.5,0.5))
-		cardSprite:setPosition(cc.p(AppConst.VISIBLE_SIZE.width + 200,AppConst.VISIBLE_SIZE.height/2))
+		cardSprite:setPosition(cc.p(AppConst.DESIGN_SIZE.width + 200,AppConst.DESIGN_SIZE.height/2))
 		local action1 = cc.DelayTime:create(0.1)
-		local action2 = cc.MoveTo:create(0.1,cc.p(AppConst.VISIBLE_SIZE.width/2,AppConst.VISIBLE_SIZE.height/2))
-		local action3 =  cc.MoveTo:create(0.7,cc.p(AppConst.VISIBLE_SIZE.width/2 - 10,AppConst.VISIBLE_SIZE.height/2))
-		local action4 =  cc.MoveTo:create(0.1,cc.p(-AppConst.VISIBLE_SIZE.width - cardSpriteSize.width/2,AppConst.VISIBLE_SIZE.height/2))
+		local action2 = cc.MoveTo:create(0.1,cc.p(AppConst.DESIGN_SIZE.width/2,AppConst.DESIGN_SIZE.height/2))
+		local action3 =  cc.MoveTo:create(0.7,cc.p(AppConst.DESIGN_SIZE.width/2 - 10,AppConst.DESIGN_SIZE.height/2))
+		local action4 =  cc.MoveTo:create(0.1,cc.p(-AppConst.DESIGN_SIZE.width - cardSpriteSize.width/2,AppConst.DESIGN_SIZE.height/2))
 		cardSprite:runAction(cc.Sequence:create(action1, action2, action3, action4))
 		return cardSprite
 	end
 
 	local emitter = GameUtils:createParticle(GameConst.PARTICLE.SKILL_BG,nil)
 	emitter:setScale(1.5)
-	emitter:setPosition(cc.p(0,AppConst.VISIBLE_SIZE.height/2))
+	emitter:setPosition(cc.p(0,AppConst.DESIGN_SIZE.height/2))
 	local cardSprite = createCardCara()
 	local blockLayer = BlockLayer:create()
 	local text = createText(obj.skill.name)

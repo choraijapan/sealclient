@@ -1,6 +1,8 @@
 local PuzzleResultLayer = require("app.layer.puzzle.PuzzleResultLayer")
 --local ResultScene = require("app.scene.puzzle.ResultScene")
-local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
+--local PuzzleCardNode = require("app.parts.puzzle.PuzzleCardNode").new()
+
+local PuzzleUILayer = require("src/app/layer/puzzle/PuzzleUILayer")
 local Ball = require("app.parts.puzzle.Ball")
 local DrawLine = require("app.parts.puzzle.DrawLine")
 local BossSprite = require("app.parts.puzzle.BossSprite")
@@ -33,7 +35,7 @@ PuzzleLayer.cards = {
 
 local offside = nil
 
-local MAX_BULLET = 35
+local MAX_BULLET = 45
 local _time = 0
 local _curBallTag = nil
 local _bulletVicts = nil
@@ -57,8 +59,10 @@ local touchPoint = nil
 local debug = true
 --------------------------------------------------------------------------------
 -- UI
-local CCUI_CSB = "scene/puzzle/PuzzleScene.csb"
-local CCUI_PuzzleLayer = nil
+local CSB_PuzzleScene = "scene/puzzle/PuzzleScene.csb"
+local CSB_PuzzleStatus = "parts/puzzle/PuzzleStatus.csb"
+local CCUI_PuzzleScene = nil
+local CCUI_PuzzleStatus = nil
 local CCUI_ButtonMenu = nil
 local CCUI_Bg1 = nil
 local CCUI_Bg2 = nil
@@ -91,30 +95,36 @@ end
 --------------------------------------------------------------------------------
 -- init
 function PuzzleLayer:init()
-	CCUI_PuzzleLayer = WidgetLoader:loadCsbFile(CCUI_CSB)
-	self:addChild(CCUI_PuzzleLayer,GameConst.ZOrder.Z_BossBg)
+	CCUI_PuzzleScene = WidgetLoader:loadCsbFile(CSB_PuzzleScene)
+	self:addChild(CCUI_PuzzleScene,GameConst.ZOrder.Z_BossBg)
 
-	CCUI_Bg1 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"Bg1","cc.Sprite")
-	CCUI_Bg2 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"Bg2","cc.Sprite")
-	CCUI_ButtonMenu = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"MenuButton",WidgetConst.OBJ_TYPE.Button)
+	CCUI_PuzzleStatus = WidgetLoader:loadCsbFile(CSB_PuzzleStatus)
+	self:addChild(CCUI_PuzzleStatus,GameConst.ZOrder.Z_Deck)
 
-	CCUI_bottom_1 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_1","cc.Sprite")
-	CCUI_bottom_2 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_2","cc.Sprite")
-	CCUI_bottom_3 = WidgetObj:searchWidgetByName(CCUI_PuzzleLayer,"bottom_3","cc.Sprite")
+	CCUI_Bg1 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"Bg1","cc.Sprite")
+	CCUI_Bg2 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"Bg2","cc.Sprite")
+	CCUI_ButtonMenu = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"MenuButton",WidgetConst.OBJ_TYPE.Button)
+
+	CCUI_bottom_1 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"bottom_1","cc.Sprite")
+	CCUI_bottom_2 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"bottom_2","cc.Sprite")
+	CCUI_bottom_3 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"bottom_3","cc.Sprite")
 
 	TouchManager:pressedDown(CCUI_ButtonMenu,
 		function()
 			SceneManager:changeScene("app/scene/top/TopScene",nil)
 		end)
 
+	--  self.hpBar = WidgetObj:searchWidgetByName(self,"LoadingBar_Hp","ccui.LoadingBar")
+	--  self.hpBar:setPercent(20)
 
 
 	--    self:loadingMusic() -- 背景音乐
 	self:addBG()        -- 初始化背景
-	--	    self:moveBG()       -- 背景移动
+	--      self:moveBG()       -- 背景移动
 
 	self:initGameState()                -- 初始化游戏数据状态
-	self:addCards()             -- 初期化（自分）
+	--  self:addCards()             -- 初期化（自分）
+	self:addUILayer()
 
 	self:addBossSprite()
 	self:addPuzzle()
@@ -130,11 +140,11 @@ function PuzzleLayer:init()
 		if data.action == "atk" then
 			PuzzleManager:addHurtEffect()
 			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
-			--			for _, obj in ipairs(all) do
-			--				if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
-			--					obj:getNode():makeShake() --各ボール shake
-			--				end
-			--			end
+			--          for _, obj in ipairs(all) do
+			--              if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
+			--                  obj:getNode():makeShake() --各ボール shake
+			--              end
+			--          end
 		end
 	end
 	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
@@ -154,15 +164,16 @@ end
 --------------------------------------------------------------------------------
 -- addPuzzle
 function PuzzleLayer:addPuzzle()
+    local paddingBottom = 50
 	local vec =
 		{
-			cc.p(AppConst.VISIBLE_SIZE.width-1,AppConst.VISIBLE_SIZE.height+100),
-			cc.p(1, AppConst.VISIBLE_SIZE.height+100),
-			cc.p(1, 50),
-			cc.p(AppConst.VISIBLE_SIZE.width/3, 0),
-			cc.p(AppConst.VISIBLE_SIZE.width*2/3, 0),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, 50),
-			cc.p(AppConst.VISIBLE_SIZE.width-1, AppConst.VISIBLE_SIZE.height+100)
+			cc.p(AppConst.DESIGN_SIZE.width-1,AppConst.DESIGN_SIZE.height+100),
+			cc.p(1, AppConst.DESIGN_SIZE.height+100),
+			cc.p(1, 50 + paddingBottom),
+			cc.p(AppConst.DESIGN_SIZE.width/3, 0 + paddingBottom),
+			cc.p(AppConst.DESIGN_SIZE.width*2/3, 0 + paddingBottom),
+			cc.p(AppConst.DESIGN_SIZE.width-1, 50 + paddingBottom),
+			cc.p(AppConst.DESIGN_SIZE.width-1, AppConst.DESIGN_SIZE.height+100)
 		}
 
 	self.wall = cc.Node:create()
@@ -185,13 +196,33 @@ end
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:addBalls()
-	local typeId = math.random(1,GameUtils:tablelength(GameConst.ATTRIBUTE))
-	local ball = Ball:create(typeId)
+	local all = {}
+	if cc.Director:getInstance():getRunningScene():getPhysicsWorld() ~= nil then
+		all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+	end
+
+	if MAX_BULLET <= #all then
+		return
+	end
+
+	local kind = math.random(1,GameUtils:tablelength(GameConst.ATTRIBUTE))
+
+	local ball = nil
+--	if #all == 10 then
+--		ball = Ball:create(1,1)  -- 4はcard idを入れる、Ballの方で、Card　Idからkindを取得できるので！
+--	elseif #all == 30 then
+--		ball = Ball:create(1,1)
+--	elseif #all == 40 then
+--		ball = Ball:create(1,1)
+--	else
+--		ball = Ball:create(0,kind)
+--	end
+	ball = Ball:create(0,kind)
 
 	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
 	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
-	--	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
-	--	local randomY = math.random(AppConst.WIN_SIZE.height + 60 ,AppConst.WIN_SIZE.height + 100)
+	--  local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
+	--  local randomY = math.random(AppConst.WIN_SIZE.height + 60 ,AppConst.WIN_SIZE.height + 100)
 
 	ball:setPosition(randomX, randomY)
 	ball:setRotation(math.random(1,360))
@@ -255,8 +286,8 @@ function PuzzleLayer:moveBG()
 	end
 
 	bottom_x:setAnchorPoint(0.5,1)
-	--			bottom_x:setScale(CCUI_bottom_1:getScale()/2)
-	--			bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
+	--          bottom_x:setScale(CCUI_bottom_1:getScale()/2)
+	--          bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
 	bottom_x:setScale(CCUI_bottom_1:getScale() * math.pow(2, -1)* _sc)
 	bottom_x:setPosition(cc.p(posx,bottom_x:getPositionY() - _y))
 	end
@@ -272,7 +303,7 @@ function PuzzleLayer:moveBG()
 		CCUI_Bg2:setPositionY(CCUI_Bg1:getPositionY() + height)
 		if CCUI_Bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
 			CCUI_Bg1, CCUI_Bg2 = CCUI_Bg2, CCUI_Bg1
-			CCUI_Bg2:setPositionY(AppConst.VISIBLE_SIZE.height)
+			CCUI_Bg2:setPositionY(AppConst.DESIGN_SIZE.height)
 		end
 	end
 	schedule(self, updateBG, 0)
@@ -325,7 +356,6 @@ function PuzzleLayer:addTouch()
 		end
 
 		touchPoint:setPosition(cc.p(location.x,location.y))
-
 		if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
 			if _curBallTag ~= nil and _curBallTag ~= arr:getBody():getNode():getTag() then
 				return false
@@ -336,7 +366,7 @@ function PuzzleLayer:addTouch()
 					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 
 					self:updateCombol()
-					if arr:getBody():getNode():brokenBoomX() then
+					if arr:getBody():getNode():brokenBoomX() and arr:getBody():getNode():getType() ~= 1 then
 						local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 						for _, obj2 in ipairs(boomAround) do
 							obj2:getNode():brokenBullet()
@@ -348,8 +378,8 @@ function PuzzleLayer:addTouch()
 								isFerver = isFerverTime,
 								startPos = obj2:getNode():getPosition()
 							}
-							self.puzzleCardNode:ballToCard(data)
-							self:setFerverPt(data.count)
+							--                          self.puzzleCardNode:ballToCard(data)
+							--                          self:setFerverPt(data.count)
 						end
 					end
 
@@ -370,8 +400,8 @@ function PuzzleLayer:addTouch()
 							isFerver = isFerverTime,
 							startPos = obj2:getNode():getPosition()
 						}
-						self.puzzleCardNode:ballToCard(data)
-						self:setFerverPt(data.count)
+						--                      self.puzzleCardNode:ballToCard(data)
+						--                      self:setFerverPt(data.count)
 					end
 					self:updateCombol()
 					arr:getBody():getNode():broken()
@@ -409,48 +439,48 @@ function PuzzleLayer:addTouch()
 		local location = touch:getLocation()
 		touchPoint:setPosition(cc.p(location.x,location.y))
 
-		--		local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
-		--		if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
-		--			self.curTouchBall = arr:getBody():getNode()
-		--		end
-		--		if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
-		--			if next(_bullets) == nil then
-		--				_bullets[touchIdx] = self.curTouchBall
-		--			elseif isTableContains(_bullets,self.curTouchBall) == false then
-		--				local p1 = _bullets[#_bullets]:getPosition()
-		--				local p2 = self.curTouchBall:getPosition()
-		--				local distance = cc.pGetDistance(p1,p2)
-		--				if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
-		--					touchIdx = touchIdx + 1
-		--					_bullets[touchIdx] = self.curTouchBall
-		--					if touchIdx > 1 then
-		--						_bullets[touchIdx-1]:removeSingleEffect()
-		--						_bullets[touchIdx-1]:removePuzzleNumber()
-		--					end
-		--					if next(_bullets) ~= nil then
-		--						_bullets[touchIdx]:addBallTouchEffect()
-		--						_bullets[touchIdx]:addPuzzleNumber(touchIdx)
-		--					end
-		--				end
-		--			else
-		--				local obj1 = _bullets[#_bullets]
-		--				local obj2 = _bullets[#_bullets-1]
-		--				if self.curTouchBall == obj2 then
-		--					touchIdx = touchIdx - 1
-		--					obj1:removeAllEffect()
-		--					obj2:addBallTouchEffect()
-		--					table.remove(_bullets,#_bullets)
-		--				end
-		--			end
-		--		elseif self.curTouchBall ~= nil and self.curTouchBall:getTag() ~= _curBallTag then
+		--      local arr = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getShape(location)
+		--      if arr ~= nil and arr:getBody():getTag() == GameConst.PUZZLEOBJTAG.T_Bullet then
+		--          self.curTouchBall = arr:getBody():getNode()
+		--      end
+		--      if self.curTouchBall ~= nil and (self.curTouchBall:getTag() ==_curBallTag or PuzzleManager.isAllColorPuzzle) then
+		--          if next(_bullets) == nil then
+		--              _bullets[touchIdx] = self.curTouchBall
+		--          elseif isTableContains(_bullets,self.curTouchBall) == false then
+		--              local p1 = _bullets[#_bullets]:getPosition()
+		--              local p2 = self.curTouchBall:getPosition()
+		--              local distance = cc.pGetDistance(p1,p2)
+		--              if distance < 2 * math.sqrt(3) * self.curTouchBall.circleSize  then
+		--                  touchIdx = touchIdx + 1
+		--                  _bullets[touchIdx] = self.curTouchBall
+		--                  if touchIdx > 1 then
+		--                      _bullets[touchIdx-1]:removeSingleEffect()
+		--                      _bullets[touchIdx-1]:removePuzzleNumber()
+		--                  end
+		--                  if next(_bullets) ~= nil then
+		--                      _bullets[touchIdx]:addBallTouchEffect()
+		--                      _bullets[touchIdx]:addPuzzleNumber(touchIdx)
+		--                  end
+		--              end
+		--          else
+		--              local obj1 = _bullets[#_bullets]
+		--              local obj2 = _bullets[#_bullets-1]
+		--              if self.curTouchBall == obj2 then
+		--                  touchIdx = touchIdx - 1
+		--                  obj1:removeAllEffect()
+		--                  obj2:addBallTouchEffect()
+		--                  table.remove(_bullets,#_bullets)
+		--              end
+		--          end
+		--      elseif self.curTouchBall ~= nil and self.curTouchBall:getTag() ~= _curBallTag then
 		--
-		--		end
+		--      end
 		--
-		--		if #_bullets < 2 then
-		--			_fingerPosition = location
-		--		else
-		--			_fingerPosition = nil
-		--		end
+		--      if #_bullets < 2 then
+		--          _fingerPosition = location
+		--      else
+		--          _fingerPosition = nil
+		--      end
 	end
 
 
@@ -480,6 +510,10 @@ function PuzzleLayer:addTouch()
 						type = _bullets[1]:getTag()
 						lastPos = _bullets[#_bullets]:getPosition()
 					end
+
+					if var:getType() == 1 then
+						var:addBoomCard(#_bullets)
+					end
 					var:removeAllEffect()
 					var:brokenBullet()
 				end
@@ -493,8 +527,8 @@ function PuzzleLayer:addTouch()
 					isFerver = isFerverTime,
 					startPos = lastPos,
 				}
-				self.puzzleCardNode:ballToCard(data)
-				self:setFerverPt(#_bullets)
+				--              self.puzzleCardNode:ballToCard(data)
+				--              self:setFerverPt(#_bullets)
 				if  #_bullets > 2 then
 					self:updateCombol()
 				end
@@ -590,13 +624,13 @@ function PuzzleLayer:setFerverPt(count)
 			ferverEffect:setAnchorPoint(cc.p(0, 0))
 			ferverEffect:setDuration(10)
 			local to = cc.ProgressTo:create(10, 0)
-			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
+			--          self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
 			cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.FERVER,false)
 
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
-			self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
+			--          self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
 		end
 	end
 end
@@ -613,9 +647,15 @@ end
 --
 -- cardsを追加する
 function PuzzleLayer:addCards()
-	self.puzzleCardNode = PuzzleCardNode:create()
-	self:addChild(self.puzzleCardNode, GameConst.ZOrder.Z_Deck)
+--  self.puzzleCardNode = PuzzleCardNode:create()
+--  self:addChild(self.puzzleCardNode, GameConst.ZOrder.Z_Deck)
 end
+
+function PuzzleLayer:addUILayer()
+	self.PuzzleUILayer = PuzzleUILayer:create()
+	self:addChild(self.PuzzleUILayer, GameConst.ZOrder.Z_Deck)
+end
+
 --------------------------------------------------------------------------------
 --
 -- BOSSをinitする
@@ -635,14 +675,14 @@ end
 --
 function PuzzleLayer:update(dt)
 	_time = _time + 1
-	local all = {}
-	if cc.Director:getInstance():getRunningScene():getPhysicsWorld() ~= nil then
-		all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
-	end
+	--  local all = {}
+	--  if cc.Director:getInstance():getRunningScene():getPhysicsWorld() ~= nil then
+	--      all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
+	--  end
 
-	if MAX_BULLET >= #all then
-		self:addBalls()
-	end
+	--  if MAX_BULLET >= #all then
+	self:addBalls()
+	--  end
 
 	self:DrawLineRemove()
 
@@ -662,12 +702,12 @@ function PuzzleLayer:update(dt)
 		_bulletVicts = {}
 	end
 
-	if isFerverTime then
-		if self.puzzleCardNode.ferverBar:getPercentage() == 0 then
-			isFerverTime = false
-			ferver = 0
-		end
-	end
+	--  if isFerverTime then
+	--      if self.puzzleCardNode.ferverBar:getPercentage() == 0 then
+	--          isFerverTime = false
+	--          ferver = 0
+	--      end
+	--  end
 	self:checkPuzzleHint()
 end
 --------------------------------------------------------------------------------
@@ -738,14 +778,14 @@ function PuzzleLayer:checkGameOver()
 	end
 	--You Win
 	if self.boss ~= nil and self.boss:isActive() == false then
-		--		self.gameState = self.stateGameOver
-		--		self:gameResult(true)
+		--      self.gameState = self.stateGameOver
+		--      self:gameResult(true)
 		self.boss:removeSelf()
 		self.boss = nil
 		debug = false
 	end
 	--You Lost
-	if self.puzzleCardNode:isAllDead() then
+	if self.PuzzleUILayer:isAllDead() then
 		self:gameResult(false)
 	end
 end
@@ -773,11 +813,11 @@ end
 --------------------------------------------------------------------------------
 -- 游戏结束
 function PuzzleLayer:gameResult(isWin)
-	--	local scene = ResultScene:create()
-	--	local tt = cc.TransitionCrossFade:create(1.0, scene)
-	--	cc.Director:getInstance():replaceScene(tt)
-	SceneManager:changeScene("app/scene/puzzle/ResultScene",nil)
-
+	--  local scene = ResultScene:create()
+	--  local tt = cc.TransitionCrossFade:create(1.0, scene)
+	--  cc.Director:getInstance():replaceScene(tt)
+	--  SceneManager:changeScene("app/scene/puzzle/ResultScene",nil)
+	print("###Game Over#####")
 end
 --------------------------------------------------------------------------------
 --
@@ -797,7 +837,8 @@ function PuzzleLayer:addCombol()
 	self.UI_Combol = ccui.TextAtlas:create()
 	self.UI_Combol:setProperty(self.combolNumber, GameConst.FONT.NUMBER_MYELLOW, 25, 30, "0")
 	self.UI_Combol:setPosition(cc.p(AppConst.WIN_SIZE.width - 80,AppConst.WIN_SIZE.height/2 + 150))
-	self.puzzleCardNode:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
+	self:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
+	--  self.puzzleCardNode:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
 	self.UI_Combol:setOpacity(0)
 end
 function PuzzleLayer:updateCombol()

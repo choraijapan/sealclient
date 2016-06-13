@@ -10,6 +10,7 @@ local userApi = require("app.network.api.UserApi")
 local GachaLayer = require("app.layer.gacha.GachaLayer")
 local CardLayer = require("app.layer.card.CardLayer")
 --local MapLayer = require("app.layer.map.MapLayer")
+local ConfirmLayer = require("app.parts.puzzle.ConfirmLayer")
 
 local m_UserName = ""
 local m_UserGold = 1
@@ -79,11 +80,23 @@ function TopScene:onAssignCCSMemberVariable()
 	CCUI_Label_UserLevel = WidgetObj:searchWidgetByName(self.m.csb,"label_UserLevel",WidgetConst.OBJ_TYPE.Label)
 	CCUI_Label_UserExp = WidgetObj:searchWidgetByName(self.m.csb,"label_UserExp",WidgetConst.OBJ_TYPE.Label)
 --	CCUI_Label_UserBattlePt = WidgetObj:searchWidgetByName(self.m.csb,"label_UserBattlePt",WidgetConst.OBJ_TYPE.Label)
---	CCUI_GachaButton = WidgetObj:searchWidgetByName(self.m.csb,"GachaButton",WidgetConst.OBJ_TYPE.Button)
---	CCUI_CardsButton = WidgetObj:searchWidgetByName(self.m.csb,"CardsButton",WidgetConst.OBJ_TYPE.Button)
+	
+	local CCUI_Button_Shop = WidgetObj:searchWidgetByName(self.m.csb,"Button_Shop",WidgetConst.OBJ_TYPE.Button)
+	local CCUI_Button_Battle = WidgetObj:searchWidgetByName(self.m.csb,"Button_Battle",WidgetConst.OBJ_TYPE.Button)
+	local CCUI_Button_Card = WidgetObj:searchWidgetByName(self.m.csb,"Button_Card",WidgetConst.OBJ_TYPE.Button)
 
---	TouchManager:pressedDown(CCUI_GachaButton,function() self:addGachaLayer() end)
---	TouchManager:pressedDown(CCUI_CardsButton,function() self:addCardLayer() end)
+
+	
+	
+	
+	TouchManager:pressedDown(CCUI_Button_Shop,function() self:addGachaLayer() end)
+	TouchManager:pressedDown(CCUI_Button_Battle,function() self:addConfirmLayer() end)
+	TouchManager:pressedDown(CCUI_Button_Card,function() self:addCardLayer() end)
+end
+
+function TopScene:addConfirmLayer()
+	local layer = ConfirmLayer:create()
+	self.m.csb:addChild(layer)
 end
 -------------------------------------------------------------------------------
 -- マップ

@@ -9,8 +9,14 @@ Ball.MOMENT = 1200 -- モーメント(大きいほど回転しにくい)
 Ball._state = 0
 Ball._frame = nil
 Ball._image = nil
-Ball.scalePer = 0.9 --元の値
-Ball.circleSize = 48 --元の値
+Ball._type = nil
+Ball._kind = nil
+--Ball.scalePer = 0.9 --元の値
+--Ball.circleSize = 48 --元の値
+--Ball.scalePer = 1 --元の値
+Ball.scalePer = 0.65 --元の値
+Ball.circleSize = 56 --元の値
+
 --Ball.scalePer = 0.65
 --Ball.circleSize = 49
 --Ball.scalePer = 0.6 --元の値
@@ -60,19 +66,25 @@ Ball.vertexes = {
 function Ball:ctor()
 end
 
-function Ball:create(type)
+function Ball:create(type,kind)
 	local ball = Ball.new()
-	ball:init(type)
+	ball:init(type,kind)
 	return ball
 end
 
-function Ball:init(type)
+function Ball:init(type,kind)
 	self:enableNodeEvents()
-
-	self:setTag(type)
+	self._type = type
+	self._kind = kind
+	self:setTag(kind)
 
 	self._image = cc.Sprite:create()
-	WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[type])
+	if type == 0 then
+		WidgetLoader:setSpriteImage(self._image, GameConst.BALL_PNG[kind])
+	else
+		WidgetLoader:setSpriteImage(self._image,GameConst.BOOM[1].image)
+	end
+	
 	self._image:setAnchorPoint(cc.p(0.5,0.5))
 	self:setAnchorPoint(cc.p(0.5,0.5))
 	self:addChild(self._image)
@@ -85,6 +97,10 @@ function Ball:init(type)
 	self:setScale(self.scalePer)
 	--    self.size = (size.width/2) * self.scalePer
 	--    self.size = self.circleSize
+	
+	if self._type == 1 then
+		self.circleSize = self.circleSize * 1.5
+	end
 	--1、density（密度）2、restiution（弹性）3、friction（摩擦力）
 	self._frame = cc.PhysicsBody:createCircle((self.circleSize), cc.PhysicsMaterial(self.DENSITY, self.RESTIUTION, self.FRICTION))
 	--	local vertexes = {cc.p(44,-3),cc.p(25,-40),cc.p(-22,-41),cc.p(-42,-3),cc.p(-22,36),cc.p(25,37)}
@@ -107,13 +123,14 @@ function Ball:reOrder(order)
 end
 
 function Ball:brokenBullet()
-	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false then
+	if GameUtils:inTable(GameConst.BOOM.KINDS,self:getName()) == false and self:getType() ~= 1 then
 		self:broken()
 	end
 end
 
 --------------------------------------------------------------------------------
 -- 連打ボールを爆発条件
+--[[
 Ball.touchBoomXCount = 0
 function Ball:brokenBoomX()
 	self.touchBoomXCount = self.touchBoomXCount + 1
@@ -129,6 +146,14 @@ function Ball:brokenBoomX()
 		return false
 	end
 end
+]]--
+
+function Ball:brokenBoomX()
+	self:broken()
+	return true
+end
+
+
 
 function Ball:broken()
 
@@ -259,7 +284,8 @@ end
 
 function Ball:addBoom(num)
 	if num > 5 then
-		local boomId = math.random(1,4)
+--		local boomId = math.random(1,4)
+		local boomId = self._kind
 		self:setName(GameConst.BOOM[boomId].name)
 		self:setTag(GameConst.BOOM[boomId].tag)
 		WidgetLoader:setSpriteImage(self._image, GameConst.BOOM[boomId].image)
@@ -270,8 +296,50 @@ function Ball:addBoom(num)
 		self:addChild(particle,1111)
 
 		self:getParent():reorderChild(self,3)
-		self._image:setScale(0.9)
+--		self._image:setScale(1.4)
+		self:setScale(1.2)
 	end
+end
+
+function Ball:getType()
+	return self._type
+end
+
+function Ball:getKind()
+	return self._kind
+end
+
+function Ball:addBoomCard(num)
+	print("##########=type "..self._type)
+	if self._type == 1 then
+--		local boomId = math.random(1,4)
+		local boomId = 4 --TODO
+		self:setName(GameConst.BOOM[boomId].name)
+		self:setTag(GameConst.BOOM[boomId].tag)
+		WidgetLoader:setSpriteImage(self._image,GameConst.BOOM[1].image)
+
+		local particle = GameUtils:createParticle(GameConst.PARTICLE.BOOM,nil)
+		particle:setAutoRemoveOnFinish(true)
+		particle:setPosition(cc.p(0,0))
+		self:addChild(particle,1111)
+
+		self:getParent():reorderChild(self,3)
+		self._image:setScale(1.2)
+	end
+end
+
+function Ball:changeToBoomCard(cardId, num)
+	self:setName("boom_9999")
+	self:setTag(9999)
+	WidgetLoader:setSpriteImage(self._image, GameConst.BOOM[1].image)
+
+	local particle = GameUtils:createParticle(GameConst.PARTICLE.BOOM,nil)
+	particle:setAutoRemoveOnFinish(true)
+	particle:setPosition(cc.p(0,0))
+	self:addChild(particle,1111)
+
+	self:getParent():reorderChild(self,3)
+	self._image:setScale(0.9)
 end
 
 --function Ball:createStroke(sprite, size, color, opacity)
