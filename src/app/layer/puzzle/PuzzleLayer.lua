@@ -61,7 +61,6 @@ local debug = true
 --------------------------------------------------------------------------------
 -- UI
 local CSB_PuzzleScene = "scene/puzzle/PuzzleScene.csb"
-local CSB_PuzzleStatus = "parts/puzzle/PuzzleStatus.csb"
 local CCUI_PuzzleScene = nil
 local CCUI_PuzzleStatus = nil
 local CCUI_ButtonMenu = nil
@@ -99,37 +98,11 @@ function PuzzleLayer:init()
 	CCUI_PuzzleScene = WidgetLoader:loadCsbFile(CSB_PuzzleScene)
 	self:addChild(CCUI_PuzzleScene,GameConst.ZOrder.Z_BossBg)
 
---	CCUI_PuzzleStatus = WidgetLoader:loadCsbFile(CSB_PuzzleStatus)
---	self:addChild(CCUI_PuzzleStatus,GameConst.ZOrder.Z_Deck)
-
-	CCUI_Bg1 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"Bg1","cc.Sprite")
-	CCUI_Bg2 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"Bg2","cc.Sprite")
-	CCUI_ButtonMenu = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"MenuButton",WidgetConst.OBJ_TYPE.Button)
-
-	CCUI_bottom_1 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"bottom_1","cc.Sprite")
-	CCUI_bottom_2 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"bottom_2","cc.Sprite")
-	CCUI_bottom_3 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"bottom_3","cc.Sprite")
-
-	TouchManager:pressedDown(CCUI_ButtonMenu,
-		function()
-			SceneManager:changeScene("app/scene/top/TopScene",nil)
-		end)
-
-	--  self.hpBar = WidgetObj:searchWidgetByName(self,"LoadingBar_Hp","ccui.LoadingBar")
-	--  self.hpBar:setPercent(20)
-
-
-	--    self:loadingMusic() -- 背景音乐
-	self:addBG()        -- 初始化背景
-	--      self:moveBG()       -- 背景移动
-    
+	--self:loadingMusic() -- 背景音乐
 	self:addTargets()
 	
 	self:initGameState()                -- 初始化游戏数据状态
-	--  self:addCards()             -- 初期化（自分）
 	self:addUILayer()
-
---	self:addBossSprite()
 	self:addPuzzle()
 	self:addCombol()
 	self:addSchedule()  -- 更新
@@ -137,21 +110,6 @@ function PuzzleLayer:init()
 
 	_bulletVicts = {}
 	_fingerPosition = nil
-
---	local function callBack(event)
---		local data = event._data
---		if data.action == "atk" then
---			PuzzleManager:addHurtEffect()
---			local all = cc.Director:getInstance():getRunningScene():getPhysicsWorld():getAllBodies()
---			--          for _, obj in ipairs(all) do
---			--              if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0 then
---			--                  obj:getNode():makeShake() --各ボール shake
---			--              end
---			--          end
---		end
---	end
---	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
-
 
 	------------------------------------------------------------------------
 	-- Interface , Card Skill発動する時呼ぶ
@@ -274,76 +232,6 @@ end
 function PuzzleLayer:addFooter()
 
 end
---------------------------------------------------------------------------------
---
-function PuzzleLayer:addBG()
-	self:moveBG()
-end
---------------------------------------------------------------------------------
---
-function PuzzleLayer:moveBG()
-	--[[
-	local height = CCUI_bottom_1:getContentSize().height
-	local posx = CCUI_bottom_1:getPositionX()
-	local posy = CCUI_bottom_1:getPositionY()
-	local scale = CCUI_bottom_1:getScale()
-	local _y = 0.2
-	local _sc = 1.002
-	local bottom_x = nil
-
-	local timer = 1
-	local function updateBG()
-	timer = timer + 1
-	if debug then
-	return
-	end
-
-	if timer%500 == 0 and self.boss == nil then
-	self:addBossSprite()
-	debug = true
-	timer = 1
-	end
-
-
-	CCUI_bottom_1:setScale(CCUI_bottom_1:getScale() *math.pow(2, 0)* _sc)
-	CCUI_bottom_1:setPositionY(CCUI_bottom_1:getPositionY()- _y)
-	CCUI_bottom_2:setScale(CCUI_bottom_1:getScale() * math.pow(2, 1)* _sc)
-	CCUI_bottom_2:setPositionY(CCUI_bottom_1:getPositionY()- height * CCUI_bottom_1:getScale())
-	CCUI_bottom_3:setScale(CCUI_bottom_1:getScale() * math.pow(2, 2)* _sc)
-	CCUI_bottom_3:setPositionY(CCUI_bottom_2:getPositionY()- height * CCUI_bottom_2:getScale())
-
-	if posy - CCUI_bottom_1:getPositionY() >= height * scale   then
-	if bottom_x == nil then
-	bottom_x = cc.Sprite:create("images/puzzle/road/004/bottom.png")
-	self:addChild(bottom_x)
-	bottom_x:setScale(CCUI_bottom_1:getScale()/2)
-	bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
-	end
-
-	bottom_x:setAnchorPoint(0.5,1)
-	--          bottom_x:setScale(CCUI_bottom_1:getScale()/2)
-	--          bottom_x:setPosition(cc.p(CCUI_bottom_1:getPositionX(),CCUI_bottom_1:getPositionY() + height * CCUI_bottom_1:getScale()/2- _y))
-	bottom_x:setScale(CCUI_bottom_1:getScale() * math.pow(2, -1)* _sc)
-	bottom_x:setPosition(cc.p(posx,bottom_x:getPositionY() - _y))
-	end
-	end
-
-	schedule(self, updateBG, 0)
-	]]--
-	--
-
-	local height = CCUI_Bg1:getContentSize().height
-	local function updateBG()
-		CCUI_Bg1:setPositionY(CCUI_Bg1:getPositionY() - 1)
-		CCUI_Bg2:setPositionY(CCUI_Bg1:getPositionY() + height)
-		if CCUI_Bg1:getPositionY() <= -height + 180 then -- TODO 素材是960， 屏幕不一定大小
-			CCUI_Bg1, CCUI_Bg2 = CCUI_Bg2, CCUI_Bg1
-			CCUI_Bg2:setPositionY(AppConst.DESIGN_SIZE.height)
-		end
-	end
-	schedule(self, updateBG, 0)
-end
-
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:addSchedule()

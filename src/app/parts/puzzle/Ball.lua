@@ -298,6 +298,7 @@ function Ball:addBoom(num)
 		self:getParent():reorderChild(self,3)
 --		self._image:setScale(1.4)
 		self:setScale(1.2)
+		self.circleSize = self.circleSize * (num - 5)
 	end
 end
 

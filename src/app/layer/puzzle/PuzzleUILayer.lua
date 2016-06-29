@@ -66,7 +66,7 @@ end
 function PuzzleUILayer:init()
 	self:addSchedule()
 	self:addEventDispatcher()
-	self.Node_Status_Mine = WidgetObj:searchWidgetByName(self,"Node_Status_Mine",WidgetConst.OBJ_TYPE.Node)
+	self.Node_Status_Mine = WidgetObj:searchWidgetByName(self,"Node_FerverTime",WidgetConst.OBJ_TYPE.Node)
 	--self.hpBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
     
 	--self.hpBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
