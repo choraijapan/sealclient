@@ -306,6 +306,7 @@ function Ball:getType()
 	return self._type
 end
 
+
 function Ball:getKind()
 	return self._kind
 end

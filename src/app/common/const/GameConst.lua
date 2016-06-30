@@ -196,9 +196,10 @@ GameConst.DEBUFF = {
 
 GameConst.PUZZLEOBJTAG = {
 	T_Bullet = 100,
-	T_Dialog = 200,
-	T_Line = 300,
-	T_Number = 400
+	T_TARGET = 200,
+	T_Dialog = 300,
+	T_Line = 400,
+	T_Number = 500
 }
 
 GameConst.ZOrder = {

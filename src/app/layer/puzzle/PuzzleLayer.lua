@@ -160,7 +160,6 @@ function PuzzleLayer:addTargets()
 	local targets = Targets:create(i)
 	targets:setRotation(math.random(1,360))
 	local pBall = targets:getPhysicsBody()
-	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
 	targets:setPosition(350, 460)
 	self:addChild(targets,GameConst.ZOrder.Z_Ball)
 		
@@ -168,7 +167,6 @@ function PuzzleLayer:addTargets()
 	local targets = Targets:create(i)
 	targets:setRotation(math.random(1,360))
 	local pBall = targets:getPhysicsBody()
-	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
 	targets:setPosition(470, 460)
 	self:addChild(targets,GameConst.ZOrder.Z_Ball)
 	
@@ -176,7 +174,6 @@ function PuzzleLayer:addTargets()
 	local targets = Targets:create(i)
 	targets:setRotation(math.random(1,360))
 	local pBall = targets:getPhysicsBody()
-	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
 	targets:setPosition(350, 350)
 	self:addChild(targets,GameConst.ZOrder.Z_Ball)
 	
@@ -184,7 +181,6 @@ function PuzzleLayer:addTargets()
 	local targets = Targets:create(i)
 	targets:setRotation(math.random(1,360))
 	local pBall = targets:getPhysicsBody()
-	pBall:setTag(GameConst.PUZZLEOBJTAG.T_Bullet)
 	targets:setPosition(470, 350)
 	self:addChild(targets,GameConst.ZOrder.Z_Ball)
 end
@@ -290,7 +286,6 @@ function PuzzleLayer:addTouch()
 
 					self:updateCombol()
 					if arr:getBody():getNode():brokenBoomX() and arr:getBody():getNode():getType() ~= 1 then
-						local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 						for _, obj2 in ipairs(boomAround) do
 							obj2:getNode():brokenBullet()
 							local data = {
@@ -405,7 +400,6 @@ function PuzzleLayer:addTouch()
 		--          _fingerPosition = nil
 		--      end
 	end
-
 
 	local function onTouchEnded(touch, event)
 		touchPoint:setPosition(cc.p(9999,9999))
@@ -642,7 +636,7 @@ function PuzzleLayer:getAroundBalls(all,curBall)
 	if curBall ~= nil and all ~= nil then
 		local p1 = curBall:getPosition()
 		for _, obj in ipairs(all) do
-			if bit.band(obj:getTag(), GameConst.PUZZLEOBJTAG.T_Bullet) ~= 0  then
+			if  GameUtils:inTable({GameConst.PUZZLEOBJTAG.T_Bullet, GameConst.PUZZLEOBJTAG.T_TARGET},obj:getTag()) then
 				local p2 = obj:getPosition()
 				local distance = cc.pGetDistance(p1,p2)
 				if isTableContains(all,aroundBalls[index]) == false then
