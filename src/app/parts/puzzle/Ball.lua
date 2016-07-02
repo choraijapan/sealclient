@@ -302,6 +302,7 @@ function Ball:addBoom(num)
 	end
 end
 
+
 function Ball:getType()
 	return self._type
 end

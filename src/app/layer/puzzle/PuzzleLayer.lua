@@ -155,6 +155,10 @@ function PuzzleLayer:addPuzzle()
 	self:addChild(touchPoint)
 end
 
+function PuzzleLayer:addQuest(questId)
+    
+end
+
 function PuzzleLayer:addTargets()
 	local targets = nil
 	local targets = Targets:create(i)
@@ -305,7 +309,7 @@ function PuzzleLayer:addTouch()
 					_bullets = {}
 					_bullets2 = {}
 					self.curTouchBall = nil
-				elseif isFerverTime or GameUtils:inTable(GameConst.BOOM.KINDS,arr:getBody():getNode():getName()) then
+				elseif GameUtils:inTable(GameConst.BOOM.KINDS,arr:getBody():getNode():getName()) then
 					local boomAround = self:getAroundBalls(all,arr:getBody():getNode())
 					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 					for _, obj2 in ipairs(boomAround) do
