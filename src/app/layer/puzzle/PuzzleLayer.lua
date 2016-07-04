@@ -57,6 +57,8 @@ local isFerverTime = false
 local ferverEffect = nil
 local touchPoint = nil
 
+local m_Score = 0
+
 local debug = true
 --------------------------------------------------------------------------------
 -- UI
@@ -70,6 +72,8 @@ local CCUI_bottom_1 = nil
 local CCUI_bottom_2 = nil
 local CCUI_bottom_3 = nil
 
+local Node_Score = nil
+local Label_Score = nil
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
@@ -77,9 +81,9 @@ function PuzzleLayer:ctor()
 end
 --------------------------------------------------------------------------------
 -- create
-function PuzzleLayer:create()
+function PuzzleLayer:create(questId)
 	self:setName("PUZZLE_LAYER")
-	self:init()
+	self:init(questId)
 	return self
 end
 --------------------------------------------------------------------------------
@@ -94,15 +98,18 @@ local function isTableContains(tb,obj)
 end
 --------------------------------------------------------------------------------
 -- init
-function PuzzleLayer:init()
+function PuzzleLayer:init(questId)
 	CCUI_PuzzleScene = WidgetLoader:loadCsbFile(CSB_PuzzleScene)
 	self:addChild(CCUI_PuzzleScene,GameConst.ZOrder.Z_BossBg)
-
+    self:onAssignCCSMemberVariable()
+    
 	--self:loadingMusic() -- 背景音乐
-	self:addTargets()
+--	self:addTargets()
+	self:addQuest(questId)
 	
+	self:addScore()
 	self:initGameState()                -- 初始化游戏数据状态
-	self:addUILayer()
+	
 	self:addPuzzle()
 	self:addCombol()
 	self:addSchedule()  -- 更新
@@ -121,6 +128,14 @@ function PuzzleLayer:init()
 		end
 	end
 	EventDispatchManager:createEventDispatcher(self,"CARD_SKILL_DRAWED",skillDrawed)
+end
+
+-------------------------------------------------------------------------------
+-- onAssignCCSMemberVariable
+-- Cocos Studio画面上の各コンポーネント
+function PuzzleLayer:onAssignCCSMemberVariable()
+	self:addUILayer()
+	Node_Score = WidgetObj:searchWidgetByName(self.PuzzleUILayer,"Node_Score",WidgetConst.OBJ_TYPE.Node)
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
@@ -156,7 +171,7 @@ function PuzzleLayer:addPuzzle()
 end
 
 function PuzzleLayer:addQuest(questId)
-    
+    print("###########questId"..questId)
 end
 
 function PuzzleLayer:addTargets()
@@ -289,6 +304,7 @@ function PuzzleLayer:addTouch()
 					cc.SimpleAudioEngine:getInstance():playEffect("sound/se35.m4a")
 
 					self:updateCombol()
+					self:updateScore(#boomAround)
 					if arr:getBody():getNode():brokenBoomX() and arr:getBody():getNode():getType() ~= 1 then
 						for _, obj2 in ipairs(boomAround) do
 							obj2:getNode():brokenBullet()
@@ -326,6 +342,7 @@ function PuzzleLayer:addTouch()
 						                      self:setFerverPt(data.count)
 					end
 					self:updateCombol()
+					self:updateScore(#boomAround)
 					arr:getBody():getNode():broken()
 					startBall = nil
 					_bullets = {}
@@ -449,7 +466,8 @@ function PuzzleLayer:addTouch()
 					startPos = lastPos,
 				}
 				--              self.puzzleCardNode:ballToCard(data)
-				              self:setFerverPt(#_bullets)
+				self:setFerverPt(#_bullets)
+				self:updateScore(#_bullets)
 				if  #_bullets > 2 then
 					self:updateCombol()
 				end
@@ -532,7 +550,6 @@ end
 -- add energy
 function PuzzleLayer:setFerverPt(count)
 	local point = count * 1.5
-
 	if isFerverTime == false then
 		ferver = ferver + point
 		if ferver > 100 then
@@ -772,5 +789,21 @@ function PuzzleLayer:updateCombol()
 		GameUtils:addCombolEffect(self.UI_Combol)
 	end
 end
+--------------------------------------------------------------------------------
+-- add Score
+function PuzzleLayer:addScore()
+	Label_Score = ccui.TextAtlas:create()
+	Label_Score:setProperty("0", GameConst.FONT.NUMBER, 17, 22, "0")
+	Node_Score:addChild(Label_Score)
+end
+
+function PuzzleLayer:updateScore(plusNum)
+	if Label_Score ~= nil then
+		m_Score = m_Score + plusNum
+		Label_Score:setString(m_Score)
+		GameUtils:addCombolEffect(Label_Score)
+	end
+end
+
 
 return PuzzleLayer
