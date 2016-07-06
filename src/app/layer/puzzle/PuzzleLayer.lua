@@ -72,8 +72,13 @@ local CCUI_bottom_1 = nil
 local CCUI_bottom_2 = nil
 local CCUI_bottom_3 = nil
 
+local Node_Timer = nil
 local Node_Score = nil
+local Node_Combol = nil
+
 local Label_Score = nil
+local Label_Timer = nil
+local Label_Combol = nil
 --------------------------------------------------------------------------------
 -- ctor
 function PuzzleLayer:ctor()
@@ -108,6 +113,7 @@ function PuzzleLayer:init(questId)
 	self:addQuest(questId)
 	
 	self:addScore()
+	self:addTimer()
 	self:initGameState()                -- 初始化游戏数据状态
 	
 	self:addPuzzle()
@@ -136,6 +142,8 @@ end
 function PuzzleLayer:onAssignCCSMemberVariable()
 	self:addUILayer()
 	Node_Score = WidgetObj:searchWidgetByName(self.PuzzleUILayer,"Node_Score",WidgetConst.OBJ_TYPE.Node)
+	Node_Timer = WidgetObj:searchWidgetByName(self.PuzzleUILayer,"Node_Timer",WidgetConst.OBJ_TYPE.Node)
+	Node_Combol = WidgetObj:searchWidgetByName(self.PuzzleUILayer,"Node_Combol",WidgetConst.OBJ_TYPE.Node)
 end
 --------------------------------------------------------------------------------
 -- addPuzzle
@@ -601,14 +609,7 @@ function PuzzleLayer:addBossSprite()
 	self.boss = BossSprite:create()
 	self:addChild(self.boss,GameConst.ZOrder.Z_Boss)
 end
---------------------------------------------------------------------------------
---
--- 更新时间
-function PuzzleLayer:updateTime()
-	if self.gameState == self.stateGamePlaying then
-		self.gameTime = self.gameTime + 1
-	end
-end
+
 --------------------------------------------------------------------------------
 --
 function PuzzleLayer:update(dt)
@@ -775,9 +776,7 @@ end
 function PuzzleLayer:addCombol()
 	self.UI_Combol = ccui.TextAtlas:create()
 	self.UI_Combol:setProperty(self.combolNumber, GameConst.FONT.NUMBER_MYELLOW, 25, 30, "0")
-	self.UI_Combol:setPosition(cc.p(AppConst.WIN_SIZE.width - 80,AppConst.WIN_SIZE.height/2 + 150))
-	self:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
-	--  self.puzzleCardNode:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
+	Node_Combol:addChild(self.UI_Combol,GameConst.ZOrder.Z_Combol)
 	self.UI_Combol:setOpacity(0)
 end
 function PuzzleLayer:updateCombol()
@@ -790,18 +789,38 @@ function PuzzleLayer:updateCombol()
 	end
 end
 --------------------------------------------------------------------------------
--- add Score
+-- add Score label
 function PuzzleLayer:addScore()
 	Label_Score = ccui.TextAtlas:create()
 	Label_Score:setProperty("0", GameConst.FONT.NUMBER, 17, 22, "0")
+	Label_Score:setScale(2)
 	Node_Score:addChild(Label_Score)
 end
-
 function PuzzleLayer:updateScore(plusNum)
+    local baseScore = 20
+    local sqr = 1
+    if isFerverTime then
+        sqr = 3
+    end
+    
 	if Label_Score ~= nil then
-		m_Score = m_Score + plusNum
+		m_Score = m_Score + sqr * plusNum * baseScore
 		Label_Score:setString(m_Score)
 		GameUtils:addCombolEffect(Label_Score)
+	end
+end
+--------------------------------------------------------------------------------
+-- add Timer label
+function PuzzleLayer:addTimer()
+	Label_Timer = ccui.TextAtlas:create()
+	Label_Timer:setProperty("0", GameConst.FONT.NUMBER, 17, 22, "0")
+	Label_Timer:setScale(2)
+	Node_Timer:addChild(Label_Timer)
+end
+function PuzzleLayer:updateTime()
+	if self.gameState == self.stateGamePlaying then
+		self.gameTime = self.gameTime + 1
+		Label_Timer:setString(self.gameTime)
 	end
 end
 
