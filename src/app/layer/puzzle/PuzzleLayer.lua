@@ -98,8 +98,8 @@ function PuzzleLayer:init()
 	CCUI_PuzzleScene = WidgetLoader:loadCsbFile(CSB_PuzzleScene)
 	self:addChild(CCUI_PuzzleScene,GameConst.ZOrder.Z_BossBg)
 
-	CCUI_PuzzleStatus = WidgetLoader:loadCsbFile(CSB_PuzzleStatus)
-	self:addChild(CCUI_PuzzleStatus,GameConst.ZOrder.Z_Deck)
+--	CCUI_PuzzleStatus = WidgetLoader:loadCsbFile(CSB_PuzzleStatus)
+--	self:addChild(CCUI_PuzzleStatus,GameConst.ZOrder.Z_Deck)
 
 	CCUI_Bg1 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"Bg1","cc.Sprite")
 	CCUI_Bg2 = WidgetObj:searchWidgetByName(CCUI_PuzzleScene,"Bg2","cc.Sprite")
@@ -126,7 +126,7 @@ function PuzzleLayer:init()
 	--  self:addCards()             -- 初期化（自分）
 	self:addUILayer()
 
-	self:addBossSprite()
+--	self:addBossSprite()
 	self:addPuzzle()
 	self:addCombol()
 	self:addSchedule()  -- 更新
@@ -169,10 +169,10 @@ function PuzzleLayer:addPuzzle()
 		{
 			cc.p(AppConst.DESIGN_SIZE.width-1,AppConst.DESIGN_SIZE.height+100),
 			cc.p(1, AppConst.DESIGN_SIZE.height+100),
-			cc.p(1, 50 + paddingBottom),
+			cc.p(1, 150 + paddingBottom),
 			cc.p(AppConst.DESIGN_SIZE.width/3, 0 + paddingBottom),
 			cc.p(AppConst.DESIGN_SIZE.width*2/3, 0 + paddingBottom),
-			cc.p(AppConst.DESIGN_SIZE.width-1, 50 + paddingBottom),
+			cc.p(AppConst.DESIGN_SIZE.width-1, 150 + paddingBottom),
 			cc.p(AppConst.DESIGN_SIZE.width-1, AppConst.DESIGN_SIZE.height+100)
 		}
 
@@ -206,21 +206,18 @@ function PuzzleLayer:addBalls()
 	end
 
 	local kind = math.random(1,GameUtils:tablelength(GameConst.ATTRIBUTE))
-
+	
 	local ball = nil
---	if #all == 10 then
---		ball = Ball:create(1,1)  -- 4はcard idを入れる、Ballの方で、Card　Idからkindを取得できるので！
---	elseif #all == 30 then
---		ball = Ball:create(1,1)
---	elseif #all == 40 then
---		ball = Ball:create(1,1)
+--	if #all == 40 then
+--		ball = Ball:create(GameConst.BALLTYPE.TARGET,222222)  -- 4はcard idを入れる、Ballの方で、Card　Idからkindを取得できるので！
 --	else
---		ball = Ball:create(0,kind)
+		ball = Ball:create(GameConst.BALLTYPE.BLOCK,kind)
 --	end
-	ball = Ball:create(0,kind)
+    
 
 	local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
-	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+--	local randomY = math.random(AppConst.WIN_SIZE.height*2/3 ,AppConst.WIN_SIZE.height*3/4)
+	local randomY = AppConst.WIN_SIZE.height
 	--  local randomX = math.random(AppConst.WIN_SIZE.width/2 - 20,AppConst.WIN_SIZE.width/2 + 20)
 	--  local randomY = math.random(AppConst.WIN_SIZE.height + 60 ,AppConst.WIN_SIZE.height + 100)
 
@@ -379,7 +376,7 @@ function PuzzleLayer:addTouch()
 								startPos = obj2:getNode():getPosition()
 							}
 							--                          self.puzzleCardNode:ballToCard(data)
-							--                          self:setFerverPt(data.count)
+							                          self:setFerverPt(data.count)
 						end
 					end
 
@@ -401,7 +398,7 @@ function PuzzleLayer:addTouch()
 							startPos = obj2:getNode():getPosition()
 						}
 						--                      self.puzzleCardNode:ballToCard(data)
-						--                      self:setFerverPt(data.count)
+						                      self:setFerverPt(data.count)
 					end
 					self:updateCombol()
 					arr:getBody():getNode():broken()
@@ -528,7 +525,7 @@ function PuzzleLayer:addTouch()
 					startPos = lastPos,
 				}
 				--              self.puzzleCardNode:ballToCard(data)
-				--              self:setFerverPt(#_bullets)
+				              self:setFerverPt(#_bullets)
 				if  #_bullets > 2 then
 					self:updateCombol()
 				end
@@ -624,13 +621,13 @@ function PuzzleLayer:setFerverPt(count)
 			ferverEffect:setAnchorPoint(cc.p(0, 0))
 			ferverEffect:setDuration(10)
 			local to = cc.ProgressTo:create(10, 0)
-			--          self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
+			self.PuzzleUILayer.ferverBar:runAction(cc.RepeatForever:create(to))
 			self:addChild(ferverEffect,0)
 			cc.SimpleAudioEngine:getInstance():playEffect(GameConst.SOUND.FERVER,false)
 
 		else
 			local to = cc.ProgressTo:create(0.5, ferver)
-			--          self.puzzleCardNode.ferverBar:runAction(cc.RepeatForever:create(to))
+			self.PuzzleUILayer.ferverBar:runAction(cc.RepeatForever:create(to))
 		end
 	end
 end
@@ -702,12 +699,12 @@ function PuzzleLayer:update(dt)
 		_bulletVicts = {}
 	end
 
-	--  if isFerverTime then
-	--      if self.puzzleCardNode.ferverBar:getPercentage() == 0 then
-	--          isFerverTime = false
-	--          ferver = 0
-	--      end
-	--  end
+	  if isFerverTime then
+		if self.PuzzleUILayer.ferverBar:getPercentage() == 0 then
+	          isFerverTime = false
+	          ferver = 0
+	      end
+	  end
 	self:checkPuzzleHint()
 end
 --------------------------------------------------------------------------------

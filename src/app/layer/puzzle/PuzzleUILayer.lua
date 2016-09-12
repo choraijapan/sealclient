@@ -67,14 +67,15 @@ function PuzzleUILayer:init()
 	self:addSchedule()
 	self:addEventDispatcher()
 	self.Node_Status_Mine = WidgetObj:searchWidgetByName(self,"Node_Status_Mine",WidgetConst.OBJ_TYPE.Node)
-	self.hpBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
-
---	self.hpBar:setPercent(90)
-	
-	self.hp = 50000
-	self.maxHp = self.hp
-	self.isActive = true
-	self.hpBar:setPercent(100)
+	--self.hpBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
+    
+	--self.hpBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
+--	self.ferverBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
+	self:addFerverBar()
+--	self.hp = 50000
+--	self.maxHp = self.hp
+--	self.isActive = true
+	--self.hpBar:setPercent(100)
 	
 	
 	self.gameCardNode:setPosition(cc.p(0, 0))
@@ -273,14 +274,14 @@ end
 --------------------------------------------------------------------------------
 -- addEventDispatcher
 function PuzzleUILayer:addEventDispatcher()
-	local function callBack(event)
-		print("############ hurted !!!")
-		local data = event._data
-		if data.action == "atk" then
-			self:hurt(data.damage)
-		end
-	end
-	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
+--	local function callBack(event)
+--		print("############ hurted !!!")
+--		local data = event._data
+--		if data.action == "atk" then
+--			self:hurt(data.damage)
+--		end
+--	end
+--	EventDispatchManager:createEventDispatcher(self,"BOSS_ATK_EVENT",callBack)
 end
 
 --------------------------------------------------------------------------------
@@ -328,7 +329,7 @@ function PuzzleUILayer:isAllDead()
 end
 
 function PuzzleUILayer:addFerverBar()
-	local bg = WidgetObj:searchWidgetByName(self,"EnBar","ccui.LoadingBar")
+	local bg = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
 	self.ferverBar = cc.ProgressTimer:create(cc.Sprite:create(GameConst.PUZZLE_PNG.FERVER_BAR))
 	self.ferverBar:setType(cc.PROGRESS_TIMER_TYPE_BAR)
 	self.ferverBar:setAnchorPoint(cc.p(0,0))

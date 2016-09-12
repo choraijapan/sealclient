@@ -87,7 +87,7 @@ function BossSprite:init()
 	self:addArmature()
 	self:addHp()
 	self:addEventDispatcher()
-	self:addAI()
+--	self:addAI()
 	self:setAnchorPoint(0.5)
 	-- BOSS时间
 	self.time = 0
@@ -103,7 +103,7 @@ function BossSprite:create()
 end
 
 function BossSprite:addArmature()
-	self.sprite = cc.Sprite:create("images/boss/20151018.png")
+	self.sprite = cc.Sprite:create("images/boss/hanberg.png")
 	self.sprite:setAnchorPoint(0.5)
 	self:addChild(self.sprite)
 	self:setAnimation(self.sprite)

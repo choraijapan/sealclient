@@ -2,7 +2,7 @@
     "init_cfg":{
         "isLandscape": false,
         "isWindowTop": false,
-        "name": "game_client",
+        "name": "seal_client",
         "width": 640,
         "height": 960,
         "entry": "src/core/boot.lua",

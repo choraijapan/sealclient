@@ -10,15 +10,32 @@ GameConst.SOUND = {
 	PUZZLE_TOUCH = "sound/se08.m4a"
 }
 
+-----------------------------------------------------------------------------
+-- ballの属性　1:水　2:火　3:木　4:光　5:闇　
+-----------------------------------------------------------------------------
+GameConst.ATTRIBUTE = {
+	WATER   = 1,
+	FIRE    = 2,
+	TREE    = 3,
+	LIGHT   = 4,
+	DARK    = 5
+}
+
+GameConst.BALLTYPE = {
+	BLOCK     = 0,
+	TARGET    = 1
+}
+
 GameConst.BALL_PNG = {
 	[1] = "images/puzzle/block/donut_1.png",
 	[2] = "images/puzzle/block/donut_2.png",
 	[3] = "images/puzzle/block/donut_3.png",
 	[4] = "images/puzzle/block/donut_4.png",
+	[5] = "images/puzzle/block/donut_5.png",
 }
 
 GameConst.BOOM = {
-	KINDS = {"boom5","boom6","boom7","boom8"},
+	KINDS = {"boom5","boom6","boom7","boom8","boom9"},
 	[1] = {
 		name = "boom5",
 		tag = 5,
@@ -38,7 +55,12 @@ GameConst.BOOM = {
 		name = "boom8",
 		tag = 8,
 		image = "images/puzzle/block/donut_4.png",
-	}
+	},
+	[5] = {
+        name = "boom9",
+        tag = 9,
+        image = "images/puzzle/block/donut_5.png",
+    }
 }
 
 GameConst.PARTICLE_BROKEN = {
@@ -143,7 +165,7 @@ GameConst.PARTICLE_PNG = {
 }
 
 GameConst.PUZZLE_PNG = {
-	FERVER_BAR     = "images/puzzle/ui/hp_player.png",
+	FERVER_BAR     = "images/puzzle/ui/hpBar.png",
 	BOSS_HP_BAR    = "images/puzzle/ui/gauge_green.png",
 	BOSS_HP_BG     = "images/puzzle/ui/boss_gauge_green.png",
 
@@ -185,16 +207,6 @@ GameConst.ZOrder = {
 	Z_Dark = 1000,
 }
 
------------------------------------------------------------------------------
--- カードの属性　1:水　2:火　3:木　4:光　5:闇　
------------------------------------------------------------------------------
-GameConst.ATTRIBUTE = {
-	WATER 	= 1,
-	FIRE 	= 2,
-	TREE 	= 3,
-	--	LIGHT 	= 4,
-	DARK 	= 4
-}
 
 -----------------------------------------------------------------------------
 -- Scene ID
