@@ -68,7 +68,7 @@ function TopScene:onHttpRequest()
 		CCUI_Label_UserExp:setString(m_UserExp)
 --		CCUI_Label_UserBattlePt:setString(m_UserBattlePt)
 	end
-	userApi:Request(callback)
+--	userApi:Request(callback)
 end
 -------------------------------------------------------------------------------
 -- onAssignCCSMemberVariable
@@ -84,14 +84,20 @@ function TopScene:onAssignCCSMemberVariable()
 	local CCUI_Button_Shop = WidgetObj:searchWidgetByName(self.m.csb,"Button_Shop",WidgetConst.OBJ_TYPE.Button)
 	local CCUI_Button_Battle = WidgetObj:searchWidgetByName(self.m.csb,"Button_Battle",WidgetConst.OBJ_TYPE.Button)
 	local CCUI_Button_Card = WidgetObj:searchWidgetByName(self.m.csb,"Button_Card",WidgetConst.OBJ_TYPE.Button)
-
-
-	
-	
 	
 	TouchManager:pressedDown(CCUI_Button_Shop,function() self:addGachaLayer() end)
 	TouchManager:pressedDown(CCUI_Button_Battle,function() self:addConfirmLayer() end)
 	TouchManager:pressedDown(CCUI_Button_Card,function() self:addCardLayer() end)
+	
+	
+	local Node_Quest1 = WidgetObj:searchWidgetByName(self.m.csb,"Node_Quest1",WidgetConst.OBJ_TYPE.Node)
+	local BtnQuest1 =  WidgetObj:searchWidgetByName(Node_Quest1,"Image_MapSpot",WidgetConst.OBJ_TYPE.Image)
+	
+	TouchManager:pressedDown(BtnQuest1,function() self:startQuest(1) end)
+end
+
+function TopScene:startQuest(questId)
+	SceneManager:changeScene("app/scene/puzzle/PuzzleScene.lua",nil)
 end
 
 function TopScene:addConfirmLayer()

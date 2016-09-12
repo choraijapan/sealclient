@@ -298,12 +298,15 @@ function Ball:addBoom(num)
 		self:getParent():reorderChild(self,3)
 --		self._image:setScale(1.4)
 		self:setScale(1.2)
+		self.circleSize = self.circleSize
 	end
 end
+
 
 function Ball:getType()
 	return self._type
 end
+
 
 function Ball:getKind()
 	return self._kind

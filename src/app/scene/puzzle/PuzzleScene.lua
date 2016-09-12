@@ -17,7 +17,9 @@ function ScenePuzzle:init(...)
 	self.scene:getPhysicsWorld():setAutoStep(false)
 --	self.scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL) --Debug用
 --	require('app.layer.puzzle.PuzzleLayer')
-	self.scene:addChild(PuzzleLayer:create(),1)
+    
+    local questId = 1
+	self.scene:addChild(PuzzleLayer:create(questId),1)
 	local function update(dt)
 		for var=0, 2 do
 			self.scene:getPhysicsWorld():step(dt/1)
