@@ -66,7 +66,7 @@ end
 function PuzzleUILayer:init()
 	self:addSchedule()
 	self:addEventDispatcher()
-	self.Node_Status_Mine = WidgetObj:searchWidgetByName(self,"Node_Status_Mine",WidgetConst.OBJ_TYPE.Node)
+	self.Node_Status_Mine = WidgetObj:searchWidgetByName(self,"Node_FerverTime",WidgetConst.OBJ_TYPE.Node)
 	--self.hpBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
     
 	--self.hpBar = WidgetObj:searchWidgetByName(self.Node_Status_Mine,"LoadingBar","ccui.LoadingBar")
@@ -335,9 +335,7 @@ function PuzzleUILayer:addFerverBar()
 	self.ferverBar:setAnchorPoint(cc.p(0,0))
 	self.ferverBar:setMidpoint(cc.p(0, 0))
 	self.ferverBar:setBarChangeRate(cc.p(1, 0))
-	if bg ~= nil then
-		bg:addChild(self.ferverBar,GameConst.ZOrder.Z_FerverBar)
-	end
+	bg:addChild(self.ferverBar,GameConst.ZOrder.Z_FerverBar)
 end
 
 return PuzzleUILayer

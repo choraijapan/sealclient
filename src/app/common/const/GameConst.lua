@@ -5,6 +5,7 @@
 GameConst = {}
 
 GameConst.SOUND = {
+	BGM = "sound/bgm31.m4a",
 	FERVER = "sound/bgm35.m4a",
 	BALL_BROKEN = "sound/se29.m4a",
 	PUZZLE_TOUCH = "sound/se08.m4a"
@@ -61,6 +62,14 @@ GameConst.BOOM = {
         tag = 9,
         image = "images/puzzle/block/donut_5.png",
     }
+}
+
+GameConst.TARGETS_PNG = {
+	[1] = {
+		name = "xxx",
+		tag = 11,
+		image = "images/puzzle/block/donut_6.png",
+	},
 }
 
 GameConst.PARTICLE_BROKEN = {
@@ -165,7 +174,7 @@ GameConst.PARTICLE_PNG = {
 }
 
 GameConst.PUZZLE_PNG = {
-	FERVER_BAR     = "images/puzzle/ui/hpBar.png",
+	FERVER_BAR     = "images/puzzle/ui/ferverBar.png",
 	BOSS_HP_BAR    = "images/puzzle/ui/gauge_green.png",
 	BOSS_HP_BG     = "images/puzzle/ui/boss_gauge_green.png",
 
@@ -188,9 +197,10 @@ GameConst.DEBUFF = {
 
 GameConst.PUZZLEOBJTAG = {
 	T_Bullet = 100,
-	T_Dialog = 200,
-	T_Line = 300,
-	T_Number = 400
+	T_TARGET = 200,
+	T_Dialog = 300,
+	T_Line = 400,
+	T_Number = 500
 }
 
 GameConst.ZOrder = {

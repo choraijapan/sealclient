@@ -1,4 +1,4 @@
-require("lsqlite3")
+--require("lsqlite3")
 
 local BaseDB = class("BaseDB")
 BaseDB.type = nil

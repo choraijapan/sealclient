@@ -21,10 +21,13 @@ function Application:main()
 --	cc.Director:getInstance():getOpenGLView():setDesignResolutionSize(640, 960, cc.ResolutionPolicy.SHOW_ALL)
 --	SceneManager:changeScene("app/scene/menu/MenuScene", nil)
 --    SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
-	SceneManager:changeScene("app/scene/puzzle/PuzzleScene.lua",nil)
+--	SceneManager:changeScene("app/scene/puzzle/PuzzleScene.lua",nil)
 --	SceneManager:changeScene("src/app/scene/menu/MenuScene", nil)
 --	SceneManager:changeScene("app/scene/title/TitleScene", nil)
---	SceneManager:changeScene("src/app/scene/top/TopScene", nil)
+	SceneManager:changeScene("src/app/scene/top/TopScene", nil)
 --	SceneManager:changeScene("src/app/scene/debug/DebugScene.lua", nil)
+    
+
+
 end
 return Application

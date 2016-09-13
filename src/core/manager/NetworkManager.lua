@@ -1,7 +1,7 @@
 NetworkManager = class("NetworkManager")
 
-local cjson = require("cjson")
-local msgPack = require("msgpackcpp")
+--local cjson = require("cjson")
+--local msgPack = require("msgpackcpp")
 
 function NetworkManager:request(api,type,param,callback)
 	if EnvironmentConst.HTTP_DATA_TYPE == cc.XMLHTTPREQUEST_RESPONSE_MSGPACK then

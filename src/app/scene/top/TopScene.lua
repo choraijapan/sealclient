@@ -5,7 +5,9 @@
 local StandardScene = require('core.base.scene.StandardScene')
 local TopScene = class("TopScene",StandardScene)
 
+--local iapManager = require("core.manager.IAPManager")
 local userApi = require("app.network.api.UserApi")
+
 -- 各コンポーネント
 local GachaLayer = require("app.layer.gacha.GachaLayer")
 local CardLayer = require("app.layer.card.CardLayer")
@@ -43,6 +45,40 @@ function TopScene:onEnter()
 	self.scene:addChild(self.m.csb)
 	self:onAssignCCSMemberVariable()
 --	self:addMapLayer()
+
+
+--    print("###################### sdkbox.IAP:init() ##################### START")
+--    iapManager:init()
+--    local function iapCallback(args)
+--        if "onSuccess" == args.event then
+--            local product = args.product
+--            dump(product, "onSuccess:")
+--        elseif "onFailure" == args.event then
+--            local product = args.product
+--            local msg = args.msg
+--            dump(product, "onFailure:")
+--            print("msg:", msg)
+--        elseif "onCanceled" == args.event then
+--            local product = args.product
+--            dump(product, "onCanceled:")
+--        elseif "onRestored" == args.event then
+--            local product = args.product
+--            dump(product, "onRestored:")
+--        elseif "onProductRequestSuccess" == args.event then
+--            local products = args.products
+--            dump(products, "onProductRequestSuccess:")
+--        elseif "onProductRequestFailure" == args.event then
+--            local msg = args.msg
+--            print("msg:", msg)
+--        else
+--            print("unknown event ", args.event)
+--        end
+--    end
+
+    --IAPManager:setListener(iapCallback)
+--    print("###################### sdkbox.IAP:init() ##################### END")
+    
+    
 	self:onHttpRequest()
 end
 -------------------------------------------------------------------------------
@@ -121,6 +157,10 @@ end
 -------------------------------------------------------------------------------
 -- ガチャ
 function TopScene:addGachaLayer()
+    
+    iapManager:purchase("item1")
+
+    --[[
 	local layer = GachaLayer:create()
 	if self.m.csb:getChildByTag(GameConst.LAYERID.GACHA) then
 		return
@@ -129,7 +169,11 @@ function TopScene:addGachaLayer()
 	local CCUI_HeaderNode = WidgetObj:searchWidgetByName(self.m.csb,"HeaderNode",WidgetConst.OBJ_TYPE.Node)
 	local CCUI_FooterNode = WidgetObj:searchWidgetByName(self.m.csb,"FooterNode",WidgetConst.OBJ_TYPE.Node)
 	self.m.csb:reorderChild(CCUI_HeaderNode,55)
+	]]--
+	
 end
+
+
 -------------------------------------------------------------------------------
 -- カード
 function TopScene:addCardLayer()

@@ -15,7 +15,8 @@ Ball._kind = nil
 --Ball.circleSize = 48 --元の値
 --Ball.scalePer = 1 --元の値
 Ball.scalePer = 0.65 --元の値
-Ball.circleSize = 56 --元の値
+--Ball.circleSize = 85 --元の値  v3.12
+Ball.circleSize = 56 --元の値  v3.6
 
 --Ball.scalePer = 0.65
 --Ball.circleSize = 49

@@ -10,7 +10,7 @@
 GameUtils = class("GameUtils")
 GameUtils.IsGameActive = false
 
-local cjson = require("cjson")
+--local cjson = require("cjson")
 ---#############################################################################
 ---### Effect関連
 ---#############################################################################
@@ -29,6 +29,13 @@ end
 function GameUtils:addCombolEffect(obj)
 	local action1 = cc.ScaleTo:create(0.1, 3)
 	local action2 = cc.ScaleTo:create(0.1, 2)
+	local action3 = cc.DelayTime:create(1.5)
+	obj:runAction(cc.Sequence:create(action1, action2,action3))
+end
+
+function GameUtils:addLabelEffect(obj)
+	local action1 = cc.ScaleBy:create(0.1, 3)
+	local action2 = cc.ScaleBy:create(0.1, 2)
 	local action3 = cc.DelayTime:create(1.5)
 	obj:runAction(cc.Sequence:create(action1, action2,action3))
 end
@@ -290,8 +297,11 @@ function GameUtils:resumeAll(root)
 	return #childList
 end
 
-------------------------------------------------------------------------
--- 便利メソッド
+
+
+---#############################################################################
+---### 便利メソッド
+---#############################################################################
 function GameUtils:tablelength(T)
 	local count = 0
 	for _ in pairs(T) do count = count + 1 end

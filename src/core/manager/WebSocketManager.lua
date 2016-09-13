@@ -1,5 +1,5 @@
 WebSocketManager = class("WebSocketManager")
-local msgPack = require("msgpackcpp")
+--local msgPack = require("msgpackcpp")
 
 WebSocketManager.wsSendBinary = nil
 WebSocketManager.onConnectCallBack = nil

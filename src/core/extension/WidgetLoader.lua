@@ -1,8 +1,3 @@
--------------------------------------------------------------------------------
--- core boot
--- @date 2015/04/03
--- @author masahiro mine
--------------------------------------------------------------------------------
 WidgetLoader = class("WidgetLoader")
 local textureCache = cc.Director:getInstance():getTextureCache()
 local spriteFrameCache = cc.SpriteFrameCache:getInstance()
