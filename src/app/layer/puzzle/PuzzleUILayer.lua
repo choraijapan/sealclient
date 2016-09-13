@@ -335,7 +335,9 @@ function PuzzleUILayer:addFerverBar()
 	self.ferverBar:setAnchorPoint(cc.p(0,0))
 	self.ferverBar:setMidpoint(cc.p(0, 0))
 	self.ferverBar:setBarChangeRate(cc.p(1, 0))
-	bg:addChild(self.ferverBar,GameConst.ZOrder.Z_FerverBar)
+	if bg ~= nil then
+		bg:addChild(self.ferverBar,GameConst.ZOrder.Z_FerverBar)
+	end
 end
 
 return PuzzleUILayer
