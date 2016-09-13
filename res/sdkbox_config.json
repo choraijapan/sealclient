@@ -1,0 +1,32 @@
+{
+    "android": {
+        "iap": {
+            "items": {
+                "item1": {
+                    "id": "com.chogame.donuts.item1"
+                }
+            },
+            "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgwHMab5o04IIw5DS3R8JBW4wViu9MF1a7WUMvD7mrMnjJS8v0OzT0jeu2ndV0+ffEbhWZ7gyVWYXmM74pnVvMbV+m7T4HdWToWKpVpONqhERhvjyBRgEvowZRIlGj5h0IbBZawbVqMLNCB/8cHrHR0hLTy+Zg3wHl5d4rVfVzSts9UL8HmutZ3N+J7jWtlLStFQOXoG4FVAG1DYpnVyPJftYuwNBJUUZ/cb8sQ9gOPuRi9XMCs9AYTSijXqCxaNYia1bnRiQAJRntKD57DscsGOHNxyS2Jt/b3MPt3JHaKByKdD0NbPP0xNQ2GD1HUM5kusWyUUyYE54S3HqMkexJwIDAQAB"
+        }
+    },
+    "ios": {
+        "iap": {
+            "items": {
+                "remove_ads": {
+                    "type": "non_consumable", 
+                    "id": "com.cocos2dx.non1"
+                }, 
+                "double_coin": {
+                    "type": "non_consumable", 
+                    "id": "com.cocos2dx.non2"
+                }, 
+                "coin_package": {
+                    "id": "com.cocos2dx.plugintest2"
+                }, 
+                "coin_package2": {
+                    "id": "com.cocos2dx.plugintest3"
+                }
+            }
+        }
+    }
+}
